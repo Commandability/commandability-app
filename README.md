@@ -23,5 +23,5 @@ Download or clone this repository, then run `npm install` inside the directory.
  - [React Native Router Flux](https://github.com/aksonov/react-native-router-flux)
 
 ## License
-This project is available under the [MIT License](https://github.com/CommandAbility/CAA-2019/blob/master/LICENSE)
+This project is available under the [Apache 2.0 License](https://github.com/CommandAbility/CAA-2019/blob/master/LICENSE)
 

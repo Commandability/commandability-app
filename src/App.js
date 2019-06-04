@@ -3,6 +3,7 @@ import { StyleSheet, Platform, Image, Text, View, ScrollView } from 'react-nativ
 
 import firebase from 'react-native-firebase';
 import Router from './Router';
+import LoginPage from './components/pages/LoginPage';
 
 export default class App extends React.Component {
   constructor() {
@@ -59,6 +60,7 @@ export default class App extends React.Component {
             {firebase.storage.nativeModuleExists && <Text style={styles.module}>storage()</Text>}
           </View>
         </View>
+        <LoginPage/>
       </ScrollView>
     );
   }

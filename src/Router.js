@@ -8,6 +8,8 @@ import ReportPage from './components/pages/ReportPage';
 
 const RouterComponent = () => {
     return (
+        //Each Scene with a component corrosponds to a page. These can be nested inside Scenes to separate 
+        //certain pages, such as removing the ability to navigate back to the login page from the main page.
         <Router>
             <Scene key='root' hideNavBar>
                 <Scene key='auth' hideNavBar>

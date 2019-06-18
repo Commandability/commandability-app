@@ -18,6 +18,7 @@ Download or clone this repository, then run `npm install` inside the directory.
 ## Technologies
  - [React Native](https://facebook.github.io/react-native/)
  - [Redux](https://redux.js.org/)
+ - [Reselect](https://github.com/reduxjs/reselect)
  - [Firebase](https://firebase.google.com/)
  - [React Native Firebase](https://rnfirebase.io/)
  - [React Native Router Flux](https://github.com/aksonov/react-native-router-flux)

@@ -5,4 +5,13 @@
 
 import personnel from "./Personnel.json";
 
-export default () => personnel.berea;
+let defaultState = {};
+
+export default (state = defaultState, action) => {
+  switch (action.type){
+    case 'ADD_PERSON':
+      return state + 1;
+    default:
+      return personnel.berea;
+  }
+};

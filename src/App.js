@@ -1,17 +1,13 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { StyleSheet, Platform, Image, Text, View, ScrollView } from 'react-native';
 
 import firebase from 'react-native-firebase';
 import Router from './Router';
 import LoginPage from './components/pages/LoginPage';
 import IncidentPage from './components/pages/IncidentPage';
+import GroupComponent from './components/common/GroupComponent';
 
 export default class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
-
   async componentDidMount() {
     // TODO: You: Do firebase things
     // const { user } = await firebase.auth().signInAnonymously();

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, stylestyleSheet} from 'react-native';
+import {AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, StyleSheet} from 'react-native';
 
 export default class PersonPrompt extends React.PureComponent{
     render() {

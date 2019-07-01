@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, StyleSheet} from 'react-native';
-import {Group} from '../common/Group';
+import {AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, StyleSheet, } from 'react-native';
+import GroupComponent from '../common/GroupComponent';
 
 export default class IncidentPage extends Component {
     render() {
@@ -20,16 +20,16 @@ export default class IncidentPage extends Component {
                     </View>
                     <View style={styles.groupArea}>
                         <View style={styles.subGroupArea}>
-                            <Group/>
-                            <Group/>
+                            <GroupComponent/>
+                            <GroupComponent/>
                         </View>
                         <View style={styles.subGroupArea}>
-                            <Group/>
-                            <Group/>
+                            <GroupComponent/>
+                            <GroupComponent/>
                         </View>
                         <View style={styles.subGroupArea}>
-                            <Group/>
-                            <Group/>
+                            <GroupComponent/>
+                            <GroupComponent/>
                         </View>
                     </View>
                 </View>
@@ -42,7 +42,7 @@ var styles = StyleSheet.create({
     incidentPageLayout: {
         flexDirection: 'column',
         flex: 1,
-        borderWidth: 1
+        borderWidth: .5
     },
     navBar: {
         flexDirection: 'row',

@@ -1,0 +1,6 @@
+export const MOVE_FIREFIGHTER = "MOVE_FIREFIGHTER";
+export const ADD_FIREFIGHTER = "ADD_FIREFIGHTER";
+export const REMOVE_FIREFIGHTER = "REMOVE_FIREFIGHTER";
+export const SHOW_GROUP = "SHOW_GROUP";
+export const HIDE_GROUP = "HIDE_GROUP";
+export const ADD_PAGE = "ADD_PAGE";

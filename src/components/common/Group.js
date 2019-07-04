@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, StyleSheet, Dimensions, PixelRatio, Platform} from 'react-native';
 
-export default class GroupComponent extends Component {
+export default class Group extends Component {
     render() {
         return (
             <View style={styles.groupLayout}>
                 <View style={styles.groupHeader}>
-                    <Text style={styles.groupHeaderContent}></Text>
+                    <Text style={styles.groupHeaderContent}> Group Title </Text>
                 </View>
                 <View style={styles.groupList}>
-
+                    
                 </View>
             </View>
         )
@@ -53,7 +53,7 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         padding: 5,
-        backgroundColor: COLORS.secondary.dark
+        backgroundColor: COLORS.secondary.dark,
     },
     groupHeaderContent: {
         fontSize: scaleFont(6),
@@ -61,7 +61,7 @@ var styles = StyleSheet.create({
         color: COLORS.primary.text
     },
     groupList: {
-        flex: 4,
+        flex: 6,
         backgroundColor: COLORS.primary.dark
     },
 })

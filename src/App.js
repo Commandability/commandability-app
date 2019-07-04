@@ -5,7 +5,6 @@ import firebase from 'react-native-firebase';
 import Router from './Router';
 import LoginPage from './components/pages/LoginPage';
 import IncidentPage from './components/pages/IncidentPage';
-import GroupComponent from './components/common/GroupComponent';
 
 export default class App extends React.Component {
   async componentDidMount() {

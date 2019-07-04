@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import {AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, StyleSheet, } from 'react-native';
-import GroupComponent from '../common/GroupComponent';
+import Group from '../common/Group';
+import NavBar from '../common/NavBar';
 
 export default class IncidentPage extends Component {
     render() {
         return (
             <View style={styles.incidentPageLayout}>
-                <View style={styles.navBar}>
-
-                </View>
+                <NavBar/>
                 <View style={styles.pageLayout}>
                     <View style={styles.stagingArea}>
                         <View style={styles.stagingList}>
@@ -20,16 +19,16 @@ export default class IncidentPage extends Component {
                     </View>
                     <View style={styles.groupArea}>
                         <View style={styles.subGroupArea}>
-                            <GroupComponent/>
-                            <GroupComponent/>
+                            <Group/>
+                            <Group/>
                         </View>
                         <View style={styles.subGroupArea}>
-                            <GroupComponent/>
-                            <GroupComponent/>
+                            <Group/>
+                            <Group/>
                         </View>
                         <View style={styles.subGroupArea}>
-                            <GroupComponent/>
-                            <GroupComponent/>
+                            <Group/>
+                            <Group/>
                         </View>
                     </View>
                 </View>
@@ -42,40 +41,33 @@ var styles = StyleSheet.create({
     incidentPageLayout: {
         flexDirection: 'column',
         flex: 1,
-        borderWidth: .5
     },
     navBar: {
         flexDirection: 'row',
         flex: 1,
-        borderWidth: 1
+        borderWidth: .5
     },
     pageLayout: {
         flexDirection: 'row',
-        flex: 4,
-        borderWidth: 1
+        flex: 10,
     },
     stagingArea: {
         flexDirection: 'column',
-        flex: 1,
-        borderWidth: 1        
+        flex: 1,      
     },
     stagingList: {
         flex: 1,
-        borderWidth: 1
     },
     personnelList: {
         flex: 1,
-        borderWidth: 1
     },
     groupArea: {
         flexDirection: 'row',
         flex: 4,
-        borderWidth: 1
     },
     subGroupArea: {
         flexDirection: 'column',
         flex:1,
-        borderWidth: 1
     },
 })
 

@@ -7,9 +7,12 @@ export default class Group extends Component {
             <View style={styles.groupLayout}>
                 <View style={styles.groupHeader}>
                     <Text style={styles.groupHeaderContent}> Group Title </Text>
+                    <TouchableOpacity style={{flex:1}}>
+                        <Image style={styles.settingsIcon} source={require('../../../assets/icons/baseline_settings_white_48dp.png')}></Image>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.groupList}>
-                    
+                
                 </View>
             </View>
         )
@@ -56,12 +59,20 @@ var styles = StyleSheet.create({
         backgroundColor: COLORS.secondary.dark,
     },
     groupHeaderContent: {
+        flex: 5,
         fontSize: scaleFont(6),
         textAlign: 'center',
         color: COLORS.primary.text
     },
     groupList: {
-        flex: 6,
+        flex: 7,
         backgroundColor: COLORS.primary.dark
     },
+    settingsIcon: {
+        flex: 1,
+        padding: 1,
+        width: null,
+        height: null,
+        resizeMode: 'contain',
+    }
 })

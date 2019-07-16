@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, StyleSheet, } from 'react-native';
 import Group from '../common/Group';
 import NavBar from '../common/NavBar';
+import COLORS from '../common/Colors';
 
 export default class IncidentPage extends Component {
     render() {
@@ -70,18 +71,3 @@ var styles = StyleSheet.create({
         flex:1,
     },
 })
-
-const COLORS = {
-    primary: {
-        main: '#757575',
-        light: '#909090',
-        dark: '#494949',
-        text: '#ffffff'
-    },
-    secondary: {
-        main: '#c62828',
-        light: '#9b2828',
-        dark: '#5a0000',
-        text: '#ffffff'
-    }
-}

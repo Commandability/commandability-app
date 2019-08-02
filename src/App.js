@@ -4,9 +4,8 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import firebase from "react-native-firebase";
 import reducers from "./reducers";
+import  { loadPersistedState, loadDefaultState } from "./modules/localStorage";
 import GroupList from "./components/GroupList";
-
-import { Header } from './components/common';
 
 export default class App extends React.Component {
   constructor() {
@@ -22,13 +21,16 @@ export default class App extends React.Component {
   }
 
   render() {
-    // calls all reducers on app initialization and generates store from base values
-    const store = createStore(reducers);
+    // load previous state in case of crash
+    let initialState = loadPersistedState();
+    if initialState === undefined:
+      // load user defaults
+      initialState = loadDefaultState();
+
+    const store = createStore(reducers, initialState);
 
     return (
-      // enables communication between react and redux
       <Provider store={store}>
-        {/* <Router /> */}
         <View>
           <GroupList />
         </View>

@@ -7,8 +7,9 @@ import { Text, View, FlatList } from "react-native";
 import { connect } from "react-redux";
 import ListItem from "./ListItem";
 
+// needs to be created with ID
 class GroupList extends Component {
-  _renderItem({item}) {
+  _renderItem({ item }) {
     return <ListItem item={item} />;
   }
 
@@ -32,5 +33,8 @@ const mapStateToProps = state => {
   };
 };
 
-// connect retrieves the state from the provider and is called before the component is rendered
-export default connect(mapStateToProps)(GroupList);
+// connect retrieves the state from the redux and is called before the component is rendered
+export default connect(mapStateToProps)(GroupList, {
+  // replaces mapStateToDispatch
+  moveFirefighter: moveFirefighter
+});

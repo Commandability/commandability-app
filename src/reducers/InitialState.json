@@ -1,0 +1,67 @@
+{
+  "pages": {
+    "byId": {
+      "page-0": {
+        "id": "page-0",
+        "groups": [
+          "staging-1",
+          "group-2",
+          "group-3",
+          "group-4",
+          "group-5",
+          "group-6",
+          "rehab-7"
+        ]
+      }
+    },
+    "allIds": ["page-0"]
+  },
+  "groups": {
+    "byId": {
+      "group-1": {
+        "id": "group-1",
+        "name": "Group One",
+        "firefighters": []
+      },
+      "group-2": {
+        "id": "group-2",
+        "name": "Group Two",
+        "firefighters": []
+      },
+      "group-3": {
+        "id": "group-3",
+        "name": "Group Three",
+        "firefighters": []
+      },
+      "group-4": {
+        "id": "group-4",
+        "name": "Group Four",
+        "firefighters": []
+      },
+      "group-5": {
+        "id": "group-5",
+        "name": "Group Five",
+        "firefighters": []
+      },
+      "rehab-6": {
+        "id": "rehab-6",
+        "name": "Rehab",
+        "firefighters": []
+      }
+    },
+    "allIds": [
+      "group-1",
+      "group-2",
+      "group-3",
+      "group-4",
+      "group-5",
+      "rehab-6"
+    ],
+    "visibleIds": ["group-1", "group-2", "rehab-6"]
+  },
+  "roster": {
+    "byId": {},
+    "selectedIds": {},
+    "allIds": {}
+  }
+}

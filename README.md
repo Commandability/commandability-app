@@ -14,6 +14,7 @@ Download or clone this repository, then run `npm install` inside the directory.
 - `/src/reducers`: contains all redux reducers
 - `/src/App.js`: contains base parent component
 - `/src/Routes.js`: contains all react native router flux routes
+- `/src/modules`: contains all custom modules
 
 ## Technologies
  - [React Native](https://facebook.github.io/react-native/)
@@ -22,6 +23,9 @@ Download or clone this repository, then run `npm install` inside the directory.
  - [Firebase](https://firebase.google.com/)
  - [React Native Firebase](https://rnfirebase.io/)
  - [React Native Router Flux](https://github.com/aksonov/react-native-router-flux)
+ - [Lodash](https://lodash.com/)
+ - [uuid](https://github.com/kelektiv/node-uuid)
+
 
 ## License
 This project is available under the [Apache 2.0 License](https://github.com/CommandAbility/CAA-2019/blob/master/LICENSE)

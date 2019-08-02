@@ -12,13 +12,15 @@
     "test": "jest"
   },
   "dependencies": {
+    "lodash": "^4.17.14",
     "react": "16.8.3",
     "react-native": "0.59.3",
     "react-native-firebase": "^5.4.0",
     "react-native-router-flux": "^4.0.6",
     "react-redux": "^7.0.3",
     "redux": "^4.0.1",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",

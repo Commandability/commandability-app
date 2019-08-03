@@ -1,13 +1,10 @@
 import { combineReducers } from "redux";
-import { ADD_PERSONNEL, REMOVE_PERSONNEL } from "../actions/types";
-import personnel from "./Personnel.json";
+import { ADD_PERSONNEL } from "../actions/types";
 
 const personnelById = (state = {}, action) => {
   switch (action.type) {
     case ADD_PERSONNEL:
       return addPersonnel(state, action);
-    case REMOVE_PERSONNEL:
-      return state;
     default:
       return state;
   }
@@ -33,8 +30,6 @@ const personnelIds = (state = [], action) => {
   switch (action.type) {
     case ADD_PERSONNEL:
       return addPersonnelId(state, action);
-    case REMOVE_PERSONNEL:
-      return state;
     default:
       return state;
   }

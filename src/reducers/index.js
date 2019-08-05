@@ -1,6 +1,9 @@
 import { combineReducers } from "redux";
-import Personnel from "./Personnel";
+import PersonnelReducer from  "./PersonnelReducer";
+import GroupReducer from "./GroupReducer";
 
 export default combineReducers({
-  personnel: Personnel,
+  auth: AuthReducer,
+  personnel: PersonnelReducer,
+  groups: GroupReducer
 });

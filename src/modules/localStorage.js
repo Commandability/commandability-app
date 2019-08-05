@@ -19,16 +19,3 @@ export const saveState = state => {
     console.log(err);
   }
 };
-
-export const loadDefaultState = () => {
-  try {
-    const serializedState = getDefaultState(); // get default state here
-    if (serializedState === null) {
-      return undefined;
-    } else {
-      return JSON.parse(serializedState);
-    }
-  } catch (err) {
-    return undefined;
-  }
-};

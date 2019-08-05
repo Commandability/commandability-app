@@ -1,6 +1,6 @@
 export const ADD_PERSONNEL = "ADD_PERSONNEL";
 export const REMOVE_PERSONNEL = "REMOVE_PERSONNEL";
 export const ADD_GROUP = "ADD_GROUP";
-export const EDIT_NAME = "EDIT_NAME";
-export const EDIT_VISIBILITY = "EDIT_VISIBILITY";
+export const SET_NAME = "SET_NAME";
+export const SET_VISIBILITY = "SET_VISIBILITY";
 export const MOVE_PERSONNEL = "MOVE_PERSONNEL";

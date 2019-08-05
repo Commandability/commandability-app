@@ -1,14 +1,14 @@
 import { combineReducers } from "redux";
-import { ADD_GROUP, EDIT_NAME, EDIT_VISIBILITY, MOVE_PERSONNEL } from "../actions/types";
+import { ADD_GROUP, SET_NAME, SET_VISIBILITY, MOVE_PERSONNEL } from "../actions/types";
 
 const groupsById = (state = {}, action) => {
   switch (action.type) {
     case ADD_GROUP:
       return addGroup(state, action);
-    case EDIT_NAME:
-      return editName(state, action);
-    case EDIT_VISIBILITY:
-      return editVisibility(state, action);
+    case SET_NAME:
+      return setName(state, action);
+    case SET_VISIBILITY:
+      return setVisibility(state, action);
     case MOVE_PERSONNEL:
       return movePersonnel(state, action);
     default:
@@ -45,7 +45,7 @@ const addGroupId = (state, action) => {
   return state.concat(id);
 };
 
-const editName = (state, action) => {
+const setName = (state, action) => {
   const { payload } = action;
   const { id, name } = payload;
   const group = state[id];
@@ -58,7 +58,7 @@ const editName = (state, action) => {
   };
 };
 
-const editVisibility = (state, action) => {
+const setVisibility = (state, action) => {
   const { payload } = action;
   const { id, visibility } = payload;
   const group = state[id];

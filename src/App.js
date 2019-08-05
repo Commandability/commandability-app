@@ -22,12 +22,8 @@ export default class App extends React.Component {
 
   render() {
     // load previous state in case of crash
-    let initialState = loadPersistedState();
-    if initialState === undefined:
-      // load user defaults
-      initialState = loadDefaultState();
-
-    const store = createStore(reducers, initialState);
+    let persistedState = loadPersistedState();
+    const store = createStore(reducers, persistedState);
 
     return (
       <Provider store={store}>

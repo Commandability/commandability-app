@@ -29,12 +29,12 @@ class GroupList extends Component {
 const mapStateToProps = state => {
   // object to become props
   return {
-    group: state.group
+    group: state.groups
   };
 };
 
 // connect retrieves the state from the redux and is called before the component is rendered
 export default connect(mapStateToProps)(GroupList, {
   // replaces mapStateToDispatch
-  moveFirefighter: moveFirefighter
+  movePersonnel: movePersonnel
 });

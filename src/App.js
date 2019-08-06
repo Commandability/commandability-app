@@ -7,6 +7,8 @@ import reducers from "./reducers";
 import  { loadPersistedState, loadDefaultState } from "./modules/localStorage";
 import GroupList from "./components/GroupList";
 
+import testState from "./testState";
+
 export default class App extends React.Component {
   constructor() {
     super();
@@ -23,7 +25,7 @@ export default class App extends React.Component {
   render() {
     // load previous state in case of crash
     let persistedState = loadPersistedState();
-    const store = createStore(reducers, persistedState);
+    const store = createStore(reducers, testState); // testState = persistedState in release
 
     return (
       <Provider store={store}>

@@ -5,6 +5,7 @@
         "badge": "800",
         "firstName": "Shawn",
         "lastName": "Sandlin",
+        "location": "ROSTER",
         "rank": "Chief",
         "shift": "*"
       },
@@ -12,6 +13,7 @@
         "badge": "301",
         "firstName": "Evan",
         "lastName": "Eckler",
+        "location": "ROSTER",
         "rank": "Volunteer",
         "shift": "*"
       },
@@ -19,6 +21,7 @@
         "badge": "805",
         "firstName": "Doug",
         "lastName": "Sandlin",
+        "location": "ROSTER",
         "rank": "Battalion Chief",
         "shift": "*"
       },
@@ -26,6 +29,7 @@
         "badge": "302",
         "firstName": "Mike",
         "lastName": "Anderson",
+        "location": "ROSTER",
         "rank": "Volunteer",
         "shift": "*"
       },
@@ -33,6 +37,7 @@
         "badge": "806",
         "firstName": "Scott",
         "lastName": "Adams",
+        "location": "ROSTER",
         "rank": "Battalion Chief",
         "shift": "*"
       },
@@ -40,6 +45,7 @@
         "badge": "303",
         "firstName": "Chris",
         "lastName": "Height",
+        "location": "ROSTER",
         "rank": "Volunteer",
         "shift": "*"
       },
@@ -47,6 +53,7 @@
         "badge": "808",
         "firstName": "Stacy",
         "lastName": "Quinley",
+        "location": "ROSTER",
         "rank": "Battalion Chief",
         "shift": "*"
       },
@@ -54,6 +61,7 @@
         "badge": "304",
         "firstName": "Chris",
         "lastName": "Howard",
+        "location": "ROSTER",
         "rank": "Volunteer",
         "shift": "*"
       }
@@ -67,71 +75,6 @@
       "e09e5978-34bf-4d3a-a286-e51e5a481c0d",
       "fa27c992-1d7b-4b96-9693-b204a91a1d22",
       "7721afd8-17a6-4b27-bcec-91c661079808"
-    ]
-  },
-  "groups": {
-    "byId": {
-      "c007e064-e142-486f-858f-457e46325db0": {
-        "id": "c007e064-e142-486f-858f-457e46325db0",
-        "name": "roster",
-        "visibility": true,
-        "personnel": [
-          "99a18ae0-06fb-4896-baef-9ad8fba49ca0",
-          "51d87ca9-dbee-48a4-a7ba-88a2927fc5d1"
-        ]
-      },
-      "8c2a5b0e-868c-4af6-989f-d6b2c0a027c8": {
-        "id": "8c2a5b0e-868c-4af6-989f-d6b2c0a027c8",
-        "name": "staging",
-        "visibility": true,
-        "personnel": []
-      },
-      "451c8526-867e-4b11-97c3-d77139a02869": {
-        "id": "451c8526-867e-4b11-97c3-d77139a02869",
-        "name": "one",
-        "visibility": true,
-        "personnel": []
-      },
-      "bea886dc-7113-406e-8360-07894a0dc33c": {
-        "id": "bea886dc-7113-406e-8360-07894a0dc33c",
-        "name": "two",
-        "visibility": true,
-        "personnel": []
-      },
-      "53a2c3b1-80fb-4609-96ce-0407c715a095": {
-        "id": "53a2c3b1-80fb-4609-96ce-0407c715a095",
-        "name": "three",
-        "visibility": true,
-        "personnel": []
-      },
-      "3f627bd1-5168-4efa-ba88-10597cb4e3d0": {
-        "id": "3f627bd1-5168-4efa-ba88-10597cb4e3d0",
-        "name": "four",
-        "visibility": true,
-        "personnel": []
-      },
-      "ed8d125b-2e43-4ee4-b820-cd8c16d816e5": {
-        "id": "ed8d125b-2e43-4ee4-b820-cd8c16d816e5",
-        "name": "five",
-        "visibility": true,
-        "personnel": []
-      },
-      "77fc7e6a-6050-4f47-ab1e-abfa5af883ce": {
-        "id": "77fc7e6a-6050-4f47-ab1e-abfa5af883ce",
-        "name": "rehab",
-        "visibility": true,
-        "personnel": []
-      }
-    },
-    "allIds": [
-      "c007e064-e142-486f-858f-457e46325db0",
-      "8c2a5b0e-868c-4af6-989f-d6b2c0a027c8",
-      "451c8526-867e-4b11-97c3-d77139a02869",
-      "bea886dc-7113-406e-8360-07894a0dc33c",
-      "53a2c3b1-80fb-4609-96ce-0407c715a095",
-      "3f627bd1-5168-4efa-ba88-10597cb4e3d0",
-      "ed8d125b-2e43-4ee4-b820-cd8c16d816e5",
-      "77fc7e6a-6050-4f47-ab1e-abfa5af883ce"
     ]
   }
 }

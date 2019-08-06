@@ -4,6 +4,5 @@ import GroupReducer from "./GroupReducer";
 
 export default combineReducers({
   auth: AuthReducer,
-  personnel: PersonnelReducer,
-  groups: GroupReducer
+  personnel: PersonnelReducer
 });

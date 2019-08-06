@@ -1,6 +1,3 @@
 export const ADD_PERSONNEL = "ADD_PERSONNEL";
 export const REMOVE_PERSONNEL = "REMOVE_PERSONNEL";
-export const ADD_GROUP = "ADD_GROUP";
-export const SET_NAME = "SET_NAME";
-export const SET_VISIBILITY = "SET_VISIBILITY";
-export const MOVE_PERSONNEL = "MOVE_PERSONNEL";
+export const SET_LOCATION = "SET_LOCATION";

@@ -1,18 +1,21 @@
 import { combineReducers } from "redux";
-import { ADD_PERSONNEL, REMOVE_PERSONNEL } from "../actions/types";
+import { ADD_PERSON, REMOVE_PERSON } from "../actions/types";
+import * from "./locations";
 
 const personnelById = (state = {}, action) => {
   switch (action.type) {
     case ADD_PERSONNEL:
-      return addPersonnel(state, action);
+      return addPerson(state, action);
     case REMOVE_PERSONNEL:
-      return removePersonnel(state, action);
+      return removePerson(state, action);
+    case SET_LOCATION:
+      return setLocation(state, action);
     default:
       return state;
   }
 };
 
-const addPersonnel = (state, action) => {
+const addPerson = (state, action) => {
   const { payload } = action;
   const { id, badge, firstName, lastName, rank, shift } = payload;
   return {
@@ -22,13 +25,14 @@ const addPersonnel = (state, action) => {
       badge,
       firstName,
       lastName,
+      location,
       rank,
       shift
     }
   };
 };
 
-const removePersonnel = (state, action) => {
+const removePerson = (state, action) => {
   const { payload } = action;
   const { id } = payload;
   const { id, ...updatedPersonnel } = state;
@@ -38,25 +42,47 @@ const removePersonnel = (state, action) => {
 const personnelIds = (state = [], action) => {
   switch (action.type) {
     case ADD_PERSONNEL:
-      return addPersonnelId(state, action);
+      return addPersonId(state, action);
     case REMOVE_PERSONNEL:
-      return removePersonnelId(state, action);
+      return removePersonId(state, action);
     default:
       return state;
   }
 };
 
-const addPersonnelId = (state, action) => {
+const addPersonId = (state, action) => {
   const { payload } = action;
   const { id } = payload;
   return state.concat(id);
 };
 
-const removePersonnelId = (state, action) => {
+const removePersonId = (state, action) => {
   const { payload } = action;
   const { id } = payload;
   return state.filter(currId => currId != id);
 };
+
+const setLocation = (state, action) => {
+  const { payload } = action;
+  const { id, location } = payload;
+  const personnel = state[id];
+  return {
+    ...state,
+    [id]: {
+      ...personnel,
+      location
+    }
+  }
+}
+
+export const getPersonnel = (state, personnelIds) => {
+  return personnelIds.map(id => state.personnel.byId[id]);
+}
+  state.personnel.byId[id];
+
+export const getPersonnelIdsByLocation = (state, location) => {
+  return state.personnel.allIds.filter(id => state.personnel.byId[id].location === location);
+}
 
 export default combineReducers({
   byID: personnelById,

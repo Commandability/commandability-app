@@ -78,7 +78,6 @@ const setLocation = (state, action) => {
 export const getPersonnel = (state, personnelIds) => {
   return personnelIds.map(id => state.personnel.byId[id]);
 }
-  state.personnel.byId[id];
 
 export const getPersonnelIdsByLocation = (state, location) => {
   return state.personnel.allIds.filter(id => state.personnel.byId[id].location === location);

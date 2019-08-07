@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
-<<<<<<< HEAD
 import {AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, StyleSheet, } from 'react-native';
 import Group from '../common/Group';
 import NavBar from '../common/NavBar';
 import COLORS from '../common/Colors';
-=======
-import {AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, styleSheet} from 'react-native';
->>>>>>> master
 
 export default class IncidentPage extends Component {
     render() {

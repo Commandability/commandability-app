@@ -21,7 +21,6 @@ Download or clone this repository, then run `npm install` inside the directory.
  - [Redux](https://redux.js.org/)
  - [Firebase](https://firebase.google.com/)
  - [React Native Firebase](https://rnfirebase.io/)
- - [React Native Router Flux](https://github.com/aksonov/react-native-router-flux)
  - [Lodash](https://lodash.com/)
  - [uuid](https://github.com/kelektiv/node-uuid)
 

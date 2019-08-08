@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { ADD_PERSON, REMOVE_PERSON, SET_LOCATION, SELECT_PERSON, DESELECT_PERSON, CLEAR_SELECTED_PERSONNEL } from "../actions/types";
-import * from "./locations";
+import * as Locations from "./locations";
 
 const personnelById = (state = {}, action) => {
   switch (action.type) {
@@ -33,10 +33,10 @@ const addPerson = (state, action) => {
 };
 
 const removePerson = (state, action) => {
-  const { payload } = action;
-  const { id } = payload;
-  const { id, ...updatedPersonnel } = state;
-  return updatedPersonnel;
+  //const { payload } = action;
+  //const { id } = payload;
+  //const { [id], ...updatedPersonnel } = state;
+  return state;
 };
 
 const setLocation = (state, action) => {

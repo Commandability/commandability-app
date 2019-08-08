@@ -1,6 +1,6 @@
 import { Actions } from "react-native-router-flux";
 import uuidv4 from "uuid/v4";
-import { ADD_PERSONNEL, REMOVE_PERSONNEL, SET_LOCATION, SELECT_PERSON, DESELECT_PERSON, CLEAR_SELECTED_PERSONNEL } from "./types";
+import { ADD_PERSON, REMOVE_PERSON, SET_LOCATION, SELECT_PERSON, DESELECT_PERSON, CLEAR_SELECTED_PERSONNEL } from "./types";
 import { ROSTER } from "../reducers/locations";
 
 export const addPersonnel = ({
@@ -13,13 +13,13 @@ export const addPersonnel = ({
   const id = uuidv4();
   const location = ROSTER;
   return {
-    type: ADD_PERSONNEL,
+    type: ADD_PERSON,
     payload: { id, badge, firstName, lastName, location, rank, shift }
   };
 };
 
 export const removePersonnel = ({ id }) => ({
-  type: REMOVE_PERSONNEL,
+  type: REMOVE_PERSON,
   payload: { id }
 });
 

@@ -1,12 +1,11 @@
 import { combineReducers } from "redux";
 import { ADD_PERSON, REMOVE_PERSON, SET_LOCATION, SELECT_PERSON, DESELECT_PERSON, CLEAR_SELECTED_PERSONNEL } from "../actions/types";
-import * from "./locations";
 
 const personnelById = (state = {}, action) => {
   switch (action.type) {
-    case ADD_PERSONNEL:
+    case ADD_PERSON:
       return addPerson(state, action);
-    case REMOVE_PERSONNEL:
+    case REMOVE_PERSON:
       return removePerson(state, action);
     case SET_LOCATION:
       return setLocation(state, action);
@@ -35,7 +34,7 @@ const addPerson = (state, action) => {
 const removePerson = (state, action) => {
   const { payload } = action;
   const { id } = payload;
-  const { id, ...updatedPersonnel } = state;
+  const { [id]: removed, ...updatedPersonnel } = state;
   return updatedPersonnel;
 };
 
@@ -54,9 +53,9 @@ const setLocation = (state, action) => {
 
 const personnelIds = (state = [], action) => {
   switch (action.type) {
-    case ADD_PERSONNEL:
+    case ADD_PERSON:
       return addPersonId(state, action);
-    case REMOVE_PERSONNEL:
+    case REMOVE_PERSON:
       return removePersonId(state, action);
     default:
       return state;
@@ -109,7 +108,7 @@ export const getPersonnel = (state, personnelIds) => {
 }
 
 export default combineReducers({
-  byID: personnelById,
+  byId: personnelById,
   allIds: personnelIds,
   selectedIds: selectedPersonnelIds
 });

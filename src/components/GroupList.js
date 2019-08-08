@@ -36,5 +36,4 @@ const mapStateToProps = state => {
 // connect retrieves the state from the redux and is called before the component is rendered
 export default connect(mapStateToProps)(GroupList, {
   // replaces mapStateToDispatch
-  movePersonnel: movePersonnel
 });

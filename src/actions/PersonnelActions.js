@@ -1,5 +1,5 @@
 import uuidv4 from "uuid/v4";
-import { ADD_PERSON, REMOVE_PERSON, SET_LOCATION, SELECT_PERSON, DESELECT_PERSON, CLEAR_SELECTED_PERSONNEL } from "./types";
+import { ADD_PERSON, REMOVE_PERSON, SET_LOCATION, CHANGE_SELECTION, CLEAR_SELECTED_PERSONNEL } from "./types";
 import { ROSTER } from "../reducers/locations";
 
 export const addPersonnel = ({
@@ -27,13 +27,8 @@ export const setLocation = ({ id }, location) => ({
   payload: { id, location }
 });
 
-export const selectPerson = ({ id }) => ({
-  type: SELECT_PERSON,
-  payload: { id }
-});
-
-export const deselectPerson = ({ id }) => ({
-  type: DESELECT_PERSON,
+export const changeSelection = ({ id }) => ({
+  type: CHANGE_SELECTION,
   payload: { id }
 });
 

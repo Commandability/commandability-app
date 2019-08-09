@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { connect } from "react-redux";
-import { selectPerson } from "../actions";
+import { changeSelection } from "../actions";
 
 class ListItem extends Component {
   _onPress = () => {
     const { item } = this.props;
     const { id } = item;
-    this.props.selectPerson(id);
+    this.props.changeSelection(id);
   };
 
   render() {
@@ -24,5 +24,5 @@ class ListItem extends Component {
 
 export default connect(
   null,
-  { selectPerson }
+  { changeSelection }
 )(ListItem);

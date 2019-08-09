@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { ADD_PERSON, REMOVE_PERSON, SET_LOCATION, SELECT_PERSON, DESELECT_PERSON, CLEAR_SELECTED_PERSONNEL } from "../actions/types";
+import { ADD_PERSON, REMOVE_PERSON, SET_LOCATION, CHANGE_SELECTION, CLEAR_SELECTED_PERSONNEL } from "../actions/types";
 
 const personnelById = (state = {}, action) => {
   switch (action.type) {
@@ -76,10 +76,8 @@ const removePersonId = (state, action) => {
 
 const selectedPersonnelIds = (state = [], action) => {
   switch (action.type) {
-    case SELECT_PERSON:
-      return selectPersonId(state, action);
-    case DESELECT_PERSON:
-      return deselectPersonId(state, action);
+    case CHANGE_SELECTION:
+      return changeSelectionById(state, action);
     case CLEAR_SELECTED_PERSONNEL:
       return [];
     default:
@@ -87,16 +85,15 @@ const selectedPersonnelIds = (state = [], action) => {
   }
 }
 
-const selectPersonId = (state, action) => {
+const changeSelectionById = (state, action) => {
   const { payload } = action;
   const { id } = payload;
-  return state.concat(id);
-}
-
-const deselectPersonId = (state, action) => {
-  const { payload } = action;
-  const { id } = payload;
-  return state.filter(currId => currId != id);
+  if(state.indexOf(id) > -1){
+    return state.filter(currId => currId != id);
+  }
+  else{
+    return state.concat(id);
+  }   
 }
 
 export const getPersonnelByLocation = (state, location) => {

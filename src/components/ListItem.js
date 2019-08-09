@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { connect } from "react-redux";
-import { changeSelection } from "../actions";
+import { changeSelected } from "../actions";
 
 class ListItem extends Component {
   _onPress = () => {
     const { item } = this.props;
-    const { id } = item;
-    this.props.changeSelection(id);
+    this.props.changeSelected(item);
   };
 
   render() {
@@ -24,5 +23,5 @@ class ListItem extends Component {
 
 export default connect(
   null,
-  { changeSelection }
+  { changeSelected }
 )(ListItem);

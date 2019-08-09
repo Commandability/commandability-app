@@ -77,7 +77,7 @@ const removePersonId = (state, action) => {
 const selectedPersonnelIds = (state = [], action) => {
   switch (action.type) {
     case CHANGE_SELECTION:
-      return changeSelectionById(state, action);
+      return changeSelectedById(state, action);
     case CLEAR_SELECTED_PERSONNEL:
       return [];
     default:
@@ -85,7 +85,7 @@ const selectedPersonnelIds = (state = [], action) => {
   }
 }
 
-const changeSelectionById = (state, action) => {
+const changeSelectedById = (state, action) => {
   const { payload } = action;
   const { id } = payload;
   if(state.indexOf(id) > -1){

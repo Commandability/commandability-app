@@ -27,7 +27,7 @@ export const setLocation = ({ id }, location) => ({
   payload: { id, location }
 });
 
-export const changeSelection = ({ id }) => ({
+export const changeSelected = ({ id }) => ({
   type: CHANGE_SELECTION,
   payload: { id }
 });

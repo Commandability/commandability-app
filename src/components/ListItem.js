@@ -22,13 +22,7 @@ class ListItem extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    personnel: getPersonnelByLocation(state, "ROSTER")
-  };
-};
-
 export default connect(
-  mapStateToProps,
+  null,
   { selectPerson }
 )(ListItem);

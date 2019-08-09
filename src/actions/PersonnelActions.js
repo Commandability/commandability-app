@@ -1,4 +1,3 @@
-import { Actions } from "react-native-router-flux";
 import uuidv4 from "uuid/v4";
 import { ADD_PERSON, REMOVE_PERSON, SET_LOCATION, SELECT_PERSON, DESELECT_PERSON, CLEAR_SELECTED_PERSONNEL } from "./types";
 import { ROSTER } from "../reducers/locations";

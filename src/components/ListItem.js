@@ -1,13 +1,34 @@
 import React, { Component } from "react";
-import { Text } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
+import { connect } from "react-redux";
+import { selectPerson } from "../actions";
 
-export default class ListItem extends Component {
+class ListItem extends Component {
+  _onPress = () => {
+    const { item } = this.props;
+    const { id } = item;
+    this.props.selectPerson(id);
+  };
+
   render() {
     const { item } = this.props;
-    return(
-      <Text>
-        { item.firstName }
-      </Text>
-    )
+    return (
+      <TouchableOpacity onPress={this._onPress}>
+        <View>
+          <Text>{item.firstName}</Text>
+        </View>
+      </TouchableOpacity>
+    );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    personnel: getPersonnelByLocation(state, "ROSTER")
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { selectPerson }
+)(ListItem);

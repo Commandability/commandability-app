@@ -2,6 +2,7 @@
   "personnel": {
     "byId": {
       "99a18ae0-06fb-4896-baef-9ad8fba49ca0": {
+        "id": "99a18ae0-06fb-4896-baef-9ad8fba49ca0",
         "badge": "800",
         "firstName": "Shawn",
         "lastName": "Sandlin",
@@ -10,6 +11,7 @@
         "shift": "*"
       },
       "51d87ca9-dbee-48a4-a7ba-88a2927fc5d1": {
+        "id": "51d87ca9-dbee-48a4-a7ba-88a2927fc5d1",
         "badge": "301",
         "firstName": "Evan",
         "lastName": "Eckler",
@@ -18,6 +20,7 @@
         "shift": "*"
       },
       "a52af612-de0a-4c42-a1ff-fc7d17d30ff1": {
+        "id": "a52af612-de0a-4c42-a1ff-fc7d17d30ff1",
         "badge": "805",
         "firstName": "Doug",
         "lastName": "Sandlin",
@@ -26,6 +29,7 @@
         "shift": "*"
       },
       "e02cddbf-031d-4f4a-a296-49c737463266": {
+        "id": "e02cddbf-031d-4f4a-a296-49c737463266",
         "badge": "302",
         "firstName": "Mike",
         "lastName": "Anderson",
@@ -34,6 +38,7 @@
         "shift": "*"
       },
       "c94daa01-5c98-437a-a465-87384deaf163": {
+        "id": "c94daa01-5c98-437a-a465-87384deaf163",
         "badge": "806",
         "firstName": "Scott",
         "lastName": "Adams",
@@ -42,6 +47,7 @@
         "shift": "*"
       },
       "e09e5978-34bf-4d3a-a286-e51e5a481c0d": {
+        "id": "e09e5978-34bf-4d3a-a286-e51e5a481c0d",
         "badge": "303",
         "firstName": "Chris",
         "lastName": "Height",
@@ -50,6 +56,7 @@
         "shift": "*"
       },
       "fa27c992-1d7b-4b96-9693-b204a91a1d22": {
+        "id": "fa27c992-1d7b-4b96-9693-b204a91a1d22",
         "badge": "808",
         "firstName": "Stacy",
         "lastName": "Quinley",
@@ -58,6 +65,7 @@
         "shift": "*"
       },
       "7721afd8-17a6-4b27-bcec-91c661079808": {
+        "id": "7721afd8-17a6-4b27-bcec-91c661079808",
         "badge": "304",
         "firstName": "Chris",
         "lastName": "Howard",

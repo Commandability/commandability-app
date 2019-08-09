@@ -99,12 +99,9 @@ const deselectPersonId = (state, action) => {
   return state.filter(currId => currId != id);
 }
 
-export const getPersonnelIdsByLocation = (state, location) => {
-  return state.personnel.allIds.filter(id => state.personnel.byId[id].location === location);
-}
-
-export const getPersonnel = (state, personnelIds) => {
-  return personnelIds.map(id => state.personnel.byId[id]);
+export const getPersonnelByLocation = (state, location) => {
+  personnelIdsByLocation = state.personnel.allIds.filter(id => state.personnel.byId[id].location === location);
+  return personnelIdsByLocation.map(id => state.personnel.byId[id]);
 }
 
 export default combineReducers({

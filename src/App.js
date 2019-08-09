@@ -25,7 +25,8 @@ export default class App extends React.Component {
   render() {
     // load previous state in case of crash
     let persistedState = loadPersistedState();
-    const store = createStore(reducers, testState); // testState = persistedState in release
+    const store = createStore(reducers, testState,
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() ); // testState = persistedState in release
 
     return (
       <Provider store={store}>

@@ -1,39 +1,31 @@
-/**
- * List rendering component using redux
- */
-
 import React, { Component } from "react";
 import { Text, View, FlatList } from "react-native";
 import { connect } from "react-redux";
+import { getPersonnelByLocation } from "../reducers/PersonnelReducer";
 import ListItem from "./ListItem";
 
-// needs to be created with ID
-class GroupList extends Component {
-  _renderItem({ item }) {
+class GroupList extends React.PureComponent {
+  _renderItem = ({ item }) => {
     return <ListItem item={item} />;
   }
+
+  _keyExtractor = (item, index) => item.id;
 
   render() {
     return (
       <FlatList
-        // display state saved to props
-        data={this.props.group}
+        data={this.props.personnel}
         renderItem={this._renderItem}
-        keyExtractor={item => item.badge}
+        keyExtractor={this._keyExtractor}
       />
     );
   }
 }
 
-// save state retrieved from connect function to object that will be set as props
 const mapStateToProps = state => {
-  // object to become props
   return {
-    group: state.groups
+    personnel: getPersonnelByLocation(state, "ROSTER")
   };
 };
 
-// connect retrieves the state from the redux and is called before the component is rendered
-export default connect(mapStateToProps)(GroupList, {
-  // replaces mapStateToDispatch
-});
+export default connect(mapStateToProps)(GroupList);

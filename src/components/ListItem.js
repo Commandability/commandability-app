@@ -1,20 +1,22 @@
 import React, { Component } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { connect } from "react-redux";
-import { changeSelected } from "../actions";
+import { toggleSelectedById } from "../actions";
 
 class ListItem extends Component {
   _onPress = () => {
-    const { item } = this.props;
-    this.props.changeSelected(item);
+    const { item, groupName, toggleSelectedById } = this.props;
+    toggleSelectedById(item.id, groupName);
   };
 
   render() {
     const { item } = this.props;
     return (
-      <TouchableOpacity onPress={this._onPress}>
+      <TouchableOpacity onPress={this._onPress} disabled={false}>
         <View>
-          <Text>{item.firstName}</Text>
+          <Text>
+            {item.badge + " - " + item.firstName + " " + item.lastName}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -23,5 +25,5 @@ class ListItem extends Component {
 
 export default connect(
   null,
-  { changeSelected }
+  { toggleSelectedById }
 )(ListItem);

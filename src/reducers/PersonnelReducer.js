@@ -1,7 +1,13 @@
 import { combineReducers } from "redux";
-import { ADD_PERSON, REMOVE_PERSON, SET_LOCATION, CHANGE_SELECTION, CLEAR_SELECTED_PERSONNEL } from "../actions/types";
+import {
+  ADD_PERSON,
+  REMOVE_PERSON,
+  SET_LOCATION,
+  TOGGLE_SELECTED,
+  CLEAR_SELECTED_PERSONNEL
+} from "../actions/types";
 
-const personnelById = (state = {}, action) => {
+const byId = (state = {}, action) => {
   switch (action.type) {
     case ADD_PERSON:
       return addPerson(state, action);
@@ -48,10 +54,10 @@ const setLocation = (state, action) => {
       ...personnel,
       location
     }
-  }
-}
+  };
+};
 
-const personnelIds = (state = [], action) => {
+const allIds = (state = [], action) => {
   switch (action.type) {
     case ADD_PERSON:
       return addPersonId(state, action);
@@ -74,35 +80,14 @@ const removePersonId = (state, action) => {
   return state.filter(currId => currId != id);
 };
 
-const selectedPersonnelIds = (state = [], action) => {
-  switch (action.type) {
-    case CHANGE_SELECTION:
-      return changeSelectedById(state, action);
-    case CLEAR_SELECTED_PERSONNEL:
-      return [];
-    default:
-      return state;
-  }
-}
-
-const changeSelectedById = (state, action) => {
-  const { payload } = action;
-  const { id } = payload;
-  if(state.indexOf(id) > -1){
-    return state.filter(currId => currId != id);
-  }
-  else{
-    return state.concat(id);
-  }   
-}
-
 export const getPersonnelByLocation = (state, location) => {
-  personnelIdsByLocation = state.personnel.allIds.filter(id => state.personnel.byId[id].location === location);
-  return personnelIdsByLocation.map(id => state.personnel.byId[id]);
-}
+  personnelIdsByLocation = state.allIds.filter(
+    id => state.byId[id].location === location
+  );
+  return personnelIdsByLocation.map(id => state.byId[id]);
+};
 
 export default combineReducers({
-  byId: personnelById,
-  allIds: personnelIds,
-  selectedIds: selectedPersonnelIds
+  byId,
+  allIds
 });

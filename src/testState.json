@@ -83,10 +83,10 @@
       "e09e5978-34bf-4d3a-a286-e51e5a481c0d",
       "fa27c992-1d7b-4b96-9693-b204a91a1d22",
       "7721afd8-17a6-4b27-bcec-91c661079808"
-    ],
-    "selectedIds": [
-      "99a18ae0-06fb-4896-baef-9ad8fba49ca0",
-      "51d87ca9-dbee-48a4-a7ba-88a2927fc5d1"
     ]
+  },
+  "selected": {
+    "ids": [],
+    "location": null
   }
 }

@@ -8,7 +8,7 @@ import {
 } from "./types";
 import { ROSTER } from "../reducers/locations";
 
-export const addPersonnel = ({ badge, firstName, lastName, rank, shift }) => {
+export const addPerson = ({ badge, firstName, lastName, rank, shift }) => {
   const id = uuidv4();
   const location = ROSTER;
   return {
@@ -17,7 +17,7 @@ export const addPersonnel = ({ badge, firstName, lastName, rank, shift }) => {
   };
 };
 
-export const removePersonnel = id => ({
+export const removePersonById = id => ({
   type: REMOVE_PERSON,
   payload: { id }
 });

@@ -37,6 +37,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <View>
           <GroupList groupName={locations.ROSTER} />
+          <GroupList groupName={locations.GROUP_ONE} />
         </View>
       </Provider>
     );

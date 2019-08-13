@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { connect } from "react-redux";
-import { getPersonnelByLocation } from "../reducers";
-import { getSelectedIds } from "../reducers";
+import { getPersonnelByLocation, getSelectedIds } from "../reducers";
 import {
-  toggleSelectedById,
   clearSelectedPersonnel,
   setLocationById
 } from "../actions";
@@ -31,7 +29,7 @@ class GroupList extends React.PureComponent {
   render() {
     const { personnel } = this.props;
     return (
-      <TouchableOpacity onPress={this._onPress}>
+      <TouchableOpacity onPress={this._onPress} style={{ borderWidth: 1}}>
         <FlatList
           data={personnel}
           renderItem={this._renderItem}

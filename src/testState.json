@@ -6,7 +6,7 @@
         "badge": "800",
         "firstName": "Shawn",
         "lastName": "Sandlin",
-        "location": "ROSTER",
+        "location": "GROUP_ONE",
         "rank": "Chief",
         "shift": "*"
       },
@@ -15,7 +15,7 @@
         "badge": "301",
         "firstName": "Evan",
         "lastName": "Eckler",
-        "location": "ROSTER",
+        "location": "GROUP_ONE",
         "rank": "Volunteer",
         "shift": "*"
       },
@@ -24,7 +24,7 @@
         "badge": "805",
         "firstName": "Doug",
         "lastName": "Sandlin",
-        "location": "ROSTER",
+        "location": "GROUP_ONE",
         "rank": "Battalion Chief",
         "shift": "*"
       },

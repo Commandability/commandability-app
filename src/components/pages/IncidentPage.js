@@ -10,7 +10,7 @@ export default class IncidentPage extends Component {
     render() {
         return (
             <View style={styles.incidentPageLayout}>
-                <NavBar />
+                <NavBar/>
                 <Text> Hello </Text>
                 <View style={styles.pageLayout}>
                     <View style={styles.stagingArea}>

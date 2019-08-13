@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, StyleSheet, } from 'react-native';
+import NavBar from '../common/NavBar';
 //import Group from '../common/Group';
-//import NavBar from '../common/NavBar';
+import NavBar from '../common/NavBar';
 //import COLORS from '../common/Colors';
-//<NavBar />
+
 //<Group />
 //<Group />
 export default class IncidentPage extends Component {
     render() {
         return (
             <View style={styles.incidentPageLayout}>
-                <View />
+                <NavBar />
                 <View style={styles.pageLayout}>
                     <View style={styles.stagingArea}>
                         <View style={styles.stagingList}>

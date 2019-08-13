@@ -9,6 +9,7 @@ import GroupList from "./components/GroupList";
 import * as locations from "./reducers/locations";
 
 import testState from "./testState";
+import IncidentPage from "./components/pages/IncidentPage";
 
 export default class App extends React.Component {
   constructor() {
@@ -36,8 +37,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <View>
-          <GroupList groupName={locations.ROSTER} />
-          <GroupList groupName={locations.GROUP_ONE} />
+          <IncidentPage />
         </View>
       </Provider>
     );

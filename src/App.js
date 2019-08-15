@@ -1,14 +1,29 @@
 import React from "react";
 import { View } from "react-native";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import firebase from "react-native-firebase";
 import reducers from "./reducers";
-import { loadPersistedState } from "./modules/localStorage";
+import { loadPersistedState, saveState, logEvent } from "./modules/localStorage";
 import GroupList from "./components/GroupList";
-import * as locations from "./reducers/locations";
-
+import * as locations from "./locations";
 import testState from "./testState";
+
+const logger = store => next => action => {
+  logEvent("dispatching", action);
+  return next(action);
+};
+
+const statePersister = store => next => action => {
+  saveState(store.getState());
+  return next(action);
+};
+
+const store = createStore(
+  reducers,
+  testState,
+  applyMiddleware(logger, statePersister)
+);
 
 export default class App extends React.Component {
   constructor() {
@@ -24,15 +39,6 @@ export default class App extends React.Component {
   }
 
   render() {
-    // load previous state in case of crash
-    let persistedState = loadPersistedState();
-    const store = createStore(
-      reducers,
-      testState,
-      window.__REDUX_DEVTOOLS_EXTENSION__ &&
-        window.__REDUX_DEVTOOLS_EXTENSION__()
-    ); // testState = persistedState in release
-
     return (
       <Provider store={store}>
         <View>

@@ -6,7 +6,7 @@ import {
   TOGGLE_SELECTED,
   CLEAR_SELECTED_PERSONNEL
 } from "./types";
-import { ROSTER } from "../reducers/locations";
+import { ROSTER } from "../locations";
 
 export const addPerson = ({ badge, firstName, lastName, rank, shift }) => {
   const id = uuidv4();

@@ -19,3 +19,7 @@ export const saveState = state => {
     console.log(err);
   }
 };
+
+export const logEvent = (event, action) => {
+  console.log(event);
+}

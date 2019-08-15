@@ -11,7 +11,6 @@ export default class IncidentPage extends Component {
         return (
             <View style={styles.incidentPageLayout}>
                 <NavBar/>
-                <Text> Hello </Text>
                 <View style={styles.pageLayout}>
                     <View style={styles.stagingArea}>
                         <View style={styles.stagingList}>
@@ -41,16 +40,10 @@ export default class IncidentPage extends Component {
 var styles = StyleSheet.create({
     incidentPageLayout: {
         flexDirection: 'column',
-        flex: 1,
-    },
-    navBar: {
-        flexDirection: 'row',
-        flex: 1,
-        borderWidth: .5
     },
     pageLayout: {
         flexDirection: 'row',
-        flex: 10,
+        flex: 9,
     },
     stagingArea: {
         flexDirection: 'column',

@@ -7,21 +7,21 @@ export default class NavBar extends Component {
     render() {
         return (
             <View style={styles.navBar}>
-                    <View style={styles.timerLayout}>
-                        <View style={styles.timer}>
-                            <Text style={styles.timerContent}>Time:</Text>
-                        </View>
-                        <View style={styles.timer}>
-                            <Text style={styles.timerContent}>Elapsed:</Text>
-                        </View>
+                <View style={styles.timerLayout}>
+                    <View style={styles.timer}>
+                        <Text style={styles.timerContent}>Time:</Text>
                     </View>
-                    <View style={styles.pageTabs}>
-
-                    </View>
-                    <View style={styles.pageOptions}>
-                        <Text style={styles.pageOptionContent}> Options </Text>
+                    <View style={styles.timer}>
+                        <Text style={styles.timerContent}>Elapsed:</Text>
                     </View>
                 </View>
+                <View style={styles.pageTabs}>
+
+                </View>
+                <View style={styles.pageOptions}>
+                    <Text style={styles.pageOptionContent}> Options </Text>
+                </View>
+            </View>
         )
     }
 }
@@ -31,6 +31,7 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         backgroundColor: COLORS.primary.dark,
+        borderWidth: 1,
     },
     timerLayout: {
         flexDirection: 'column',

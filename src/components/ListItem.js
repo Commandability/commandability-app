@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { connect } from "react-redux";
 import { getSelectedLocation } from "../reducers";
-import { toggleSelectedById } from "../actions";
+import { toggleSelectedById, resetLocations } from "../actions";
 
 class ListItem extends Component {
   _onPress = () => {
-    const { item, groupName, toggleSelectedById } = this.props;
-    toggleSelectedById(item.id, groupName);
+    const { item, groupName, toggleSelectedById, resetLocations } = this.props;
+    // toggleSelectedById(item.id, groupName);
+    resetLocations();
   };
 
   render() {
@@ -39,5 +40,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { toggleSelectedById }
+  { toggleSelectedById, resetLocations }
 )(ListItem);

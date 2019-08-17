@@ -16,7 +16,7 @@ class GroupList extends React.PureComponent {
       setLocationById,
       groupName
     } = this.props;
-    selectedIds.map(id => setLocationById(id, groupName));
+    selectedIds.forEach(id => setLocationById(id, groupName));
     clearSelectedPersonnel();
   };
 

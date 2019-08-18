@@ -58,10 +58,6 @@ const setLocation = (state, action) => {
   }
 };
 
-export const getSelectedById = (state, id) => {
-  return state.ids.indexOf(id) > -1 ? true : false;
-}
-
 export const getSelectedIds = state => {
   return state.ids;
 };

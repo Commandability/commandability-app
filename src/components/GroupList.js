@@ -21,7 +21,8 @@ class GroupList extends React.PureComponent {
   };
 
   _renderItem = ({ item }) => {
-    return <ListItem {...this.props} item={item} />;
+    const { groupName } = this.props;
+    return <ListItem groupName={groupName} item={item} />;
   };
 
   _keyExtractor = (item, index) => item.id;

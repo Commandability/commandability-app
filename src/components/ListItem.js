@@ -1,18 +1,17 @@
 import React, { Component } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { connect } from "react-redux";
-import { getSelectedLocation } from "../reducers";
-import { toggleSelectedById, resetLocations } from "../actions";
+import { getSelectedById, getSelectedLocation } from "../reducers";
+import { toggleSelectedById } from "../actions";
 
 class ListItem extends Component {
   _onPress = () => {
-    const { item, groupName, toggleSelectedById, resetLocations } = this.props;
-    // toggleSelectedById(item.id, groupName);
-    resetLocations();
+    const { item, groupName, toggleSelectedById } = this.props;
+    toggleSelectedById(item.id, groupName);
   };
 
   render() {
-    const { item, groupName, selectedLocation } = this.props;
+    const { item, groupName, selected, selectedLocation } = this.props;
     return (
       <TouchableOpacity
         onPress={this._onPress}
@@ -23,7 +22,7 @@ class ListItem extends Component {
         }
       >
         <View>
-          <Text>
+          <Text style={selected ? { color: "red" } : { color: "black" }}>
             {item.badge + " - " + item.firstName + " " + item.lastName}
           </Text>
         </View>
@@ -32,13 +31,16 @@ class ListItem extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const { item } = ownProps;
+  const { id } = item;
   return {
-    selectedLocation: getSelectedLocation(state)
+    selectedLocation: getSelectedLocation(state),
+    selected: getSelectedById(state, id)
   };
 };
 
 export default connect(
   mapStateToProps,
-  { toggleSelectedById, resetLocations }
+  { toggleSelectedById }
 )(ListItem);

@@ -9,9 +9,11 @@ export default combineReducers({
   selected
 });
 
-export const getSelectedLocation = state =>
-  fromSelected.getSelectedLocation(state.selected);
+export const getSelectedById = (state, id) =>
+  fromSelected.getSelectedById(state.selected, id);
 export const getSelectedIds = state =>
   fromSelected.getSelectedIds(state.selected);
+export const getSelectedLocation = state =>
+  fromSelected.getSelectedLocation(state.selected);
 export const getPersonnelByLocation = (state, location) =>
   fromPersonnel.getPersonnelByLocation(state.personnel, location);

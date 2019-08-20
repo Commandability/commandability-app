@@ -9,8 +9,7 @@ import GroupList from "./components/GroupList";
 import * as locations from "./locations";
 
 const { persistor, store } = configureStore();
-
-console.log(persistor);
+// persistor.purge();
 
 export default class App extends React.Component {
   constructor() {

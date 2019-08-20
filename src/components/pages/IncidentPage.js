@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, StyleSheet, } from 'react-native';
 import Group from '../common/Group';
+import StagingList from '../common/StagingList';
+import RosterList from '../common/RosterList';
 import NavBar from '../common/NavBar';
 import * as locations from "../../reducers/locations";
 
@@ -12,12 +14,8 @@ export default class IncidentPage extends Component {
                 <NavBar />
                 <View style={styles.pageLayout}>
                     <View style={styles.stagingArea}>
-                        <View style={styles.stagingList}>
-
-                        </View>
-                        <View style={styles.personnelList}>
-
-                        </View>
+                        <StagingList groupName={locations.STAGING} />
+                        <RosterList groupName={locations.ROSTER} />
                     </View>
                     <View style={styles.groupArea}>
                         <View style={styles.subGroupArea}>
@@ -52,15 +50,12 @@ var styles = StyleSheet.create({
         flexDirection: 'column',
         flex: 1,
     },
-    stagingList: {
-        flex: 1,
-    },
     personnelList: {
         flex: 1,
     },
     groupArea: {
         flexDirection: 'row',
-        flex: 4,
+        flex: 3,
     },
     subGroupArea: {
         flexDirection: 'column',

@@ -22,15 +22,15 @@ export default class IncidentPage extends Component {
                     <View style={styles.groupArea}>
                         <View style={styles.subGroupArea}>
                             <Group groupName={locations.GROUP_ONE}/>
-                            <Group />
+                            <Group groupName={locations.GROUP_TWO}/>
                         </View>
                         <View style={styles.subGroupArea}>
-                            <Group />
-                            <Group />
+                            <Group groupName={locations.GROUP_THREE}/>
+                            <Group groupName={locations.GROUP_FOUR}/>
                         </View>
                         <View style={styles.subGroupArea}>
-                            <Group />
-                            <Group />
+                            <Group groupName={locations.GROUP_FIVE}/>
+                            <Group groupName={locations.REHAB}/>
                         </View>
                     </View>
                 </View>

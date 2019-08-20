@@ -10,7 +10,7 @@ export default class IncidentPage extends Component {
     render() {
         return (
             <View style={styles.incidentPageLayout}>
-                <NavBar/>
+                <NavBar />
                 <View style={styles.pageLayout}>
                     <View style={styles.stagingArea}>
                         <View style={styles.stagingList}>
@@ -22,7 +22,7 @@ export default class IncidentPage extends Component {
                     </View>
                     <View style={styles.groupArea}>
                         <View style={styles.subGroupArea}>
-                            <Text> Testing! </Text>
+                            <Text> Testing!? </Text>
                         </View>
                         <View style={styles.subGroupArea}>
                             
@@ -40,10 +40,11 @@ export default class IncidentPage extends Component {
 var styles = StyleSheet.create({
     incidentPageLayout: {
         flexDirection: 'column',
+        flex: 2
     },
     pageLayout: {
         flexDirection: 'row',
-        flex: 9,
+        flex: 10,
     },
     stagingArea: {
         flexDirection: 'column',
@@ -51,9 +52,11 @@ var styles = StyleSheet.create({
     },
     stagingList: {
         flex: 1,
+        borderWidth: .5
     },
     personnelList: {
         flex: 1,
+        borderWidth: .5
     },
     groupArea: {
         flexDirection: 'row',
@@ -62,5 +65,6 @@ var styles = StyleSheet.create({
     subGroupArea: {
         flexDirection: 'column',
         flex: 1,
+        borderWidth: .5
     },
 })

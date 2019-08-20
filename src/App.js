@@ -36,7 +36,7 @@ export default class App extends React.Component {
 
     return (
       <Provider store={store}>
-        <View>
+        <View style={{flex: 1, borderWidth: 1}}>
           <IncidentPage />
         </View>
       </Provider>

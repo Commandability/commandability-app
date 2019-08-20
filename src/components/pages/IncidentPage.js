@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, StyleSheet, } from 'react-native';
 import Group from '../common/Group';
 import NavBar from '../common/NavBar';
+import * as locations from "../../reducers/locations";
 
 
 export default class IncidentPage extends Component {
@@ -20,7 +21,7 @@ export default class IncidentPage extends Component {
                     </View>
                     <View style={styles.groupArea}>
                         <View style={styles.subGroupArea}>
-                            <Group />
+                            <Group groupName={locations.GROUP_ONE}/>
                             <Group />
                         </View>
                         <View style={styles.subGroupArea}>

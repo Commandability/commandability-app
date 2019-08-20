@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, StyleSheet, Dimensions, PixelRatio, Platform} from 'react-native';
 import COLORS from '../common/Colors';
 import {scaleFont} from '../common/Fonts';
-import GroupList from '../GroupList';
+import GroupList from './GroupList';
 
 export default class Group extends Component {
     render() {
@@ -14,7 +14,7 @@ export default class Group extends Component {
                         <Image style={styles.settingsIcon} source={require('../../../assets/settings_icon.png')}></Image>
                     </TouchableOpacity>
                 </View>
-                <GroupList />
+                <GroupList groupName={this.props.groupName} />
             </View>
         )
     }

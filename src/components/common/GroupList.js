@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { connect } from "react-redux";
-import { getPersonnelByLocation, getSelectedIds } from "../reducers";
+import { getPersonnelByLocation, getSelectedIds } from "../../reducers";
 import {
   clearSelectedPersonnel,
   setLocationById
-} from "../actions";
+} from "../../actions";
 import ListItem from "./ListItem";
 
 class GroupList extends React.PureComponent {

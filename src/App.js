@@ -5,7 +5,7 @@ import { createStore } from "redux";
 import firebase from "react-native-firebase";
 import reducers from "./reducers";
 import { loadPersistedState } from "./modules/localStorage";
-import GroupList from "./components/GroupList";
+import GroupList from "./components/common/GroupList";
 import * as locations from "./reducers/locations";
 
 import testState from "./testState";

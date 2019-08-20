@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { connect } from "react-redux";
-import { getSelectedLocation } from "../reducers";
-import { toggleSelectedById } from "../actions";
+import { getSelectedLocation } from "../../reducers";
+import { toggleSelectedById } from "../../actions";
 
 class ListItem extends Component {
   _onPress = () => {

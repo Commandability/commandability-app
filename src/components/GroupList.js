@@ -29,7 +29,7 @@ class GroupList extends React.PureComponent {
   render() {
     const { personnel } = this.props;
     return (
-      <TouchableOpacity onPress={this._onPress} style={{ borderWidth: 1}}>
+      <TouchableOpacity onPress={this._onPress} style={{ borderWidth: 1, flex: 7}}>
         <FlatList
           data={personnel}
           renderItem={this._renderItem}

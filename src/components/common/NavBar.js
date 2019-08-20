@@ -31,7 +31,7 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         backgroundColor: COLORS.primary.dark,
-        borderWidth: 1,
+        borderWidth: .5,
     },
     timerLayout: {
         flexDirection: 'column',

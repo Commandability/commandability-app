@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, StyleSheet, } from 'react-native';
-//import Group from '../common/Group';
+import Group from '../common/Group';
 import NavBar from '../common/NavBar';
-//import COLORS from '../common/Colors';
 
-//<Group />
-//<Group />
+
 export default class IncidentPage extends Component {
     render() {
         return (
@@ -22,13 +20,16 @@ export default class IncidentPage extends Component {
                     </View>
                     <View style={styles.groupArea}>
                         <View style={styles.subGroupArea}>
-                            <Text> Testing!? </Text>
+                            <Group />
+                            <Group />
                         </View>
                         <View style={styles.subGroupArea}>
-                            
+                            <Group />
+                            <Group />
                         </View>
                         <View style={styles.subGroupArea}>
-                            
+                            <Group />
+                            <Group />
                         </View>
                     </View>
                 </View>
@@ -52,11 +53,9 @@ var styles = StyleSheet.create({
     },
     stagingList: {
         flex: 1,
-        borderWidth: .5
     },
     personnelList: {
         flex: 1,
-        borderWidth: .5
     },
     groupArea: {
         flexDirection: 'row',
@@ -65,6 +64,5 @@ var styles = StyleSheet.create({
     subGroupArea: {
         flexDirection: 'column',
         flex: 1,
-        borderWidth: .5
     },
 })

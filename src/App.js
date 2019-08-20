@@ -1,33 +1,16 @@
 import React from "react";
 import { View } from "react-native";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware, compose } from "redux";
 import firebase from "react-native-firebase";
-import reducers from "./reducers";
-import { logEvent } from "./modules/logger";
+import { PersistGate } from "redux-persist/integration/react";
+
+import configureStore from './store/configureStore';
 import GroupList from "./components/GroupList";
 import * as locations from "./locations";
-import testState from "./testState";
 
-const logger = store => next => action => {
-  logEvent("dispatching", action);
-  return next(action);
-};
+const { persistor, store } = configureStore();
 
-// development store
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(
-  reducers,
-  testState,
-  composeEnhancers(applyMiddleware(logger))
-);
-
-// production store
-// const store = createStore(
-//   reducers,
-//   testState,
-//   applyMiddleware(logger)
-// );
+console.log(persistor);
 
 export default class App extends React.Component {
   constructor() {
@@ -45,10 +28,12 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <View>
-          <GroupList groupName={locations.ROSTER} />
-          <GroupList groupName={locations.GROUP_ONE} />
-        </View>
+        <PersistGate loading={null} persistor={persistor}>
+          <View>
+            <GroupList groupName={locations.ROSTER} />
+            <GroupList groupName={locations.GROUP_ONE} />
+          </View>
+        </PersistGate>
       </Provider>
     );
   }

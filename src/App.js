@@ -1,15 +1,25 @@
+/**
+ * Base App Component
+ * 
+ * Authors: Noah Hughes, David Morrow
+ * Published: 2019
+ * 
+ * The CommandAbility App is a card-based incident management and accountability application built in React Native. 
+ * It assists fire fighters in keeping track of personnel at an incident scenes, and generates automated reports of the movements of emergency personnel. 
+ */
+
 import React from "react";
 import { View } from "react-native";
 import { Provider } from "react-redux";
 import firebase from "react-native-firebase";
 import { PersistGate } from "redux-persist/integration/react";
 
-import configureStore from './store/configureStore';
+import configureStore from "./modules/configureStore";
 import GroupList from "./components/GroupList";
-import * as locations from "./locations";
+import * as locations from "./modules/locations";
 
 const { persistor, store } = configureStore();
-// persistor.purge();
+// persistor.purge(); // development: clear persisted state
 
 export default class App extends React.Component {
   constructor() {

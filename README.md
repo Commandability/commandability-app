@@ -20,6 +20,7 @@ Download or clone this repository, then run `npm install` inside the directory.
  - [Redux](https://redux.js.org/)
  - [Firebase](https://firebase.google.com/)
  - [React Native Firebase](https://rnfirebase.io/)
+ - [Redux-Persist](https://github.com/rt2zz/redux-persist)
  - [uuid](https://github.com/kelektiv/node-uuid)
 
 

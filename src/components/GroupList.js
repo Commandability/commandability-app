@@ -1,11 +1,19 @@
+/**
+ * GroupList Component
+ * 
+ * props: 
+ *  - groupName: the name of the group
+ * 
+ * Manages displaying personnel in a group by groupName, as well as  adding selected personnel to 
+ * the group when it is selected. 
+ */
+
 import React, { Component } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { connect } from "react-redux";
+
 import { getPersonnelByLocation, getSelectedIds } from "../reducers";
-import {
-  clearSelectedPersonnel,
-  setLocationById
-} from "../actions";
+import { clearSelectedPersonnel, setLocationById } from "../actions";
 import ListItem from "./ListItem";
 
 class GroupList extends React.PureComponent {
@@ -16,6 +24,8 @@ class GroupList extends React.PureComponent {
       setLocationById,
       groupName
     } = this.props;
+
+    // set each selected ids new location to the current group
     selectedIds.forEach(id => setLocationById(id, groupName));
     clearSelectedPersonnel();
   };
@@ -30,7 +40,7 @@ class GroupList extends React.PureComponent {
   render() {
     const { personnel } = this.props;
     return (
-      <TouchableOpacity onPress={this._onPress} style={{ borderWidth: 1}}>
+      <TouchableOpacity onPress={this._onPress} style={{ borderWidth: 1 }}>
         <FlatList
           data={personnel}
           renderItem={this._renderItem}

@@ -1,3 +1,13 @@
+/**
+ * ListItem Component
+ *
+ * props:
+ *  - groupName: the parent groupName
+ *  - item: the current person
+ *
+ * Manages displaying a person in a group and sets a person as selected in redux and in local state on press.
+ */
+
 import React, { Component } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { connect } from "react-redux";
@@ -24,6 +34,7 @@ class ListItem extends Component {
   render() {
     const { item, groupName, selectedLocation } = this.props;
     return (
+      // disable all items in a list that is not selected, so that its parent list can be selected
       <TouchableOpacity
         onPress={this._onPress}
         disabled={

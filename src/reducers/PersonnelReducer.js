@@ -1,4 +1,12 @@
+/**
+ * Personnel Reducer
+ * 
+ * Reducers to add and remove personnel, and change location.
+ * Selectors to get personnel by location. 
+ */
+
 import { combineReducers } from "redux";
+
 import {
   ADD_PERSON,
   REMOVE_PERSON,
@@ -7,7 +15,7 @@ import {
   TOGGLE_SELECTED,
   CLEAR_SELECTED_PERSONNEL
 } from "../actions/types";
-import { ROSTER } from "../locations";
+import { ROSTER } from "../modules/locations";
 
 const initialState = {
   byId: {},
@@ -65,6 +73,7 @@ const setLocation = (state, action) => {
   return state;
 };
 
+// set all locations to default at end of incident
 const resetLocations = (state, action) => {
   const byId = {};
   state.allIds.forEach(id => {

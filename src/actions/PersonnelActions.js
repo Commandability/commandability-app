@@ -1,4 +1,11 @@
+/**
+ * Personnel Actions
+ * 
+ * Actions to add and remove personnel, and change location. 
+ */
+
 import uuidv4 from "uuid/v4";
+
 import {
   ADD_PERSON,
   REMOVE_PERSON,
@@ -7,7 +14,7 @@ import {
   TOGGLE_SELECTED,
   CLEAR_SELECTED_PERSONNEL
 } from "./types";
-import { ROSTER } from "../locations";
+import { ROSTER } from "../modules/locations";
 
 export const addPerson = ({ badge, firstName, lastName, rank, shift }) => {
   const id = uuidv4();
@@ -30,4 +37,4 @@ export const setLocationById = (id, location) => ({
 
 export const resetLocations = () => ({
   type: RESET_LOCATIONS
-})
+});

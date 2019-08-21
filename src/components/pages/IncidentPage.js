@@ -56,6 +56,7 @@ var styles = StyleSheet.create({
     groupArea: {
         flexDirection: 'row',
         flex: 3,
+        padding: 5
     },
     subGroupArea: {
         flexDirection: 'column',

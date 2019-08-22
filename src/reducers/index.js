@@ -7,19 +7,13 @@
 
 import { combineReducers } from "redux";
 import AsyncStorage from "@react-native-community/async-storage";
-import { persistReducer } from "redux-persist";
+import { persistReducer, purgeStoredState } from "redux-persist";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 
 import auth from "./AuthReducer";
 import personnel, * as fromPersonnel from "./PersonnelReducer";
 import selected, * as fromSelected from "./SelectedReducer";
 import { RESET_APP } from "../actions/types";
-
-// root reducer config, persisted data defaults to autoMergeLevel1
-const rootPersistConfig = {
-  key: "root",
-  storage: AsyncStorage
-};
 
 // personnel reducer config, set persisted data to autoMergeLevel2 to track personnel changes
 const personnelPersistConfig = {
@@ -34,9 +28,17 @@ const appReducer = combineReducers({
   selected
 });
 
+// root reducer config, persisted data defaults to autoMergeLevel1
+const rootPersistConfig = {
+  key: "root",
+  storage: AsyncStorage
+};
+
 const rootReducer = (state, action) => {
   if (action.type === RESET_APP) {
     state = undefined;
+    purgeStoredState(personnelPersistConfig);
+    purgeStoredState(rootPersistConfig);
   }
   return appReducer(state, action);
 };

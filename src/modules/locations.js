@@ -1,4 +1,3 @@
-export const ROSTER = "ROSTER";
 export const STAGING = "STAGING";
 export const GROUP_ONE = "GROUP_ONE";
 export const GROUP_TWO = "GROUP_TWO";

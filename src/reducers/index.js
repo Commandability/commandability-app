@@ -1,8 +1,8 @@
 /**
  * Reducers index
  *
- * Generate persistReducers for redux-persist and export redux selectors.
- * https://blog.reactnativecoach.com/the-definitive-guide-to-redux-persist-84738167975
+ * This file generates persistReducers for redux-persist and exports all redux selectors. 
+ * It also contains the logic for the RESET_APP action. 
  */
 
 import { combineReducers } from "redux";
@@ -16,6 +16,7 @@ import selected, * as fromSelected from "./SelectedReducer";
 import { RESET_APP } from "../actions/types";
 
 // personnel reducer config, set persisted data to autoMergeLevel2 to track personnel changes
+// https://blog.reactnativecoach.com/the-definitive-guide-to-redux-persist-84738167975
 const personnelPersistConfig = {
   key: "personnel",
   storage: AsyncStorage,
@@ -36,6 +37,8 @@ const rootPersistConfig = {
 
 const rootReducer = (state, action) => {
   if (action.type === RESET_APP) {
+    // undefined state results in all reducers returning default state
+    // https://stackoverflow.com/questions/35622588/how-to-reset-the-state-of-a-redux-store
     state = undefined;
     purgeStoredState(personnelPersistConfig);
     purgeStoredState(rootPersistConfig);
@@ -49,5 +52,7 @@ export const getSelectedIds = state =>
   fromSelected.getSelectedIds(state.selected);
 export const getSelectedLocation = state =>
   fromSelected.getSelectedLocation(state.selected);
+export const getPersonnel = (state, location) => 
+  fromPersonnel.getPersonnel(state.personnel);
 export const getPersonnelByLocation = (state, location) =>
   fromPersonnel.getPersonnelByLocation(state.personnel, location);

@@ -6,7 +6,7 @@
         "badge": "800",
         "firstName": "Shawn",
         "lastName": "Sandlin",
-        "location": "GROUP_ONE",
+        "location": null,
         "rank": "Chief",
         "shift": "*"
       },
@@ -15,7 +15,7 @@
         "badge": "301",
         "firstName": "Evan",
         "lastName": "Eckler",
-        "location": "GROUP_ONE",
+        "location": null,
         "rank": "Volunteer",
         "shift": "*"
       },
@@ -24,7 +24,7 @@
         "badge": "805",
         "firstName": "Doug",
         "lastName": "Sandlin",
-        "location": "GROUP_ONE",
+        "location": null,
         "rank": "Battalion Chief",
         "shift": "*"
       },
@@ -33,7 +33,7 @@
         "badge": "302",
         "firstName": "Mike",
         "lastName": "Anderson",
-        "location": "ROSTER",
+        "location": null,
         "rank": "Volunteer",
         "shift": "*"
       },
@@ -42,7 +42,7 @@
         "badge": "806",
         "firstName": "Scott",
         "lastName": "Adams",
-        "location": "ROSTER",
+        "location": null,
         "rank": "Battalion Chief",
         "shift": "*"
       },
@@ -51,7 +51,7 @@
         "badge": "303",
         "firstName": "Chris",
         "lastName": "Height",
-        "location": "ROSTER",
+        "location": null,
         "rank": "Volunteer",
         "shift": "*"
       },
@@ -60,7 +60,7 @@
         "badge": "808",
         "firstName": "Stacy",
         "lastName": "Quinley",
-        "location": "ROSTER",
+        "location": null,
         "rank": "Battalion Chief",
         "shift": "*"
       },
@@ -69,7 +69,7 @@
         "badge": "304",
         "firstName": "Chris",
         "lastName": "Howard",
-        "location": "ROSTER",
+        "location": "GROUP_ONE",
         "rank": "Volunteer",
         "shift": "*"
       }

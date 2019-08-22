@@ -1,7 +1,7 @@
 /**
  * Base App Component
  * 
- * Authors: Noah Hughes, David Morrow
+ * Authors: Noah Hughes, David Lee Morrow
  * Published: 2019
  * 
  * The CommandAbility App is a card-based incident management and accountability application built in React Native. 
@@ -18,6 +18,7 @@ import configureStore from "./modules/configureStore";
 import GroupList from "./components/GroupList";
 import Tester from "./components/Tester";
 import * as locations from "./modules/locations";
+import RosterList from "./components/RosterList";
 
 const { persistor, store } = configureStore();
 // persistor.purge(); // development: clear persisted state
@@ -40,7 +41,8 @@ export default class App extends React.Component {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <View>
-            <GroupList groupName={locations.ROSTER} />
+            <RosterList/>
+            <GroupList groupName={locations.STAGING} />
             <GroupList groupName={locations.GROUP_ONE} />
             <Tester/>
           </View>

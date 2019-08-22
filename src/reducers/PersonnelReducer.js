@@ -1,8 +1,8 @@
 /**
  * Personnel Reducer
- * 
+ *
  * Reducers to add and remove personnel, and change location.
- * Selectors to get personnel by location. 
+ * Selectors to get personnel by location.
  */
 
 import { combineReducers } from "redux";
@@ -15,7 +15,7 @@ import {
   TOGGLE_SELECTED,
   CLEAR_SELECTED_PERSONNEL
 } from "../actions/types";
-import { ROSTER } from "../modules/locations";
+import { STAGING } from "../modules/locations";
 
 const initialState = {
   byId: {},
@@ -80,7 +80,7 @@ const resetLocations = (state, action) => {
     const person = state.byId[id];
     byId[id] = {
       ...person,
-      location: ROSTER
+      location: null
     };
   });
   return {
@@ -110,6 +110,10 @@ const removePersonId = (state, action) => {
   const { payload } = action;
   const { id } = payload;
   return state.filter(currId => currId != id);
+};
+
+export const getPersonnel = state => {
+  return state.allIds.map(id => state.byId[id]);
 };
 
 export const getPersonnelByLocation = (state, location) => {

@@ -14,11 +14,11 @@ import {
   TOGGLE_SELECTED,
   CLEAR_SELECTED_PERSONNEL
 } from "./types";
-import { ROSTER } from "../modules/locations";
+import { STAGING } from "../modules/locations";
 
 export const addPerson = ({ badge, firstName, lastName, rank, shift }) => {
   const id = uuidv4();
-  const location = ROSTER;
+  const location = STAGING;
   return {
     type: ADD_PERSON,
     payload: { id, badge, firstName, lastName, location, rank, shift }

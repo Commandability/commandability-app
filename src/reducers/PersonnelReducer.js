@@ -11,7 +11,7 @@ import {
   ADD_PERSON,
   REMOVE_PERSON,
   SET_LOCATION,
-  RESET_LOCATIONS,
+  RESET_INCIDENT,
   TOGGLE_SELECTED,
   CLEAR_SELECTED_PERSONNEL
 } from "../actions/types";
@@ -121,7 +121,7 @@ export const getPersonnelByLocation = (state, location) => {
 
 export default (personnel = (state = initialState, action) => {
   switch (action.type) {
-    case RESET_LOCATIONS:
+    case RESET_INCIDENT:
       return resetLocations(state, action);
     default:
       return {

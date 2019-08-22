@@ -16,6 +16,7 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import configureStore from "./modules/configureStore";
 import GroupList from "./components/GroupList";
+import Tester from "./components/Tester";
 import * as locations from "./modules/locations";
 
 const { persistor, store } = configureStore();
@@ -41,6 +42,7 @@ export default class App extends React.Component {
           <View>
             <GroupList groupName={locations.ROSTER} />
             <GroupList groupName={locations.GROUP_ONE} />
+            <Tester/>
           </View>
         </PersistGate>
       </Provider>

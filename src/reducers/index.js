@@ -1,7 +1,7 @@
 /**
  * Reducers index
- * 
- * Generate persistReducers for redux-persist and export redux selectors. 
+ *
+ * Generate persistReducers for redux-persist and export redux selectors.
  * https://blog.reactnativecoach.com/the-definitive-guide-to-redux-persist-84738167975
  */
 
@@ -13,6 +13,7 @@ import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 import auth from "./AuthReducer";
 import personnel, * as fromPersonnel from "./PersonnelReducer";
 import selected, * as fromSelected from "./SelectedReducer";
+import { RESET_APP } from "../actions/types";
 
 // root reducer config, persisted data defaults to autoMergeLevel1
 const rootPersistConfig = {
@@ -27,11 +28,18 @@ const personnelPersistConfig = {
   stateReconciler: autoMergeLevel2
 };
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   auth,
   personnel: persistReducer(personnelPersistConfig, personnel),
   selected
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === RESET_APP) {
+    state = undefined;
+  }
+  return appReducer(state, action);
+};
 
 export default persistReducer(rootPersistConfig, rootReducer);
 

@@ -5,10 +5,11 @@ import { createStore } from "redux";
 import firebase from "react-native-firebase";
 import reducers from "./reducers";
 import { loadPersistedState } from "./modules/localStorage";
-import GroupList from "./components/GroupList";
+import GroupList from "./components/common/GroupList";
 import * as locations from "./reducers/locations";
 
 import testState from "./testState";
+import IncidentPage from "./components/pages/IncidentPage";
 
 export default class App extends React.Component {
   constructor() {
@@ -35,9 +36,8 @@ export default class App extends React.Component {
 
     return (
       <Provider store={store}>
-        <View>
-          <GroupList groupName={locations.ROSTER} />
-          <GroupList groupName={locations.GROUP_ONE} />
+        <View style={{ flex: 1, borderWidth: 1 }}>
+          <IncidentPage />
         </View>
       </Provider>
     );

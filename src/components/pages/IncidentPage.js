@@ -1,49 +1,34 @@
-import React, {Component} from 'react';
-import {AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, styleSheet} from 'react-native';
+import React, { Component } from 'react';
+import { AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, StyleSheet, } from 'react-native';
+import Group from '../common/Group';
+import StagingList from '../common/StagingList';
+import RosterList from '../common/RosterList';
+import NavBar from '../common/NavBar';
+import * as locations from "../../reducers/locations";
 
-export default class IncidentPage extends React.PureComponent{
-    constructor(){
 
-    }
+export default class IncidentPage extends Component {
     render() {
         return (
             <View style={styles.incidentPageLayout}>
-                <View style={styles.navBar}>
-
-                </View>
+                <NavBar />
                 <View style={styles.pageLayout}>
                     <View style={styles.stagingArea}>
-                        <View style={styles.stagingList}>
-
-                        </View>
-                        <View style={styles.personnelList}>
-
-                        </View>
+                        <StagingList groupName={locations.STAGING} />
+                        <RosterList groupName={locations.ROSTER} />
                     </View>
                     <View style={styles.groupArea}>
                         <View style={styles.subGroupArea}>
-                            <View style={styles.group}>
-
-                            </View>
-                            <View style={styles.group}>
-                                
-                            </View>
+                            <Group groupName={locations.GROUP_ONE}/>
+                            <Group groupName={locations.GROUP_TWO}/>
                         </View>
                         <View style={styles.subGroupArea}>
-                            <View style={styles.group}>
-
-                            </View>
-                            <View style={styles.group}>
-                                
-                            </View>
+                            <Group groupName={locations.GROUP_THREE}/>
+                            <Group groupName={locations.GROUP_FOUR}/>
                         </View>
                         <View style={styles.subGroupArea}>
-                            <View style={styles.group}>
-
-                            </View>
-                            <View style={styles.group}>
-                                
-                            </View>
+                            <Group groupName={locations.GROUP_FIVE}/>
+                            <Group groupName={locations.REHAB}/>
                         </View>
                     </View>
                 </View>
@@ -51,3 +36,30 @@ export default class IncidentPage extends React.PureComponent{
         )
     }
 }
+
+var styles = StyleSheet.create({
+    incidentPageLayout: {
+        flexDirection: 'column',
+        flex: 2
+    },
+    pageLayout: {
+        flexDirection: 'row',
+        flex: 10,
+    },
+    stagingArea: {
+        flexDirection: 'column',
+        flex: 1,
+    },
+    personnelList: {
+        flex: 1,
+    },
+    groupArea: {
+        flexDirection: 'row',
+        flex: 3,
+        padding: 5
+    },
+    subGroupArea: {
+        flexDirection: 'column',
+        flex: 1,
+    },
+})

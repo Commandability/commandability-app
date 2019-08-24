@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { connect } from "react-redux";
-import { getPersonnelByLocation, getSelectedIds } from "../reducers";
+import { getPersonnelByLocation, getSelectedIds } from "../../reducers";
 import {
   clearSelectedPersonnel,
   setLocationById
-} from "../actions";
+} from "../../actions";
 import ListItem from "./ListItem";
 
 class GroupList extends React.PureComponent {
@@ -29,7 +29,7 @@ class GroupList extends React.PureComponent {
   render() {
     const { personnel } = this.props;
     return (
-      <TouchableOpacity onPress={this._onPress} style={{ borderWidth: 1}}>
+      <TouchableOpacity onPress={this._onPress} style={{ borderWidth: 1, flex: 7}}>
         <FlatList
           data={personnel}
           renderItem={this._renderItem}

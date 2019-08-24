@@ -1,11 +1,11 @@
 /**
  * GroupList Component
- * 
- * props: 
- *  - groupName: the name of the group
- * 
- * Manages displaying personnel in a group by groupName, as well as  adding selected personnel to 
- * the group when it is selected. 
+ *
+ * props:
+ *  - groupId: the name of the group
+ *
+ * Manages displaying personnel in a group by groupId, as well as  adding selected personnel to
+ * the group when it is selected.
  */
 
 import React, { Component } from "react";
@@ -17,25 +17,36 @@ import { clearSelectedPersonnel, setLocationById } from "../actions";
 import ListItem from "./ListItem";
 
 class GroupList extends React.PureComponent {
+  constructor() {
+    super();
+    this.state = {
+      name: 'Group Name'
+    }; // can name be the same using the other syntax???
+  }
+
   _onPress = () => {
     const {
       selectedIds,
       clearSelectedPersonnel,
       setLocationById,
-      groupName
+      groupId
     } = this.props;
 
     // set each selected ids new location to the current group
-    selectedIds.forEach(id => setLocationById(id, groupName));
+    selectedIds.forEach(id => setLocationById(id, groupId));
     clearSelectedPersonnel();
   };
 
   _renderItem = ({ item }) => {
-    const { groupName } = this.props;
-    return <ListItem groupName={groupName} item={item} />;
+    const { groupId } = this.props;
+    return <ListItem groupId={groupId} item={item} />;
   };
 
   _keyExtractor = (item, index) => item.id;
+
+  _renderHeader = () => {
+    return <Text>{this.state.name}</Text>;
+  };
 
   render() {
     const { personnel } = this.props;
@@ -45,6 +56,8 @@ class GroupList extends React.PureComponent {
           data={personnel}
           renderItem={this._renderItem}
           keyExtractor={this._keyExtractor}
+          extraData={this.props}
+          ListHeaderComponent={this._renderHeader}
         />
       </TouchableOpacity>
     );
@@ -52,9 +65,9 @@ class GroupList extends React.PureComponent {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { groupName } = ownProps;
+  const { groupId } = ownProps;
   return {
-    personnel: getPersonnelByLocation(state, groupName),
+    personnel: getPersonnelByLocation(state, groupId),
     selectedIds: getSelectedIds(state)
   };
 };

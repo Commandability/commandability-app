@@ -2,7 +2,7 @@
  * ListItem Component
  *
  * props:
- *  - groupName: the parent groupName
+ *  - groupId: the parent groupId
  *  - item: the current person
  *
  * Manages displaying a person in a group and sets a person as selected in redux and in local state on press.
@@ -27,20 +27,18 @@ class ListItem extends Component {
       selected: !prevState.selected
     }));
 
-    const { item, groupName, toggleSelectedById } = this.props;
-    toggleSelectedById(item.id, groupName);
+    const { item, groupId, toggleSelectedById } = this.props;
+    toggleSelectedById(item.id, groupId);
   };
 
   render() {
-    const { item, groupName, selectedLocation } = this.props;
+    const { item, groupId, selectedLocation } = this.props;
     return (
       // disable all items in a list that is not selected, so that its parent list can be selected
       <TouchableOpacity
         onPress={this._onPress}
         disabled={
-          selectedLocation == groupName || selectedLocation == null
-            ? false
-            : true
+          selectedLocation == groupId || selectedLocation == null ? false : true
         }
       >
         <View>

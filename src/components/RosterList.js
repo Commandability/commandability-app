@@ -1,14 +1,20 @@
 /**
  * RosterList Component
- * 
- * props: 
+ *
+ * props:
  *  - none
- * 
- * Manages displaying personnel in the roster. 
+ *
+ * Manages displaying personnel in the roster.
  */
 
 import React, { Component } from "react";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  Text,
+  TouchableOpacity,
+  View,
+  SearchBar
+} from "react-native";
 import { connect } from "react-redux";
 
 import { getPersonnel } from "../reducers";
@@ -20,6 +26,10 @@ class RosterList extends React.PureComponent {
     return <RosterItem item={item} />;
   };
 
+  _renderHeader = () => {
+    return <Text>Roster</Text>
+  };
+
   _keyExtractor = (item, index) => item.id;
 
   render() {
@@ -29,6 +39,8 @@ class RosterList extends React.PureComponent {
         data={personnel}
         renderItem={this._renderItem}
         keyExtractor={this._keyExtractor}
+        extraData={this.props}
+        ListHeaderComponent={this._renderHeader}
       />
     );
   }
@@ -40,6 +52,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps
-)(RosterList);
+export default connect(mapStateToProps)(RosterList);

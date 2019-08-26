@@ -8,26 +8,49 @@
  */
 
 import React, { Component } from "react";
-import {
-  FlatList,
-  Text,
-  TouchableOpacity,
-  View,
-  SearchBar
-} from "react-native";
+import { Alert, FlatList, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 
-import { getPersonnel } from "../reducers";
-import { setLocationById } from "../actions";
+import { getPersonnelByLocation, getSelectedIds } from "../reducers";
+import { clearSelectedPersonnel, setLocationById } from "../actions";
 import RosterItem from "./RosterItem";
+import { ROSTER } from "../modules/locations";
 
 class RosterList extends React.PureComponent {
-  _renderItem = ({ item }) => {
-    return <RosterItem item={item} />;
+  constructor() {
+    super();
+  }
+
+  _onPress = () => {
+    const {
+      selectedIds,
+      clearSelectedPersonnel,
+      setLocationById,
+      groupName
+    } = this.props;
+
+    Alert.alert(
+      "Remove selected personnel from incident?",
+      "All selected personnel will be returned to the roster list and marked as off-scene in the report. ",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed")
+        },
+        {
+          text: "OK",
+          onPress: () => {
+            // set each selected ids new location to the current group
+            selectedIds.forEach(id => setLocationById(id, ROSTER));
+            clearSelectedPersonnel();
+          }
+        }
+      ]
+    );
   };
 
-  _renderHeader = () => {
-    return <Text>Roster</Text>
+  _renderItem = ({ item }) => {
+    return <RosterItem item={item} />;
   };
 
   _keyExtractor = (item, index) => item.id;
@@ -35,21 +58,29 @@ class RosterList extends React.PureComponent {
   render() {
     const { personnel } = this.props;
     return (
-      <FlatList
-        data={personnel}
-        renderItem={this._renderItem}
-        keyExtractor={this._keyExtractor}
-        extraData={this.props}
-        ListHeaderComponent={this._renderHeader}
-      />
+      <TouchableOpacity onPress={this._onPress} style={{ borderWidth: 1 }}>
+        <FlatList
+          data={personnel}
+          renderItem={this._renderItem}
+          keyExtractor={this._keyExtractor}
+          extraData={this.props}
+        />
+      </TouchableOpacity>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    personnel: getPersonnel(state)
+    personnel: getPersonnelByLocation(state, ROSTER),
+    selectedIds: getSelectedIds(state)
   };
 };
 
-export default connect(mapStateToProps)(RosterList);
+export default connect(
+  mapStateToProps,
+  {
+    clearSelectedPersonnel,
+    setLocationById
+  }
+)(RosterList);

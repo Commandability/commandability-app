@@ -112,10 +112,6 @@ const removePersonId = (state, action) => {
   return state.filter(currId => currId != id);
 };
 
-export const getPersonnel = state => {
-  return state.allIds.map(id => state.byId[id]);
-};
-
 export const getPersonnelByLocation = (state, location) => {
   personnelIdsByLocation = state.allIds.filter(
     id => state.byId[id].location === location

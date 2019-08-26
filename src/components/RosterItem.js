@@ -11,6 +11,7 @@ import React, { Component } from "react";
 import { Text, TouchableOpacity, View, Alert } from "react-native";
 import { connect } from "react-redux";
 
+import { getSelectedLocation } from "../reducers";
 import { setLocationById } from "../actions";
 import { STAGING } from "../modules/locations";
 
@@ -21,17 +22,22 @@ class ListItem extends Component {
 
   _onPress = () => {
     const { item, setLocationById } = this.props;
-    if (item.location == null) {
-      setLocationById(item.id, STAGING);
-    } else {
-      // alert user the current person is already activeS
-    }
+    setLocationById(item.id, STAGING);
   };
 
   render() {
-    const { item, groupId, selectedLocation } = this.props;
+    const { item, groupName, selectedLocation } = this.props;
     return (
-      <TouchableOpacity onPress={this._onPress}>
+      // disable item if a list other than the parent list is selected,
+      // so items can be moved to the items parent list
+      <TouchableOpacity
+        onPress={this._onPress}
+        disabled={
+          selectedLocation == groupName || selectedLocation == null
+            ? false
+            : true
+        }
+      >
         <View>
           <Text>
             {item.badge + " - " + item.firstName + " " + item.lastName}
@@ -42,7 +48,13 @@ class ListItem extends Component {
   }
 }
 
+const mapStateToProps = (state, ownProps) => {
+  return {
+    selectedLocation: getSelectedLocation(state)
+  };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   { setLocationById }
 )(ListItem);

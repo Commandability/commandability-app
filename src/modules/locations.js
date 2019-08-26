@@ -1,7 +1,8 @@
-export const STAGING = "STAGING";
-export const GROUP_ONE = "GROUP_ONE";
-export const GROUP_TWO = "GROUP_TWO";
-export const GROUP_THREE = "GROUP_THREE";
-export const GROUP_FOUR = "GROUP_FOUR";
-export const GROUP_FIVE = "GROUP_FIVE";
-export const REHAB = "REHAB";
+export const ROSTER = "Roster";
+export const STAGING = "Staging";
+export const GROUP_ONE = "Group one";
+export const GROUP_TWO = "Group two";
+export const GROUP_THREE = "Group three";
+export const GROUP_FOUR = "Group four";
+export const GROUP_FIVE = "Group five";
+export const REHAB = "Rehab";

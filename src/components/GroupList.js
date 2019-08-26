@@ -2,14 +2,14 @@
  * GroupList Component
  *
  * props:
- *  - groupId: the name of the group
+ *  - groupName: the name of the group
  *
- * Manages displaying personnel in a group by groupId, as well as  adding selected personnel to
+ * Manages displaying personnel in a group by groupName, as well as  adding selected personnel to
  * the group when it is selected.
  */
 
 import React, { Component } from "react";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 
 import { getPersonnelByLocation, getSelectedIds } from "../reducers";
@@ -19,9 +19,6 @@ import ListItem from "./ListItem";
 class GroupList extends React.PureComponent {
   constructor() {
     super();
-    this.state = {
-      name: 'Group Name'
-    }; // can name be the same using the other syntax???
   }
 
   _onPress = () => {
@@ -29,24 +26,20 @@ class GroupList extends React.PureComponent {
       selectedIds,
       clearSelectedPersonnel,
       setLocationById,
-      groupId
+      groupName
     } = this.props;
 
     // set each selected ids new location to the current group
-    selectedIds.forEach(id => setLocationById(id, groupId));
+    selectedIds.forEach(id => setLocationById(id, groupName));
     clearSelectedPersonnel();
   };
 
   _renderItem = ({ item }) => {
-    const { groupId } = this.props;
-    return <ListItem groupId={groupId} item={item} />;
+    const { groupName } = this.props;
+    return <ListItem groupName={groupName} item={item} />;
   };
 
   _keyExtractor = (item, index) => item.id;
-
-  _renderHeader = () => {
-    return <Text>{this.state.name}</Text>;
-  };
 
   render() {
     const { personnel } = this.props;
@@ -57,7 +50,6 @@ class GroupList extends React.PureComponent {
           renderItem={this._renderItem}
           keyExtractor={this._keyExtractor}
           extraData={this.props}
-          ListHeaderComponent={this._renderHeader}
         />
       </TouchableOpacity>
     );
@@ -65,9 +57,9 @@ class GroupList extends React.PureComponent {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { groupId } = ownProps;
+  const { groupName } = ownProps;
   return {
-    personnel: getPersonnelByLocation(state, groupId),
+    personnel: getPersonnelByLocation(state, groupName),
     selectedIds: getSelectedIds(state)
   };
 };

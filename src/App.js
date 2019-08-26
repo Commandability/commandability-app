@@ -36,7 +36,7 @@ export default class App extends React.Component {
     // await firebase.analytics().logEvent('foo', { bar: '123'});
   }
 
-  // ****** TODO: groupName must be a variable. Should this variable be the same as group id? 
+  // ******TODO: groupName must be a variable. Should this variable be the same as group id? 
   // There is no reason to have two, as long as one is always defined. ALSO how will visibility be handled? 
   // Thats something that should be in the state of the group. The name will be in a config file. how about we generate the id using uuid? oh wow thats good. 
   // use getItemLayout
@@ -50,8 +50,8 @@ export default class App extends React.Component {
         <PersistGate loading={null} persistor={persistor}>
           <View>
             <RosterList/>
-            <GroupList groupId={locations.STAGING} />
-            <GroupList groupId={locations.GROUP_ONE} />
+            <GroupList groupName={locations.STAGING} />
+            <GroupList groupName={locations.GROUP_ONE} />
             <Tester/>
           </View>
         </PersistGate>

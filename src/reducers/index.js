@@ -52,7 +52,5 @@ export const getSelectedIds = state =>
   fromSelected.getSelectedIds(state.selected);
 export const getSelectedLocation = state =>
   fromSelected.getSelectedLocation(state.selected);
-export const getPersonnel = (state, location) => 
-  fromPersonnel.getPersonnel(state.personnel);
 export const getPersonnelByLocation = (state, location) =>
   fromPersonnel.getPersonnelByLocation(state.personnel, location);

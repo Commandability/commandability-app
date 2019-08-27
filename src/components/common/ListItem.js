@@ -46,6 +46,6 @@ export default connect(
 var styles = StyleSheet.create({
   itemContent: {
     fontSize: scaleFont(6),
-    paddingLeft: 2,
+    paddingLeft: 2
   }
-})
+});

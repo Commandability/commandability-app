@@ -12,22 +12,16 @@ import {
   PixelRatio,
   Platform
 } from "react-native";
-import COLORS from "../common/Colors";
-import { scaleFont } from "../common/Fonts";
+import COLORS from "./Colors";
+import { scaleFont } from "./Fonts";
 import GroupList from "./GroupList";
 
-export default class Group extends Component {
+export default class Staging extends Component {
   render() {
     return (
       <View style={styles.groupLayout}>
         <View style={styles.groupHeader}>
-          <Text style={styles.groupHeaderContent}> Group Title </Text>
-          <TouchableOpacity style={{ flex: 1 }}>
-            <Image
-              style={styles.settingsIcon}
-              source={require("../../../assets/settings_icon.png")}
-            ></Image>
-          </TouchableOpacity>
+          <Text style={styles.groupHeaderContent}> Staging </Text>
         </View>
         <GroupList groupName={this.props.groupName} />
       </View>
@@ -38,8 +32,7 @@ export default class Group extends Component {
 var styles = StyleSheet.create({
   groupLayout: {
     flex: 1,
-    flexDirection: "column",
-    padding: 4
+    flexDirection: "column"
   },
   groupHeader: {
     flexDirection: "row",
@@ -56,12 +49,5 @@ var styles = StyleSheet.create({
   groupList: {
     flex: 7,
     backgroundColor: COLORS.primary.dark
-  },
-  settingsIcon: {
-    flex: 1,
-    padding: 1,
-    width: null,
-    height: null,
-    resizeMode: "contain"
   }
 });

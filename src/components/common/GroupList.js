@@ -12,7 +12,11 @@ import React, { Component } from "react";
 import { FlatList, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 
-import { getPersonnelByLocation, getSelectedIds } from "../../reducers";
+import {
+  getPersonnelByLocation,
+  getSelectedLocation,
+  getSelectedIds
+} from "../../reducers";
 import { clearSelectedPersonnel, setLocationById } from "../../actions";
 import GroupItem from "./GroupItem";
 
@@ -42,10 +46,15 @@ class GroupList extends React.PureComponent {
   _keyExtractor = (item, index) => item.id;
 
   render() {
-    const { personnel } = this.props;
+    const { groupName, personnel, selectedLocation } = this.props;
     return (
       <TouchableOpacity
         onPress={this._onPress}
+        disabled={
+          selectedLocation == null || selectedLocation == groupName
+            ? true
+            : false
+        }
         style={{ borderWidth: 1, flex: 7 }}
       >
         <FlatList
@@ -63,6 +72,7 @@ const mapStateToProps = (state, ownProps) => {
   const { groupName } = ownProps;
   return {
     personnel: getPersonnelByLocation(state, groupName),
+    selectedLocation: getSelectedLocation(state),
     selectedIds: getSelectedIds(state)
   };
 };

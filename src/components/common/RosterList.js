@@ -11,7 +11,11 @@ import React, { Component } from "react";
 import { Alert, FlatList, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 
-import { getPersonnelByLocation, getSelectedIds } from "../../reducers";
+import {
+  getPersonnelByLocation,
+  getSelectedLocation,
+  getSelectedIds
+} from "../../reducers";
 import { clearSelectedPersonnel, setLocationById } from "../../actions";
 import RosterItem from "./RosterItem";
 import { ROSTER } from "../../modules/locations";
@@ -56,9 +60,17 @@ class RosterList extends React.PureComponent {
   _keyExtractor = (item, index) => item.id;
 
   render() {
-    const { personnel } = this.props;
+    const { personnel, selectedLocation } = this.props;
     return (
-      <TouchableOpacity onPress={this._onPress} style={{ flex:7, borderWidth: 1 }}>
+      <TouchableOpacity
+        onPress={this._onPress}
+        style={{ flex: 7, borderWidth: 1 }}
+        disabled={
+          selectedLocation == null || selectedLocation == ROSTER
+            ? true
+            : false
+        }
+      >
         <FlatList
           data={personnel}
           renderItem={this._renderItem}
@@ -73,6 +85,7 @@ class RosterList extends React.PureComponent {
 const mapStateToProps = state => {
   return {
     personnel: getPersonnelByLocation(state, ROSTER),
+    selectedLocation: getSelectedLocation(state),
     selectedIds: getSelectedIds(state)
   };
 };

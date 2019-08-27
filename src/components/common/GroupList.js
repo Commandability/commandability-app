@@ -14,7 +14,7 @@ import { connect } from "react-redux";
 
 import { getPersonnelByLocation, getSelectedIds } from "../../reducers";
 import { clearSelectedPersonnel, setLocationById } from "../../actions";
-import ListItem from "./ListItem";
+import GroupItem from "./GroupItem";
 
 class GroupList extends React.PureComponent {
   constructor() {
@@ -36,7 +36,7 @@ class GroupList extends React.PureComponent {
 
   _renderItem = ({ item }) => {
     const { groupName } = this.props;
-    return <ListItem groupName={groupName} item={item} />;
+    return <GroupItem groupName={groupName} item={item} />;
   };
 
   _keyExtractor = (item, index) => item.id;

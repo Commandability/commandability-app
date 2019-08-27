@@ -1,9 +1,15 @@
-import React, { Component } from 'react';
-import { AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, StyleSheet, } from 'react-native';
-import Group from '../common/Group';
-import StagingList from '../common/Staging';
-import RosterList from '../common/Roster';
-import NavBar from '../common/NavBar';
+import React, { Component } from "react";
+import {
+  AppRegistry,
+  TouchableOpacity,
+  Flatlist,
+  Text,
+  View,
+  Image,
+  Alert,
+  StyleSheet
+} from "react-native";
+import { NavBar, Group, Staging, Roster } from "../common";
 import * as locations from "../../modules/locations";
 
 export default class IncidentPage extends Component {
@@ -13,8 +19,8 @@ export default class IncidentPage extends Component {
         <NavBar />
         <View style={styles.pageLayout}>
           <View style={styles.stagingArea}>
-            <StagingList groupName={locations.STAGING} />
-            <RosterList groupName={locations.ROSTER} />
+            <Staging groupName={locations.STAGING} />
+            <Roster groupName={locations.ROSTER} />
           </View>
           <View style={styles.groupArea}>
             <View style={styles.subGroupArea}>

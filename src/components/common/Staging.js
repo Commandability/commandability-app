@@ -12,8 +12,8 @@ import {
   PixelRatio,
   Platform
 } from "react-native";
-import COLORS from "./Colors";
-import { scaleFont } from "./Fonts";
+import COLORS from "../../modules/Colors";
+import { scaleFont } from "../../modules/Fonts";
 import GroupList from "./GroupList";
 
 export default class Staging extends Component {

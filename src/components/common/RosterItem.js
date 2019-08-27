@@ -11,9 +11,9 @@ import React, { Component } from "react";
 import { Text, TouchableOpacity, View, Alert } from "react-native";
 import { connect } from "react-redux";
 
-import { getSelectedLocation } from "../reducers";
-import { setLocationById } from "../actions";
-import { STAGING } from "../modules/locations";
+import { getSelectedLocation } from "../../reducers";
+import { setLocationById } from "../../actions";
+import { STAGING } from "../../modules/locations";
 
 class ListItem extends Component {
   constructor() {

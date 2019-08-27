@@ -14,7 +14,7 @@ import { connect } from "react-redux";
 
 import { getSelectedLocation } from "../../reducers";
 import { toggleSelectedById } from "../../actions";
-import { scaleFont } from "./Fonts";
+import { scaleFont } from "../../modules/Fonts";
 
 class ListItem extends Component {
   constructor() {

@@ -12,9 +12,10 @@ import {
   PixelRatio,
   Platform
 } from "react-native";
-import COLORS from "./Colors";
-import { scaleFont } from "./Fonts";
+import COLORS from "../../modules/Colors";
+import { scaleFont } from "../../modules/Fonts";
 import GroupList from "./GroupList";
+import RosterList from "./RosterList";
 
 export default class Roster extends Component {
   render() {
@@ -23,7 +24,7 @@ export default class Roster extends Component {
         <View style={styles.groupHeader}>
           <Text style={styles.groupHeaderContent}> Roster </Text>
         </View>
-        <GroupList groupName={this.props.groupName} />
+        <RosterList groupName={this.props.groupName} />
       </View>
     );
   }

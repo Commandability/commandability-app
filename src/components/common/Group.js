@@ -12,8 +12,8 @@ import {
   PixelRatio,
   Platform
 } from "react-native";
-import COLORS from "../common/Colors";
-import { scaleFont } from "../common/Fonts";
+import COLORS from "../../modules/Colors";
+import { scaleFont } from "../../modules/Fonts";
 import GroupList from "./GroupList";
 
 export default class Group extends Component {

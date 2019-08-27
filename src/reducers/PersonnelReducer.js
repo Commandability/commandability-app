@@ -1,13 +1,28 @@
+/**
+ * Personnel Reducer
+ *
+ * Reducers to add and remove personnel, and change location.
+ * Selectors to get personnel by location.
+ */
+
 import { combineReducers } from "redux";
+
 import {
   ADD_PERSON,
   REMOVE_PERSON,
   SET_LOCATION,
+  RESET_INCIDENT,
   TOGGLE_SELECTED,
   CLEAR_SELECTED_PERSONNEL
 } from "../actions/types";
+import { STAGING } from "../modules/locations";
 
-const byId = (state = {}, action) => {
+const initialState = {
+  byId: {},
+  allIds: []
+};
+
+const byId = (state = initialState.byId, action) => {
   switch (action.type) {
     case ADD_PERSON:
       return addPerson(state, action);
@@ -47,17 +62,34 @@ const removePerson = (state, action) => {
 const setLocation = (state, action) => {
   const { payload } = action;
   const { id, location } = payload;
-  const personnel = state[id];
+  const person = state[id];
   return {
     ...state,
     [id]: {
-      ...personnel,
+      ...person,
       location
     }
   };
+  return state;
 };
 
-const allIds = (state = [], action) => {
+// set all locations to default at end of incident
+const resetLocations = (state, action) => {
+  const byId = {};
+  state.allIds.forEach(id => {
+    const person = state.byId[id];
+    byId[id] = {
+      ...person,
+      location: null
+    };
+  });
+  return {
+    byId,
+    allIds: allIds(state.allIds, action)
+  };
+};
+
+const allIds = (state = initialState.allIds, action) => {
   switch (action.type) {
     case ADD_PERSON:
       return addPersonId(state, action);
@@ -87,7 +119,14 @@ export const getPersonnelByLocation = (state, location) => {
   return personnelIdsByLocation.map(id => state.byId[id]);
 };
 
-export default combineReducers({
-  byId,
-  allIds
+export default (personnel = (state = initialState, action) => {
+  switch (action.type) {
+    case RESET_INCIDENT:
+      return resetLocations(state, action);
+    default:
+      return {
+        byId: byId(state.byId, action),
+        allIds: allIds(state.allIds, action)
+      };
+  }
 });

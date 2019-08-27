@@ -13,7 +13,6 @@ Download or clone this repository, then run `npm install` inside the directory.
 - `/src/components/pages`: contains all page components
 - `/src/reducers`: contains all redux reducers
 - `/src/App.js`: contains base parent component
-- `/src/Routes.js`: contains all react native router flux routes
 - `/src/modules`: contains all custom modules
 
 ## Technologies
@@ -21,7 +20,7 @@ Download or clone this repository, then run `npm install` inside the directory.
  - [Redux](https://redux.js.org/)
  - [Firebase](https://firebase.google.com/)
  - [React Native Firebase](https://rnfirebase.io/)
- - [Lodash](https://lodash.com/)
+ - [Redux-Persist](https://github.com/rt2zz/redux-persist)
  - [uuid](https://github.com/kelektiv/node-uuid)
 
 

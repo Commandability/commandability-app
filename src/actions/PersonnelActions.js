@@ -1,16 +1,24 @@
+/**
+ * Personnel Actions
+ * 
+ * Actions to add and remove personnel, and change location. 
+ */
+
 import uuidv4 from "uuid/v4";
+
 import {
   ADD_PERSON,
   REMOVE_PERSON,
   SET_LOCATION,
+  RESET_INCIDENT,
   TOGGLE_SELECTED,
   CLEAR_SELECTED_PERSONNEL
 } from "./types";
-import { ROSTER } from "../reducers/locations";
+import { STAGING } from "../modules/locations";
 
 export const addPerson = ({ badge, firstName, lastName, rank, shift }) => {
   const id = uuidv4();
-  const location = ROSTER;
+  const location = STAGING;
   return {
     type: ADD_PERSON,
     payload: { id, badge, firstName, lastName, location, rank, shift }
@@ -25,4 +33,8 @@ export const removePersonById = id => ({
 export const setLocationById = (id, location) => ({
   type: SET_LOCATION,
   payload: { id, location }
+});
+
+export const resetIncident = () => ({
+  type: RESET_INCIDENT
 });

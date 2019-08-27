@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { AppRegistry, TouchableOpacity, Flatlist, Text, View, Image, Alert, StyleSheet, } from 'react-native';
 import Group from '../common/Group';
-import StagingList from '../common/StagingList';
-import RosterList from '../common/RosterList';
+import StagingList from '../common/Staging';
+import RosterList from '../common/Roster';
 import NavBar from '../common/NavBar';
 import * as locations from "../../modules/locations";
 

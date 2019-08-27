@@ -4,7 +4,7 @@ import Group from '../common/Group';
 import StagingList from '../common/StagingList';
 import RosterList from '../common/RosterList';
 import NavBar from '../common/NavBar';
-import * as locations from "../../reducers/locations";
+import * as locations from "../../modules/locations";
 
 
 export default class IncidentPage extends Component {

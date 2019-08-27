@@ -1,36 +1,28 @@
 /**
- * ListItem Component
+ * RosterItem Component
  *
  * props:
- *  - groupName: the parent groupName
  *  - item: the current person
  *
- * Manages displaying a person in a group and sets a person as selected in redux and in local state on press.
+ * Manages displaying a person in a the roster and sets a persons location in redux to staging when selected.
  */
 
 import React, { Component } from "react";
-import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, View, Alert } from "react-native";
 import { connect } from "react-redux";
 
-import { getSelectedLocation } from "../../reducers";
-import { toggleSelectedById } from "../../actions";
-import { scaleFont } from "./Fonts";
+import { getSelectedLocation } from "../reducers";
+import { setLocationById } from "../actions";
+import { STAGING } from "../modules/locations";
 
 class ListItem extends Component {
   constructor() {
     super();
-    this.state = {
-      selected: false
-    };
   }
 
   _onPress = () => {
-    this.setState(prevState => ({
-      selected: !prevState.selected
-    }));
-
-    const { item, groupName, toggleSelectedById } = this.props;
-    toggleSelectedById(item.id, groupName);
+    const { item, setLocationById } = this.props;
+    setLocationById(item.id, STAGING);
   };
 
   render() {
@@ -47,9 +39,7 @@ class ListItem extends Component {
         }
       >
         <View>
-          <Text
-            style={this.state.selected ? { color: "red" } : { color: "black" }} // previously itemContent
-          >
+          <Text>
             {item.badge + " - " + item.firstName + " " + item.lastName}
           </Text>
         </View>
@@ -66,12 +56,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
   mapStateToProps,
-  { toggleSelectedById }
+  { setLocationById }
 )(ListItem);
-
-var styles = StyleSheet.create({
-  itemContent: {
-    fontSize: scaleFont(6),
-    paddingLeft: 2,
-  }
-})

@@ -1,15 +1,25 @@
+/**
+ * Base App Component
+ * 
+ * Authors: Noah Hughes, David Lee Morrow
+ * Published: 2019
+ * 
+ * The CommandAbility App is a card-based incident management and accountability application built in React Native. 
+ * It assists fire fighters in keeping track of personnel at an incident scenes, and generates automated reports of the movements of emergency personnel. 
+ */
+
 import React from "react";
 import { View } from "react-native";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
 import firebase from "react-native-firebase";
 import reducers from "./reducers";
-import { loadPersistedState } from "./modules/localStorage";
-import GroupList from "./components/common/GroupList";
-import * as locations from "./reducers/locations";
+import { PersistGate } from "redux-persist/integration/react";
 
-import testState from "./testState";
+import configureStore from "./modules/configureStore";
 import IncidentPage from "./components/pages/IncidentPage";
+
+const { persistor, store } = configureStore();
+// persistor.purge(); // development: clear persisted state
 
 export default class App extends React.Component {
   constructor() {
@@ -25,20 +35,13 @@ export default class App extends React.Component {
   }
 
   render() {
-    // load previous state in case of crash
-    let persistedState = loadPersistedState();
-    const store = createStore(
-      reducers,
-      testState,
-      window.__REDUX_DEVTOOLS_EXTENSION__ &&
-        window.__REDUX_DEVTOOLS_EXTENSION__()
-    ); // testState = persistedState in release
-
     return (
       <Provider store={store}>
-        <View style={{ flex: 1, borderWidth: 1 }}>
-          <IncidentPage />
-        </View>
+        <PersistGate loading={null} persistor={persistor}>
+          <View style={{ flex: 1, borderWidth: 1 }}>
+            <IncidentPage />
+          </View>
+        </PersistGate>
       </Provider>
     );
   }

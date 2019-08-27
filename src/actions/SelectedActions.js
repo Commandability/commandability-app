@@ -1,3 +1,9 @@
+/**
+ * Selected Actions
+ * 
+ * Actions to add and remove personnel from selected list. 
+ */
+
 import { TOGGLE_SELECTED, CLEAR_SELECTED_PERSONNEL } from "./types";
 
 export const toggleSelectedById = (id, location) => ({

@@ -1,17 +1,11 @@
+/**
+ * Roster Component
+ *
+ * This component displays the roster list.
+ */
+
 import React, { Component } from "react";
-import {
-  AppRegistry,
-  TouchableOpacity,
-  Flatlist,
-  Text,
-  View,
-  Image,
-  Alert,
-  StyleSheet,
-  Dimensions,
-  PixelRatio,
-  Platform
-} from "react-native";
+import { TouchableOpacity, Text, View, StyleSheet} from "react-native";
 import COLORS from "../../modules/Colors";
 import { scaleFont } from "../../modules/Fonts";
 import GroupList from "./GroupList";

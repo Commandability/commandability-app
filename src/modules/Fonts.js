@@ -1,17 +1,11 @@
+/**
+ * Fonts module
+ * 
+ * Exports the function used to properly scale fonts based on screen size.
+ */
+
 import React, { Component } from "react";
-import {
-  AppRegistry,
-  TouchableOpacity,
-  Flatlist,
-  Text,
-  View,
-  Image,
-  Alert,
-  StyleSheet,
-  Dimensions,
-  PixelRatio,
-  Platform
-} from "react-native";
+import { Dimensions, PixelRatio, Platform} from "react-native";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 const scale = SCREEN_WIDTH / 400;

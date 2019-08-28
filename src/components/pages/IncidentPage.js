@@ -1,14 +1,11 @@
+/**
+ * IncidentPage
+ * 
+ * This displays the incident page, where firefighters can be managed when on the scene. 
+ */
+
 import React, { Component } from "react";
-import {
-  AppRegistry,
-  TouchableOpacity,
-  Flatlist,
-  Text,
-  View,
-  Image,
-  Alert,
-  StyleSheet
-} from "react-native";
+import {TouchableOpacity, Text, View, StyleSheet} from "react-native";
 import { NavBar, Group, Staging, Roster } from "../common";
 import * as locations from "../../modules/locations";
 

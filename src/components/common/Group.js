@@ -1,17 +1,15 @@
+/**
+ * Group Component
+ *
+ * props:
+ *  - groupName: the current group's data location
+ *
+ * This component displays each of the six main groups, each group's relevant data
+ * list and handles visibility control of groups
+ */
+
 import React, { Component } from "react";
-import {
-  AppRegistry,
-  TouchableOpacity,
-  Flatlist,
-  Text,
-  View,
-  Image,
-  Alert,
-  StyleSheet,
-  Dimensions,
-  PixelRatio,
-  Platform
-} from "react-native";
+import { TouchableOpacity, Text, View, Image, StyleSheet } from "react-native";
 import COLORS from "../../modules/Colors";
 import { scaleFont } from "../../modules/Fonts";
 import GroupList from "./GroupList";

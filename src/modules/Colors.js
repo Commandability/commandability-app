@@ -1,3 +1,9 @@
+/**
+ * Colors module
+ * 
+ * Stores the main color scheme for the application.
+ */
+
 const COLORS = {
   primary: {
     main: "#757575",

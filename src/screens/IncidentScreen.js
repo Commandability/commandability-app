@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { NavBar, Group, Staging, Roster } from "../components/incident";
 import * as locations from "../modules/locations";
+import COLORS from "../modules/Colors";
 
 export default class IncidentScreen extends Component {
   render() {
@@ -61,7 +62,8 @@ var styles = StyleSheet.create({
   groupArea: {
     flexDirection: "row",
     flex: 3,
-    padding: 5
+    padding: 5,
+    backgroundColor: COLORS.primary.dark
   },
   subGroupArea: {
     flexDirection: "column",

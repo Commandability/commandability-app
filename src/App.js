@@ -1,47 +1,87 @@
-/**
- * Base App Component
- * 
- * Authors: Noah Hughes, David Lee Morrow
- * Published: 2019
- * 
- * The CommandAbility App is a card-based incident management and accountability application built in React Native. 
- * It assists fire fighters in keeping track of personnel at an incident scenes, and generates automated reports of the movements of emergency personnel. 
- */
-
 import React from "react";
-import { View } from "react-native";
+import { Button, Text, View } from "react-native";
 import { Provider } from "react-redux";
-import firebase from "react-native-firebase";
-import reducers from "./reducers";
 import { PersistGate } from "redux-persist/integration/react";
+import firebase from "@react-native-firebase/app";
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
 
 import configureStore from "./modules/configureStore";
-import IncidentPage from "./components/pages/IncidentPage";
+import { Login } from "./components";
+import { IncidentScreen } from "./screens";
 
 const { persistor, store } = configureStore();
-// persistor.purge(); // development: clear persisted state
 
-export default class App extends React.Component {
+class HomeScreen extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.unsubscriber = null;
+    this.state = {
+      user: null
+    };
   }
 
-  async componentDidMount() {
-    // TODO: You: Do firebase things
-    // const { user } = await firebase.auth().signInAnonymously();
-    // console.warn('User -> ', user.toJSON());
-    // await firebase.analytics().logEvent('foo', { bar: '123'});
+  componentDidMount() {
+    this.unsubscriber = firebase.auth().onAuthStateChanged(user => {
+      this.setState({ user });
+    });
   }
 
+  componentWillUnmount() {
+    if (this.unsubscriber) {
+      this.unsubscriber();
+    }
+  }
+
+  _signOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(function() {
+        // Sign-out successful.
+      })
+      .catch(function(error) {
+        // An error happened.
+      });
+  };
+
+  render() {
+    if (!this.state.user) {
+      return <Login />;
+    } else {
+      return (
+        <PersistGate loading={null} persistor={persistor}>
+          <View>
+            <Text>Welcome to CommandAbility {this.state.user.email}!</Text>
+            <Button
+              onPress={() => this.props.navigation.navigate("Incident")}
+              title={"Start Incident"}
+            ></Button>
+            <Button onPress={this._signOut} title="Sign out" />
+          </View>
+        </PersistGate>
+      );
+    }
+  }
+}
+
+const AppNavigator = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Incident: IncidentScreen
+  },
+  {
+    initialRouteName: "Home"
+  }
+);
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <View style={{ flex: 1, borderWidth: 1 }}>
-            <IncidentPage />
-          </View>
-        </PersistGate>
+        <AppContainer />
       </Provider>
     );
   }

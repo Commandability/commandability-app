@@ -9,18 +9,21 @@ Download or clone this repository, then run `npm install` inside the directory.
 
 ## Code Structure
 - `/src/actions`: contains all redux actions
-- `/src/components/common`: contains all common components
-- `/src/components/pages`: contains all page components
+- `/src/components`: contains all unattributed components
+- `/src/components/incident`: contains all incident screen components
+- `/src/screens`: contains all screens
 - `/src/reducers`: contains all redux reducers
 - `/src/App.js`: contains base parent component
 - `/src/modules`: contains all custom modules
 
-## Technologies
+## Modules
  - [React Native](https://facebook.github.io/react-native/)
  - [Redux](https://redux.js.org/)
+ - [React Redux](https://react-redux.js.org/)
+ - [Redux-Persist](https://github.com/rt2zz/redux-persist)
  - [Firebase](https://firebase.google.com/)
  - [React Native Firebase](https://rnfirebase.io/)
- - [Redux-Persist](https://github.com/rt2zz/redux-persist)
+ - [Asyncstorage](https://github.com/react-native-community/async-storage)
  - [uuid](https://github.com/kelektiv/node-uuid)
 
 

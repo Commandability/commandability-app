@@ -1,40 +1,83 @@
 {
-    "project_info": {
-      "project_number": "374407940390",
-      "firebase_url": "https://commandability-1d375.firebaseio.com",
-      "project_id": "commandability-1d375",
-      "storage_bucket": "commandability-1d375.appspot.com"
-    },
-    "client": [
-      {
-        "client_info": {
-          "mobilesdk_app_id": "1:374407940390:android:e7e9e89ec9bfa78f",
-          "android_client_info": {
-            "package_name": "com.commandability.caapp"
-          }
-        },
-        "oauth_client": [
-          {
-            "client_id": "374407940390-g11ph8ttc3lp84g04np8tg7v0jg2h976.apps.googleusercontent.com",
-            "client_type": 3
-          }
-        ],
-        "api_key": [
-          {
-            "current_key": "AIzaSyDUp_bzVQy6Khwl8HXiUcqIDbENR25XnMY"
-          }
-        ],
-        "services": {
-          "appinvite_service": {
-            "other_platform_oauth_client": [
-              {
-                "client_id": "374407940390-g11ph8ttc3lp84g04np8tg7v0jg2h976.apps.googleusercontent.com",
-                "client_type": 3
+  "project_info": {
+    "project_number": "374407940390",
+    "firebase_url": "https://commandability-1d375.firebaseio.com",
+    "project_id": "commandability-1d375",
+    "storage_bucket": "commandability-1d375.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374407940390:android:1dc3974232772f5bb959e7",
+        "android_client_info": {
+          "package_name": "com.commandability"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374407940390-g11ph8ttc3lp84g04np8tg7v0jg2h976.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUp_bzVQy6Khwl8HXiUcqIDbENR25XnMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374407940390-g11ph8ttc3lp84g04np8tg7v0jg2h976.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "374407940390-qfbm7dlmj20126avmcsl0jirjbgbqlar.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.commandability.caapp"
               }
-            ]
-          }
+            }
+          ]
         }
       }
-    ],
-    "configuration_version": "1"
-  }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374407940390:android:e7e9e89ec9bfa78f",
+        "android_client_info": {
+          "package_name": "com.commandability.caapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374407940390-g11ph8ttc3lp84g04np8tg7v0jg2h976.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUp_bzVQy6Khwl8HXiUcqIDbENR25XnMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374407940390-g11ph8ttc3lp84g04np8tg7v0jg2h976.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "374407940390-qfbm7dlmj20126avmcsl0jirjbgbqlar.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.commandability.caapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

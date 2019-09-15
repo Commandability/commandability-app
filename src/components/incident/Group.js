@@ -1,37 +1,62 @@
+/**
+ * Group Component
+ *
+ * props:
+ *  - groupName: the current group's data location
+ *
+ * This component displays each of the six main groups, each group's relevant data
+ * list and handles visibility control of groups
+ */
+
 import React, { Component } from "react";
-import {
-  AppRegistry,
-  TouchableOpacity,
-  Flatlist,
-  Text,
-  View,
-  Image,
-  Alert,
-  StyleSheet,
-  Dimensions,
-  PixelRatio,
-  Platform
-} from "react-native";
+import { TouchableOpacity, Text, View, Image, StyleSheet } from "react-native";
 import COLORS from "../../modules/Colors";
 import { scaleFont } from "../../modules/Fonts";
 import GroupList from "./GroupList";
 
 export default class Group extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      visibility: true,
+    }
+  }
+
+  _toggleVisibility = () => {
+    this.setState(prevState => ({
+      visibility: !prevState.visibility
+    }));
+  }
+
   render() {
-    return (
-      <View style={styles.groupLayout}>
-        <View style={styles.groupHeader}>
-          <Text style={styles.groupHeaderContent}> Group Title </Text>
-          <TouchableOpacity style={{ flex: 1 }}>
+    if(this.state.visibility) {
+      return (
+        <View style={styles.groupLayout}>
+          <View style={styles.groupHeader}>
+            <Text style={styles.groupHeaderContent}> Group Title </Text>
+            <TouchableOpacity style={{ flex: 1 }} onPress={this._toggleVisibility}>
+              <Image
+                style={styles.settingsIcon}
+                source={require("../../assets/settings_icon.png")}
+              ></Image>
+            </TouchableOpacity>
+          </View>
+          <GroupList groupName={this.props.groupName} />
+        </View>
+      );
+    }
+    else {
+      return(
+        <View style={{flex: 1}}>
+          <TouchableOpacity style={{flex:1}} onPress={this._toggleVisibility}>
             <Image
-              style={styles.settingsIcon}
-              source={require("../../assets/settings_icon.png")}
+            style={styles.addButton}
+            source={require("../../assets/add.png")}
             ></Image>
           </TouchableOpacity>
         </View>
-        <GroupList groupName={this.props.groupName} />
-      </View>
-    );
+      )
+    }
   }
 }
 
@@ -53,15 +78,16 @@ var styles = StyleSheet.create({
     textAlign: "center",
     color: COLORS.primary.text
   },
-  groupList: {
-    flex: 7,
-    backgroundColor: COLORS.primary.dark
-  },
   settingsIcon: {
     flex: 1,
     padding: 1,
     width: null,
     height: null,
     resizeMode: "contain"
+  },
+  addButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 });

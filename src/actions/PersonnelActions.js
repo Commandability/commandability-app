@@ -1,7 +1,7 @@
 /**
  * Personnel Actions
- * 
- * Actions to add and remove personnel, and change location. 
+ *
+ * Actions to add and remove personnel, and change location.
  */
 
 import uuidv4 from "uuid/v4";
@@ -16,12 +16,12 @@ import {
 } from "./types";
 import { STAGING } from "../modules/locations";
 
-export const addPerson = ({ badge, firstName, lastName, rank, shift }) => {
+export const addPerson = person => {
   const id = uuidv4();
   const location = STAGING;
   return {
     type: ADD_PERSON,
-    payload: { id, badge, firstName, lastName, location, rank, shift }
+    payload: { ...person, id, location }
   };
 };
 

@@ -26,7 +26,5 @@ Download or clone this repository, then run `npm install` inside the directory.
  - [Asyncstorage](https://github.com/react-native-community/async-storage)
  - [uuid](https://github.com/kelektiv/node-uuid)
 
-
 ## License
 This project is available under the [Apache 2.0 License](https://github.com/CommandAbility/CAA-2019/blob/master/LICENSE)
-

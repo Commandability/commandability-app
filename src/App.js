@@ -9,7 +9,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import configureStore from "./modules/configureStore";
 import { Login } from "./components";
 import { IncidentScreen } from "./screens";
-import COLORS from "./modules/Colors";
+import COLORS from "./modules/colors";
 
 const { persistor, store } = configureStore();
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");

@@ -69,6 +69,7 @@ const AppNavigator = createStackNavigator(
   {
     Home: HomeScreen,
     Incident: IncidentScreen
+    Prompt: GroupPrompt
   },
   {
     initialRouteName: "Home"

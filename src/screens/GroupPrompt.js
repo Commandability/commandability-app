@@ -11,6 +11,9 @@ import {
 } from "react-native";
 
 export default class GroupPrompt extends React.PureComponent {
+  static navigationOptions = {
+    title: 'Edit Group',
+  }
   render() {
     return (
       <View>

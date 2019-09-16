@@ -17,7 +17,9 @@ export default class GroupPrompt extends React.PureComponent {
   render() {
     return (
       <View>
-        <Text> Edit Group </Text>
+        <Text> Edit group name </Text>
+        <Text> Select all personnel in group </Text>
+        <Text> Delete group </Text>
       </View>
     );
   }

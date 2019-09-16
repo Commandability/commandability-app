@@ -34,7 +34,7 @@ export default class Group extends Component {
         <View style={styles.groupLayout}>
           <View style={styles.groupHeader}>
             <Text style={styles.groupHeaderContent}> Group Title </Text>
-            <TouchableOpacity style={{ flex: 1 }} onPress={this._toggleVisibility}>
+            <TouchableOpacity style={{ flex: 1 }} onPress={() => this.props.navigation.navigate("Prompt")}>
               <Image
                 style={styles.settingsIcon}
                 source={require("../../assets/settings_icon.png")}

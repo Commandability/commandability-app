@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Text, View } from "react-native";
+import { Button, Text, View, Dimensions } from "react-native";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import firebase from "@react-native-firebase/app";
@@ -9,8 +9,10 @@ import { createStackNavigator } from "react-navigation-stack";
 import configureStore from "./modules/configureStore";
 import { Login } from "./components";
 import { IncidentScreen } from "./screens";
+import COLORS from "./modules/Colors";
 
 const { persistor, store } = configureStore();
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 class HomeScreen extends React.Component {
   constructor() {
@@ -71,7 +73,13 @@ const AppNavigator = createStackNavigator(
     Incident: IncidentScreen
   },
   {
-    initialRouteName: "Home"
+    initialRouteName: "Home",
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: COLORS.secondary.dark,
+        height: SCREEN_HEIGHT/12,
+      }
+    }
   }
 );
 

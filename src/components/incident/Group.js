@@ -13,8 +13,9 @@ import { TouchableOpacity, Text, View, Image, StyleSheet } from "react-native";
 import COLORS from "../../modules/Colors";
 import { scaleFont } from "../../modules/Fonts";
 import GroupList from "./GroupList";
+import { withNavigation } from 'react-navigation';
 
-export default class Group extends Component {
+class Group extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,3 +92,5 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
   }
 });
+
+export default withNavigation(Group);

@@ -14,6 +14,10 @@ import * as locations from "../modules/locations";
 import COLORS from "../modules/Colors";
 
 export default class IncidentScreen extends Component {
+  static navigationOptions = {
+    title: 'Edit Group',
+    headerLeft: null,
+  }
   render() {
     return (
       <View style={styles.incidentScreenLayout}>

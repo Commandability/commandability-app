@@ -1,23 +1,25 @@
 import React, { Component } from "react";
-import {
-  AppRegistry,
-  TouchableOpacity,
-  Flatlist,
-  Text,
-  View,
-  Image,
-  Alert,
-  stylestyleSheet
-} from "react-native";
+import { AppRegistry, TextInput, TouchableOpacity, Flatlist, Text, View, Image, Alert, stylestyleSheet} from "react-native";
 
 export default class GroupPrompt extends React.PureComponent {
+  constructor(props){
+    super(props);
+    this.state = {
+      text: '',
+    };
+  }
   static navigationOptions = {
     title: 'Edit Group',
   }
   render() {
     return (
       <View>
-        <Text> Edit group name </Text>
+        <TextInput  
+          style={{borderColor: 'gray', borderWidth: 1}}
+          placeholder = "Please enter a new group name" 
+          onChangeText={(text) => this.setState({text})}
+          value={this.state.text}
+        />
         <Text> Select all personnel in group </Text>
         <Text> Delete group </Text>
       </View>

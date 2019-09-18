@@ -8,7 +8,7 @@
  * the group when it is selected.
  */
 
-import React, { Component } from "react";
+import React from "react";
 import { FlatList, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 

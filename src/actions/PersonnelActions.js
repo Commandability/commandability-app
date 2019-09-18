@@ -10,9 +10,7 @@ import {
   ADD_PERSON,
   REMOVE_PERSON,
   SET_LOCATION,
-  RESET_INCIDENT,
-  TOGGLE_SELECTED,
-  CLEAR_SELECTED_PERSONNEL
+  RESET_INCIDENT
 } from "./types";
 import { STAGING } from "../modules/locations";
 

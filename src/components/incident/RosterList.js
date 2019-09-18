@@ -7,7 +7,7 @@
  * Manages displaying personnel in the roster.
  */
 
-import React, { Component } from "react";
+import React from "react";
 import { Alert, FlatList, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 

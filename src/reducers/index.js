@@ -12,6 +12,7 @@ import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 
 import auth from "./AuthReducer";
 import personnel, * as fromPersonnel from "./PersonnelReducer";
+import group, * as fromGroup from "./GroupReducer";
 import selected, * as fromSelected from "./SelectedReducer";
 import { RESET_APP } from "../actions/types";
 
@@ -23,9 +24,16 @@ const personnelPersistConfig = {
   stateReconciler: autoMergeLevel2
 };
 
+const groupPersistConfig = {
+  key: "group",
+  storage: AsyncStorage,
+  stateReconciler: autoMergeLevel2
+};
+
 const appReducer = combineReducers({
   auth,
   personnel: persistReducer(personnelPersistConfig, personnel),
+  group: persistReducer(groupPersistConfig, group),
   selected
 });
 
@@ -54,3 +62,5 @@ export const getSelectedLocation = state =>
   fromSelected.getSelectedLocation(state.selected);
 export const getPersonnelByLocation = (state, location) =>
   fromPersonnel.getPersonnelByLocation(state.personnel, location);
+export const getGroupByLocation = (state, location) =>
+  fromGroup.getGroupByLocation(state.group, location);

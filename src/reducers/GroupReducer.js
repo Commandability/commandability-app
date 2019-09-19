@@ -1,8 +1,7 @@
 /**
- * Personnel Reducer
+ * Group Reducer
  *
- * Reducers to add and remove personnel, and change location.
- * Selectors to get personnel by location.
+ * Reducers to add and remove groups, and change group names.
  */
 
 import { combineReducers } from "redux";
@@ -11,8 +10,7 @@ import { EDIT_NAME, ADD_GROUP, REMOVE_GROUP } from "../actions/types";
 import { STAGING } from "../modules/locations";
 
 const initialState = {
-  byId: {},
-  allIds: []
+  group: {}
 };
 
 const editName = (state, action) => {

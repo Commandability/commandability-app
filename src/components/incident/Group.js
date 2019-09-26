@@ -14,6 +14,7 @@ import COLORS from "../../modules/Colors";
 import { scaleFont } from "../../modules/Fonts";
 import GroupList from "./GroupList";
 import { withNavigation } from 'react-navigation';
+import { connect } from "react-redux";
 
 import { getNameByLocation, getVisibilityByLocation } from "../../reducers";
 import { addGroup } from "../../actions";
@@ -66,7 +67,7 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-default connect(
+connect(
   mapStateToProps,
   {
     addGroup,

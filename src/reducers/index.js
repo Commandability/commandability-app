@@ -62,5 +62,7 @@ export const getSelectedLocation = state =>
   fromSelected.getSelectedLocation(state.selected);
 export const getPersonnelByLocation = (state, location) =>
   fromPersonnel.getPersonnelByLocation(state.personnel, location);
-export const getGroupByLocation = (state, location) =>
-  fromGroup.getGroupByLocation(state.group, location);
+export const getVisibilityByLocation = (state, location) =>
+  fromGroup.getVisibilityByLocation(state.group, location);
+export const getNameByLocation = (state, location) =>
+  fromGroup.getNameByLocation(state.group, location);

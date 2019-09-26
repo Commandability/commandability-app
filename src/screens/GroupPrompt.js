@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { AppRegistry, TextInput, TouchableOpacity, Flatlist, Text, View, Image, Alert, stylestyleSheet} from "react-native";
 
+import {
+  getNameByLocation,
+  getVisibilityByLocation
+} from "../../reducers";
+import { removeGroup, editName } from "../../actions";
+
 default class GroupPrompt extends React.PureComponent {
   constructor(props){
     super(props);
@@ -19,6 +25,7 @@ default class GroupPrompt extends React.PureComponent {
           placeholder = "Please enter a new group name" 
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
+          
         />
         <Text> Select all personnel in group </Text>
         <Text> Delete group </Text>
@@ -38,7 +45,7 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(
   mapStateToProps,
   {
-    clearSelectedPersonnel,
-    setLocationById
+    removeGroup,
+    editName
   }
 )(GroupPrompt);

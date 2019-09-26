@@ -16,7 +16,7 @@ import GroupList from "./GroupList";
 import { withNavigation } from 'react-navigation';
 
 import { getNameByLocation, getVisibilityByLocation } from "../../reducers";
-import { removeGroup } from "../../actions";
+import { addGroup } from "../../actions";
 
 class Group extends Component {
   constructor(props) {
@@ -69,7 +69,7 @@ const mapStateToProps = (state, ownProps) => {
 default connect(
   mapStateToProps,
   {
-    removeGroup,
+    addGroup,
   }
 )(Group);
 

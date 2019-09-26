@@ -7,7 +7,6 @@
 import { combineReducers } from "redux";
 
 import { EDIT_NAME, ADD_GROUP, REMOVE_GROUP } from "../actions/types";
-import { STAGING } from "../modules/locations";
 
 const initialState = {
   group: {}
@@ -15,13 +14,13 @@ const initialState = {
 
 const editName = (state, action) => {
   const { payload } = action;
-  const { id, location, visibility } = payload;
+  const { location, name } = payload; 
+  const group = state[location]
   return {
     ...state,
-    [id]: {
-      id,
-      location,
-      visibility
+    [location]: {
+      ...group,
+      name
     }
   };
 };
@@ -53,6 +52,8 @@ const removeGroup = (state, action) => {
 	};
 	return state;
 };
+
+
 
 export default group = (state = initialState, action) => {
   switch (action.type) {

@@ -24,8 +24,8 @@ export default class IncidentScreen extends Component {
         <NavBar />
         <View style={styles.pageLayout}>
           <View style={styles.stagingArea}>
-            <Staging groupName={locations.STAGING} />
-            <Roster groupName={locations.ROSTER} />
+            <Staging/>
+            <Roster/>
           </View>
           <View style={styles.groupArea}>
             <View style={styles.subGroupArea}>

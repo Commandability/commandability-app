@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { AppRegistry, TextInput, TouchableOpacity, Flatlist, Text, View, Image, Alert, stylestyleSheet} from "react-native";
 
-export default class GroupPrompt extends React.PureComponent {
+default class GroupPrompt extends React.PureComponent {
   constructor(props){
     super(props);
     this.state = {
@@ -26,3 +26,19 @@ export default class GroupPrompt extends React.PureComponent {
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  const { location } = ownProps;
+  return {
+    groupName: getNameByLocation(location),
+    visibility: getVisibilityByLocation(location)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {
+    clearSelectedPersonnel,
+    setLocationById
+  }
+)(GroupPrompt);

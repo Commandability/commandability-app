@@ -2,7 +2,7 @@
  * Group Component
  *
  * props:
- *  - groupName: the current group's data location
+ *  - location: the current group's data location
  *
  * This component displays each of the six main groups, each group's relevant data
  * list and handles visibility control of groups
@@ -15,22 +15,19 @@ import { scaleFont } from "../../modules/Fonts";
 import GroupList from "./GroupList";
 import { withNavigation } from 'react-navigation';
 
+import { getNameByLocation, getVisibilityByLocation } from "../../reducers";
+import { removeGroup } from "../../actions";
+
 class Group extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visibility: true,
+      
     }
   }
 
-  _toggleVisibility = () => {
-    this.setState(prevState => ({
-      visibility: !prevState.visibility
-    }));
-  }
-
   render() {
-    if(this.state.visibility) {
+    if(visibility) {
       return (
         <View style={styles.groupLayout}>
           <View style={styles.groupHeader}>
@@ -42,7 +39,7 @@ class Group extends Component {
               ></Image>
             </TouchableOpacity>
           </View>
-          <GroupList groupName={this.props.groupName} />
+          <GroupList location={this.props.location} />
         </View>
       );
     }
@@ -60,6 +57,21 @@ class Group extends Component {
     }
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  const { location } = ownProps;
+  return {
+    groupName: getNameByLocation(location),
+    visibility: getVisibilityByLocation(location)
+  };
+};
+
+default connect(
+  mapStateToProps,
+  {
+    removeGroup,
+  }
+)(Group);
 
 var styles = StyleSheet.create({
   groupLayout: {

@@ -23,6 +23,7 @@ const editName = (state, action) => {
       name
     }
   };
+  return state;
 };
 
 const addGroup = (state, action) => {
@@ -54,14 +55,14 @@ const removeGroup = (state, action) => {
 };
 
 export const getVisibilityByLocation = (state, location) => {
-  return state.group[location].visibility;
+  return state[location].visibility;
 };
 
 export const getNameByLocation = (state, location) => {
-  return state.group[location].name;
-}
+  return state[location].name;
+};
 
-export default group = (state = initialState, action) => {
+export default (group = (state = initialState, action) => {
   switch (action.type) {
     case EDIT_NAME:
       return editName(state, action);
@@ -72,4 +73,4 @@ export default group = (state = initialState, action) => {
     default:
       return state;
   }
-};
+});

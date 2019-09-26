@@ -25,11 +25,11 @@ class Group extends Component {
   }
 
   render() {
-    if(visibility) {
+    if(true) {
       return (
         <View style={styles.groupLayout}>
           <View style={styles.groupHeader}>
-            <Text style={styles.groupHeaderContent}> {groupName} </Text>
+            <Text style={styles.groupHeaderContent}> {this.groupName} </Text>
             <TouchableOpacity style={{ flex: 1 }} onPress={() => this.props.navigation.navigate("Prompt")}>
               <Image
                 style={styles.settingsIcon}

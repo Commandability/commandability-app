@@ -62,8 +62,8 @@ class Group extends Component {
 const mapStateToProps = (state, ownProps) => {
   const { location } = ownProps;
   return {
-    groupName: getNameByLocation(location),
-    visibility: getVisibilityByLocation(location)
+    groupName: getNameByLocation(state, location),
+    visibility: getVisibilityByLocation(state, location)
   };
 };
 

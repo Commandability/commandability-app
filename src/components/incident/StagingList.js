@@ -34,7 +34,7 @@ class StagingList extends React.PureComponent {
   };
 
   _renderItem = ({ item }) => {
-    return <GroupItem groupName={LOCATION} item={item} />;
+    return <GroupItem location={LOCATION} item={item} />;
   };
 
   _keyExtractor = (item, index) => item.id;

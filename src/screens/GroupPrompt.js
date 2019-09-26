@@ -9,10 +9,7 @@ import { removeGroup, editName } from "../../actions";
 
 default class GroupPrompt extends React.PureComponent {
   constructor(props){
-    super(props);
-    this.state = {
-      text: '',
-    };
+    super();
   }
   static navigationOptions = {
     title: 'Edit Group',
@@ -23,8 +20,8 @@ default class GroupPrompt extends React.PureComponent {
         <TextInput  
           style={{borderColor: 'gray', borderWidth: 1}}
           placeholder = "Please enter a new group name" 
-          onChangeText={(text) => this.setState({text})}
-          value={this.state.text}
+          onChangeText={(text) => editName(location, text))}
+          value={groupName}
           
         />
         <Text> Select all personnel in group </Text>
@@ -37,8 +34,8 @@ default class GroupPrompt extends React.PureComponent {
 const mapStateToProps = (state, ownProps) => {
   const { location } = ownProps;
   return {
-    groupName: getNameByLocation(location),
-    visibility: getVisibilityByLocation(location)
+    groupName: getNameByLocation(state, location),
+    visibility: getVisibilityByLocation(state, location)
   };
 };
 

@@ -74,7 +74,7 @@ const mapStateToProps = (state, ownProps) => {
     personnel: getPersonnelByLocation(state, groupName),
     selectedLocation: getSelectedLocation(state),
     selectedIds: getSelectedIds(state),
-    visibility: getVisibilityByLocation(location)
+    visibility: getVisibilityByLocation(state, location)
   };
 };
 

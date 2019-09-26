@@ -30,7 +30,7 @@ class GroupList extends React.PureComponent {
       selectedIds,
       clearSelectedPersonnel,
       setLocationById,
-      groupName
+      location
     } = this.props;
 
     // set each selected ids new location to the current group
@@ -51,7 +51,7 @@ class GroupList extends React.PureComponent {
       <TouchableOpacity
         onPress={this._onPress}
         disabled={
-          selectedLocation == null || selectedLocation == groupName || visibility
+          selectedLocation == null || selectedLocation == location || visibility
             ? true
             : false
         }
@@ -69,9 +69,9 @@ class GroupList extends React.PureComponent {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { groupName } = ownProps;
+  const { location } = ownProps;
   return {
-    personnel: getPersonnelByLocation(state, groupName),
+    personnel: getPersonnelByLocation(state, location),
     selectedLocation: getSelectedLocation(state),
     selectedIds: getSelectedIds(state),
     visibility: getVisibilityByLocation(state, location)

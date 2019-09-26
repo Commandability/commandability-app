@@ -29,7 +29,7 @@ class Group extends Component {
       return (
         <View style={styles.groupLayout}>
           <View style={styles.groupHeader}>
-            <Text style={styles.groupHeaderContent}> Group Title </Text>
+            <Text style={styles.groupHeaderContent}> {groupName} </Text>
             <TouchableOpacity style={{ flex: 1 }} onPress={() => this.props.navigation.navigate("Prompt")}>
               <Image
                 style={styles.settingsIcon}
@@ -64,13 +64,6 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-connect(
-  mapStateToProps,
-  {
-    addGroup,
-  }
-)(Group);
-
 var styles = StyleSheet.create({
   groupLayout: {
     flex: 1,
@@ -103,4 +96,9 @@ var styles = StyleSheet.create({
   }
 });
 
-export default withNavigation(Group);
+export default withNavigation(connect(
+  mapStateToProps,
+  {
+    addGroup,
+  }
+)(Group));

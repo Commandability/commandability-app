@@ -54,11 +54,11 @@ const removeGroup = (state, action) => {
 };
 
 export const getVisibilityByLocation = (state, location) => {
-  return state[location].visibility;
+  return state.group[location].visibility;
 };
 
 export const getNameByLocation = (state, location) => {
-  return state[location].name;
+  return state.group[location].name;
 }
 
 export default group = (state = initialState, action) => {

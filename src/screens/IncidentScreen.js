@@ -10,7 +10,6 @@ import {
   StyleSheet
 } from "react-native";
 import { NavBar, Group, Staging, Roster } from "../components/incident";
-import * as locations from "../modules/locations";
 import COLORS from "../modules/Colors";
 
 export default class IncidentScreen extends Component {
@@ -29,16 +28,16 @@ export default class IncidentScreen extends Component {
           </View>
           <View style={styles.groupArea}>
             <View style={styles.subGroupArea}>
-              <Group groupName={locations.GROUP_ONE} />
-              <Group groupName={locations.GROUP_TWO} />
+              <Group location={"group_one"} />
+              <Group location={"group_two"} />
             </View>
             <View style={styles.subGroupArea}>
-              <Group groupName={locations.GROUP_THREE} />
-              <Group groupName={locations.GROUP_FOUR} />
+              <Group location={"group_three"} />
+              <Group location={"group_four"} />
             </View>
             <View style={styles.subGroupArea}>
-              <Group groupName={locations.GROUP_FIVE} />
-              <Group groupName={locations.REHAB} />
+              <Group location={"group_five"} />
+              <Group location={"group_six"} />
             </View>
           </View>
         </View>

@@ -20,11 +20,8 @@ import { getNameByLocation, getVisibilityByLocation } from "../../reducers";
 import { addGroup } from "../../actions";
 
 class Group extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      
-    }
+  constructor() {
+    super();
   }
 
   render() {
@@ -47,7 +44,7 @@ class Group extends Component {
     else {
       return(
         <View style={{flex: 1}}>
-          <TouchableOpacity style={{flex:1}} onPress={this._toggleVisibility}>
+          <TouchableOpacity style={{flex:1}} onPress={addGroup(location)}>
             <Image
             style={styles.addButton}
             source={require("../../assets/add.png")}

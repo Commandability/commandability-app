@@ -26,6 +26,7 @@ class GroupPrompt extends React.PureComponent {
     title: 'Edit Group',
   }
   render() {
+    const { groupName, visibility } = this.props;
     return (
       <View>
         <TextInput  

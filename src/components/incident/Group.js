@@ -25,7 +25,8 @@ class Group extends Component {
   }
 
   render() {
-    if(true) {
+    const { groupName, visibility } = this.props;
+    if(visibility) {
       return (
         <View style={styles.groupLayout}>
           <View style={styles.groupHeader}>

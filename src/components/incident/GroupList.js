@@ -15,7 +15,8 @@ import { connect } from "react-redux";
 import {
   getPersonnelByLocation,
   getSelectedLocation,
-  getSelectedIds
+  getSelectedIds,
+  getVisibilityByLocation
 } from "../../reducers";
 import { clearSelectedPersonnel, setLocationById } from "../../actions";
 import GroupItem from "./GroupItem";
@@ -46,7 +47,7 @@ class GroupList extends React.PureComponent {
   _keyExtractor = (item, index) => item.id;
 
   render() {
-    const { location, personnel, selectedLocation } = this.props;
+    const { location, personnel, selectedLocation, visibility } = this.props;
     return (
       <TouchableOpacity
         onPress={this._onPress}

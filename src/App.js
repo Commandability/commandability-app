@@ -52,16 +52,14 @@ class HomeScreen extends React.Component {
       return <Login />;
     } else {
       return (
-        <PersistGate loading={null} persistor={persistor}>
           <View>
-            <Text>Welcome to CommandAbility {this.state.user.email}!</Text>
+            <Text>Welcome to Command Ability {this.state.user.email}!</Text>
             <Button
               onPress={() => this.props.navigation.navigate("Incident")}
               title={"Start Incident"}
             ></Button>
             <Button onPress={this._signOut} title="Sign out" />
           </View>
-        </PersistGate>
       );
     }
   }
@@ -69,11 +67,11 @@ class HomeScreen extends React.Component {
 
 const AppNavigator = createStackNavigator(
   {
-    Home: HomeScreen,
-    Incident: IncidentScreen
+    HomeScreen,
+    IncidentScreen
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "HomeScreen",
     defaultNavigationOptions: {
       headerStyle: {
         backgroundColor: COLORS.secondary.dark,
@@ -93,7 +91,9 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <AppContainer />
+        <PersistGate loading={null} persistor={persistor}>
+          <AppContainer />
+        </PersistGate>
       </Provider>
     );
   }

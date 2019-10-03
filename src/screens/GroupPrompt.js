@@ -6,6 +6,7 @@
 
 import React, { Component } from "react";
 import { TextInput, TouchableOpacity, Text, View, stylestyleSheet} from "react-native";
+import { StackNavigatior} from 'react-navigation';
 import { connect } from "react-redux";
 
 import {
@@ -19,7 +20,7 @@ class GroupPrompt extends React.PureComponent {
   constructor(props){
     super(props);
     this.state = {
-      text: groupName,
+      text: this.groupName,
     }
   }
   static navigationOptions = {
@@ -31,7 +32,7 @@ class GroupPrompt extends React.PureComponent {
       <View>
         <TextInput  
           style={{borderColor: 'gray', borderWidth: 1}}
-          placeholder = "Please enter a new group name" 
+          placeholder = "Please enter a new group name for "
           onChangeText={(text) => this.setState.text}
           value={this.state.text}
           
@@ -44,10 +45,10 @@ class GroupPrompt extends React.PureComponent {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { location } = ownProps;
+  const local = ownProps.navigation.state.params.local;
   return {
-    groupName: getNameByLocation(state, location),
-    visibility: getVisibilityByLocation(state, location)
+    groupName: getNameByLocation(state, local),
+    visibility: getVisibilityByLocation(state, local)
   };
 };
 

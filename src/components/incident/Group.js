@@ -23,15 +23,17 @@ class Group extends Component {
   constructor() {
     super();
   }
-
+  _onAddPressed = () => {
+    addGroup(this.props.location)
+  };
   render() {
     const { groupName, visibility } = this.props;
     if(visibility) {
       return (
         <View style={styles.groupLayout}>
           <View style={styles.groupHeader}>
-            <Text style={styles.groupHeaderContent}> {this.groupName} </Text>
-            <TouchableOpacity style={{ flex: 1 }} onPress={() => this.props.navigation.navigate("Prompt")}>
+            <Text style={styles.groupHeaderContent}> {groupName} </Text>
+            <TouchableOpacity style={{ flex: 1 }} onPress={() => this.props.navigation.navigate("Prompt", {local: this.props.location})}>
               <Image
                 style={styles.settingsIcon}
                 source={require("../../assets/settings_icon.png")}
@@ -45,7 +47,7 @@ class Group extends Component {
     else {
       return(
         <View style={{flex: 1}}>
-          <TouchableOpacity style={{flex:1}} onPress={addGroup(location)}>
+          <TouchableOpacity style={{flex:1}} onPress={this._onAddPressed}>
             <Image
             style={styles.addButton}
             source={require("../../assets/add.png")}

@@ -32,7 +32,7 @@ class GroupPrompt extends React.PureComponent {
       <View>
         <TextInput  
           style={{borderColor: 'gray', borderWidth: 1}}
-          placeholder = "Please enter a new group name for "
+          placeholder = "Please enter a new group name"
           onChangeText={(text) => this.setState.text}
           value={this.state.text}
           

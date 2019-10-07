@@ -1,11 +1,17 @@
+import Loading from "./Loading";
+import Login from "./Login";
+import Home from "./Home";
+import Incident from "./Incident";
 import GroupPrompt from "./GroupPrompt";
-import IncidentScreen from "./IncidentScreen";
 import PersonPrompt from "./PersonPrompt";
-import ReportPage from "./ReportPage";
+import Report from "./Report";
 
 export {
+  Loading,
+  Login,
+  Home,
+  Incident,
   GroupPrompt,
-  IncidentScreen,
   PersonPrompt,
-  ReportPage,
+  Report,
 };

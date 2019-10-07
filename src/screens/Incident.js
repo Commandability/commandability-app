@@ -1,21 +1,15 @@
 import React, { Component } from "react";
 import {
-  AppRegistry,
-  TouchableOpacity,
-  Flatlist,
-  Text,
   View,
-  Image,
-  Alert,
   StyleSheet
 } from "react-native";
 import { NavBar, Group, Staging, Roster } from "../components/incident";
 import * as locations from "../modules/locations";
 
-export default class IncidentScreen extends Component {
+export default class Incident extends Component {
   render() {
     return (
-      <View style={styles.incidentScreenLayout}>
+      <View style={styles.incidentLayout}>
         <NavBar />
         <View style={styles.pageLayout}>
           <View style={styles.stagingArea}>
@@ -43,7 +37,7 @@ export default class IncidentScreen extends Component {
 }
 
 var styles = StyleSheet.create({
-  incidentScreenLayout: {
+  incidentLayout: {
     flexDirection: "column",
     flex: 2
   },

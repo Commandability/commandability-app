@@ -51,7 +51,7 @@ const addPerson = (state, action) => {
 const removePerson = (state, action) => {
   const { payload } = action;
   const { id } = payload;
-  const { [id] = null, ...updatedPersonnel } = state;
+  const { [id]: removed, ...updatedPersonnel } = state;
   return updatedPersonnel;
 };
 

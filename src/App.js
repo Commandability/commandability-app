@@ -13,17 +13,18 @@ import COLORS from "./modules/colors";
 const { persistor, store } = configureStore();
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
-const AppStack = createStackNavigator({ Home, Incident });
+const AppStack = createStackNavigator({ Home });
 const AuthStack = createStackNavigator({ Login });
+const IncidentSwitch = createSwitchNavigator({ Incident });
 
 const AppNavigator = createSwitchNavigator(
   {
     Loading,
+    AuthStack,
     AppStack,
-    AuthStack
+    IncidentSwitch
   },
   {
-    initialRouteName: "Loading",
     defaultNavigationOptions: {
       headerStyle: {
         backgroundColor: COLORS.secondary.dark,

@@ -11,6 +11,8 @@ import com.facebook.react.PackageList;
 
 import java.util.List;
 
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -25,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
       List<ReactPackage> packages = new PackageList(this).getPackages();
       // additional non auto detected packages can still be added here:
       // packages.add(new SomeReactNativePackage());
+      // packages.add(new SplashScreenReactPackage());
       return packages;
     }
 

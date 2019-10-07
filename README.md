@@ -24,8 +24,9 @@ Download or clone this repository, then run `npm install` inside the directory.
  - [React Navigation](https://reactnavigation.org/)
  - [Firebase](https://firebase.google.com/)
  - [React Native Firebase](https://rnfirebase.io/)
- - [Asyncstorage](https://github.com/react-native-community/async-storage)
+ - [AsyncStorage](https://github.com/react-native-community/async-storage)
  - [uuid](https://github.com/kelektiv/node-uuid)
+ - [React Native Splash Screen](https://github.com/crazycodeboy/react-native-splash-screen)
 
 ## License
 This project is available under the [Apache 2.0 License](https://github.com/CommandAbility/CAA-2019/blob/master/LICENSE)

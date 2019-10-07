@@ -38,8 +38,7 @@ export default class Home extends Component {
     const { currentUser } = this.state;
     const { email } = currentUser || {}; // destructuring throws a type error with null objects
     return (
-      <View style={styles.container}>
-        <Text>Welcome to Command Ability {email}!</Text>
+      <View style={{flex: 1, backgroundColor: COLORS.primary.dark}}>
         <Button
           onPress={() => this.props.navigation.navigate("Incident")}
           title={"Start Incident"}
@@ -56,11 +55,3 @@ export default class Home extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  }
-});

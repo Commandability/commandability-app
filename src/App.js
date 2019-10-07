@@ -5,16 +5,25 @@ import { PersistGate } from "redux-persist/integration/react";
 import firebase from "@react-native-firebase/app";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
+import SplashScreen from "react-native-splash-screen";
 
 import configureStore from "./modules/configureStore";
 import { Loading, Login, Home, Incident } from "./screens";
 import COLORS from "./modules/colors";
 
-const { persistor, store } = configureStore();
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
-const AppStack = createStackNavigator({ Home });
-const AuthStack = createStackNavigator({ Login });
+const { persistor, store } = configureStore();
+
+const defaultNavigationOptions = {
+  headerStyle: {
+    backgroundColor: COLORS.secondary.dark,
+    height: SCREEN_HEIGHT / 12
+  }
+};
+
+const AppStack = createStackNavigator({ Home }, { defaultNavigationOptions });
+const AuthStack = createStackNavigator({ Login }, { defaultNavigationOptions });
 const IncidentSwitch = createSwitchNavigator({ Incident });
 
 const AppNavigator = createSwitchNavigator(
@@ -25,22 +34,16 @@ const AppNavigator = createSwitchNavigator(
     IncidentSwitch
   },
   {
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: COLORS.secondary.dark,
-        height: SCREEN_HEIGHT / 12
-      },
-      headerTintColor: "#fff",
-      headerTitleStyle: {
-        fontWeight: "bold"
-      }
-    }
+    defaultNavigationOptions
   }
 );
 
 const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
+  componentDidMount() {
+    SplashScreen.hide();
+  }
   render() {
     return (
       <Provider store={store}>

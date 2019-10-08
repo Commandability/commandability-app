@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import auth from "@react-native-firebase/auth";
+import SplashScreen from 'react-native-splash-screen';
 
 import COLORS from "../modules/colors";
 
@@ -13,13 +14,12 @@ export default class Loading extends React.Component {
   
   componentWillUnmount() {
     this.authSubscription(); // stop checking for auth state changes
+    SplashScreen.hide();
   }
 
   render() {
     return (
-      <View style={{flex: 1, backgroundColor: COLORS.primary.dark}}>
-        <ActivityIndicator size="large" />
-      </View>
+      <View/>
     );
   }
 }

@@ -41,9 +41,6 @@ const AppNavigator = createSwitchNavigator(
 const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
-  componentDidMount() {
-    SplashScreen.hide();
-  }
   render() {
     return (
       <Provider store={store}>

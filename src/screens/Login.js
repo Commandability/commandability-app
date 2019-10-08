@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { ActivityIndicator, Button, View, StyleSheet } from "react-native";
+import {
+  ActivityIndicator,
+  Button,
+  TextInput,
+  View,
+  StyleSheet
+} from "react-native";
 import auth from "@react-native-firebase/auth";
 
 import { NavBar, Group, Staging, Roster } from "../components/incident";
@@ -11,28 +17,59 @@ const password = "password";
 export default class Login extends Component {
   constructor() {
     super();
-    this.state = { loading: false };
+    this.state = { loading: false, email: "", password: "" };
   }
 
   _signIn = () => {
     this.setState({ loading: true });
+    const { email, password } = this.state;
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        this.setState({ loading: false });
         this.props.navigation.navigate("AppStack");
       })
-      .catch(err => console.log(err.message));
+      .catch(error =>
+        this.setState(prevState => ({
+          loading: false,
+          errorMessage: error,
+          email: prevState.email,
+          password: ""
+        }))
+      );
   };
 
   render() {
     return (
-      <View style={{flex: 1, backgroundColor: COLORS.primary.dark}}>
-        <Button onPress={this._signIn} title="Sign in" />
+      <View style={styles.container}>
+        <TextInput
+          style={styles.textInput}
+          autoCapitalize="none"
+          placeholder="Email"
+          placeholderTextColor={COLORS.primary.light}
+          disableFullscreenUI
+          keyboardType="email-address"
+          onChangeText={email => this.setState({ email })}
+          value={this.state.email}
+        />
+        <TextInput
+          style={styles.textInput}
+          autoCapitalize="none"
+          placeholder="Password"
+          placeholderTextColor={COLORS.primary.light}
+          disableFullscreenUI
+          secureTextEntry
+          onChangeText={password => this.setState({ password })}
+          value={this.state.password}
+        />
+        <Button
+          onPress={this._signIn}
+          title="Sign in"
+          color={COLORS.primary.light}
+        />
         {this.state.loading && (
           <ActivityIndicator
-            style={{ height: 80 }}
-            color={COLORS.secondary.dark}
+            style={styles.activityIndicator}
+            color={COLORS.secondary.light}
             size={"large"}
           />
         )}
@@ -44,7 +81,25 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.primary.dark,
     justifyContent: "center",
     alignItems: "center"
+  },
+  textInput: {
+    height: 40,
+    width: "90%",
+    color: "white",
+    borderColor: COLORS.primary.light,
+    borderWidth: 1,
+    margin: 8
+  },
+  activityIndicator: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    height: 80
   }
 });

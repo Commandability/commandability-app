@@ -1,18 +1,17 @@
 import React, { Component } from "react";
 import {
   ActivityIndicator,
+  Alert,
   Button,
   TextInput,
   View,
   StyleSheet
 } from "react-native";
 import auth from "@react-native-firebase/auth";
+import NetInfo from "@react-native-community/netinfo";
 
 import { NavBar, Group, Staging, Roster } from "../components/incident";
 import COLORS from "../modules/colors";
-
-const email = "test@test.com";
-const password = "password";
 
 export default class Login extends Component {
   constructor() {
@@ -23,19 +22,54 @@ export default class Login extends Component {
   _signIn = () => {
     this.setState({ loading: true });
     const { email, password } = this.state;
+
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         this.props.navigation.navigate("AppStack");
       })
-      .catch(error =>
+      .catch(error => {
+        // handle network connection errors
+        NetInfo.fetch().then(state => {
+          if (state.isConnected) {
+            let message = "";
+            switch (error.code) {
+              case "auth/invalid-email":
+                message = "The email address you entered is invalid. ";
+                break;
+              case "auth/user-not-found":
+              case "auth/wrong-password":
+                message =
+                  "The username and password you entered do not match our records. ";
+                break;
+              default:
+                message = "Unknown error. ";
+            }
+
+            Alert.alert("Error", message, [
+              {
+                text: "OK"
+              }
+            ]);
+          } else {
+            Alert.alert(
+              "Failed to connect to the network. ",
+              "Please check your network connection status. ",
+              [
+                {
+                  text: "OK"
+                }
+              ]
+            );
+          }
+        });
+
         this.setState(prevState => ({
           loading: false,
-          errorMessage: error,
           email: prevState.email,
           password: ""
-        }))
-      );
+        }));
+      });
   };
 
   render() {
@@ -65,6 +99,7 @@ export default class Login extends Component {
           onPress={this._signIn}
           title="Sign in"
           color={COLORS.primary.light}
+          disabled={this.state.email && this.state.password ? false : true}
         />
         {this.state.loading && (
           <ActivityIndicator
@@ -91,7 +126,7 @@ const styles = StyleSheet.create({
     color: "white",
     borderColor: COLORS.primary.light,
     borderWidth: 1,
-    margin: 8
+    marginBottom: 8
   },
   activityIndicator: {
     position: "absolute",

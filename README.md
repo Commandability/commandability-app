@@ -25,6 +25,7 @@ Download or clone this repository, then run `npm install` inside the directory.
  - [Firebase](https://firebase.google.com/)
  - [React Native Firebase](https://rnfirebase.io/)
  - [AsyncStorage](https://github.com/react-native-community/async-storage)
+ - [NetInfo](https://github.com/react-native-community/react-native-netinfo)
  - [uuid](https://github.com/kelektiv/node-uuid)
  - [React Native Splash Screen](https://github.com/crazycodeboy/react-native-splash-screen)
 

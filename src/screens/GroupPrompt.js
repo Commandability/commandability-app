@@ -20,7 +20,7 @@ class GroupPrompt extends React.PureComponent {
   constructor(props){
     super(props);
     this.state = {
-      text: this.groupName,
+      text: this.props.groupName,
     }
   }
   static navigationOptions = {
@@ -45,7 +45,7 @@ class GroupPrompt extends React.PureComponent {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const local = ownProps.navigation.state.params.local;
+  const local = ownProps.navigation.getParam('local', 'default');
   return {
     groupName: getNameByLocation(state, local),
     visibility: getVisibilityByLocation(state, local)

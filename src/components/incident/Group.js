@@ -24,7 +24,7 @@ class Group extends Component {
     super();
   }
   _onAddPressed = () => {
-    addGroup(this.props.location)
+    addGroup(this.props.location, true)
   };
   render() {
     const { groupName, visibility } = this.props;
@@ -98,7 +98,6 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
   }
 });
-
 export default withNavigation(connect(
   mapStateToProps,
   {

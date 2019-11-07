@@ -13,16 +13,16 @@ export const editName = ({ location, name}) => {
   };
 };
 
-export const addGroup = ({ location, visibility }) => {
+export const addGroup = ({ location }) => {
   return {
     type: ADD_GROUP,
-    payload: { location, visibility }
+    payload: { location }
   };
 };
 
-export const removeGroup = ({ location, visibility }) => {
+export const removeGroup = ({ location }) => {
   return {
     type: REMOVE_GROUP,
-    payload: { location, visibility }
+    payload: { location }
   };
 };

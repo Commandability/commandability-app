@@ -24,7 +24,7 @@ class Group extends Component {
     super();
   }
   _onAddPressed = () => {
-    addGroup(this.props.location, true)
+    this.props.addGroup({location: this.props.location})
   };
   render() {
     const { groupName, visibility } = this.props;

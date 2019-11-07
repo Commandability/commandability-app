@@ -20,7 +20,8 @@ const editName = (state, action) => {
     ...state,
     [location]: {
       ...group,
-      name
+      name,
+      visibility: true
     }
   };
   return state;
@@ -28,13 +29,13 @@ const editName = (state, action) => {
 
 const addGroup = (state, action) => {
   const { payload } = action;
-	const { location, visibility } = payload;
+	const { location } = payload;
 	const group = state[location]
   return {
 		...state,
 		[location]: {
-			...group,
-			visibility
+      ...group,
+			visibility: true
 		}
 	};
 	return state;
@@ -42,13 +43,13 @@ const addGroup = (state, action) => {
 
 const removeGroup = (state, action) => {
   const { payload } = action;
-	const { location, visibility } = payload;
+	const { location } = payload;
 	const group = state[location]
   return {
 		...state,
 		[location]: {
-			...group,
-			visibility
+      ...group,
+			visibility: false
 		}
 	};
 	return state;

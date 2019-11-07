@@ -20,25 +20,43 @@ class GroupPrompt extends React.PureComponent {
   constructor(props){
     super(props);
     this.state = {
-      text: this.props.groupName,
+      text: '',
     }
   }
   static navigationOptions = {
     title: 'Edit Group',
   }
+
+  _onRemovePressed = (local) => {
+    this.props.removeGroup({ location: local})
+  };
+
+  _onEditPressed =(local, value) => {
+    this.props.editName({location: local, name: value})
+  };
+
   render() {
-    const { groupName, visibility } = this.props;
+    const {goBack} = this.props.navigation;
+    const { groupName, visibility, local } = this.props;
     return (
-      <View>
-        <TextInput  
-          style={{borderColor: 'gray', borderWidth: 1}}
-          placeholder = "Please enter a new group name"
-          onChangeText={(text) => this.setState.text}
-          value={this.state.text}
-          
-        />
-        <Text> Select all personnel in group </Text>
-        <Text> Delete group </Text>
+      <View style={{flex:1}}>
+        <View style={{flex:1}}>
+          <TextInput  
+            style={{borderColor: 'gray', borderWidth: 1}}
+            placeholder = "Please enter a new group name"
+            value={this.state.text}
+            onChangeText={(text) => this.setState({ text: text})}
+          />
+          <Text> Select all personnel in group </Text>
+        </View>
+        <View style={{flex:1, borderWidth: 1}}>
+          <TouchableOpacity onPress={this._onEditPressed(local, this.state.text)} onPress={() => goBack(null)}>
+            <Text>Save name change and exit</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{flex:1, borderWidth: 1}}>
+          <TouchableOpacity  onPress={this._onRemovePressed(local)} onPress={() => goBack(null)}><Text> Delete Group</Text></TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -48,7 +66,8 @@ const mapStateToProps = (state, ownProps) => {
   const local = ownProps.navigation.getParam('local', 'default');
   return {
     groupName: getNameByLocation(state, local),
-    visibility: getVisibilityByLocation(state, local)
+    visibility: getVisibilityByLocation(state, local),
+    local: local
   };
 };
 

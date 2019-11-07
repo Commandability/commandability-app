@@ -15,6 +15,7 @@ import personnel, * as fromPersonnel from "./PersonnelReducer";
 import group, * as fromGroup from "./GroupReducer";
 import selected, * as fromSelected from "./SelectedReducer";
 import { RESET_APP } from "../actions/types";
+import GroupReducer from "./GroupReducer";
 
 // personnel reducer config, set persisted data to autoMergeLevel2 to track personnel changes
 // https://blog.reactnativecoach.com/the-definitive-guide-to-redux-persist-84738167975
@@ -49,6 +50,7 @@ const rootReducer = (state, action) => {
     // https://stackoverflow.com/questions/35622588/how-to-reset-the-state-of-a-redux-store
     state = undefined;
     purgeStoredState(personnelPersistConfig);
+    purgeStoredState(groupPersistConfig);
     purgeStoredState(rootPersistConfig);
   }
   return appReducer(state, action);

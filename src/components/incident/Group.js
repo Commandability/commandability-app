@@ -13,7 +13,7 @@ import { TouchableOpacity, Text, View, Image, StyleSheet } from "react-native";
 import COLORS from "../../modules/Colors";
 import { scaleFont } from "../../modules/Fonts";
 import GroupList from "./GroupList";
-import { withNavigation } from 'react-navigation';
+import { withNavigation } from "react-navigation";
 import { connect } from "react-redux";
 
 import { getNameByLocation, getVisibilityByLocation } from "../../reducers";
@@ -23,17 +23,28 @@ class Group extends Component {
   constructor() {
     super();
   }
+
   _onAddPressed = () => {
-    this.props.addGroup({location: this.props.location})
+    const { addGroup, location } = this.props;
+    addGroup({ location });
   };
+
+  _onSettingsPressed = () => {
+    const { navigation, location } = this.props;
+    navigation.navigate("Prompt", { local: location });
+  };
+
   render() {
     const { groupName, visibility } = this.props;
-    if(visibility) {
+    if (visibility) {
       return (
         <View style={styles.groupLayout}>
           <View style={styles.groupHeader}>
             <Text style={styles.groupHeaderContent}> {groupName} </Text>
-            <TouchableOpacity style={{ flex: 1 }} onPress={() => this.props.navigation.navigate("Prompt", {local: this.props.location})}>
+            <TouchableOpacity
+              style={{ flex: 1 }}
+              onPress={this._onSettingsPressed}
+            >
               <Image
                 style={styles.settingsIcon}
                 source={require("../../assets/settings_icon.png")}
@@ -43,18 +54,17 @@ class Group extends Component {
           <GroupList location={this.props.location} />
         </View>
       );
-    }
-    else {
-      return(
-        <View style={{flex: 1}}>
-          <TouchableOpacity style={{flex:1}} onPress={this._onAddPressed}>
+    } else {
+      return (
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity style={{ flex: 1 }} onPress={this._onAddPressed}>
             <Image
-            style={styles.addButton}
-            source={require("../../assets/add.png")}
+              style={styles.addButton}
+              source={require("../../assets/add.png")}
             ></Image>
           </TouchableOpacity>
         </View>
-      )
+      );
     }
   }
 }
@@ -94,13 +104,15 @@ var styles = StyleSheet.create({
   },
   addButton: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
-export default withNavigation(connect(
-  mapStateToProps,
-  {
-    addGroup,
-  }
-)(Group));
+export default withNavigation(
+  connect(
+    mapStateToProps,
+    {
+      addGroup
+    }
+  )(Group)
+);

@@ -1,61 +1,65 @@
 /**
  * GroupPrompt Component
- * 
+ *
  * Displays the options for editing a group. Can take user input for a new group name, or remove the group
  */
 
 import React, { Component } from "react";
-import { TextInput, TouchableOpacity, Text, View, stylestyleSheet} from "react-native";
-import { StackNavigatior} from 'react-navigation';
+import { TextInput, TouchableOpacity, Text, View } from "react-native";
+import { StackNavigatior } from "react-navigation";
 import { connect } from "react-redux";
 
-import {
-  getNameByLocation,
-  getVisibilityByLocation
-} from "../reducers";
+import { getNameByLocation, getVisibilityByLocation } from "../reducers";
 
 import { removeGroup, editName } from "../actions";
 
-class GroupPrompt extends React.PureComponent {
-  constructor(props){
+class GroupPrompt extends Component {
+  constructor(props) {
     super(props);
     this.state = {
-      text: '',
-    }
-  }
-  static navigationOptions = {
-    title: 'Edit Group',
+      text: ""
+    };
   }
 
-  _onRemovePressed = (local) => {
-    this.props.removeGroup({ location: local})
+  static navigationOptions = {
+    title: "Edit Group"
   };
 
-  _onEditPressed =(local, value) => {
-    this.props.editName({location: local, name: value})
+  _onRemovePressed = () => {
+    const { navigation, removeGroup, local } = this.props;
+    const { goBack } = navigation;
+    removeGroup({ location: local });
+    goBack();
+  };
+
+  _onEditPressed = () => {
+    const { editName, local } = this.props;
+    const { text } = this.state || {};
+    editName({ location: local, name: text });
   };
 
   render() {
-    const {goBack} = this.props.navigation;
-    const { groupName, visibility, local } = this.props;
     return (
-      <View style={{flex:1}}>
-        <View style={{flex:1}}>
-          <TextInput  
-            style={{borderColor: 'gray', borderWidth: 1}}
-            placeholder = "Please enter a new group name"
+      <View style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+          <TextInput
+            style={{ borderColor: "gray", borderWidth: 1 }}
+            placeholder="Please enter a new group name"
             value={this.state.text}
-            onChangeText={(text) => this.setState({ text: text})}
+            onChangeText={text => this.setState({ text: text })}
           />
-          <Text> Select all personnel in group </Text>
         </View>
-        <View style={{flex:1, borderWidth: 1}}>
-          <TouchableOpacity onPress={this._onEditPressed(local, this.state.text)} onPress={() => goBack(null)}>
+
+        <View style={{ flex: 1, borderWidth: 1 }}>
+          <TouchableOpacity onPress={this._onEditPressed}>
             <Text>Save name change and exit</Text>
           </TouchableOpacity>
         </View>
-        <View style={{flex:1, borderWidth: 1}}>
-          <TouchableOpacity  onPress={this._onRemovePressed(local)} onPress={() => goBack(null)}><Text> Delete Group</Text></TouchableOpacity>
+
+        <View style={{ flex: 1, borderWidth: 1 }}>
+          <TouchableOpacity onPress={this._onRemovePressed}>
+            <Text>Delete Group</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -63,7 +67,7 @@ class GroupPrompt extends React.PureComponent {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const local = ownProps.navigation.getParam('local', 'default');
+  const local = ownProps.navigation.getParam("local", "default");
   return {
     groupName: getNameByLocation(state, local),
     visibility: getVisibilityByLocation(state, local),

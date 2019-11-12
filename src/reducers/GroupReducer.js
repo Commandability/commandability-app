@@ -24,7 +24,6 @@ const editName = (state, action) => {
       visibility: true
     }
   };
-  return state;
 };
 
 const addGroup = (state, action) => {

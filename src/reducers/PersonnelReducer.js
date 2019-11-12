@@ -70,7 +70,6 @@ const setLocation = (state, action) => {
       location
     }
   };
-  return state;
 };
 
 // set all locations to default at end of incident

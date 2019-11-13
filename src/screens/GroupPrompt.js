@@ -33,9 +33,11 @@ class GroupPrompt extends Component {
   };
 
   _onEditPressed = () => {
-    const { editName, local } = this.props;
+    const { navigation, editName, local } = this.props;
     const { text } = this.state || {};
+    const { goBack } = navigation;
     editName({ location: local, name: text });
+    goBack();
   };
 
   render() {

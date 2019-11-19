@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 
 import { getNameByLocation, getVisibilityByLocation } from "../reducers";
 
-import { removeGroup, editName } from "../actions";
+import { removeGroup, editName, logRemoveGroup, logEditName } from "../actions";
 
 class GroupPrompt extends Component {
   constructor(props) {
@@ -29,6 +29,7 @@ class GroupPrompt extends Component {
     const { navigation, removeGroup, local } = this.props;
     const { goBack } = navigation;
     removeGroup({ location: local });
+    logRemoveGroup({location: local, time: "anytime"})
     goBack();
   };
 
@@ -37,6 +38,7 @@ class GroupPrompt extends Component {
     const { text } = this.state || {};
     const { goBack } = navigation;
     editName({ location: local, name: text });
+    logEditName({ location: local, name: text, time: "anytime"})
     goBack();
   };
 

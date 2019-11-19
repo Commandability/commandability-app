@@ -14,8 +14,23 @@ import {
 } from "react-native";
 import COLORS from "../../modules/Colors";
 import { scaleFont } from "../../modules/Fonts";
+import { getReport } from "../../reducers/ReportReducer";
 
-export default class NavBar extends Component {
+default class NavBar extends Component {
+
+  _onReportPressed = () => {
+    const report = getReport(state);
+    Alert.alert(
+      'Report Page',
+      'test',
+      [
+        {text: 'Cancel'},
+        {text: 'OK'},
+      ],
+      {cancelable: false},
+    );
+  }
+
   render() {
     return (
       <View style={styles.navBar}>
@@ -29,12 +44,25 @@ export default class NavBar extends Component {
         </View>
         <View style={styles.pageTabs}></View>
         <View style={styles.pageOptions}>
-          <Text style={styles.pageOptionContent}> Options </Text>
+          <TouchableOpacity style={{flex:1}} onPress={this._onReportPressed}>
+            <Text style={styles.pageOptionContent}> Report </Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    report: getReport(state),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { }
+)(NavBar);
 
 var styles = StyleSheet.create({
   navBar: {

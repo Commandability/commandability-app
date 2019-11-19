@@ -16,13 +16,15 @@ import COLORS from "../../modules/Colors";
 import { scaleFont } from "../../modules/Fonts";
 import { getReport } from "../../reducers/ReportReducer";
 
-default class NavBar extends Component {
+import { connect } from "react-redux";
+
+class NavBar extends Component {
 
   _onReportPressed = () => {
-    const report = getReport(state);
+    const report = this.props;
     Alert.alert(
       'Report Page',
-      'test',
+      report,
       [
         {text: 'Cancel'},
         {text: 'OK'},

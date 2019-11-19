@@ -24,7 +24,7 @@ class NavBar extends Component {
     const report = this.props;
     Alert.alert(
       'Report Page',
-      report,
+      JSON.stringify(report),
       [
         {text: 'Cancel'},
         {text: 'OK'},

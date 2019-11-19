@@ -52,7 +52,7 @@ class GroupList extends React.PureComponent {
       <TouchableOpacity
         onPress={this._onPress}
         disabled={
-          selectedLocation == null || selectedLocation == location || visibility
+          selectedLocation == null || selectedLocation == location 
             ? true
             : false
         }

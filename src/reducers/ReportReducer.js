@@ -17,7 +17,10 @@ const logEditName = (state, action) => {
   const { location, name, time } = payload; 
   return {
     ...state,
-      log:"At "+time+", the "+location+" group was renamed to "+name,
+    [time]: {
+      time: time,
+      log:"The "+location+" group was renamed to "+name,
+    }
   };
 };
 
@@ -25,8 +28,11 @@ const logAddGroup = (state, action) => {
   const { payload } = action;
 	const { location, time } = payload;
   return {
-		...state,
-      log:"At "+time+", a new "+location+" group was added",
+    ...state,
+    [time]: {
+      time: time,
+      log:"A new "+location+" group was added",
+    }
 	};
 	return state;
 };
@@ -36,13 +42,17 @@ const logRemoveGroup = (state, action) => {
 	const { location, time } = payload;
   return {
     ...state,
-			log: "At "+time+", a new "+location+" group was added",
+      [time]: {
+        time: time,
+        log: "The "+location+" group was removed",
+      }
 	};
 	return state;
 };
 
 export const getReport = (state) => {
-  return Object.values(state);
+  var reportList = Object.keys(state.report).map(i => state.report[i]);
+  return reportList;
 }
 
 export default (report = (state = initialState, action) => {

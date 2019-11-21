@@ -16,14 +16,14 @@ const logEditName = (state, action) => {
   var hour = new Date().getHours();
   var minute = new Date().getMinutes();
   var second = new Date().getSeconds();
-  const time = hour + ":" + minute + ":" + second;
+  const time = `${hour}:${minute}:${second}`;
   const { payload } = action;
   const { location, name } = payload; 
   return {
     ...state,
     [time]: {
       time: time,
-      log:"The "+location+" group was renamed to "+name,
+      log:`The ${location} group was renamed to ${name}`,
     }
   };
 };
@@ -32,14 +32,14 @@ const logAddGroup = (state, action) => {
   var hour = new Date().getHours();
   var minute = new Date().getMinutes();
   var second = new Date().getSeconds();
-  const time = hour + ":" + minute + ":" + second;
+  const time = `${hour}:${minute}:${second}`;
   const { payload } = action;
 	const { location } = payload;
   return {
     ...state,
     [time]: {
       time: time,
-      log:"A new "+location+" group was added",
+      log:`The ${location} group was added`,
     }
 	};
 	return state;
@@ -49,22 +49,21 @@ const logRemoveGroup = (state, action) => {
   var hour = new Date().getHours();
   var minute = new Date().getMinutes();
   var second = new Date().getSeconds();
-  const time = hour + ":" + minute + ":" + second;
+  const time = `${hour}:${minute}:${second}`;
   const { payload } = action;
 	const { location } = payload;
   return {
     ...state,
       [time]: {
         time: time,
-        log: "The "+location+" group was removed",
+        log: `The ${location} group was removed`,
       }
 	};
 	return state;
 };
 
 export const getReport = (state) => {
-  var reportList = Object.keys(state.report).map(i => state.report[i]);
-  return reportList;
+  return state.report;
 }
 
 export default (report = (state = initialState, action) => {

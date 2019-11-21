@@ -26,25 +26,17 @@ class GroupPrompt extends Component {
   };
 
   _onRemovePressed = () => {
-    var hour = new Date().getHours();
-    var minute = new Date().getMinutes();
-    var second = new Date().getSeconds();
     const { navigation, removeGroup, local } = this.props;
     const { goBack } = navigation;
     removeGroup({ location: local });
-    logRemoveGroup({location: local, time: hour+":"+minute+":"+second})
     goBack();
   };
 
   _onEditPressed = () => {
-    var hour = new Date().getHours();
-    var minute = new Date().getMinutes();
-    var second = new Date().getSeconds();
     const { navigation, editName, local } = this.props;
     const { text } = this.state || {};
     const { goBack } = navigation;
     editName({ location: local, name: text });
-    logEditName({ location: local, name: text, time: hour+":"+minute+":"+second})
     goBack();
   };
 

@@ -13,8 +13,12 @@ const initialState = {
 };
 
 const logEditName = (state, action) => {
+  var hour = new Date().getHours();
+  var minute = new Date().getMinutes();
+  var second = new Date().getSeconds();
+  const time = hour + ":" + minute + ":" + second;
   const { payload } = action;
-  const { location, name, time } = payload; 
+  const { location, name } = payload; 
   return {
     ...state,
     [time]: {
@@ -25,8 +29,12 @@ const logEditName = (state, action) => {
 };
 
 const logAddGroup = (state, action) => {
+  var hour = new Date().getHours();
+  var minute = new Date().getMinutes();
+  var second = new Date().getSeconds();
+  const time = hour + ":" + minute + ":" + second;
   const { payload } = action;
-	const { location, time } = payload;
+	const { location } = payload;
   return {
     ...state,
     [time]: {
@@ -38,8 +46,12 @@ const logAddGroup = (state, action) => {
 };
 
 const logRemoveGroup = (state, action) => {
+  var hour = new Date().getHours();
+  var minute = new Date().getMinutes();
+  var second = new Date().getSeconds();
+  const time = hour + ":" + minute + ":" + second;
   const { payload } = action;
-	const { location, time } = payload;
+	const { location } = payload;
   return {
     ...state,
       [time]: {

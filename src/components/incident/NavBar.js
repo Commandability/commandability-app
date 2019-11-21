@@ -30,7 +30,7 @@ class NavBar extends Component {
 
     Alert.alert(
       'Report Page',
-      convertedReport,
+      convertedReport.trim(),
       [
         {text: 'Cancel'},
         {text: 'OK'},

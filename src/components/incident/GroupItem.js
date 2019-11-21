@@ -1,5 +1,5 @@
 /**
- * ListItem Component
+ * GroupItem Component
  *
  * props:
  *  - groupName: the parent groupName
@@ -16,7 +16,7 @@ import { getSelectedLocation } from "../../reducers";
 import { toggleSelectedById } from "../../actions";
 import { scaleFont } from "../../modules/Fonts";
 
-class ListItem extends Component {
+class GroupItem extends Component {
   constructor() {
     super();
     this.state = {
@@ -29,19 +29,19 @@ class ListItem extends Component {
       selected: !prevState.selected
     }));
 
-    const { item, groupName, toggleSelectedById } = this.props;
-    toggleSelectedById(item.id, groupName);
+    const { item, location, toggleSelectedById } = this.props;
+    toggleSelectedById(item.id, location);
   };
 
   render() {
-    const { item, groupName, selectedLocation } = this.props;
+    const { item, location, selectedLocation } = this.props;
     return (
       // disable item if a list other than the parent list is selected,
       // so items can be moved to the items parent list
       <TouchableOpacity
         onPress={this._onPress}
         disabled={
-          selectedLocation == groupName || selectedLocation == null
+          selectedLocation == location || selectedLocation == null
             ? false
             : true
         }
@@ -67,7 +67,7 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(
   mapStateToProps,
   { toggleSelectedById }
-)(ListItem);
+)(GroupItem);
 
 var styles = StyleSheet.create({
   itemContent: {

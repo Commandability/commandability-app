@@ -36,7 +36,7 @@ const logAddGroup = (state, action) => {
   var hour = new Date().getHours();
   var minute = new Date().getMinutes();
   var second = new Date().getSeconds();
-  const displayTime = `${hour}:${minute}:${second}`;
+  const time = `${hour}:${minute}:${second}`;
   const { payload } = action;
 	const { location } = payload;
   return {

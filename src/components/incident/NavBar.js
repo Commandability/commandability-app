@@ -21,7 +21,7 @@ import { connect } from "react-redux";
 class NavBar extends Component {
 
   _onReportPressed = () => {
-    const { report }= this.props;
+    const { report } = this.props;
     let convertedReport = '';
     for (const entry in report){
       const {time, log} = report[entry];

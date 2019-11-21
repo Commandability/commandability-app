@@ -8,11 +8,14 @@ import { combineReducers } from "redux";
 
 import { EDIT_NAME, ADD_GROUP, REMOVE_GROUP, SET_LOCATION } from "../actions/types";
 
+import uuidv4 from "uuid/v4";
+
 const initialState = {
   report: {}
 };
 
 const logEditName = (state, action) => {
+  const id = uuidv4();
   var hour = new Date().getHours();
   var minute = new Date().getMinutes();
   var second = new Date().getSeconds();
@@ -21,7 +24,7 @@ const logEditName = (state, action) => {
   const { location, name } = payload; 
   return {
     ...state,
-    [time]: {
+    [id]: {
       time: time,
       log:`The ${location} group was renamed to ${name}`,
     }
@@ -29,15 +32,16 @@ const logEditName = (state, action) => {
 };
 
 const logAddGroup = (state, action) => {
+  const id = uuidv4();
   var hour = new Date().getHours();
   var minute = new Date().getMinutes();
   var second = new Date().getSeconds();
-  const time = `${hour}:${minute}:${second}`;
+  const displayTime = `${hour}:${minute}:${second}`;
   const { payload } = action;
 	const { location } = payload;
   return {
     ...state,
-    [time]: {
+    [id]: {
       time: time,
       log:`The ${location} group was added`,
     }
@@ -46,6 +50,7 @@ const logAddGroup = (state, action) => {
 };
 
 const logRemoveGroup = (state, action) => {
+  const id = uuidv4();
   var hour = new Date().getHours();
   var minute = new Date().getMinutes();
   var second = new Date().getSeconds();
@@ -54,7 +59,7 @@ const logRemoveGroup = (state, action) => {
 	const { location } = payload;
   return {
     ...state,
-      [time]: {
+      [id]: {
         time: time,
         log: `The ${location} group was removed`,
       }

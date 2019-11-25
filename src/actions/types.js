@@ -8,3 +8,5 @@ export const CLEAR_SELECTED_PERSONNEL = "CLEAR_SELECTED_PERSONNEL";
 export const EDIT_NAME = "EDIT_NAME";
 export const ADD_GROUP = "ADD_GROUP";
 export const REMOVE_GROUP = "REMOVE_GROUP";
+export const START_INCIDENT = "START_INCIDENT";
+export const END_INCIDENT = "END_INCIDENT";

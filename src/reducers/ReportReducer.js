@@ -6,7 +6,7 @@
 
 import { combineReducers } from "redux";
 
-import { EDIT_NAME, ADD_GROUP, REMOVE_GROUP, SET_LOCATION } from "../actions/types";
+import { EDIT_NAME, ADD_GROUP, REMOVE_GROUP, SET_LOCATION, RESET_INCIDENT, START_INCIDENT, END_INCIDENT } from "../actions/types";
 
 import uuidv4 from "uuid/v4";
 
@@ -67,6 +67,44 @@ const logRemoveGroup = (state, action) => {
 	return state;
 };
 
+const logResetIncident = (state, action) => {
+  const { payload } = action;
+  state = undefined;
+  return { state }
+}
+
+const logStartIncident = (state, action) => {
+  const id = uuidv4();
+  var hour = new Date().getHours();
+  var minute = new Date().getMinutes();
+  var second = new Date().getSeconds();
+  const time = `${hour}:${minute}:${second}`;
+  return {
+    ...state,
+      [id]: {
+        time: time,
+        log: `The incident has been started`,
+      }
+	};
+	return state;
+}
+
+const logEndIncident = (state, action) => {
+  const id = uuidv4();
+  var hour = new Date().getHours();
+  var minute = new Date().getMinutes();
+  var second = new Date().getSeconds();
+  const time = `${hour}:${minute}:${second}`;
+  return {
+    ...state,
+      [id]: {
+        time: time,
+        log: `The incident has been ended`,
+      }
+	};
+	return state;
+}
+
 export const getReport = (state) => {
   return state.report;
 }
@@ -79,6 +117,12 @@ export default (report = (state = initialState, action) => {
       return logAddGroup(state, action);
     case REMOVE_GROUP:
       return logRemoveGroup(state, action);
+    case RESET_INCIDENT:
+      return logResetIncident(state, action);
+    case START_INCIDENT:
+      return logStartIncident(state, action);
+    case END_INCIDENT:
+      return logEndIncident(state, action);
     default:
       return state;
   }

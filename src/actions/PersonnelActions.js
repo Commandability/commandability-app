@@ -10,7 +10,6 @@ import {
   ADD_PERSON,
   REMOVE_PERSON,
   SET_LOCATION,
-  RESET_INCIDENT,
   TOGGLE_SELECTED,
   CLEAR_SELECTED_PERSONNEL
 } from "./types";
@@ -33,8 +32,4 @@ export const removePersonById = id => ({
 export const setLocationById = (id, location) => ({
   type: SET_LOCATION,
   payload: { id, location }
-});
-
-export const resetIncident = () => ({
-  type: RESET_INCIDENT
 });

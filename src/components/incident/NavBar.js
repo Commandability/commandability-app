@@ -17,6 +17,7 @@ import { scaleFont } from "../../modules/Fonts";
 import { getReport } from "../../reducers/ReportReducer";
 
 import { connect } from "react-redux";
+import { resetIncident, endIncident } from "../../actions";
 
 class NavBar extends Component {
 
@@ -37,7 +38,15 @@ class NavBar extends Component {
       ],
       {cancelable: false},
     );
-  }
+  };
+
+  _onResetPressed = () => {
+    resetIncident();
+  };
+
+  _onEndPressed = () => {
+    endIncident();
+  };
 
   render() {
     return (
@@ -54,6 +63,16 @@ class NavBar extends Component {
         <View style={styles.pageOptions}>
           <TouchableOpacity style={{flex:1}} onPress={this._onReportPressed}>
             <Text style={styles.pageOptionContent}> Report </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.pageOptions}>
+          <TouchableOpacity style={{flex:1}} onPress={this._onResetPressed}>
+            <Text style={styles.pageOptionContent}> Reset </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.pageOptions}>
+          <TouchableOpacity style={{flex:1}} onPress={this._onEndPressed}>
+            <Text style={styles.pageOptionContent}> End </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -99,7 +118,8 @@ var styles = StyleSheet.create({
   },
   pageOptions: {
     flex: 1,
-    justifyContent: "center"
+    justifyContent: "center",
+    borderWidth: 1
   },
   pageOptionContent: {
     fontSize: scaleFont(5),

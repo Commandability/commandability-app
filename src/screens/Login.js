@@ -16,60 +16,57 @@ import COLORS from "../modules/colors";
 export default class Login extends Component {
   constructor() {
     super();
-    this.state = { loading: false, email: "", password: "" };
+    this.state = { loading: false, email: "test@test.com", password: "password" };
   }
 
-  _signIn = () => {
+  _signIn = async () => {
     this.setState({ loading: true });
     const { email, password } = this.state;
+    try {
+      await auth().signInWithEmailAndPassword(email, password);
+      this.props.navigation.navigate("AppStack");
+    } catch(error){
+      // handle network connection errors
+      NetInfo.fetch().then(state => {
+        if (state.isConnected) {
+          let message = "";
+          switch (error.code) {
+            case "auth/invalid-email":
+              message = "The email address you entered is invalid. ";
+              break;
+            case "auth/user-not-found":
+            case "auth/wrong-password":
+              message =
+                "The username and password you entered do not match our records. ";
+              break;
+            default:
+              message = "Unknown error. ";
+          }
 
-    auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        this.props.navigation.navigate("AppStack");
-      })
-      .catch(error => {
-        // handle network connection errors
-        NetInfo.fetch().then(state => {
-          if (state.isConnected) {
-            let message = "";
-            switch (error.code) {
-              case "auth/invalid-email":
-                message = "The email address you entered is invalid. ";
-                break;
-              case "auth/user-not-found":
-              case "auth/wrong-password":
-                message =
-                  "The username and password you entered do not match our records. ";
-                break;
-              default:
-                message = "Unknown error. ";
+          Alert.alert("Error", message, [
+            {
+              text: "OK"
             }
-
-            Alert.alert("Error", message, [
+          ]);
+        } else {
+          Alert.alert(
+            "Failed to connect to the network. ",
+            "Please check your network connection status. ",
+            [
               {
                 text: "OK"
               }
-            ]);
-          } else {
-            Alert.alert(
-              "Failed to connect to the network. ",
-              "Please check your network connection status. ",
-              [
-                {
-                  text: "OK"
-                }
-              ]
-            );
-          }
-        });
-
-        this.setState(prevState => ({
-          loading: false,
-          email: prevState.email,
-          password: ""
-        }));
+            ]
+          );
+        }
       });
+
+      this.setState(prevState => ({
+        loading: false,
+        email: prevState.email,
+        password: ""
+      }));
+    }
   };
 
   render() {

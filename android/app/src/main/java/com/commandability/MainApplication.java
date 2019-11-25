@@ -11,6 +11,8 @@ import com.facebook.react.PackageList;
 
 import java.util.List;
 
+// import org.devio.rn.splashscreen.SplashScreenReactPackage; // unnecessary, causes crashes in 0.60+
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -24,7 +26,8 @@ public class MainApplication extends Application implements ReactApplication {
       @SuppressWarnings("UnnecessaryLocalVariable")
       List<ReactPackage> packages = new PackageList(this).getPackages();
       // additional non auto detected packages can still be added here:
-      // packages.add(new SomeReactNativePackage());
+      // packages.add(new SomeReactNativePackage()); 
+      // packages.add(new SplashScreenReactPackage()); // unnecessary, causes crashes in 0.60+
       return packages;
     }
 

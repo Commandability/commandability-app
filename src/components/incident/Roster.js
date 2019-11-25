@@ -12,8 +12,8 @@ import {
   PixelRatio,
   Platform
 } from "react-native";
-import COLORS from "../../modules/Colors";
-import { scaleFont } from "../../modules/Fonts";
+import COLORS from "../../modules/colors";
+import { scaleFont } from "../../modules/fonts";
 import GroupList from "./GroupList";
 import RosterList from "./RosterList";
 

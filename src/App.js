@@ -1,87 +1,40 @@
 import React from "react";
-import { Button, Text, View, Dimensions } from "react-native";
+import { ActivityIndicator, Text, View, Dimensions } from "react-native";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import firebase from "@react-native-firebase/app";
-import { createAppContainer } from "react-navigation";
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
+import SplashScreen from "react-native-splash-screen";
 
 import configureStore from "./modules/configureStore";
-import { Login } from "./components";
-import { IncidentScreen } from "./screens";
-import COLORS from "./modules/Colors";
+import { Loading, Login, Home, Incident } from "./screens";
+import COLORS from "./modules/colors";
 
-const { persistor, store } = configureStore();
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
-class HomeScreen extends React.Component {
-  constructor() {
-    super();
-    this.unsubscriber = null;
-    this.state = {
-      user: null
-    };
+const { persistor, store } = configureStore();
+
+const defaultNavigationOptions = {
+  headerStyle: {
+    backgroundColor: COLORS.secondary.dark,
+    height: SCREEN_HEIGHT / 12
   }
+};
 
-  componentDidMount() {
-    this.unsubscriber = firebase.auth().onAuthStateChanged(user => {
-      this.setState({ user });
-    });
-  }
+const AppStack = createStackNavigator({ Home }, { defaultNavigationOptions });
+const AuthStack = createStackNavigator({ Login }, { defaultNavigationOptions });
+const IncidentSwitch = createSwitchNavigator({ Incident });
 
-  componentWillUnmount() {
-    if (this.unsubscriber) {
-      this.unsubscriber();
-    }
-  }
-
-  _signOut = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then(function() {
-        // Sign-out successful.
-      })
-      .catch(function(error) {
-        // An error happened.
-      });
-  };
-
-  render() {
-    if (!this.state.user) {
-      return <Login />;
-    } else {
-      return (
-          <View>
-            <Text>Welcome to Command Ability {this.state.user.email}!</Text>
-            <Button
-              onPress={() => this.props.navigation.navigate("Incident")}
-              title={"Start Incident"}
-            ></Button>
-            <Button onPress={this._signOut} title="Sign out" />
-          </View>
-      );
-    }
-  }
-}
-
-const AppNavigator = createStackNavigator(
+const AppNavigator = createSwitchNavigator(
   {
-    HomeScreen,
-    IncidentScreen
+    Loading,
+    AuthStack,
+    AppStack,
+    IncidentSwitch
   },
   {
-    initialRouteName: "HomeScreen",
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: COLORS.secondary.dark,
-        height: SCREEN_HEIGHT/12,
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold'
-      }
-    }
+    defaultNavigationOptions
   }
 );
 

@@ -5,15 +5,11 @@
  * Selectors to get personnel by location.
  */
 
-import { combineReducers } from "redux";
-
 import {
   ADD_PERSON,
   REMOVE_PERSON,
   SET_LOCATION,
   RESET_INCIDENT,
-  TOGGLE_SELECTED,
-  CLEAR_SELECTED_PERSONNEL
 } from "../actions/types";
 import { STAGING } from "../modules/locations";
 
@@ -36,10 +32,10 @@ const byId = (state = initialState.byId, action) => {
 };
 
 const addPerson = (state, action) => {
-  const { payload } = action;
+  const { payload } = action; 
   const { id, badge, firstName, lastName, rank, shift } = payload;
   return {
-    ...state,
+    ...state, 
     [id]: {
       id,
       badge,
@@ -70,7 +66,6 @@ const setLocation = (state, action) => {
       location
     }
   };
-  return state;
 };
 
 // set all locations to default at end of incident

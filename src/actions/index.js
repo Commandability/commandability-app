@@ -4,7 +4,7 @@ export * from "./AuthActions";
 export * from "./PersonnelActions";
 export * from "./SelectedActions";
 export * from "./GroupActions";
-export * from "./incidentActions";
+export * from "./IncidentActions";
 
 export const resetApp = () => ({
   type: RESET_APP

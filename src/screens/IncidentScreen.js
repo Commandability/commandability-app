@@ -11,12 +11,20 @@ import {
 } from "react-native";
 import { NavBar, Group, Staging, Roster } from "../components/incident";
 import COLORS from "../modules/Colors";
+import { startIncident } from "../actions";
+import { connect } from "react-redux";
+import { withNavigation } from "react-navigation";
 
-export default class IncidentScreen extends Component {
+class IncidentScreen extends Component {
   static navigationOptions = {
     title: 'Incident Mode',
     headerLeft: null,
   }
+
+  componentDidMount(){
+    startIncident();
+  }
+
   render() {
     return (
       <View style={styles.incidentScreenLayout}>
@@ -45,6 +53,21 @@ export default class IncidentScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+
+  }  
+};
+
+export default withNavigation(
+  connect(
+    mapStateToProps,
+    {
+      startIncident
+    }
+  )(IncidentScreen)
+);
 
 var styles = StyleSheet.create({
   incidentScreenLayout: {

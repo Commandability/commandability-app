@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   AppRegistry,
   TouchableOpacity,
-  Flatlist,
   Text,
   View,
   Image,
@@ -88,7 +87,10 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
   mapStateToProps,
-  { }
+  {
+    endIncident,
+    resetIncident
+  }
 )(NavBar);
 
 var styles = StyleSheet.create({

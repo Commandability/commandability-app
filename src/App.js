@@ -11,8 +11,6 @@ import { Login } from "./components";
 import { IncidentScreen, GroupPrompt } from "./screens";
 import COLORS from "./modules/Colors";
 
-import { startIncident } from "./actions";
-
 const { persistor, store } = configureStore();
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -49,11 +47,6 @@ class HomeScreen extends React.Component {
       });
   };
 
-  _onStartPressed = () => {
-    startIncident();
-    this.props.navigation.navigate("Incident");
-  };
-
   render() {
     if (!this.state.user) {
       return <Login />;
@@ -63,7 +56,7 @@ class HomeScreen extends React.Component {
           <View>
             <Text>Welcome to CommandAbility {this.state.user.email}!</Text>
             <Button
-              onPress={() => this._onStartPressed()}
+              onPress={() => {this.props.navigation.navigate("Incident")}}
               title={"Start Incident"}
             ></Button>
             <Button onPress={this._signOut} title="Sign out" />

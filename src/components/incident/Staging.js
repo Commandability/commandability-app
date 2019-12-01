@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import COLORS from "../../modules/colors";
 import { scaleFont } from "../../modules/fonts";
-import GroupList from "./GroupList";
+import StagingList from "./StagingList";
 
 export default class Staging extends Component {
   render() {
@@ -23,7 +23,7 @@ export default class Staging extends Component {
         <View style={styles.groupHeader}>
           <Text style={styles.groupHeaderContent}> Staging </Text>
         </View>
-        <GroupList groupName={this.props.groupName} />
+        <StagingList/>
       </View>
     );
   }

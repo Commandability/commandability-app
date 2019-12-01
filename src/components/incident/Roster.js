@@ -24,7 +24,7 @@ export default class Roster extends Component {
         <View style={styles.groupHeader}>
           <Text style={styles.groupHeaderContent}> Roster </Text>
         </View>
-        <RosterList groupName={this.props.groupName} />
+        <RosterList/>
       </View>
     );
   }

@@ -30,7 +30,6 @@ class RosterList extends React.PureComponent {
       selectedIds,
       clearSelectedPersonnel,
       setLocationById,
-      groupName
     } = this.props;
 
     Alert.alert(

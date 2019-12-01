@@ -32,7 +32,3 @@ export const setLocationById = (id, location) => ({
   type: SET_LOCATION,
   payload: { id, location }
 });
-
-export const resetIncident = () => ({
-  type: RESET_INCIDENT
-});

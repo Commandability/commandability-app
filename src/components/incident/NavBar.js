@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   AppRegistry,
   TouchableOpacity,
-  Flatlist,
   Text,
   View,
   Image,
@@ -14,8 +13,44 @@ import {
 } from "react-native";
 import COLORS from "../../modules/colors";
 import { scaleFont } from "../../modules/fonts";
+import { getReport } from "../../reducers/ReportReducer";
 
-export default class NavBar extends Component {
+import { connect } from "react-redux";
+import { resetIncident, endIncident } from "../../actions";
+
+class NavBar extends Component {
+
+  _onReportPressed = () => {
+    const { report } = this.props;
+    let convertedReport = '';
+    for (const entry in report){
+      const {time, log} = report[entry];
+      if (time && log) {
+        convertedReport += `${time}: ${log}\n`;
+      }
+    }
+
+    Alert.alert(
+      'Report Page',
+      convertedReport.trim(),
+      [
+        {text: 'Cancel'},
+        {text: 'OK'},
+      ],
+      {cancelable: false},
+    );
+  };
+
+  _onResetPressed = () => {
+    const { resetIncident } = this.props;
+    resetIncident();
+  };
+
+  _onEndPressed = () => {
+    const { endIncident } = this.props;
+    endIncident();
+  };
+
   render() {
     return (
       <View style={styles.navBar}>
@@ -29,12 +64,38 @@ export default class NavBar extends Component {
         </View>
         <View style={styles.pageTabs}></View>
         <View style={styles.pageOptions}>
-          <Text style={styles.pageOptionContent}> Options </Text>
+          <TouchableOpacity style={{flex:1}} onPress={this._onReportPressed}>
+            <Text style={styles.pageOptionContent}> Report </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.pageOptions}>
+          <TouchableOpacity style={{flex:1}} onPress={this._onResetPressed}>
+            <Text style={styles.pageOptionContent}> Reset </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.pageOptions}>
+          <TouchableOpacity style={{flex:1}} onPress={this._onEndPressed}>
+            <Text style={styles.pageOptionContent}> End </Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    report: getReport(state),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {
+    endIncident,
+    resetIncident
+  }
+)(NavBar);
 
 var styles = StyleSheet.create({
   navBar: {
@@ -63,7 +124,8 @@ var styles = StyleSheet.create({
   },
   pageOptions: {
     flex: 1,
-    justifyContent: "center"
+    justifyContent: "center",
+    borderWidth: 1
   },
   pageOptionContent: {
     fontSize: scaleFont(5),

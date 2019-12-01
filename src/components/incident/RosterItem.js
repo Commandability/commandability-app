@@ -14,8 +14,9 @@ import { connect } from "react-redux";
 import { getSelectedLocation } from "../../reducers";
 import { setLocationById } from "../../actions";
 import { STAGING } from "../../modules/locations";
+import GroupItem from "./GroupItem";
 
-class ListItem extends Component {
+class RosterItem extends Component {
   constructor() {
     super();
   }
@@ -57,4 +58,4 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(
   mapStateToProps,
   { setLocationById }
-)(ListItem);
+)(RosterItem);

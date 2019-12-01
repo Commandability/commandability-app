@@ -88,5 +88,40 @@
   "selected": {
     "ids": [],
     "location": null
+  },
+  "group": {
+    "group_one": {
+      "location": "group_one",
+      "name": "Group One",
+      "visibility": true
+    },
+    "group_two": {
+      "location": "group_two",
+      "name": "Group Two",
+      "visibility": true
+    },
+    "group_three": {
+      "location": "group_three",
+      "name": "Group Three",
+      "visibility": false
+    },
+    "group_four": {
+      "location": "group_four",
+      "name": "Group Four",
+      "visibility": false
+    },
+    "group_five": {
+      "location": "group_five",
+      "name": "Group Five",
+      "visibility": false
+    },
+    "group_six": {
+      "location": "group_six",
+      "name": "Rehab",
+      "visibility": true
+    }
+  },
+  "report": {
+    
   }
 }

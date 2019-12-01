@@ -1,58 +1,51 @@
 /**
- * GroupList Component
+ * StagingList Component
  *
- * props:
- *  - groupName: the name of the group
  *
- * Manages displaying personnel in a group by groupName, as well as  adding selected personnel to
+ * Manages displaying personnel in the staging list, as well as  adding selected personnel to
  * the group when it is selected.
  */
 
-import React from "react";
+import React, { Component } from "react";
 import { FlatList, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 
 import {
   getPersonnelByLocation,
   getSelectedLocation,
-  getSelectedIds,
-  getVisibilityByLocation
+  getSelectedIds
 } from "../../reducers";
 import { clearSelectedPersonnel, setLocationById } from "../../actions";
 import GroupItem from "./GroupItem";
 
-class GroupList extends React.PureComponent {
+const LOCATION = "Staging";
+
+class StagingList extends React.PureComponent {
   constructor() {
     super();
   }
 
   _onPress = () => {
-    const {
-      selectedIds,
-      clearSelectedPersonnel,
-      setLocationById,
-      location
-    } = this.props;
+    const { selectedIds, clearSelectedPersonnel, setLocationById } = this.props;
 
     // set each selected ids new location to the current group
-    selectedIds.forEach(id => setLocationById(id, location));
+    selectedIds.forEach(id => setLocationById(id, LOCATION));
     clearSelectedPersonnel();
   };
 
   _renderItem = ({ item }) => {
-    const { location } = this.props;
-    return <GroupItem location={location} item={item} />;
+    return <GroupItem location={LOCATION} item={item} />;
   };
 
   _keyExtractor = (item, index) => item.id;
 
   render() {
-    const { location, personnel, selectedLocation, visibility } = this.props;
+    const { personnel, selectedLocation } = this.props;
     return (
       <TouchableOpacity
         onPress={this._onPress}
         disabled={
-          selectedLocation == null || selectedLocation == location 
+          selectedLocation == null || selectedLocation == LOCATION
             ? true
             : false
         }
@@ -70,12 +63,10 @@ class GroupList extends React.PureComponent {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { location } = ownProps;
   return {
-    personnel: getPersonnelByLocation(state, location),
+    personnel: getPersonnelByLocation(state, LOCATION),
     selectedLocation: getSelectedLocation(state),
-    selectedIds: getSelectedIds(state),
-    visibility: getVisibilityByLocation(state, location)
+    selectedIds: getSelectedIds(state)
   };
 };
 
@@ -85,4 +76,4 @@ export default connect(
     clearSelectedPersonnel,
     setLocationById
   }
-)(GroupList);
+)(StagingList);

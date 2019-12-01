@@ -1,39 +1,81 @@
+/**
+ * Group Component
+ *
+ * props:
+ *  - location: the current group's data location
+ *
+ * This component displays each of the six main groups, each group's relevant data
+ * list and handles visibility control of groups
+ */
+
 import React, { Component } from "react";
-import {
-  AppRegistry,
-  TouchableOpacity,
-  Flatlist,
-  Text,
-  View,
-  Image,
-  Alert,
-  StyleSheet,
-  Dimensions,
-  PixelRatio,
-  Platform
-} from "react-native";
+import { TouchableOpacity, Text, View, Image, StyleSheet } from "react-native";
 import COLORS from "../../modules/colors";
 import { scaleFont } from "../../modules/fonts";
 import GroupList from "./GroupList";
+import { withNavigation } from "react-navigation";
+import { connect } from "react-redux";
 
-export default class Group extends Component {
+import { getNameByLocation, getVisibilityByLocation } from "../../reducers";
+import { addGroup } from "../../actions";
+
+class Group extends Component {
+  constructor() {
+    super();
+  }
+
+  _onAddPressed = () => {
+    const { addGroup, location } = this.props;
+    addGroup({ location });
+  };
+
+  _onSettingsPressed = () => {
+    const { navigation, location } = this.props;
+    navigation.navigate("GroupPrompt", { local: location });
+  };
+
   render() {
-    return (
-      <View style={styles.groupLayout}>
-        <View style={styles.groupHeader}>
-          <Text style={styles.groupHeaderContent}> Group Title </Text>
-          <TouchableOpacity style={{ flex: 1 }}>
+    const { groupName, visibility } = this.props;
+    if (visibility) {
+      return (
+        <View style={styles.groupLayout}>
+          <View style={styles.groupHeader}>
+            <Text style={styles.groupHeaderContent}> {groupName} </Text>
+            <TouchableOpacity
+              style={{ flex: 1 }}
+              onPress={this._onSettingsPressed}
+            >
+              <Image
+                style={styles.settingsIcon}
+                source={require("../../assets/settings_icon.png")}
+              ></Image>
+            </TouchableOpacity>
+          </View>
+          <GroupList location={this.props.location} />
+        </View>
+      );
+    } else {
+      return (
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity style={{ flex: 1 }} onPress={this._onAddPressed}>
             <Image
-              style={styles.settingsIcon}
-              source={require("../../assets/settings_icon.png")}
+              style={styles.addButton}
+              source={require("../../assets/add.png")}
             ></Image>
           </TouchableOpacity>
         </View>
-        <GroupList groupName={this.props.groupName} />
-      </View>
-    );
+      );
+    }
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  const { location } = ownProps;
+  return {
+    groupName: getNameByLocation(state, location),
+    visibility: getVisibilityByLocation(state, location)
+  };
+};
 
 var styles = StyleSheet.create({
   groupLayout: {
@@ -53,15 +95,24 @@ var styles = StyleSheet.create({
     textAlign: "center",
     color: COLORS.primary.text
   },
-  groupList: {
-    flex: 7,
-    backgroundColor: COLORS.primary.dark
-  },
   settingsIcon: {
     flex: 1,
     padding: 1,
     width: null,
     height: null,
     resizeMode: "contain"
+  },
+  addButton: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
+export default withNavigation(
+  connect(
+    mapStateToProps,
+    {
+      addGroup
+    }
+  )(Group)
+);

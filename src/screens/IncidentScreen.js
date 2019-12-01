@@ -22,6 +22,7 @@ class IncidentScreen extends Component {
   }
 
   componentDidMount(){
+    const { startIncident } = this.props;
     startIncident();
   }
 
@@ -54,15 +55,9 @@ class IncidentScreen extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-
-  }  
-};
-
 export default withNavigation(
   connect(
-    mapStateToProps,
+    null,
     {
       startIncident
     }

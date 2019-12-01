@@ -40,10 +40,12 @@ class NavBar extends Component {
   };
 
   _onResetPressed = () => {
+    const { resetIncident } = this.props;
     resetIncident();
   };
 
   _onEndPressed = () => {
+    const { endIncident } = this.props;
     endIncident();
   };
 

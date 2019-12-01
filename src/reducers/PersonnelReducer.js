@@ -79,7 +79,7 @@ const resetLocations = (state, action) => {
     const person = state.byId[id];
     byId[id] = {
       ...person,
-      location: null
+      location: "Roster"
     };
   });
   return {

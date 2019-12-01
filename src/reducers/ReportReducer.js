@@ -68,9 +68,20 @@ const logRemoveGroup = (state, action) => {
 };
 
 const logResetIncident = (state, action) => {
-  const { payload } = action;
+  const id = uuidv4();
+  var hour = new Date().getHours();
+  var minute = new Date().getMinutes();
+  var second = new Date().getSeconds();
+  const time = `${hour}:${minute}:${second}`;
   state = undefined;
-  return { state }
+  return { 
+    ...state,
+    [id]: {
+      time: time,
+      log: 'The incident has been reset',
+    } 
+  };
+  return state;
 }
 
 const logStartIncident = (state, action) => {

@@ -6,7 +6,7 @@
  */
 
 import { combineReducers } from "redux";
-import { TOGGLE_SELECTED, CLEAR_SELECTED_PERSONNEL } from "../actions/types";
+import { TOGGLE_SELECTED, CLEAR_SELECTED_PERSONNEL, RESET_INCIDENT } from "../actions/types";
 
 const initialState = {
   ids: [],

@@ -25,7 +25,9 @@ class NavBar extends Component {
     let convertedReport = '';
     for (const entry in report){
       const {time, log} = report[entry];
-      convertedReport += `${time}: ${log}\n`;
+      if (time && log) {
+        convertedReport += `${time}: ${log}\n`;
+      }
     }
 
     Alert.alert(

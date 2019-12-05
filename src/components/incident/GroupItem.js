@@ -16,7 +16,7 @@ import { getSelectedLocation, getLastLocationUpdateById } from '../../reducers';
 import { toggleSelectedPersonById } from '../../actions';
 import { scaleFont } from '../../modules/fonts';
 
-const MS_MINUTE = 60000;
+const MS_IN_MINUTE = 60000;
 
 class GroupItem extends Component {
   constructor(props) {
@@ -42,11 +42,11 @@ class GroupItem extends Component {
             this.setState(prevState => ({
               time: Date.now() - lastLocationUpdate,
             }))),
-          MS_MINUTE
+          MS_IN_MINUTE
         );
       }),
       // calculate remaining ms in last count before a new interval should be started
-      MS_MINUTE - ((Date.now() - lastLocationUpdate) % MS_MINUTE)
+      MS_IN_MINUTE - ((Date.now() - lastLocationUpdate) % MS_IN_MINUTE)
     ); 
   }
 

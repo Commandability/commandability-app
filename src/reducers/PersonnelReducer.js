@@ -10,8 +10,9 @@ import {
   REMOVE_PERSON,
   SET_LOCATION,
   RESET_INCIDENT,
+  INCREMENT_LOCATION_TIME
 } from "../actions/types";
-import { STAGING } from "../modules/locations";
+import { STAGING, ROSTER } from "../modules/locations";
 
 const initialState = {
   byId: {},
@@ -33,7 +34,7 @@ const byId = (state = initialState.byId, action) => {
 
 const addPerson = (state, action) => {
   const { payload } = action; 
-  const { id, badge, firstName, lastName, rank, shift } = payload;
+  const { id, badge, firstName, lastName, rank, shift, location, lastLocationUpdate } = payload;
   return {
     ...state, 
     [id]: {
@@ -41,9 +42,10 @@ const addPerson = (state, action) => {
       badge,
       firstName,
       lastName,
-      location,
       rank,
-      shift
+      shift,
+      location,
+      lastLocationUpdate
     }
   };
 };
@@ -63,19 +65,21 @@ const setLocation = (state, action) => {
     ...state,
     [id]: {
       ...person,
-      location
+      location, 
+      lastLocationUpdate: location === ROSTER ? 0 : Date.now()
     }
   };
 };
 
-// set all locations to default at end of incident
-const resetLocations = (state, action) => {
+// set all locations to default and lastLocationUpdate to 0 at end of incident
+const resetIncident = (state, action) => {
   const byId = {};
   state.allIds.forEach(id => {
     const person = state.byId[id];
     byId[id] = {
       ...person,
-      location: "Roster"
+      location: "Roster",
+      lastLocationUpdate: 0
     };
   });
   return {
@@ -114,10 +118,12 @@ export const getPersonnelByLocation = (state, location) => {
   return personnelIdsByLocation.map(id => state.byId[id]);
 };
 
+export const getLastLocationUpdateById = (state, id) => state.byId[id].lastLocationUpdate;
+
 export default (personnel = (state = initialState, action) => {
   switch (action.type) {
     case RESET_INCIDENT:
-      return resetLocations(state, action);
+      return resetIncident(state, action);
     default:
       return {
         byId: byId(state.byId, action),

@@ -8,7 +8,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import SplashScreen from "react-native-splash-screen";
 
 import configureStore from "./modules/configureStore";
-import { Loading, Login, Home, Incident, GroupPrompt } from "./screens";
+import { LoadingScreen, LoginScreen, HomeScreen, IncidentScreen, GroupPrompt } from "./screens";
 import COLORS from "./modules/colors";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
@@ -22,13 +22,13 @@ const defaultNavigationOptions = {
   }
 };
 
-const AppStack = createStackNavigator({ Home }, { defaultNavigationOptions });
-const AuthStack = createStackNavigator({ Login }, { defaultNavigationOptions });
-const IncidentStack = createStackNavigator({ Incident, GroupPrompt }, {defaultNavigationOptions});
+const AppStack = createStackNavigator({ HomeScreen }, { defaultNavigationOptions });
+const AuthStack = createStackNavigator({ LoginScreen }, { defaultNavigationOptions });
+const IncidentStack = createStackNavigator({ IncidentScreen, GroupPrompt }, {defaultNavigationOptions});
 
 const AppNavigator = createSwitchNavigator(
   {
-    Loading,
+    LoadingScreen,
     AuthStack,
     AppStack,
     IncidentStack

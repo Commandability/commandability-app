@@ -6,7 +6,7 @@
  */
 
 import { combineReducers } from "redux";
-import { TOGGLE_SELECTED, CLEAR_SELECTED_PERSONNEL, RESET_INCIDENT } from "../actions/types";
+import { TOGGLE_SELECTED_PERSON, CLEAR_SELECTED_PERSONNEL, RESET_INCIDENT } from "../actions/types";
 
 const initialState = {
   ids: [],
@@ -15,8 +15,8 @@ const initialState = {
 
 const ids = (state = initialState.ids, action) => {
   switch (action.type) {
-    case TOGGLE_SELECTED:
-      return toggleSelectedById(state, action);
+    case TOGGLE_SELECTED_PERSON:
+      return toggleSelectedPersonById(state, action);
     case RESET_INCIDENT:
     case CLEAR_SELECTED_PERSONNEL:
       return [];
@@ -25,7 +25,7 @@ const ids = (state = initialState.ids, action) => {
   }
 };
 
-const toggleSelectedById = (state, action) => {
+const toggleSelectedPersonById = (state, action) => {
   const { payload } = action;
   const { id } = payload;
   if (state.indexOf(id) > -1) {
@@ -37,7 +37,7 @@ const toggleSelectedById = (state, action) => {
 
 const location = (state = initialState.location, action) => {
   switch (action.type) {
-    case TOGGLE_SELECTED:
+    case TOGGLE_SELECTED_PERSON:
       return setLocation(state, action);
     case RESET_INCIDENT:
     case CLEAR_SELECTED_PERSONNEL:
@@ -76,7 +76,7 @@ export const getSelectedLocation = state => {
 
 export default selected = (state = initialState, action) => {
   switch (action.type) {
-    case TOGGLE_SELECTED:
+    case TOGGLE_SELECTED_PERSON:
       return setLocation(state, action);
     default:
       return {

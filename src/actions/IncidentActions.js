@@ -1,7 +1,7 @@
 /**
  * Incident Actions
- *
  * 
+ * Actions managing the state of the current incident. 
  */
 
 import { RESET_INCIDENT, START_INCIDENT, END_INCIDENT } from "./types";

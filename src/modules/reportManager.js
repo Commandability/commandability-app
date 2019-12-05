@@ -3,6 +3,7 @@
  *
  * Generate incident reports from the log state and manage storage of all reports.
  */
+
 import AsyncStorage from "@react-native-community/async-storage";
 
 import { store } from "../App.js";

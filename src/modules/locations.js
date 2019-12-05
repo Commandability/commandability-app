@@ -1,6 +1,6 @@
 export const ROSTER = "Roster";
 export const STAGING = "Staging";
-export const GROUP_ONE = "Group Thrity one";
+export const GROUP_ONE = "Group one";
 export const GROUP_TWO = "Group two";
 export const GROUP_THREE = "Group three";
 export const GROUP_FOUR = "Group four";

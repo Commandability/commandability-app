@@ -9,7 +9,7 @@ import { startIncident } from "../actions";
 import { connect } from "react-redux";
 import { withNavigation } from "react-navigation";
 
-class Incident extends Component {
+class IncidentScreen extends Component {
 
   componentDidMount(){
     const { startIncident } = this.props;
@@ -50,7 +50,7 @@ export default connect(
   {
     startIncident,
   }
-)(Incident);
+)(IncidentScreen);
 
 var styles = StyleSheet.create({
   incidentLayout: {

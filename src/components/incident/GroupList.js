@@ -22,9 +22,6 @@ import { clearSelectedPersonnel, setLocationById } from "../../actions";
 import GroupItem from "./GroupItem";
 
 class GroupList extends React.PureComponent {
-  constructor() {
-    super();
-  }
 
   _onPress = () => {
     const {

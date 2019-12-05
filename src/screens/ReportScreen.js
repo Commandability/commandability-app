@@ -4,11 +4,11 @@ import {
   View
 } from "react-native";
 
-export default class ReportPage extends React.PureComponent {
+export default class ReportScreen extends React.PureComponent {
   render() {
     return (
       <View>
-        <Text> Report Page </Text>
+        <Text> Report </Text>
       </View>
     );
   }

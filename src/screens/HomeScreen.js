@@ -1,3 +1,12 @@
+/**
+ * Home Screen
+ *
+ * props:
+ *  - none
+ *
+ * Manages displaying the home screen and activity indicator when signing out. 
+ */
+
 import React, { Component } from 'react';
 import {
   ActivityIndicator,
@@ -10,7 +19,7 @@ import auth from '@react-native-firebase/auth';
 
 import COLORS from '../modules/colors';
 
-export default class Home extends Component {
+export default class HomeScreen extends Component {
   constructor() {
     super();
     this.state = { currentUser: null, loading: false };
@@ -40,7 +49,7 @@ export default class Home extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: COLORS.primary.dark }}>
         <Button
-          onPress={() => this.props.navigation.navigate('Incident')}
+          onPress={() => this.props.navigation.navigate('IncidentScreen')}
           color={COLORS.primary.light}
           title={'Start Incident'}
         ></Button>

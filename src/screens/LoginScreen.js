@@ -13,7 +13,7 @@ import NetInfo from "@react-native-community/netinfo";
 import { NavBar, Group, Staging, Roster } from "../components/incident";
 import COLORS from "../modules/colors";
 
-export default class Login extends Component {
+export default class LoginScreen extends Component {
   constructor() {
     super();
     this.state = { loading: false, email: "test@test.com", password: "password" };

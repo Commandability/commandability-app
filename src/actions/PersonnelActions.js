@@ -10,16 +10,17 @@ import {
   ADD_PERSON,
   REMOVE_PERSON,
   SET_LOCATION,
-  RESET_INCIDENT
+  INCREMENT_LOCATION_TIME
 } from "./types";
 import { STAGING } from "../modules/locations";
 
 export const addPerson = person => {
   const id = uuidv4();
   const location = STAGING;
+  const lastLocationUpdate = 0;
   return {
     type: ADD_PERSON,
-    payload: { ...person, id, location }
+    payload: { ...person, id, location, lastLocationUpdate }
   };
 };
 
@@ -31,4 +32,9 @@ export const removePersonById = id => ({
 export const setLocationById = (id, location) => ({
   type: SET_LOCATION,
   payload: { id, location }
+});
+
+export const incrementlastLocationUpdateById = id => ({
+  type: INCREMENT_LOCATION_TIME,
+  payload: { id }
 });

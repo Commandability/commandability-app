@@ -67,15 +67,21 @@ const rootReducer = (state, action) => {
 
 export default persistReducer(rootPersistConfig, rootReducer);
 
+// Selectors by reducer
+export const getPersonnelByLocation = (state, location) =>
+  fromPersonnel.getPersonnelByLocation(state.personnel, location);
+export const getLastLocationUpdateById = (state, id) => 
+  fromPersonnel.getLastLocationUpdateById(state.personnel, id);
+
 export const getSelectedIds = state =>
   fromSelected.getSelectedIds(state.selected);
 export const getSelectedLocation = state =>
   fromSelected.getSelectedLocation(state.selected);
-export const getPersonnelByLocation = (state, location) =>
-  fromPersonnel.getPersonnelByLocation(state.personnel, location);
+
 export const getVisibilityByLocation = (state, location) =>
   fromGroup.getVisibilityByLocation(state.group, location);
 export const getNameByLocation = (state, location) =>
   fromGroup.getNameByLocation(state.group, location);
+
 export const getReport = (state) =>
   fromReport.getReport(state.report);

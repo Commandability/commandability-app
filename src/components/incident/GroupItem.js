@@ -8,29 +8,61 @@
  * Manages displaying a person in a group and sets a person as selected in redux and in local state on press.
  */
 
-import React, { Component } from "react";
-import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 
-import { getSelectedLocation } from "../../reducers";
-import { toggleSelectedById } from "../../actions";
-import { scaleFont } from "../../modules/fonts";
+import { getSelectedLocation, getLastLocationUpdateById } from '../../reducers';
+import { toggleSelectedPersonById } from '../../actions';
+import { scaleFont } from '../../modules/fonts';
+
+const MS_MINUTE = 60000;
 
 class GroupItem extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { lastLocationUpdate } = this.props;
     this.state = {
-      selected: false
+      selected: false,
+      time: Date.now() - lastLocationUpdate,
     };
+  }
+
+  componentDidMount() {
+    const { lastLocationUpdate } = this.props;
+    // set first timer manually to reduce interval when remounting component after crash
+    this.timeoutID = setTimeout(
+      (outerTimer = () => {
+        this.setState(prevState => ({
+          time: Date.now() - lastLocationUpdate,
+        }));
+        // set recurring timers at constant intervals
+        this.intervalID = setInterval(
+          (innerTimer = () =>
+            this.setState(prevState => ({
+              time: Date.now() - lastLocationUpdate,
+            }))),
+          MS_MINUTE
+        );
+      }),
+      // calculate remaining ms in last count before a new interval should be started
+      MS_MINUTE - ((Date.now() - lastLocationUpdate) % MS_MINUTE)
+    ); 
+  }
+
+  componentWillUnmount() {
+    // clear timers to prevent memory leaks
+    clearInterval(this.timeoutID);
+    clearInterval(this.intervalID);
   }
 
   _onPress = () => {
     this.setState(prevState => ({
-      selected: !prevState.selected
+      selected: !prevState.selected,
     }));
 
-    const { item, location, toggleSelectedById } = this.props;
-    toggleSelectedById(item.id, location);
+    const { item, location, toggleSelectedPersonById } = this.props;
+    toggleSelectedPersonById(item.id, location);
   };
 
   render() {
@@ -48,9 +80,11 @@ class GroupItem extends Component {
       >
         <View>
           <Text
-            style={this.state.selected ? { color: "red" } : { color: "black" }} // previously itemContent
+            style={this.state.selected ? { color: 'red' } : { color: 'black' }}
           >
-            {item.badge + " - " + item.firstName + " " + item.lastName}
+            {`${item.badge} - ${item.firstName}  ${
+              item.lastName
+            } - ${Math.floor(this.state.time / 60000)}`}
           </Text>
         </View>
       </TouchableOpacity>
@@ -59,19 +93,20 @@ class GroupItem extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  const { item } = ownProps;
   return {
-    selectedLocation: getSelectedLocation(state)
+    selectedLocation: getSelectedLocation(state),
+    lastLocationUpdate: getLastLocationUpdateById(state, item.id),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { toggleSelectedById }
-)(GroupItem);
+export default connect(mapStateToProps, { toggleSelectedPersonById })(
+  GroupItem
+);
 
 var styles = StyleSheet.create({
   itemContent: {
     fontSize: scaleFont(6),
-    paddingLeft: 2
-  }
+    paddingLeft: 2,
+  },
 });

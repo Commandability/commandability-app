@@ -5,7 +5,7 @@ import SplashScreen from 'react-native-splash-screen';
 
 import COLORS from "../modules/colors";
 
-export default class Loading extends React.Component {
+export default class LoadingScreen extends React.Component {
   componentDidMount() {
     this.authSubscription = auth().onAuthStateChanged(user => {
       this.props.navigation.navigate(user ? "AppStack" : "AuthStack");

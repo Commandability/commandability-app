@@ -8,27 +8,26 @@
  * the group when it is selected.
  */
 
-import React from "react";
-import { FlatList, TouchableOpacity } from "react-native";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FlatList, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 
 import {
   getPersonnelByLocation,
   getSelectedLocation,
   getSelectedIds,
-  getVisibilityByLocation
-} from "../../reducers";
-import { clearSelectedPersonnel, setLocationById } from "../../actions";
-import GroupItem from "./GroupItem";
+} from '../../reducers';
+import { clearSelectedPersonnel, setLocationById } from '../../actions';
+import GroupItem from './GroupItem';
 
 class GroupList extends React.PureComponent {
-
-  _onPress = () => {
+  onPress = () => {
     const {
       selectedIds,
       clearSelectedPersonnel,
       setLocationById,
-      location
+      location,
     } = this.props;
 
     // set each selected ids new location to the current group
@@ -36,20 +35,20 @@ class GroupList extends React.PureComponent {
     clearSelectedPersonnel();
   };
 
-  _renderItem = ({ item }) => {
+  renderItem = ({ item }) => {
     const { location } = this.props;
     return <GroupItem location={location} item={item} />;
   };
 
-  _keyExtractor = (item, index) => item.id;
+  keyExtractor = item => item.id;
 
   render() {
-    const { location, personnel, selectedLocation, visibility } = this.props;
+    const { location, personnel, selectedLocation } = this.props;
     return (
       <TouchableOpacity
-        onPress={this._onPress}
+        onPress={this.onPress}
         disabled={
-          selectedLocation == null || selectedLocation == location 
+          selectedLocation == null || selectedLocation == location
             ? true
             : false
         }
@@ -57,8 +56,8 @@ class GroupList extends React.PureComponent {
       >
         <FlatList
           data={personnel}
-          renderItem={this._renderItem}
-          keyExtractor={this._keyExtractor}
+          renderItem={this.renderItem}
+          keyExtractor={this.keyExtractor}
           extraData={this.props}
         />
       </TouchableOpacity>
@@ -66,20 +65,26 @@ class GroupList extends React.PureComponent {
   }
 }
 
+// props validation
+GroupList.propTypes = {
+  location: PropTypes.string,
+  selectedIds: PropTypes.array,
+  clearSelectedPersonnel: PropTypes.func,
+  setLocationById: PropTypes.func,
+  personnel: PropTypes.array,
+  selectedLocation: PropTypes.string,
+};
+
 const mapStateToProps = (state, ownProps) => {
   const { location } = ownProps;
   return {
     personnel: getPersonnelByLocation(state, location),
     selectedLocation: getSelectedLocation(state),
     selectedIds: getSelectedIds(state),
-    visibility: getVisibilityByLocation(state, location)
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    clearSelectedPersonnel,
-    setLocationById
-  }
-)(GroupList);
+export default connect(mapStateToProps, {
+  clearSelectedPersonnel,
+  setLocationById,
+})(GroupList);

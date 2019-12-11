@@ -9,12 +9,12 @@
  */
 
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 
 import { getSelectedLocation, getLastLocationUpdateById } from '../../reducers';
 import { toggleSelectedPersonById } from '../../actions';
-import { scaleFont } from '../../modules/fonts';
 
 const MS_IN_MINUTE = 60000;
 
@@ -32,22 +32,22 @@ class GroupItem extends Component {
     const { lastLocationUpdate } = this.props;
     // set first timer manually to reduce interval when remounting component after crash
     this.timeoutID = setTimeout(
-      (outerTimer = () => {
-        this.setState(prevState => ({
+      () => {
+        this.setState(() => ({
           time: Date.now() - lastLocationUpdate,
         }));
         // set recurring timers at constant intervals
         this.intervalID = setInterval(
-          (innerTimer = () =>
-            this.setState(prevState => ({
+          () =>
+            this.setState(() => ({
               time: Date.now() - lastLocationUpdate,
-            }))),
+            })),
           MS_IN_MINUTE
         );
-      }),
+      },
       // calculate remaining ms in last count before a new interval should be started
       MS_IN_MINUTE - ((Date.now() - lastLocationUpdate) % MS_IN_MINUTE)
-    ); 
+    );
   }
 
   componentWillUnmount() {
@@ -92,6 +92,15 @@ class GroupItem extends Component {
   }
 }
 
+// props validation
+GroupItem.propTypes = {
+  lastLocationUpdate: PropTypes.number,
+  item: PropTypes.object,
+  location: PropTypes.string,
+  toggleSelectedPersonById: PropTypes.func,
+  selectedLocation: PropTypes.string,
+};
+
 const mapStateToProps = (state, ownProps) => {
   const { item } = ownProps;
   return {
@@ -103,10 +112,3 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(mapStateToProps, { toggleSelectedPersonById })(
   GroupItem
 );
-
-var styles = StyleSheet.create({
-  itemContent: {
-    fontSize: scaleFont(6),
-    paddingLeft: 2,
-  },
-});

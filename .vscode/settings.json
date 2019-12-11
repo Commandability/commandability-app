@@ -7,5 +7,6 @@
         "unmount",
         "unsubscriber",
         "will"
-    ]
+    ],
+    "eslint.enable": true
 }

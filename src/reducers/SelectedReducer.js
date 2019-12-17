@@ -5,7 +5,6 @@
  * so that groups know when to disable their child list items.
  */
 
-import { combineReducers } from "redux";
 import { TOGGLE_SELECTED_PERSON, CLEAR_SELECTED_PERSONNEL, RESET_INCIDENT } from "../actions/types";
 
 const initialState = {
@@ -28,7 +27,7 @@ const ids = (state = initialState.ids, action) => {
 const toggleSelectedPersonById = (state, action) => {
   const { payload } = action;
   const { id } = payload;
-  if (state.indexOf(id) > -1) {
+  if (state.includes(id)) {
     return state.filter(currId => currId != id);
   } else {
     return state.concat(id);
@@ -74,7 +73,7 @@ export const getSelectedLocation = state => {
   return state.location;
 };
 
-export default selected = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case TOGGLE_SELECTED_PERSON:
       return setLocation(state, action);

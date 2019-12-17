@@ -13,26 +13,19 @@ import {
 } from "react-native";
 import COLORS from "../../modules/colors";
 import { scaleFont } from "../../modules/fonts";
-import { getReport } from "../../reducers/ReportReducer";
+import { getCurrentReportData } from "../../reducers/ReportReducer";
 
 import { connect } from "react-redux";
 import { resetIncident, endIncident } from "../../actions";
 
+import { generateCurrentReport } from '../../modules/reportManager';
+
 class NavBar extends Component {
 
   _onReportPressed = () => {
-    const { report } = this.props;
-    let convertedReport = '';
-    for (const entry in report){
-      const {time, log} = report[entry];
-      if (time && log) {
-        convertedReport += `${time}: ${log}\n`;
-      }
-    }
-
     Alert.alert(
       'Report Page',
-      convertedReport.trim(),
+      generateCurrentReport(),
       [
         {text: 'Cancel'},
         {text: 'OK'},
@@ -85,7 +78,7 @@ class NavBar extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    report: getReport(state),
+    report: getCurrentReportData(state),
   };
 };
 

@@ -10,13 +10,12 @@ import {
   REMOVE_PERSON,
   SET_LOCATION,
   RESET_INCIDENT,
-  INCREMENT_LOCATION_TIME
-} from "../actions/types";
-import { STAGING, ROSTER } from "../modules/locations";
+} from '../actions/types';
+import { ROSTER } from '../modules/locations';
 
 const initialState = {
   byId: {},
-  allIds: []
+  allIds: [],
 };
 
 const byId = (state = initialState.byId, action) => {
@@ -33,10 +32,19 @@ const byId = (state = initialState.byId, action) => {
 };
 
 const addPerson = (state, action) => {
-  const { payload } = action; 
-  const { id, badge, firstName, lastName, rank, shift, location, lastLocationUpdate } = payload;
+  const { payload } = action;
+  const {
+    id,
+    badge,
+    firstName,
+    lastName,
+    rank,
+    shift,
+    location,
+    lastLocationUpdate,
+  } = payload;
   return {
-    ...state, 
+    ...state,
     [id]: {
       id,
       badge,
@@ -45,14 +53,15 @@ const addPerson = (state, action) => {
       rank,
       shift,
       location,
-      lastLocationUpdate
-    }
+      lastLocationUpdate,
+    },
   };
 };
 
 const removePerson = (state, action) => {
   const { payload } = action;
   const { id } = payload;
+  // eslint-disable-next-line no-unused-vars
   const { [id]: removed, ...updatedPersonnel } = state;
   return updatedPersonnel;
 };
@@ -65,9 +74,9 @@ const setLocation = (state, action) => {
     ...state,
     [id]: {
       ...person,
-      location, 
-      lastLocationUpdate: location === ROSTER ? 0 : Date.now()
-    }
+      location,
+      lastLocationUpdate: location === ROSTER ? 0 : Date.now(),
+    },
   };
 };
 
@@ -78,13 +87,13 @@ const resetIncident = (state, action) => {
     const person = state.byId[id];
     byId[id] = {
       ...person,
-      location: "Roster",
-      lastLocationUpdate: 0
+      location: 'Roster',
+      lastLocationUpdate: 0,
     };
   });
   return {
     byId,
-    allIds: allIds(state.allIds, action)
+    allIds: allIds(state.allIds, action),
   };
 };
 
@@ -112,22 +121,23 @@ const removePersonId = (state, action) => {
 };
 
 export const getPersonnelByLocation = (state, location) => {
-  personnelIdsByLocation = state.allIds.filter(
+  const personnelIdsByLocation = state.allIds.filter(
     id => state.byId[id].location === location
   );
   return personnelIdsByLocation.map(id => state.byId[id]);
 };
 
-export const getLastLocationUpdateById = (state, id) => state.byId[id].lastLocationUpdate;
+export const getLastLocationUpdateById = (state, id) =>
+  state.byId[id].lastLocationUpdate;
 
-export default (personnel = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case RESET_INCIDENT:
       return resetIncident(state, action);
     default:
       return {
         byId: byId(state.byId, action),
-        allIds: allIds(state.allIds, action)
+        allIds: allIds(state.allIds, action),
       };
   }
-});
+};

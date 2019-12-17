@@ -5,50 +5,48 @@
  * It also contains the logic for the RESET_APP action.
  */
 
-import { combineReducers } from "redux";
-import AsyncStorage from "@react-native-community/async-storage";
-import { persistReducer, purgeStoredState } from "redux-persist";
-import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
+import { combineReducers } from 'redux';
+import AsyncStorage from '@react-native-community/async-storage';
+import { persistReducer, purgeStoredState } from 'redux-persist';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
-import personnel, * as fromPersonnel from "./PersonnelReducer";
-import group, * as fromGroup from "./GroupReducer";
-import report, * as fromReport from "./ReportReducer";
-import selected, * as fromSelected from "./SelectedReducer";
-import { RESET_APP } from "../actions/types";
-import clearReports from "../modules/reportManager";
-import GroupReducer from "./GroupReducer";
+import personnel, * as fromPersonnel from './PersonnelReducer';
+import group, * as fromGroup from './GroupReducer';
+import report, * as fromReport from './ReportReducer';
+import selected, * as fromSelected from './SelectedReducer';
+import { RESET_APP } from '../actions/types';
+import clearReports from '../modules/reportManager';
 
 // personnel reducer config, set persisted data to autoMergeLevel2 to track personnel changes
 // https://blog.reactnativecoach.com/the-definitive-guide-to-redux-persist-84738167975
 const personnelPersistConfig = {
-  key: "personnel",
+  key: 'personnel',
   storage: AsyncStorage,
-  stateReconciler: autoMergeLevel2
+  stateReconciler: autoMergeLevel2,
 };
 
 const groupPersistConfig = {
-  key: "group",
+  key: 'group',
   storage: AsyncStorage,
-  stateReconciler: autoMergeLevel2
+  stateReconciler: autoMergeLevel2,
 };
 
 const reportPersistConfig = {
-  key: "report",
+  key: 'report',
   storage: AsyncStorage,
-  stateReconciler: autoMergeLevel2
 };
 
 const appReducer = combineReducers({
   personnel: persistReducer(personnelPersistConfig, personnel),
   group: persistReducer(groupPersistConfig, group),
-  report: persistReducer(reportPersistConfig, report),
-  selected
+  report,
+  selected,
 });
 
 // root reducer config, persisted data defaults to autoMergeLevel1
 const rootPersistConfig = {
-  key: "root",
-  storage: AsyncStorage
+  key: 'root',
+  storage: AsyncStorage,
 };
 
 const rootReducer = (state, action) => {
@@ -59,8 +57,8 @@ const rootReducer = (state, action) => {
     state = undefined;
     purgeStoredState(personnelPersistConfig);
     purgeStoredState(groupPersistConfig);
-    purgeStoredState(rootPersistConfig);
     purgeStoredState(reportPersistConfig);
+    purgeStoredState(rootPersistConfig);
   }
   return appReducer(state, action);
 };
@@ -70,7 +68,7 @@ export default persistReducer(rootPersistConfig, rootReducer);
 // Selectors by reducer
 export const getPersonnelByLocation = (state, location) =>
   fromPersonnel.getPersonnelByLocation(state.personnel, location);
-export const getLastLocationUpdateById = (state, id) => 
+export const getLastLocationUpdateById = (state, id) =>
   fromPersonnel.getLastLocationUpdateById(state.personnel, id);
 
 export const getSelectedIds = state =>
@@ -83,5 +81,4 @@ export const getVisibilityByLocation = (state, location) =>
 export const getNameByLocation = (state, location) =>
   fromGroup.getNameByLocation(state.group, location);
 
-export const getReport = (state) =>
-  fromReport.getReport(state.report);
+export const getReport = state => fromReport.getReport(state.report);

@@ -11,15 +11,15 @@ import React, { Component } from 'react';
 import {
   ActivityIndicator,
   Button,
-  Text,
   View,
-  StyleSheet,
 } from 'react-native';
+import { connect } from 'react-redux';
 import auth from '@react-native-firebase/auth';
 
+import { getCurrentReportData } from "../reducers/ReportReducer";
 import COLORS from '../modules/colors';
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
   constructor() {
     super();
     this.state = { currentUser: null, loading: false };
@@ -27,7 +27,11 @@ export default class HomeScreen extends Component {
 
   componentDidMount() {
     const { currentUser } = auth();
+    const { reportData } = this.props;
     this.setState({ currentUser, loading: false });
+    if(reportData){
+      this.props.navigation.navigate('IncidentStack');
+    }
   }
 
   _signOut = () => {
@@ -69,3 +73,11 @@ export default class HomeScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    reportData: getCurrentReportData(state),
+  };
+};
+
+export default connect(mapStateToProps, null)(HomeScreen);

@@ -10,7 +10,6 @@ import {
   ADD_PERSON,
   REMOVE_PERSON,
   SET_LOCATION,
-  INCREMENT_LOCATION_TIME
 } from "./types";
 import { STAGING } from "../modules/locations";
 
@@ -32,9 +31,4 @@ export const removePersonById = id => ({
 export const setLocationById = (id, location) => ({
   type: SET_LOCATION,
   payload: { id, location }
-});
-
-export const incrementlastLocationUpdateById = id => ({
-  type: INCREMENT_LOCATION_TIME,
-  payload: { id }
 });

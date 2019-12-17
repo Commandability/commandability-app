@@ -1,7 +1,7 @@
 /**
  * Personnel Reducer
  *
- * Reducers to add and remove personnel, and change location.
+ * Reducers to add personnel, remove personnel, and change location.
  * Selectors to get personnel by location.
  */
 
@@ -10,6 +10,7 @@ import {
   REMOVE_PERSON,
   SET_LOCATION,
   RESET_INCIDENT,
+  REMOVE_GROUP,
 } from '../actions/types';
 import { ROSTER } from '../modules/locations';
 
@@ -23,9 +24,9 @@ const byId = (state = initialState.byId, action) => {
     case ADD_PERSON:
       return addPerson(state, action);
     case REMOVE_PERSON:
-      return removePerson(state, action);
+      return removePersonById(state, action);
     case SET_LOCATION:
-      return setLocation(state, action);
+      return setLocationById(state, action);
     default:
       return state;
   }
@@ -58,7 +59,7 @@ const addPerson = (state, action) => {
   };
 };
 
-const removePerson = (state, action) => {
+const removePersonById = (state, action) => {
   const { payload } = action;
   const { id } = payload;
   // eslint-disable-next-line no-unused-vars
@@ -66,7 +67,8 @@ const removePerson = (state, action) => {
   return updatedPersonnel;
 };
 
-const setLocation = (state, action) => {
+// set location of person by id
+const setLocationById = (state, action) => {
   const { payload } = action;
   const { id, location } = payload;
   const person = state[id];
@@ -77,23 +79,6 @@ const setLocation = (state, action) => {
       location,
       lastLocationUpdate: location === ROSTER ? 0 : Date.now(),
     },
-  };
-};
-
-// set all locations to default and lastLocationUpdate to 0 at end of incident
-const resetIncident = (state, action) => {
-  const byId = {};
-  state.allIds.forEach(id => {
-    const person = state.byId[id];
-    byId[id] = {
-      ...person,
-      location: 'Roster',
-      lastLocationUpdate: 0,
-    };
-  });
-  return {
-    byId,
-    allIds: allIds(state.allIds, action),
   };
 };
 
@@ -120,6 +105,49 @@ const removePersonId = (state, action) => {
   return state.filter(currId => currId != id);
 };
 
+// set all locations in a group to roster if the group is deleted
+const returnToRoster = (state, action) => {
+  const { payload } = action;
+  const { location } = payload;
+  const byId = {};
+
+  state.allIds.forEach(id => {
+    const person = state.byId[id];
+    if (person.location === location) {
+      byId[id] = {
+        ...person,
+        location: 'Roster',
+        lastLocationUpdate: 0,
+      };
+    } else {
+      byId[id] = {
+        ...person,
+      };
+    }
+  });
+  return {
+    byId,
+    allIds: allIds(state.allIds, action),
+  };
+};
+
+// set all locations to default and lastLocationUpdate to 0 at end of incident
+const resetIncident = (state, action) => {
+  const byId = {};
+  state.allIds.forEach(id => {
+    const person = state.byId[id];
+    byId[id] = {
+      ...person,
+      location: 'Roster',
+      lastLocationUpdate: 0,
+    };
+  });
+  return {
+    byId,
+    allIds: allIds(state.allIds, action),
+  };
+};
+
 export const getPersonnelByLocation = (state, location) => {
   const personnelIdsByLocation = state.allIds.filter(
     id => state.byId[id].location === location
@@ -134,6 +162,8 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case RESET_INCIDENT:
       return resetIncident(state, action);
+    case REMOVE_GROUP:
+      return returnToRoster(state, action);
     default:
       return {
         byId: byId(state.byId, action),

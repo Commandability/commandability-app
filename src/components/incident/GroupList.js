@@ -9,9 +9,9 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
   getPersonnelByLocation,

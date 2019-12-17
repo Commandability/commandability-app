@@ -1,22 +1,26 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   ActivityIndicator,
   Alert,
   Button,
   TextInput,
   View,
-  StyleSheet
-} from "react-native";
-import auth from "@react-native-firebase/auth";
-import NetInfo from "@react-native-community/netinfo";
+  StyleSheet,
+} from 'react-native';
+import auth from '@react-native-firebase/auth';
+import NetInfo from '@react-native-community/netinfo';
+import PropTypes from 'prop-types';
 
-import { NavBar, Group, Staging, Roster } from "../components/incident";
-import COLORS from "../modules/colors";
+import colors from '../modules/colors';
 
 export default class LoginScreen extends Component {
   constructor() {
     super();
-    this.state = { loading: false, email: "test@test.com", password: "password" };
+    this.state = {
+      loading: false,
+      email: 'test@test.com', // empty string
+      password: 'password', // empty string
+    };
   }
 
   _signIn = async () => {
@@ -24,38 +28,39 @@ export default class LoginScreen extends Component {
     const { email, password } = this.state;
     try {
       await auth().signInWithEmailAndPassword(email, password);
-      this.props.navigation.navigate("AppStack");
-    } catch(error){
+      const { navigate } = this.props.navigation;
+      navigate('AppStack');
+    } catch (error) {
       // handle network connection errors
       NetInfo.fetch().then(state => {
         if (state.isConnected) {
-          let message = "";
+          let message = '';
           switch (error.code) {
-            case "auth/invalid-email":
-              message = "The email address you entered is invalid. ";
+            case 'auth/invalid-email':
+              message = 'The email address you entered is invalid. ';
               break;
-            case "auth/user-not-found":
-            case "auth/wrong-password":
+            case 'auth/user-not-found':
+            case 'auth/wrong-password':
               message =
-                "The username and password you entered do not match our records. ";
+                'The username and password you entered do not match our records. ';
               break;
             default:
-              message = "Unknown error. ";
+              message = 'Unknown error. ';
           }
 
-          Alert.alert("Error", message, [
+          Alert.alert('Error', message, [
             {
-              text: "OK"
-            }
+              text: 'OK',
+            },
           ]);
         } else {
           Alert.alert(
-            "Failed to connect to the network. ",
-            "Please check your network connection status. ",
+            'Failed to connect to the network. ',
+            'Please check your network connection status. ',
             [
               {
-                text: "OK"
-              }
+                text: 'OK',
+              },
             ]
           );
         }
@@ -64,7 +69,7 @@ export default class LoginScreen extends Component {
       this.setState(prevState => ({
         loading: false,
         email: prevState.email,
-        password: ""
+        password: '',
       }));
     }
   };
@@ -76,7 +81,7 @@ export default class LoginScreen extends Component {
           style={styles.textInput}
           autoCapitalize="none"
           placeholder="Email"
-          placeholderTextColor={COLORS.primary.light}
+          placeholderTextColor={colors.primary.light}
           disableFullscreenUI
           keyboardType="email-address"
           onChangeText={email => this.setState({ email })}
@@ -86,7 +91,7 @@ export default class LoginScreen extends Component {
           style={styles.textInput}
           autoCapitalize="none"
           placeholder="Password"
-          placeholderTextColor={COLORS.primary.light}
+          placeholderTextColor={colors.primary.light}
           disableFullscreenUI
           secureTextEntry
           onChangeText={password => this.setState({ password })}
@@ -95,14 +100,14 @@ export default class LoginScreen extends Component {
         <Button
           onPress={this._signIn}
           title="Sign in"
-          color={COLORS.primary.light}
+          color={colors.primary.light}
           disabled={this.state.email && this.state.password ? false : true}
         />
         {this.state.loading && (
           <ActivityIndicator
             style={styles.activityIndicator}
-            color={COLORS.secondary.light}
-            size={"large"}
+            color={colors.secondary.light}
+            size={'large'}
           />
         )}
       </View>
@@ -110,28 +115,34 @@ export default class LoginScreen extends Component {
   }
 }
 
+// props validation
+LoginScreen.propTypes = {
+  navigation: PropTypes.object,
+  navigate: PropTypes.func,
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.primary.dark,
-    justifyContent: "center",
-    alignItems: "center"
+    backgroundColor: colors.primary.dark,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   textInput: {
     height: 40,
-    width: "90%",
-    color: "white",
-    borderColor: COLORS.primary.light,
+    width: '90%',
+    color: colors.text.light,
+    borderColor: colors.primary.light,
     borderWidth: 1,
-    marginBottom: 8
+    marginBottom: 8,
   },
   activityIndicator: {
-    position: "absolute",
+    position: 'absolute',
     left: 0,
     right: 0,
     bottom: 0,
-    alignItems: "center",
-    justifyContent: "center",
-    height: 80
-  }
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 80,
+  },
 });

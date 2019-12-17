@@ -1,16 +1,7 @@
-import React, { Component } from "react";
-import {
-  AppRegistry,
-  TouchableOpacity,
-  Flatlist,
-  Text,
-  View,
-  Image,
-  Alert,
-  StyleSheet
-} from "react-native";
+import React, { Component } from 'react';
+import { Text, View } from 'react-native';
 
-export default class PersonPrompt extends React.PureComponent {
+export default class PersonPrompt extends Component {
   render() {
     return (
       <View>

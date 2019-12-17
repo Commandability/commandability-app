@@ -7,7 +7,7 @@ import { createStackNavigator } from "react-navigation-stack";
 
 import configureStore from "./modules/configureStore";
 import { LoadingScreen, LoginScreen, HomeScreen, IncidentScreen, GroupPrompt } from "./screens";
-import COLORS from "./modules/colors";
+import colors from "./modules/colors";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -15,7 +15,7 @@ export const { persistor, store } = configureStore();
 
 const defaultNavigationOptions = {
   headerStyle: {
-    backgroundColor: COLORS.secondary.dark,
+    backgroundColor: colors.secondary.dark,
     height: SCREEN_HEIGHT / 16
   }
 };

@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 import auth from '@react-native-firebase/auth';
 
 import { getCurrentReportData } from "../reducers/ReportReducer";
-import COLORS from '../modules/colors';
+import colors from '../modules/colors';
 
 class HomeScreen extends Component {
   constructor() {
@@ -51,21 +51,21 @@ class HomeScreen extends Component {
     const { currentUser } = this.state;
     const { email } = currentUser || {}; // destructuring throws a type error with null objects
     return (
-      <View style={{ flex: 1, backgroundColor: COLORS.primary.dark }}>
+      <View style={{ flex: 1, backgroundColor: colors.primary.dark }}>
         <Button
           onPress={() => this.props.navigation.navigate('IncidentScreen')}
-          color={COLORS.primary.light}
+          color={colors.primary.light}
           title={'Start Incident'}
         ></Button>
         <Button
           onPress={this._signOut}
           title="Sign out"
-          color={COLORS.primary.light}
+          color={colors.primary.light}
         />
         {this.state.loading && (
           <ActivityIndicator
             style={{ height: 80 }}
-            color={COLORS.secondary.dark}
+            color={colors.secondary.dark}
             size={'large'}
           />
         )}

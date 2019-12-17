@@ -6,19 +6,20 @@
  * the group when it is selected.
  */
 
-import React, { Component } from "react";
-import { FlatList, TouchableOpacity } from "react-native";
-import { connect } from "react-redux";
+import React from 'react';
+import { FlatList, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
   getPersonnelByLocation,
   getSelectedLocation,
-  getSelectedIds
-} from "../../reducers";
-import { clearSelectedPersonnel, setLocationById } from "../../actions";
-import GroupItem from "./GroupItem";
+  getSelectedIds,
+} from '../../reducers';
+import { clearSelectedPersonnel, setLocationById } from '../../actions';
+import GroupItem from './GroupItem';
 
-const LOCATION = "Staging";
+const LOCATION = 'Staging';
 
 class StagingList extends React.PureComponent {
   constructor() {
@@ -37,7 +38,7 @@ class StagingList extends React.PureComponent {
     return <GroupItem location={LOCATION} item={item} />;
   };
 
-  _keyExtractor = (item, index) => item.id;
+  _keyExtractor = item => item.id;
 
   render() {
     const { personnel, selectedLocation } = this.props;
@@ -62,18 +63,24 @@ class StagingList extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+StagingList.propTypes = {
+  location: PropTypes.string,
+  selectedIds: PropTypes.array,
+  clearSelectedPersonnel: PropTypes.func,
+  setLocationById: PropTypes.func,
+  personnel: PropTypes.array,
+  selectedLocation: PropTypes.string,
+};
+
+const mapStateToProps = state => {
   return {
     personnel: getPersonnelByLocation(state, LOCATION),
     selectedLocation: getSelectedLocation(state),
-    selectedIds: getSelectedIds(state)
+    selectedIds: getSelectedIds(state),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    clearSelectedPersonnel,
-    setLocationById
-  }
-)(StagingList);
+export default connect(mapStateToProps, {
+  clearSelectedPersonnel,
+  setLocationById,
+})(StagingList);

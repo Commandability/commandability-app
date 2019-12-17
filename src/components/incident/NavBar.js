@@ -11,7 +11,7 @@ import {
   PixelRatio,
   Platform
 } from "react-native";
-import COLORS from "../../modules/colors";
+import colors from "../../modules/colors";
 import { scaleFont } from "../../modules/fonts";
 import { getCurrentReportData } from "../../reducers/ReportReducer";
 
@@ -94,7 +94,7 @@ var styles = StyleSheet.create({
   navBar: {
     flexDirection: "row",
     flex: 1,
-    backgroundColor: COLORS.primary.dark,
+    backgroundColor: colors.primary.dark,
     borderWidth: 0.5
   },
   timerLayout: {
@@ -109,7 +109,7 @@ var styles = StyleSheet.create({
     fontSize: scaleFont(5),
     textAlignVertical: "center",
     textAlign: "center",
-    color: COLORS.primary.text
+    color: colors.primary.text
   },
   pageTabs: {
     flexDirection: "row",
@@ -124,6 +124,6 @@ var styles = StyleSheet.create({
     fontSize: scaleFont(5),
     textAlignVertical: "center",
     textAlign: "center",
-    color: COLORS.primary.text
+    color: colors.primary.text
   }
 });

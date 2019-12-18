@@ -1,6 +1,5 @@
 /**
  * reportManager module
- *
  * Generate incident reports from the report state and manage storage of all reports through AsyncStorage.
  */
 

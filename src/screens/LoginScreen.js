@@ -1,3 +1,8 @@
+/**
+ * LoginScreen component
+ * Manages displaying the login page. 
+ */
+
 import React, { Component } from 'react';
 import {
   ActivityIndicator,
@@ -131,7 +136,7 @@ const styles = StyleSheet.create({
   textInput: {
     height: 40,
     width: '90%',
-    color: colors.text.light,
+    color: colors.text.primaryLight,
     borderColor: colors.primary.light,
     borderWidth: 1,
     marginBottom: 8,

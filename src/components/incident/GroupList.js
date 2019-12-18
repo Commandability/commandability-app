@@ -1,15 +1,11 @@
 /**
  * GroupList Component
- *
- * props:
- *  - groupName: the name of the group
- *
  * Manages displaying personnel in a group by groupName, as well as  adding selected personnel to
  * the group when it is selected.
  */
 
 import React from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -52,7 +48,7 @@ class GroupList extends React.PureComponent {
             ? true
             : false
         }
-        style={{ borderWidth: 1, flex: 7 }}
+        style={styles.listContainer}
       >
         <FlatList
           data={personnel}
@@ -88,3 +84,10 @@ export default connect(mapStateToProps, {
   clearSelectedPersonnel,
   setLocationById,
 })(GroupList);
+
+const styles = StyleSheet.create({
+  listContainer: {
+    borderWidth: 1,
+    flex: 7,
+  },
+});

@@ -1,14 +1,10 @@
 /**
  * RosterList Component
- *
- * props:
- *  - none
- *
  * Manages displaying personnel in the roster.
  */
 
 import React from 'react';
-import { Alert, FlatList, TouchableOpacity } from 'react-native';
+import { Alert, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -60,7 +56,7 @@ class RosterList extends React.PureComponent {
     return (
       <TouchableOpacity
         onPress={this._onPress}
-        style={{ flex: 7, borderWidth: 1 }}
+        style={styles.listContainer}
         disabled={
           selectedLocation == null || selectedLocation == ROSTER ? true : false
         }
@@ -98,3 +94,10 @@ export default connect(mapStateToProps, {
   clearSelectedPersonnel,
   setLocationById,
 })(RosterList);
+
+const styles = StyleSheet.create({
+  listContainer: {
+    borderWidth: 1,
+    flex: 7,
+  },
+});

@@ -1,9 +1,5 @@
 /**
  * RosterItem Component
- *
- * props:
- *  - item: the current person
- *
  * Manages displaying a person in a the roster and sets a persons location in redux to staging when selected.
  */
 
@@ -51,7 +47,7 @@ class RosterItem extends Component {
 RosterItem.propTypes = {
   setLocationById: PropTypes.func,
   groupName: PropTypes.string,
-  item: PropTypes.object,
+  item: PropTypes.object, // the current person
   location: PropTypes.string,
   selectedLocation: PropTypes.string,
 };

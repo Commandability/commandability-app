@@ -18,6 +18,8 @@ import { getReport } from "../../reducers/ReportReducer";
 import { connect } from "react-redux";
 import { resetIncident, endIncident } from "../../actions";
 
+const MS_IN_SECOND = 1000;
+
 class NavBar extends Component {
 
   _onReportPressed = () => {
@@ -51,12 +53,22 @@ class NavBar extends Component {
     endIncident();
   };
 
+  componentDidMount() {
+    this.intervalID = setInterval (
+      () =>
+        this.setState(() => ({
+          time: Date.now(),
+        })),
+      MS_IN_SECOND
+    );
+  }
+
   render() {
     return (
       <View style={styles.navBar}>
         <View style={styles.timerLayout}>
           <View style={styles.timer}>
-            <Text style={styles.timerContent}>Time:</Text>
+            <Text style={styles.timerContent}>{`Time: ${this.state.time}`}</Text>
           </View>
           <View style={styles.timer}>
             <Text style={styles.timerContent}>Elapsed:</Text>

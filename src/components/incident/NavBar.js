@@ -17,10 +17,20 @@ import { getReport } from "../../reducers/ReportReducer";
 
 import { connect } from "react-redux";
 import { resetIncident, endIncident } from "../../actions";
+import { getInitialTime } from "../../reducers";
 
 const MS_IN_SECOND = 1000;
 
 class NavBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      time: "",
+      hour: "",
+      minute: "",
+      second: "",
+    };
+  }
 
   _onReportPressed = () => {
     const { report } = this.props;
@@ -54,24 +64,29 @@ class NavBar extends Component {
   };
 
   componentDidMount() {
+    var currentTime = new Date();
     this.intervalID = setInterval (
       () =>
         this.setState(() => ({
           time: Date.now(),
+          hour: currentTime.getHours(),
+          minute: currentTime.getMinutes(),
+          second: currentTime.getSeconds(),
         })),
       MS_IN_SECOND
     );
   }
 
   render() {
+    const { initialTime } = this.props;
     return (
       <View style={styles.navBar}>
         <View style={styles.timerLayout}>
           <View style={styles.timer}>
-            <Text style={styles.timerContent}>{`Time: ${this.state.time}`}</Text>
+            <Text style={styles.timerContent}>{`Time: ${this.state.hour}:${this.state.minute}:${this.state.second}`}</Text>
           </View>
           <View style={styles.timer}>
-            <Text style={styles.timerContent}>Elapsed:</Text>
+            <Text style={styles.timerContent}>{`Elapsed: ${Math.floor((this.state.time-this.props.initialTime)/3600000)}:${Math.floor(((this.state.time-this.props.initialTime)%3600000)/60000)}:${Math.floor((((this.state.time-this.props.initialTime)%3600000)%60000)/1000)}`}</Text>
           </View>
         </View>
         <View style={styles.pageTabs}></View>
@@ -98,6 +113,7 @@ class NavBar extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     report: getReport(state),
+    initialTime: getInitialTime(state),
   };
 };
 

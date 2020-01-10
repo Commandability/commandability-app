@@ -6,6 +6,7 @@
         "persistor",
         "unmount",
         "unsubscriber",
+        "uuidv",
         "will"
     ],
     "eslint.enable": true

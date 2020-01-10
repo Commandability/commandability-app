@@ -11,15 +11,17 @@ import {
   PixelRatio,
   Platform
 } from "react-native";
-import COLORS from "../../modules/colors";
+import colors from "../../modules/colors";
 import { scaleFont } from "../../modules/fonts";
-import { getReport } from "../../reducers/ReportReducer";
+import { getCurrentReportData } from "../../reducers/ReportReducer";
 
 import { connect } from "react-redux";
 import { resetIncident, endIncident } from "../../actions";
 import { getInitialTime } from "../../reducers";
 
 const MS_IN_SECOND = 1000;
+
+import { generateCurrentReport } from '../../modules/reportManager';
 
 class NavBar extends Component {
   constructor(props) {
@@ -33,18 +35,9 @@ class NavBar extends Component {
   }
 
   _onReportPressed = () => {
-    const { report } = this.props;
-    let convertedReport = '';
-    for (const entry in report){
-      const {time, log} = report[entry];
-      if (time && log) {
-        convertedReport += `${time}: ${log}\n`;
-      }
-    }
-
     Alert.alert(
       'Report Page',
-      convertedReport.trim(),
+      generateCurrentReport(),
       [
         {text: 'Cancel'},
         {text: 'OK'},
@@ -110,10 +103,10 @@ class NavBar extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
-    report: getReport(state),
     initialTime: getInitialTime(state),
+    report: getCurrentReportData(state)
   };
 };
 
@@ -129,7 +122,7 @@ var styles = StyleSheet.create({
   navBar: {
     flexDirection: "row",
     flex: 1,
-    backgroundColor: COLORS.primary.dark,
+    backgroundColor: colors.primary.dark,
     borderWidth: 0.5
   },
   timerLayout: {
@@ -144,7 +137,7 @@ var styles = StyleSheet.create({
     fontSize: scaleFont(5),
     textAlignVertical: "center",
     textAlign: "center",
-    color: COLORS.primary.text
+    color: colors.primary.text
   },
   pageTabs: {
     flexDirection: "row",
@@ -159,6 +152,6 @@ var styles = StyleSheet.create({
     fontSize: scaleFont(5),
     textAlignVertical: "center",
     textAlign: "center",
-    color: COLORS.primary.text
+    color: colors.primary.text
   }
 });

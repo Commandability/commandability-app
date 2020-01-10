@@ -4,7 +4,7 @@ import {
   StyleSheet
 } from "react-native";
 import { NavBar, Group, Staging, Roster } from "../components/incident";
-import COLORS from "../modules/colors";
+import colors from "../modules/colors";
 import { startIncident } from "../actions";
 import { connect } from "react-redux";
 import { withNavigation } from "react-navigation";
@@ -72,7 +72,7 @@ var styles = StyleSheet.create({
     flexDirection: "row",
     flex: 3,
     padding: 5,
-    backgroundColor: COLORS.primary.dark
+    backgroundColor: colors.primary.dark
   },
   subGroupArea: {
     flexDirection: "column",

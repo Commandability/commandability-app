@@ -10,7 +10,7 @@
 
 import React, { Component } from "react";
 import { TouchableOpacity, Text, View, Image, StyleSheet } from "react-native";
-import COLORS from "../../modules/colors";
+import colors from "../../modules/colors";
 import { scaleFont } from "../../modules/fonts";
 import GroupList from "./GroupList";
 import { withNavigation } from "react-navigation";
@@ -87,13 +87,13 @@ var styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     padding: 5,
-    backgroundColor: COLORS.secondary.dark
+    backgroundColor: colors.secondary.dark
   },
   groupHeaderContent: {
     flex: 5,
     fontSize: scaleFont(6),
     textAlign: "center",
-    color: COLORS.primary.text
+    color: colors.primary.text
   },
   settingsIcon: {
     flex: 1,

@@ -129,10 +129,8 @@
       "visibility": true
     }
   },
-  "report": {
-    
-  },
   "time": {
     "initialTime": ""
-  }
+  },
+  "report": null
 }

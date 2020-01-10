@@ -1,25 +1,18 @@
 /**
- * Home Screen
- *
- * props:
- *  - none
- *
- * Manages displaying the home screen and activity indicator when signing out. 
+ * HomeScreen component
+ * Manages displaying the home screen and activity indicator when signing out.
  */
 
 import React, { Component } from 'react';
-import {
-  ActivityIndicator,
-  Button,
-  Text,
-  View,
-  StyleSheet,
-} from 'react-native';
+import { ActivityIndicator, Button, View, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import auth from '@react-native-firebase/auth';
+import PropTypes from 'prop-types';
 
-import COLORS from '../modules/colors';
+import { getCurrentReportData } from '../reducers/ReportReducer';
+import colors from '../modules/colors';
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
   constructor() {
     super();
     this.state = { currentUser: null, loading: false };
@@ -27,7 +20,11 @@ export default class HomeScreen extends Component {
 
   componentDidMount() {
     const { currentUser } = auth();
+    const { reportData } = this.props;
     this.setState({ currentUser, loading: false });
+    if (reportData) {
+      this.props.navigation.navigate('IncidentStack');
+    }
   }
 
   _signOut = () => {
@@ -44,24 +41,25 @@ export default class HomeScreen extends Component {
   };
 
   render() {
-    const { currentUser } = this.state;
-    const { email } = currentUser || {}; // destructuring throws a type error with null objects
+    // TODO: Add welcome
+    // { currentUser } = this.state;
+    // const { email } = currentUser || {}; // destructuring throws a type error with null objects
     return (
-      <View style={{ flex: 1, backgroundColor: COLORS.primary.dark }}>
+      <View style={styles.container}>
         <Button
           onPress={() => this.props.navigation.navigate('IncidentScreen')}
-          color={COLORS.primary.light}
+          color={colors.primary.light}
           title={'Start Incident'}
         ></Button>
         <Button
           onPress={this._signOut}
           title="Sign out"
-          color={COLORS.primary.light}
+          color={colors.primary.light}
         />
         {this.state.loading && (
           <ActivityIndicator
-            style={{ height: 80 }}
-            color={COLORS.secondary.dark}
+            style={styles.activityIndicator}
+            color={colors.secondary.dark}
             size={'large'}
           />
         )}
@@ -69,3 +67,29 @@ export default class HomeScreen extends Component {
     );
   }
 }
+
+// props validation
+HomeScreen.propTypes = {
+  navigation: PropTypes.object,
+  navigate: PropTypes.func,
+  reportData: PropTypes.array,
+  email: PropTypes.string,
+};
+
+const mapStateToProps = state => {
+  return {
+    reportData: getCurrentReportData(state),
+  };
+};
+
+export default connect(mapStateToProps, null)(HomeScreen);
+
+const styles = StyleSheet.create({
+  activityIndicator: {
+    height: 80
+  },
+  container: {
+    flex: 1, 
+    backgroundColor: colors.primary.dark
+  },
+});

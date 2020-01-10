@@ -1,24 +1,21 @@
 /**
  * RosterList Component
- *
- * props:
- *  - none
- *
  * Manages displaying personnel in the roster.
  */
 
-import React from "react";
-import { Alert, FlatList, TouchableOpacity } from "react-native";
-import { connect } from "react-redux";
+import React from 'react';
+import { Alert, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
   getPersonnelByLocation,
   getSelectedLocation,
-  getSelectedIds
-} from "../../reducers";
-import { clearSelectedPersonnel, setLocationById } from "../../actions";
-import RosterItem from "./RosterItem";
-import { ROSTER } from "../../modules/locations";
+  getSelectedIds,
+} from '../../reducers';
+import { clearSelectedPersonnel, setLocationById } from '../../actions';
+import RosterItem from './RosterItem';
+import { ROSTER } from '../../modules/locations';
 
 class RosterList extends React.PureComponent {
   constructor() {
@@ -26,28 +23,24 @@ class RosterList extends React.PureComponent {
   }
 
   _onPress = () => {
-    const {
-      selectedIds,
-      clearSelectedPersonnel,
-      setLocationById,
-    } = this.props;
+    const { selectedIds, clearSelectedPersonnel, setLocationById } = this.props;
 
     Alert.alert(
-      "Remove selected personnel from incident?",
-      "All selected personnel will be returned to the roster list and marked as off-scene in the report. ",
+      'Remove selected personnel from incident?',
+      'All selected personnel will be returned to the roster list and marked as off-scene in the report. ',
       [
         {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed")
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
         },
         {
-          text: "OK",
+          text: 'OK',
           onPress: () => {
             // set each selected ids new location to the current group
             selectedIds.forEach(id => setLocationById(id, ROSTER));
             clearSelectedPersonnel();
-          }
-        }
+          },
+        },
       ]
     );
   };
@@ -56,14 +49,14 @@ class RosterList extends React.PureComponent {
     return <RosterItem item={item} />;
   };
 
-  _keyExtractor = (item, index) => item.id;
+  _keyExtractor = item => item.id;
 
   render() {
     const { personnel, selectedLocation } = this.props;
     return (
       <TouchableOpacity
         onPress={this._onPress}
-        style={{ flex: 7, borderWidth: 1 }}
+        style={styles.listContainer}
         disabled={
           selectedLocation == null || selectedLocation == ROSTER ? true : false
         }
@@ -79,18 +72,32 @@ class RosterList extends React.PureComponent {
   }
 }
 
+// props validation
+RosterList.propTypes = {
+  location: PropTypes.string,
+  selectedIds: PropTypes.array,
+  clearSelectedPersonnel: PropTypes.func,
+  setLocationById: PropTypes.func,
+  personnel: PropTypes.array,
+  selectedLocation: PropTypes.string,
+};
+
 const mapStateToProps = state => {
   return {
     personnel: getPersonnelByLocation(state, ROSTER),
     selectedLocation: getSelectedLocation(state),
-    selectedIds: getSelectedIds(state)
+    selectedIds: getSelectedIds(state),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    clearSelectedPersonnel,
-    setLocationById
-  }
-)(RosterList);
+export default connect(mapStateToProps, {
+  clearSelectedPersonnel,
+  setLocationById,
+})(RosterList);
+
+const styles = StyleSheet.create({
+  listContainer: {
+    borderWidth: 1,
+    flex: 7,
+  },
+});

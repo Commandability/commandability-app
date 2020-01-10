@@ -12,7 +12,7 @@ import {
   PixelRatio,
   Platform
 } from "react-native";
-import COLORS from "../../modules/colors";
+import colors from "../../modules/colors";
 import { scaleFont } from "../../modules/fonts";
 import GroupList from "./GroupList";
 import RosterList from "./RosterList";
@@ -39,16 +39,16 @@ var styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     padding: 5,
-    backgroundColor: COLORS.secondary.dark
+    backgroundColor: colors.secondary.dark
   },
   groupHeaderContent: {
     flex: 5,
     fontSize: scaleFont(6),
     textAlign: "center",
-    color: COLORS.primary.text
+    color: colors.primary.text
   },
   groupList: {
     flex: 7,
-    backgroundColor: COLORS.primary.dark
+    backgroundColor: colors.primary.dark
   }
 });

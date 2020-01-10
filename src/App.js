@@ -1,23 +1,21 @@
 import React from "react";
-import { Button, Text, View, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import firebase from "@react-native-firebase/app";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
-import SplashScreen from "react-native-splash-screen";
 
 import configureStore from "./modules/configureStore";
 import { LoadingScreen, LoginScreen, HomeScreen, IncidentScreen, GroupPrompt } from "./screens";
-import COLORS from "./modules/colors";
+import colors from "./modules/colors";
 
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
+const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
-const { persistor, store } = configureStore();
+export const { persistor, store } = configureStore();
 
 const defaultNavigationOptions = {
   headerStyle: {
-    backgroundColor: COLORS.secondary.dark,
+    backgroundColor: colors.secondary.dark,
     height: SCREEN_HEIGHT / 16
   }
 };

@@ -1,20 +1,16 @@
 /**
  * RosterItem Component
- *
- * props:
- *  - item: the current person
- *
  * Manages displaying a person in a the roster and sets a persons location in redux to staging when selected.
  */
 
-import React, { Component } from "react";
-import { Text, TouchableOpacity, View, Alert } from "react-native";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { getSelectedLocation } from "../../reducers";
-import { setLocationById } from "../../actions";
-import { STAGING } from "../../modules/locations";
-import GroupItem from "./GroupItem";
+import { getSelectedLocation } from '../../reducers';
+import { setLocationById } from '../../actions';
+import { STAGING } from '../../modules/locations';
 
 class RosterItem extends Component {
   constructor() {
@@ -40,22 +36,26 @@ class RosterItem extends Component {
         }
       >
         <View>
-          <Text>
-            {item.badge + " - " + item.firstName + " " + item.lastName}
-          </Text>
+          <Text>{`${item.badge} - ${item.firstName} ${item.lastName}`}</Text>
         </View>
       </TouchableOpacity>
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+// props validation
+RosterItem.propTypes = {
+  setLocationById: PropTypes.func,
+  groupName: PropTypes.string,
+  item: PropTypes.object, // the current person
+  location: PropTypes.string,
+  selectedLocation: PropTypes.string,
+};
+
+const mapStateToProps = state => {
   return {
-    selectedLocation: getSelectedLocation(state)
+    selectedLocation: getSelectedLocation(state),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { setLocationById }
-)(RosterItem);
+export default connect(mapStateToProps, { setLocationById })(RosterItem);

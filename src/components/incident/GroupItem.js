@@ -8,7 +8,10 @@ import PropTypes from 'prop-types';
 import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
-import { getSelectedLocation, getLastLocationUpdateById } from '../../reducers';
+import {
+  getSelectedLocation,
+  getLocationUpdateTimeByPerson,
+} from '../../reducers';
 import { toggleSelectedPersonById } from '../../actions';
 import colors from '../../modules/colors';
 
@@ -17,32 +20,32 @@ const MS_IN_MINUTE = 60000;
 class GroupItem extends Component {
   constructor(props) {
     super(props);
-    const { lastLocationUpdate } = this.props;
+    const { locationUpdateTime } = this.props;
     this.state = {
       selected: false,
-      time: Date.now() - lastLocationUpdate,
+      time: Date.now() - locationUpdateTime,
     };
   }
 
   componentDidMount() {
-    const { lastLocationUpdate } = this.props;
+    const { locationUpdateTime } = this.props;
     // set first timer manually to reduce interval when remounting component after crash
     this.timeoutID = setTimeout(
       () => {
         this.setState(() => ({
-          time: Date.now() - lastLocationUpdate,
+          time: Date.now() - locationUpdateTime,
         }));
         // set recurring timers at constant intervals
         this.intervalID = setInterval(
           () =>
             this.setState(() => ({
-              time: Date.now() - lastLocationUpdate,
+              time: Date.now() - locationUpdateTime,
             })),
           MS_IN_MINUTE
         );
       },
       // calculate remaining ms in last count before a new interval should be started
-      MS_IN_MINUTE - ((Date.now() - lastLocationUpdate) % MS_IN_MINUTE)
+      MS_IN_MINUTE - ((Date.now() - locationUpdateTime) % MS_IN_MINUTE)
     );
   }
 
@@ -90,7 +93,7 @@ class GroupItem extends Component {
 
 // props validation
 GroupItem.propTypes = {
-  lastLocationUpdate: PropTypes.number,
+  locationUpdateTime: PropTypes.number,
   item: PropTypes.object, // the current person
   location: PropTypes.string, // the parent groupName
   toggleSelectedPersonById: PropTypes.func,
@@ -101,7 +104,7 @@ const mapStateToProps = (state, ownProps) => {
   const { item } = ownProps;
   return {
     selectedLocation: getSelectedLocation(state),
-    lastLocationUpdate: getLastLocationUpdateById(state, item.id),
+    locationUpdateTime: getLocationUpdateTimeByPerson(state, item),
   };
 };
 

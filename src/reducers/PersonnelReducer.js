@@ -24,9 +24,9 @@ const byId = (state = initialState.byId, action) => {
     case ADD_PERSON:
       return addPerson(state, action);
     case REMOVE_PERSON:
-      return removePersonById(state, action);
+      return removePerson(state, action);
     case SET_LOCATION:
-      return setLocationById(state, action);
+      return setPersonLocation(state, action);
     default:
       return state;
   }
@@ -42,7 +42,7 @@ const addPerson = (state, action) => {
     rank,
     shift,
     location,
-    lastLocationUpdate,
+    locationUpdateTime,
   } = payload;
   return {
     ...state,
@@ -54,30 +54,37 @@ const addPerson = (state, action) => {
       rank,
       shift,
       location,
-      lastLocationUpdate,
+      locationUpdateTime,
     },
   };
 };
 
-const removePersonById = (state, action) => {
+const removePerson = (state, action) => {
   const { payload } = action;
-  const { id } = payload;
+  const {
+    person: { id },
+  } = payload;
+
   // eslint-disable-next-line no-unused-vars
   const { [id]: removed, ...updatedPersonnel } = state;
   return updatedPersonnel;
 };
 
 // set location of person by id
-const setLocationById = (state, action) => {
+const setPersonLocation = (state, action) => {
   const { payload } = action;
-  const { id, location } = payload;
+  const {
+    person: { id },
+    currTime,
+    location,
+  } = payload;
   const person = state[id];
   return {
     ...state,
     [id]: {
       ...person,
       location,
-      lastLocationUpdate: location === ROSTER ? 0 : Date.now(),
+      locationUpdateTime: location === ROSTER ? 0 : currTime,
     },
   };
 };
@@ -116,8 +123,8 @@ const returnToRoster = (state, action) => {
     if (person.location === location) {
       byId[id] = {
         ...person,
-        location: 'Roster',
-        lastLocationUpdate: 0,
+        location: ROSTER,
+        locationUpdateTime: 0,
       };
     } else {
       byId[id] = {
@@ -131,15 +138,15 @@ const returnToRoster = (state, action) => {
   };
 };
 
-// set all locations to default and lastLocationUpdate to 0 at end of incident
+// set all locations to default and locationUpdateTime to 0 at end of incident
 const resetIncident = (state, action) => {
   const byId = {};
   state.allIds.forEach(id => {
     const person = state.byId[id];
     byId[id] = {
       ...person,
-      location: 'Roster',
-      lastLocationUpdate: 0,
+      location: ROSTER,
+      locationUpdateTime: 0,
     };
   });
   return {
@@ -155,8 +162,12 @@ export const getPersonnelByLocation = (state, location) => {
   return personnelIdsByLocation.map(id => state.byId[id]);
 };
 
-export const getLastLocationUpdateById = (state, id) =>
-  state.byId[id].lastLocationUpdate;
+export const getPersonById = (state, id) => state.byId[id];
+
+export const getLocationUpdateTimeByPerson = (state, person) => {
+  const { id } = person;
+  return state.byId[id].locationUpdateTime;
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {

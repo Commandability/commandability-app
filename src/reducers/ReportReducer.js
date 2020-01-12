@@ -72,7 +72,7 @@ const logEndIncident = (state, action) => {
   };
 };
 
-export const reportIsActive = state => Object.keys(state).length > 1; // Inactive incidents have only the `_persist` property
+export const activeReport = state => Object.keys(state).length > 1; // Inactive incidents have only the `_persist` property
 
 export const getCurrentReportData = state => state;
 

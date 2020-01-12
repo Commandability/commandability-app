@@ -12,19 +12,19 @@ import { STAGING } from '../modules/locations';
 export const addPerson = person => {
   const id = uuidv4();
   const location = STAGING;
-  const lastLocationUpdate = 0;
+  const locationUpdateTime = 0;
   return {
     type: ADD_PERSON,
-    payload: { ...person, id, location, lastLocationUpdate },
+    payload: { ...person, id, location, locationUpdateTime },
   };
 };
 
-export const removePersonById = id => ({
+export const removePerson = person => ({
   type: REMOVE_PERSON,
-  payload: { id },
+  payload: { person },
 });
 
-export const setLocationById = (id, location) => ({
+export const setPersonLocation = (person, location) => ({
   type: SET_LOCATION,
-  payload: { id, location },
+  payload: { person, currTime: Date.now(), location },
 });

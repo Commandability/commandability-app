@@ -12,22 +12,22 @@ import PropTypes from 'prop-types';
 import {
   getPersonnelByLocation,
   getSelectedLocation,
-  getSelectedIds,
+  getSelectedPersonnel,
 } from '../../reducers';
-import { clearSelectedPersonnel, setLocationById } from '../../actions';
+import { clearSelectedPersonnel, setPersonLocation } from '../../actions';
 import GroupItem from './GroupItem';
 
 class GroupList extends React.PureComponent {
   onPress = () => {
     const {
-      selectedIds,
+      selectedPersonnel,
       clearSelectedPersonnel,
-      setLocationById,
+      setPersonLocation,
       location,
     } = this.props;
 
     // set each selected ids new location to the current group
-    selectedIds.forEach(id => setLocationById(id, location));
+    selectedPersonnel.forEach(person => setPersonLocation(person, location));
     clearSelectedPersonnel();
   };
 
@@ -62,9 +62,9 @@ class GroupList extends React.PureComponent {
 // props validation
 GroupList.propTypes = {
   location: PropTypes.string,
-  selectedIds: PropTypes.array,
+  selectedPersonnel: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
-  setLocationById: PropTypes.func,
+  setPersonLocation: PropTypes.func,
   personnel: PropTypes.array,
   selectedLocation: PropTypes.string,
 };
@@ -74,13 +74,13 @@ const mapStateToProps = (state, ownProps) => {
   return {
     personnel: getPersonnelByLocation(state, location),
     selectedLocation: getSelectedLocation(state),
-    selectedIds: getSelectedIds(state),
+    selectedPersonnel: getSelectedPersonnel(state),
   };
 };
 
 export default connect(mapStateToProps, {
   clearSelectedPersonnel,
-  setLocationById,
+  setPersonLocation,
 })(GroupList);
 
 const styles = StyleSheet.create({

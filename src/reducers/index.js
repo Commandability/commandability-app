@@ -35,7 +35,6 @@ const groupPersistConfig = {
 const reportPersistConfig = {
   key: 'report',
   storage: AsyncStorage,
-  stateReconciler: autoMergeLevel2,
 };
 
 const timePersistConfig = {
@@ -61,9 +60,8 @@ const rootPersistConfig = {
 const rootReducer = (state, action) => {
   if (action.type === RESET_APP) {
     deleteAllReports();
-    // undefined state results in all reducers returning default state
-    // https://stackoverflow.com/questions/35622588/how-to-reset-the-state-of-a-redux-store
-    state = undefined;
+    // undefined state results in all reducers returning default state because of default parameters
+    state = undefined; // does not mutate state
     purgeStoredState(personnelPersistConfig);
     purgeStoredState(groupPersistConfig);
     purgeStoredState(reportPersistConfig);
@@ -77,25 +75,25 @@ export default persistReducer(rootPersistConfig, rootReducer);
 // Personnel selectors
 export const getPersonnelByLocation = (state, location) =>
   fromPersonnel.getPersonnelByLocation(state.personnel, location);
-export const getLastLocationUpdateById = (state, id) =>
-  fromPersonnel.getLastLocationUpdateById(state.personnel, id);
+export const getLocationUpdateTimeByPerson = (state, person) =>
+  fromPersonnel.getLocationUpdateTimeByPerson(state.personnel, person);
 
 // Selected selectors
-export const getSelectedIds = state =>
-  fromSelected.getSelectedIds(state.selected);
 export const getSelectedLocation = state =>
   fromSelected.getSelectedLocation(state.selected);
+export const getSelectedPersonnel = state =>
+  fromSelected
+    .getSelectedIds(state.selected)
+    .map(id => fromPersonnel.getPersonById(state.personnel, id));
 
 // Group selectors
-export const getVisibilityByLocation = (state, location) =>
-  fromGroup.getVisibilityByLocation(state.group, location);
-export const getNameByLocation = (state, location) =>
-  fromGroup.getNameByLocation(state.group, location);
+export const getGroupByLocation = (state, location) =>
+  fromGroup.getGroupByLocation(state.group, location);
 
 // Time selectors
 export const getInitialTime = state => fromTime.getInitialTime(state.time);
 
 // Report selectors
-export const reportIsActive = state => fromReport.reportIsActive(state.report);
+export const activeReport = state => fromReport.activeReport(state.report);
 export const getCurrentReportData = state =>
   fromReport.getCurrentReportData(state.report);

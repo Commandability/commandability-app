@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getSelectedLocation } from '../../reducers';
-import { setLocationById } from '../../actions';
+import { setPersonLocation } from '../../actions';
 import { STAGING } from '../../modules/locations';
 
 class RosterItem extends Component {
@@ -18,8 +18,8 @@ class RosterItem extends Component {
   }
 
   _onPress = () => {
-    const { item, setLocationById } = this.props;
-    setLocationById(item.id, STAGING);
+    const { item, setPersonLocation } = this.props;
+    setPersonLocation(item, STAGING);
   };
 
   render() {
@@ -43,7 +43,7 @@ class RosterItem extends Component {
 
 // props validation
 RosterItem.propTypes = {
-  setLocationById: PropTypes.func,
+  setPersonLocation: PropTypes.func,
   groupName: PropTypes.string,
   item: PropTypes.object, // the current person
   location: PropTypes.string,
@@ -56,4 +56,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { setLocationById })(RosterItem);
+export default connect(mapStateToProps, { setPersonLocation })(RosterItem);

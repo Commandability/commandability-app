@@ -9,7 +9,7 @@ import { TextInput, TouchableOpacity, Text, View } from "react-native";
 import { StackNavigatior } from "react-navigation";
 import { connect } from "react-redux";
 
-import { getNameByLocation, getVisibilityByLocation } from "../reducers";
+import { getGroupByLocation } from "../reducers";
 
 import { removeGroup, editName, logRemoveGroup, logEditName } from "../actions";
 
@@ -70,10 +70,11 @@ class GroupPrompt extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const local = ownProps.navigation.getParam("local", "default");
+  const { name, visibility } = getGroupByLocation(state, local);
   return {
-    groupName: getNameByLocation(state, local),
-    visibility: getVisibilityByLocation(state, local),
-    local: local
+    groupName: name,
+    visibility,
+    local
   };
 };
 

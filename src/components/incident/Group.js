@@ -16,7 +16,7 @@ import GroupList from "./GroupList";
 import { withNavigation } from "react-navigation";
 import { connect } from "react-redux";
 
-import { getNameByLocation, getVisibilityByLocation } from "../../reducers";
+import { getGroupByLocation } from "../../reducers";
 import { addGroup } from "../../actions";
 
 class Group extends Component {
@@ -71,9 +71,10 @@ class Group extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const { location } = ownProps;
+  const { name, visibility } = getGroupByLocation(state, location);
   return {
-    groupName: getNameByLocation(state, location),
-    visibility: getVisibilityByLocation(state, location)
+    groupName: name,
+    visibility
   };
 };
 

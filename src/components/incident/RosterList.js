@@ -11,9 +11,9 @@ import PropTypes from 'prop-types';
 import {
   getPersonnelByLocation,
   getSelectedLocation,
-  getSelectedIds,
+  getSelectedPersonnel,
 } from '../../reducers';
-import { clearSelectedPersonnel, setLocationById } from '../../actions';
+import { clearSelectedPersonnel, setPersonLocation } from '../../actions';
 import RosterItem from './RosterItem';
 import { ROSTER } from '../../modules/locations';
 
@@ -23,7 +23,11 @@ class RosterList extends React.PureComponent {
   }
 
   _onPress = () => {
-    const { selectedIds, clearSelectedPersonnel, setLocationById } = this.props;
+    const {
+      selectedPersonnel,
+      clearSelectedPersonnel,
+      setPersonLocation,
+    } = this.props;
 
     Alert.alert(
       'Remove selected personnel from incident?',
@@ -37,7 +41,9 @@ class RosterList extends React.PureComponent {
           text: 'OK',
           onPress: () => {
             // set each selected ids new location to the current group
-            selectedIds.forEach(id => setLocationById(id, ROSTER));
+            selectedPersonnel.forEach(person =>
+              setPersonLocation(person, ROSTER)
+            );
             clearSelectedPersonnel();
           },
         },
@@ -75,9 +81,9 @@ class RosterList extends React.PureComponent {
 // props validation
 RosterList.propTypes = {
   location: PropTypes.string,
-  selectedIds: PropTypes.array,
+  selectedPersonnel: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
-  setLocationById: PropTypes.func,
+  setPersonLocation: PropTypes.func,
   personnel: PropTypes.array,
   selectedLocation: PropTypes.string,
 };
@@ -86,13 +92,13 @@ const mapStateToProps = state => {
   return {
     personnel: getPersonnelByLocation(state, ROSTER),
     selectedLocation: getSelectedLocation(state),
-    selectedIds: getSelectedIds(state),
+    selectedPersonnel: getSelectedPersonnel(state),
   };
 };
 
 export default connect(mapStateToProps, {
   clearSelectedPersonnel,
-  setLocationById,
+  setPersonLocation,
 })(RosterList);
 
 const styles = StyleSheet.create({

@@ -10,21 +10,31 @@ import { ADD_PERSON, REMOVE_PERSON, SET_LOCATION } from './types';
 import { STAGING } from '../modules/locations';
 
 export const addPerson = person => {
-  const id = uuidv4();
+  const personId = uuidv4();
+  const entryId = uuidv4(); // for storage in the report reducer
   const location = STAGING;
   const locationUpdateTime = 0;
+  const dateTime = new Date().toLocaleString();
   return {
     type: ADD_PERSON,
-    payload: { ...person, id, location, locationUpdateTime },
+    payload: { entryId, dateTime, person: { personId, ...person, location, locationUpdateTime } },
   };
 };
 
-export const removePerson = person => ({
-  type: REMOVE_PERSON,
-  payload: { person },
-});
+export const removePerson = person => {
+  const entryId = uuidv4();
+  const dateTime = new Date().toLocaleString();
+  return {
+    type: REMOVE_PERSON,
+    payload: { entryId, dateTime, person },
+  };
+};
 
-export const setPersonLocation = (person, location) => ({
-  type: SET_LOCATION,
-  payload: { person, currTime: Date.now(), location },
-});
+export const setPersonLocation = (person, newLocation) => {
+  const entryId = uuidv4();
+  const dateTime = new Date().toLocaleString();
+  return {
+    type: SET_LOCATION,
+    payload: { entryId, dateTime, person, currTime: Date.now(), newLocation },
+  };
+};

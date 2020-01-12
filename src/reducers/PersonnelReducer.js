@@ -35,19 +35,21 @@ const byId = (state = initialState.byId, action) => {
 const addPerson = (state, action) => {
   const { payload } = action;
   const {
-    id,
-    badge,
-    firstName,
-    lastName,
-    rank,
-    shift,
-    location,
-    locationUpdateTime,
+    person: {
+      personId,
+      badge,
+      firstName,
+      lastName,
+      rank,
+      shift,
+      location,
+      locationUpdateTime,
+    },
   } = payload;
   return {
     ...state,
-    [id]: {
-      id,
+    [personId]: {
+      id: personId,
       badge,
       firstName,
       lastName,
@@ -76,15 +78,15 @@ const setPersonLocation = (state, action) => {
   const {
     person: { id },
     currTime,
-    location,
+    newLocation,
   } = payload;
   const person = state[id];
   return {
     ...state,
     [id]: {
       ...person,
-      location,
-      locationUpdateTime: location === ROSTER ? 0 : currTime,
+      location: newLocation,
+      locationUpdateTime: newLocation === ROSTER ? 0 : currTime,
     },
   };
 };

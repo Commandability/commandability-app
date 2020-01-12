@@ -9,28 +9,28 @@ import uuidv4 from 'uuid/v4';
 import { EDIT_NAME, ADD_GROUP, REMOVE_GROUP } from './types';
 
 export const editName = ({ location, name }) => {
-  const id = uuidv4();
+  const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   return {
     type: EDIT_NAME,
-    payload: { location, name, id, dateTime },
+    payload: { entryId, dateTime, location, name },
   };
 };
 
 export const addGroup = ({ location }) => {
-  const id = uuidv4();
+  const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   return {
     type: ADD_GROUP,
-    payload: { location, id, dateTime },
+    payload: { entryId, dateTime, location },
   };
 };
 
 export const removeGroup = ({ location }) => {
-  const id = uuidv4();
+  const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   return {
     type: REMOVE_GROUP,
-    payload: { location, id, dateTime },
+    payload: { entryId, dateTime, location },
   };
 };

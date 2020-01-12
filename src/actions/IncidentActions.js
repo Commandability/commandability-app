@@ -13,19 +13,19 @@ export const resetIncident = () => ({
 });
 
 export const startIncident = () => {
-  const id = uuidv4();
+  const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   return {
     type: START_INCIDENT,
-    payload: { id, dateTime },
+    payload: { entryId, dateTime },
   };
 };
 
 export const endIncident = () => {
-  const id = uuidv4();
+  const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   return {
     type: END_INCIDENT,
-    payload: { id, dateTime },
+    payload: { entryId, dateTime },
   };
 };

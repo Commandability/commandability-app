@@ -10,13 +10,13 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { persistReducer, purgeStoredState } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
-import personnel, * as fromPersonnel from "./PersonnelReducer";
-import group, * as fromGroup from "./GroupReducer";
-import report, * as fromReport from "./ReportReducer";
-import time, * as fromTime from "./TimeReducer";
-import selected, * as fromSelected from "./SelectedReducer";
-import { RESET_APP } from "../actions/types";
-import clearReports from "../modules/reportManager";
+import personnel, * as fromPersonnel from './PersonnelReducer';
+import group, * as fromGroup from './GroupReducer';
+import report, * as fromReport from './ReportReducer';
+import time, * as fromTime from './TimeReducer';
+import selected, * as fromSelected from './SelectedReducer';
+import { RESET_APP } from '../actions/types';
+import deleteAllReports from '../modules/reportManager';
 
 // personnel reducer config, set persisted data to autoMergeLevel2 to track personnel changes
 // https://blog.reactnativecoach.com/the-definitive-guide-to-redux-persist-84738167975
@@ -35,20 +35,21 @@ const groupPersistConfig = {
 const reportPersistConfig = {
   key: 'report',
   storage: AsyncStorage,
+  stateReconciler: autoMergeLevel2,
 };
 
 const timePersistConfig = {
-  key: "time",
+  key: 'time',
   storage: AsyncStorage,
-  stateReconciler: autoMergeLevel2
+  stateReconciler: autoMergeLevel2,
 };
 
 const appReducer = combineReducers({
   personnel: persistReducer(personnelPersistConfig, personnel),
   group: persistReducer(groupPersistConfig, group),
   time: persistReducer(timePersistConfig, time),
+  report: persistReducer(reportPersistConfig, report),
   selected,
-  report
 });
 
 // root reducer config, persisted data defaults to autoMergeLevel1
@@ -59,7 +60,7 @@ const rootPersistConfig = {
 
 const rootReducer = (state, action) => {
   if (action.type === RESET_APP) {
-    clearReports();
+    deleteAllReports();
     // undefined state results in all reducers returning default state
     // https://stackoverflow.com/questions/35622588/how-to-reset-the-state-of-a-redux-store
     state = undefined;
@@ -73,23 +74,28 @@ const rootReducer = (state, action) => {
 
 export default persistReducer(rootPersistConfig, rootReducer);
 
-// Selectors by reducer
+// Personnel selectors
 export const getPersonnelByLocation = (state, location) =>
   fromPersonnel.getPersonnelByLocation(state.personnel, location);
 export const getLastLocationUpdateById = (state, id) =>
   fromPersonnel.getLastLocationUpdateById(state.personnel, id);
 
+// Selected selectors
 export const getSelectedIds = state =>
   fromSelected.getSelectedIds(state.selected);
 export const getSelectedLocation = state =>
   fromSelected.getSelectedLocation(state.selected);
 
+// Group selectors
 export const getVisibilityByLocation = (state, location) =>
   fromGroup.getVisibilityByLocation(state.group, location);
 export const getNameByLocation = (state, location) =>
   fromGroup.getNameByLocation(state.group, location);
 
-export const getInitialTime = state =>
-  fromTime.getInitialTime(state.time);
+// Time selectors
+export const getInitialTime = state => fromTime.getInitialTime(state.time);
 
-export const getReport = state => fromReport.getReport(state.report);
+// Report selectors
+export const reportIsActive = state => fromReport.reportIsActive(state.report);
+export const getCurrentReportData = state =>
+  fromReport.getCurrentReportData(state.report);

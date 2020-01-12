@@ -69,9 +69,7 @@ class GroupItem extends Component {
       <TouchableOpacity
         onPress={this._onPress}
         disabled={
-          selectedLocation == location || selectedLocation == null
-            ? false
-            : true
+          selectedLocation == location || selectedLocation == '' ? false : true
         }
       >
         <View>

@@ -5,11 +5,15 @@
  * so that groups know when to disable their child list items.
  */
 
-import { TOGGLE_SELECTED_PERSON, CLEAR_SELECTED_PERSONNEL, RESET_INCIDENT } from "../actions/types";
+import {
+  TOGGLE_SELECTED_PERSON,
+  CLEAR_SELECTED_PERSONNEL,
+  RESET_INCIDENT,
+} from '../actions/types';
 
 const initialState = {
   ids: [],
-  location: null
+  location: '',
 };
 
 const ids = (state = initialState.ids, action) => {
@@ -40,7 +44,7 @@ const location = (state = initialState.location, action) => {
       return setLocation(state, action);
     case RESET_INCIDENT:
     case CLEAR_SELECTED_PERSONNEL:
-      return null;
+      return '';
     default:
       return state;
   }
@@ -55,12 +59,12 @@ const setLocation = (state, action) => {
   if (state.ids.length == 1 && state.ids.indexOf(id) > -1) {
     return {
       ids: ids(state.ids, action),
-      location: null
+      location: '',
     };
   } else {
     return {
       ids: ids(state.ids, action),
-      location
+      location,
     };
   }
 };
@@ -80,7 +84,7 @@ export default (state = initialState, action) => {
     default:
       return {
         ids: ids(state.ids, action),
-        location: location(state.location, action)
+        location: location(state.location, action),
       };
   }
 };

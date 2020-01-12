@@ -13,67 +13,83 @@ import {
   END_INCIDENT,
 } from '../actions/types';
 
-const logEditName = (state, action, dateTime) => {
+const logEditName = (state, action) => {
   const { payload } = action;
-  const { location, name } = payload;
-  return state.concat({
-    dateTime,
-    log: `Renamed group ${location} to ${name}`,
-  });
+  const { location, name, id, dateTime } = payload;
+  return {
+    ...state,
+    [id]: {
+      dateTime,
+      log: `Renamed group ${location} to ${name}`,
+    },
+  };
 };
 
-const logAddGroup = (state, action, dateTime) => {
+const logAddGroup = (state, action) => {
   const { payload } = action;
-  const { location } = payload;
-  return state.concat({
-    dateTime,
-    log: `Added group ${location}`,
-  });
+  const { location, id, dateTime } = payload;
+  return {
+    ...state,
+    [id]: {
+      dateTime,
+      log: `Added group ${location}`,
+    },
+  };
 };
 
-const logRemoveGroup = (state, action, dateTime) => {
+const logRemoveGroup = (state, action) => {
   const { payload } = action;
-  const { location } = payload;
-  return state.concat({
-    dateTime,
-    log: `Removed group ${location}`,
-  });
+  const { location, id, dateTime } = payload;
+  return {
+    ...state,
+    [id]: {
+      dateTime,
+      log: `Removed group ${location}`,
+    },
+  };
 };
 
-const logStartIncident = (state, dateTime) => {
-  return [{
-    dateTime,
-    log: `Incident started`,
-  }];
+const logStartIncident = action => {
+  const { payload } = action;
+  const { id, dateTime } = payload;
+  return {
+    [id]: {
+      dateTime,
+      log: `Incident started`,
+    },
+  };
 };
 
-const logEndIncident = (state, dateTime) => {
-  return state.concat({
-    dateTime,
-    log: `Incident ended`,
-  });
+const logEndIncident = (state, action) => {
+  const { payload } = action;
+  const { id, dateTime } = payload;
+  return {
+    ...state,
+    [id]: {
+      dateTime,
+      log: `Incident ended`,
+    },
+  };
 };
 
-export const getCurrentReportData = state => {
-  return state.report;
-};
+export const reportIsActive = state => Object.keys(state).length > 1; // Inactive incidents have only the `_persist` property
 
-export default (state = null, action) => {
-  const dateTime = new Date().toLocaleString();
+export const getCurrentReportData = state => state;
 
+export default (state = {}, action) => {
   switch (action.type) {
     case EDIT_NAME:
-      return logEditName(state, action, dateTime);
+      return logEditName(state, action);
     case ADD_GROUP:
-      return logAddGroup(state, action, dateTime);
+      return logAddGroup(state, action);
     case REMOVE_GROUP:
-      return logRemoveGroup(state, action, dateTime);
+      return logRemoveGroup(state, action);
     case START_INCIDENT:
-      return logStartIncident(state, dateTime);
+      return logStartIncident(action);
     case END_INCIDENT:
-      return logEndIncident(state, dateTime);
+      return logEndIncident(state, action);
     case RESET_INCIDENT:
-      return null;
+      return {};
     default:
       return state;
   }

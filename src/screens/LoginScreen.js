@@ -1,6 +1,6 @@
 /**
  * LoginScreen component
- * Manages displaying the login page. 
+ * Manages displaying the login page.
  */
 
 import React, { Component } from 'react';

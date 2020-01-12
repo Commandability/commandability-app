@@ -58,7 +58,7 @@ class RosterList extends React.PureComponent {
         onPress={this._onPress}
         style={styles.listContainer}
         disabled={
-          selectedLocation == null || selectedLocation == ROSTER ? true : false
+          selectedLocation === '' || selectedLocation === ROSTER ? true : false
         }
       >
         <FlatList

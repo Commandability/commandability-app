@@ -1,38 +1,53 @@
-import React from "react";
-import { Dimensions } from "react-native";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { createAppContainer, createSwitchNavigator } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
+import React from 'react';
+import { Dimensions } from 'react-native';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
-import configureStore from "./modules/configureStore";
-import { LoadingScreen, LoginScreen, HomeScreen, IncidentScreen, GroupPrompt } from "./screens";
-import colors from "./modules/colors";
+import configureStore from './modules/configureStore';
+import {
+  LoadingScreen,
+  LoginScreen,
+  HomeScreen,
+  IncidentScreen,
+  GroupPrompt,
+} from './screens';
+import colors from './modules/colors';
 
-const { height: SCREEN_HEIGHT } = Dimensions.get("window");
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 export const { persistor, store } = configureStore();
 
 const defaultNavigationOptions = {
   headerStyle: {
     backgroundColor: colors.secondary.dark,
-    height: SCREEN_HEIGHT / 16
-  }
+    height: SCREEN_HEIGHT / 16,
+  },
 };
 
-const AppStack = createStackNavigator({ HomeScreen }, { defaultNavigationOptions });
-const AuthStack = createStackNavigator({ LoginScreen }, { defaultNavigationOptions });
-const IncidentStack = createStackNavigator({ IncidentScreen, GroupPrompt }, {defaultNavigationOptions});
+const AppStack = createStackNavigator(
+  { HomeScreen },
+  { defaultNavigationOptions }
+);
+const AuthStack = createStackNavigator(
+  { LoginScreen },
+  { defaultNavigationOptions }
+);
+const IncidentStack = createStackNavigator(
+  { IncidentScreen, GroupPrompt },
+  { defaultNavigationOptions }
+);
 
 const AppNavigator = createSwitchNavigator(
   {
     LoadingScreen,
     AuthStack,
     AppStack,
-    IncidentStack
+    IncidentStack,
   },
   {
-    defaultNavigationOptions
+    defaultNavigationOptions,
   }
 );
 

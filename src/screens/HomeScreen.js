@@ -5,14 +5,13 @@
 
 import React, { Component } from 'react';
 import { ActivityIndicator, Button, View, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import PropTypes from 'prop-types';
 
-import { getCurrentReportData } from '../reducers/ReportReducer';
+import { generateCurrentReport } from '../modules/reportManager';
 import colors from '../modules/colors';
 
-class HomeScreen extends Component {
+export default class HomeScreen extends Component {
   constructor() {
     super();
     this.state = { currentUser: null, loading: false };
@@ -20,9 +19,8 @@ class HomeScreen extends Component {
 
   componentDidMount() {
     const { currentUser } = auth();
-    const { reportData } = this.props;
     this.setState({ currentUser, loading: false });
-    if (reportData) {
+    if (generateCurrentReport()) {
       this.props.navigation.navigate('IncidentStack');
     }
   }
@@ -72,24 +70,16 @@ class HomeScreen extends Component {
 HomeScreen.propTypes = {
   navigation: PropTypes.object,
   navigate: PropTypes.func,
-  reportData: PropTypes.array,
+  reportData: PropTypes.object,
   email: PropTypes.string,
 };
 
-const mapStateToProps = state => {
-  return {
-    reportData: getCurrentReportData(state),
-  };
-};
-
-export default connect(mapStateToProps, null)(HomeScreen);
-
 const styles = StyleSheet.create({
   activityIndicator: {
-    height: 80
+    height: 80,
   },
   container: {
-    flex: 1, 
-    backgroundColor: colors.primary.dark
+    flex: 1,
+    backgroundColor: colors.primary.dark,
   },
 });

@@ -14,10 +14,12 @@ import {
 import colors from "../../modules/colors";
 import { scaleFont } from "../../modules/fonts";
 import { getCurrentReportData } from "../../reducers/ReportReducer";
+import { withNavigation } from 'react-navigation';
 
 import { connect } from "react-redux";
 import { resetIncident, endIncident } from "../../actions";
 import { getInitialTime } from "../../reducers";
+import { saveCurrentReport } from '../../modules/reportManager';
 
 const MS_IN_SECOND = 1000;
 
@@ -32,6 +34,11 @@ class NavBar extends Component {
       minute: "",
       second: "",
     };
+  }
+
+  componentWillUnmount() {
+    // clear timers to prevent memory leaks
+    clearInterval(this.intervalID);
   }
 
   _onReportPressed = () => {
@@ -52,8 +59,11 @@ class NavBar extends Component {
   };
 
   _onEndPressed = () => {
-    const { endIncident } = this.props;
+    const { endIncident, resetIncident } = this.props;
     endIncident();
+    saveCurrentReport();
+    resetIncident();
+    this.props.navigation.navigate('HomeScreen');
   };
 
   componentDidMount() {
@@ -110,13 +120,15 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    endIncident,
-    resetIncident
-  }
-)(NavBar);
+export default withNavigation(
+  connect(
+    mapStateToProps,
+    {
+      endIncident,
+      resetIncident
+    }
+  )(NavBar)
+);
 
 var styles = StyleSheet.create({
   navBar: {

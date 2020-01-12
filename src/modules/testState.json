@@ -95,7 +95,7 @@
   },
   "selected": {
     "ids": [],
-    "location": null
+    "location": ""
   },
   "group": {
     "group_one": {
@@ -130,7 +130,7 @@
     }
   },
   "time": {
-    "initialTime": ""
+    "initialTime": {}
   },
-  "report": null
+  "report": {}
 }

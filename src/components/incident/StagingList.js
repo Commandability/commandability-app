@@ -46,11 +46,9 @@ class StagingList extends React.PureComponent {
       <TouchableOpacity
         onPress={this._onPress}
         disabled={
-          selectedLocation == null || selectedLocation == LOCATION
-            ? true
-            : false
+          selectedLocation == '' || selectedLocation == LOCATION ? true : false
         }
-        style={ styles.listContainer }
+        style={styles.listContainer}
       >
         <FlatList
           data={personnel}
@@ -87,7 +85,7 @@ export default connect(mapStateToProps, {
 
 const styles = StyleSheet.create({
   listContainer: {
-    borderWidth: 1, 
-    flex: 7
-  }
+    borderWidth: 1,
+    flex: 7,
+  },
 });

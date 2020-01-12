@@ -5,6 +5,7 @@ import {
 } from "react-native";
 import { NavBar, Group, Staging, Roster } from "../components/incident";
 import colors from "../modules/colors";
+import { reportIsActive } from '../reducers';
 import { startIncident } from "../actions";
 import { connect } from "react-redux";
 import { withNavigation } from "react-navigation";
@@ -12,8 +13,11 @@ import { withNavigation } from "react-navigation";
 class IncidentScreen extends Component {
 
   componentDidMount(){
-    const { startIncident } = this.props;
-    startIncident();
+    const { startIncident, reportIsActive } = this.props;
+    // prevent start incident from wiping report when IncidentScreen is re-mounted after a crash
+    if (!reportIsActive){
+      startIncident();
+    }
   }
 
   render() {
@@ -45,8 +49,12 @@ class IncidentScreen extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  reportIsActive: reportIsActive(state)
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   {
     startIncident,
   }

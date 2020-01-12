@@ -30,9 +30,7 @@ class RosterItem extends Component {
       <TouchableOpacity
         onPress={this._onPress}
         disabled={
-          selectedLocation == groupName || selectedLocation == null
-            ? false
-            : true
+          selectedLocation == groupName || selectedLocation == '' ? false : true
         }
       >
         <View>

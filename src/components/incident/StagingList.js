@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import { FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { FlatList, TouchableOpacity, StyleSheet, NativeModules } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -19,7 +19,7 @@ import {
 import { clearSelectedPersonnel, setLocationById } from '../../actions';
 import GroupItem from './GroupItem';
 
-const LOCATION = 'Staging';
+import { STAGING } from '../../modules/locations';
 
 class StagingList extends React.PureComponent {
   constructor() {
@@ -30,12 +30,12 @@ class StagingList extends React.PureComponent {
     const { selectedIds, clearSelectedPersonnel, setLocationById } = this.props;
 
     // set each selected ids new location to the current group
-    selectedIds.forEach(id => setLocationById(id, LOCATION));
+    selectedIds.forEach(id => setLocationById(id, STAGING));
     clearSelectedPersonnel();
   };
 
   _renderItem = ({ item }) => {
-    return <GroupItem location={LOCATION} item={item} />;
+    return <GroupItem location={STAGING} item={item} />;
   };
 
   _keyExtractor = item => item.id;
@@ -46,7 +46,7 @@ class StagingList extends React.PureComponent {
       <TouchableOpacity
         onPress={this._onPress}
         disabled={
-          selectedLocation == '' || selectedLocation == LOCATION ? true : false
+          selectedLocation == '' || selectedLocation == STAGING ? true : false
         }
         style={styles.listContainer}
       >
@@ -72,7 +72,7 @@ StagingList.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    personnel: getPersonnelByLocation(state, LOCATION),
+    personnel: getPersonnelByLocation(state, STAGING),
     selectedLocation: getSelectedLocation(state),
     selectedIds: getSelectedIds(state),
   };

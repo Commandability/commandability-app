@@ -10,6 +10,8 @@ import { startIncident } from "../actions";
 import { connect } from "react-redux";
 import { withNavigation } from "react-navigation";
 
+import { GROUP_ONE, GROUP_TWO, GROUP_THREE, GROUP_FOUR, GROUP_FIVE, GROUP_SIX } from "../modules/locations";
+
 class IncidentScreen extends Component {
 
   componentDidMount(){
@@ -31,16 +33,16 @@ class IncidentScreen extends Component {
           </View>
           <View style={styles.groupArea}>
             <View style={styles.subGroupArea}>
-              <Group location={"group_one"} />
-              <Group location={"group_two"} />
+              <Group location={GROUP_ONE} />
+              <Group location={GROUP_TWO} />
             </View>
             <View style={styles.subGroupArea}>
-              <Group location={"group_three"} />
-              <Group location={"group_four"} />
+              <Group location={GROUP_THREE} />
+              <Group location={GROUP_FOUR} />
             </View>
             <View style={styles.subGroupArea}>
-              <Group location={"group_five"} />
-              <Group location={"group_six"} />
+              <Group location={GROUP_FIVE} />
+              <Group location={GROUP_SIX} />
             </View>
           </View>
         </View>

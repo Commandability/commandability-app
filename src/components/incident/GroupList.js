@@ -10,24 +10,33 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
+  getGroupByLocation,
   getPersonnelByLocation,
   getSelectedLocation,
-  getSelectedPersonnel,
+  getSelectedPersonnelGroups,
 } from '../../reducers';
 import { clearSelectedPersonnel, setPersonLocation } from '../../actions';
 import GroupItem from './GroupItem';
+import { STAGING } from '../../modules/locations';
 
 class GroupList extends React.PureComponent {
   onPress = () => {
     const {
-      selectedPersonnel,
+      selectedPersonnelGroups,
       clearSelectedPersonnel,
       setPersonLocation,
-      location,
+      group,
     } = this.props;
 
     // set each selected ids new location to the current group
-    selectedPersonnel.forEach(person => setPersonLocation(person, location));
+    selectedPersonnelGroups.forEach(personGroup => {
+      const { person, group: prevGroup } = personGroup;
+      setPersonLocation(
+        person,
+        prevGroup || { location: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
+        group
+      );
+    });
     clearSelectedPersonnel();
   };
 
@@ -62,7 +71,8 @@ class GroupList extends React.PureComponent {
 // props validation
 GroupList.propTypes = {
   location: PropTypes.string,
-  selectedPersonnel: PropTypes.array,
+  group: PropTypes.object,
+  selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocation: PropTypes.func,
   personnel: PropTypes.array,
@@ -72,9 +82,10 @@ GroupList.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const { location } = ownProps;
   return {
+    group: getGroupByLocation(state, location),
     personnel: getPersonnelByLocation(state, location),
     selectedLocation: getSelectedLocation(state),
-    selectedPersonnel: getSelectedPersonnel(state),
+    selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };
 

@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 import { getSelectedLocation } from '../../reducers';
 import { setPersonLocation } from '../../actions';
-import { STAGING } from '../../modules/locations';
+import { ROSTER, STAGING } from '../../modules/locations';
 
 class RosterItem extends Component {
   constructor() {
@@ -19,7 +19,11 @@ class RosterItem extends Component {
 
   _onPress = () => {
     const { item, setPersonLocation } = this.props;
-    setPersonLocation(item, STAGING);
+    setPersonLocation(
+      item,
+      { location: ROSTER, name: 'Roster' },
+      { location: STAGING, name: 'Staging' }
+    );
   };
 
   render() {

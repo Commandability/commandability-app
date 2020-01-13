@@ -81,10 +81,11 @@ export const getLocationUpdateTimeByPerson = (state, person) =>
 // Selected selectors
 export const getSelectedLocation = state =>
   fromSelected.getSelectedLocation(state.selected);
-export const getSelectedPersonnel = state =>
+export const getSelectedPersonnelGroups = state =>
   fromSelected
     .getSelectedIds(state.selected)
-    .map(id => fromPersonnel.getPersonById(state.personnel, id));
+    .map(id => fromPersonnel.getPersonById(state.personnel, id))
+    .map(person => ({ person, group: fromGroup.getGroupByLocation(state.group, person.location) }));
 
 // Group selectors
 export const getGroupByLocation = (state, location) =>

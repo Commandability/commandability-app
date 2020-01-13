@@ -13,7 +13,7 @@ import {
   SET_LOCATION,
   EDIT_NAME,
   ADD_GROUP,
-  REMOVE_GROUP
+  REMOVE_GROUP,
 } from '../actions/types';
 
 const logStartIncident = action => {
@@ -41,7 +41,11 @@ const logEndIncident = (state, action) => {
 
 const logAddPerson = (state, action) => {
   const { payload } = action;
-  const { entryId, dateTime, person: { firstName, lastName } } = payload;
+  const {
+    entryId,
+    dateTime,
+    person: { firstName, lastName },
+  } = payload;
 
   return {
     ...state,
@@ -54,8 +58,12 @@ const logAddPerson = (state, action) => {
 
 const logRemovePerson = (state, action) => {
   const { payload } = action;
-  const { entryId, dateTime, person: { firstName, lastName } } = payload;
-  
+  const {
+    entryId,
+    dateTime,
+    person: { firstName, lastName },
+  } = payload;
+
   return {
     ...state,
     [entryId]: {
@@ -67,13 +75,19 @@ const logRemovePerson = (state, action) => {
 
 const logSetLocation = (state, action) => {
   const { payload } = action;
-  const { entryId, dateTime, person: { firstName, lastName, location }, newLocation } = payload;
-  
+  const {
+    entryId,
+    dateTime,
+    person: { firstName, lastName },
+    prevGroup: { name: prevName },
+    group: { name: currName },
+  } = payload;
+
   return {
     ...state,
     [entryId]: {
       dateTime,
-      log: `${firstName} ${lastName} moved from ${location} to ${newLocation}`,
+      log: `${firstName} ${lastName} moved from ${prevName} to ${currName}`,
     },
   };
 };
@@ -126,7 +140,7 @@ export default (state = {}, action) => {
       return logEndIncident(state, action);
     case RESET_INCIDENT:
       return {};
-    case ADD_PERSON: 
+    case ADD_PERSON:
       return logAddPerson(state, action);
     case REMOVE_PERSON:
       return logRemovePerson(state, action);

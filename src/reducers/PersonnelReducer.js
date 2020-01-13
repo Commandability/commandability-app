@@ -77,16 +77,16 @@ const setPersonLocation = (state, action) => {
   const { payload } = action;
   const {
     person: { id },
+    group: { location },
     currTime,
-    newLocation,
   } = payload;
   const person = state[id];
   return {
     ...state,
     [id]: {
       ...person,
-      location: newLocation,
-      locationUpdateTime: newLocation === ROSTER ? 0 : currTime,
+      location,
+      locationUpdateTime: location === ROSTER ? 0 : currTime,
     },
   };
 };

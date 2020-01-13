@@ -11,11 +11,11 @@ import PropTypes from 'prop-types';
 import {
   getPersonnelByLocation,
   getSelectedLocation,
-  getSelectedPersonnel,
+  getSelectedPersonnelGroups,
 } from '../../reducers';
 import { clearSelectedPersonnel, setPersonLocation } from '../../actions';
 import RosterItem from './RosterItem';
-import { ROSTER } from '../../modules/locations';
+import { ROSTER, STAGING } from '../../modules/locations';
 
 class RosterList extends React.PureComponent {
   constructor() {
@@ -24,7 +24,7 @@ class RosterList extends React.PureComponent {
 
   _onPress = () => {
     const {
-      selectedPersonnel,
+      selectedPersonnelGroups,
       clearSelectedPersonnel,
       setPersonLocation,
     } = this.props;
@@ -41,9 +41,14 @@ class RosterList extends React.PureComponent {
           text: 'OK',
           onPress: () => {
             // set each selected ids new location to the current group
-            selectedPersonnel.forEach(person =>
-              setPersonLocation(person, ROSTER)
-            );
+            selectedPersonnelGroups.forEach(personGroup => {
+              const { person, group: prevGroup } = personGroup;
+              return setPersonLocation(
+                person,
+                prevGroup || { location: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
+                { location: ROSTER, name: 'Roster' }
+              );
+            });
             clearSelectedPersonnel();
           },
         },
@@ -81,7 +86,7 @@ class RosterList extends React.PureComponent {
 // props validation
 RosterList.propTypes = {
   location: PropTypes.string,
-  selectedPersonnel: PropTypes.array,
+  selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocation: PropTypes.func,
   personnel: PropTypes.array,
@@ -92,7 +97,7 @@ const mapStateToProps = state => {
   return {
     personnel: getPersonnelByLocation(state, ROSTER),
     selectedLocation: getSelectedLocation(state),
-    selectedPersonnel: getSelectedPersonnel(state),
+    selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };
 

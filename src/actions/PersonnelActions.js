@@ -30,11 +30,11 @@ export const removePerson = person => {
   };
 };
 
-export const setPersonLocation = (person, newLocation) => {
+export const setPersonLocation = (person, prevGroup, group) => {
   const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   return {
     type: SET_LOCATION,
-    payload: { entryId, dateTime, person, currTime: Date.now(), newLocation },
+    payload: { entryId, dateTime, person, currTime: Date.now(), prevGroup, group },
   };
 };

@@ -14,12 +14,12 @@ import PropTypes from 'prop-types';
 import {
   getPersonnelByLocation,
   getSelectedLocation,
-  getSelectedPersonnel,
+  getSelectedPersonnelGroups,
 } from '../../reducers';
 import { clearSelectedPersonnel, setPersonLocation } from '../../actions';
 import GroupItem from './GroupItem';
 
-import { STAGING } from '../../modules/locations';
+import { STAGING, ROSTER } from '../../modules/locations';
 
 class StagingList extends React.PureComponent {
   constructor() {
@@ -28,13 +28,21 @@ class StagingList extends React.PureComponent {
 
   _onPress = () => {
     const {
-      selectedPersonnel,
+      selectedPersonnelGroups,
       clearSelectedPersonnel,
       setPersonLocation,
     } = this.props;
 
     // set each selected ids new location to the current group
-    selectedPersonnel.forEach(person => setPersonLocation(person, STAGING));
+    selectedPersonnelGroups.forEach(personGroup => {
+      const { person, group: prevGroup } = personGroup;
+
+      setPersonLocation(
+        person,
+        prevGroup || { location: ROSTER, name: 'Roster' }, // Set prev group to roster if no prev group in redux
+        { location: STAGING, name: 'Staging' }
+      );
+    });
     clearSelectedPersonnel();
   };
 
@@ -67,7 +75,7 @@ class StagingList extends React.PureComponent {
 
 StagingList.propTypes = {
   location: PropTypes.string,
-  selectedPersonnel: PropTypes.array,
+  selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocation: PropTypes.func,
   personnel: PropTypes.array,
@@ -78,7 +86,7 @@ const mapStateToProps = state => {
   return {
     personnel: getPersonnelByLocation(state, STAGING),
     selectedLocation: getSelectedLocation(state),
-    selectedPersonnel: getSelectedPersonnel(state),
+    selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };
 

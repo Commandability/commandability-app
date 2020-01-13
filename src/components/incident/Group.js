@@ -15,6 +15,7 @@ import { scaleFont } from "../../modules/fonts";
 import GroupList from "./GroupList";
 import { withNavigation } from "react-navigation";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import { getGroupByLocation } from "../../reducers";
 import { addGroup } from "../../actions";
@@ -30,8 +31,8 @@ class Group extends Component {
   };
 
   _onSettingsPressed = () => {
-    const { navigation, location } = this.props;
-    navigation.navigate("GroupPrompt", { local: location });
+    const { navigation: { navigate }, location } = this.props;
+    navigate("GroupPrompt", { local: location });
   };
 
   render() {
@@ -42,7 +43,7 @@ class Group extends Component {
           <View style={styles.groupHeader}>
             <Text style={styles.groupHeaderContent}> {groupName} </Text>
             <TouchableOpacity
-              style={{ flex: 1 }}
+              style={styles.container}
               onPress={this._onSettingsPressed}
             >
               <Image
@@ -56,8 +57,8 @@ class Group extends Component {
       );
     } else {
       return (
-        <View style={{ flex: 1 }}>
-          <TouchableOpacity style={{ flex: 1 }} onPress={this._onAddPressed}>
+        <View style={styles.container}>
+          <TouchableOpacity style={styles.container} onPress={this._onAddPressed}>
             <Image
               style={styles.addButton}
               source={require("../../assets/add.png")}
@@ -68,6 +69,15 @@ class Group extends Component {
     }
   }
 }
+
+// props validation
+Group.propTypes = {
+  addGroup: PropTypes.function,
+  navigation: PropTypes.object,
+  location: PropTypes.string, // the parent groupName
+  groupName: PropTypes.string,
+  visibility: PropTypes.bool,
+};
 
 const mapStateToProps = (state, ownProps) => {
   const { location } = ownProps;
@@ -107,8 +117,12 @@ var styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
-  }
+  },
+  container: {
+    flex: 1,
+  },
 });
+
 export default withNavigation(
   connect(
     mapStateToProps,

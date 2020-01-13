@@ -8,7 +8,7 @@ import colors from "../modules/colors";
 import { activeReport } from '../reducers';
 import { startIncident } from "../actions";
 import { connect } from "react-redux";
-import { withNavigation } from "react-navigation";
+import PropTypes from "prop-types";
 
 import { GROUP_ONE, GROUP_TWO, GROUP_THREE, GROUP_FOUR, GROUP_FIVE, GROUP_SIX } from "../modules/locations";
 
@@ -51,6 +51,11 @@ class IncidentScreen extends Component {
   }
 }
 
+IncidentScreen.propTypes = {
+  activeReport: PropTypes.bool,
+  startIncident: PropTypes.func,
+};
+
 const mapStateToProps = state => ({
   activeReport: activeReport(state)
 });
@@ -73,9 +78,6 @@ var styles = StyleSheet.create({
   },
   stagingArea: {
     flexDirection: "column",
-    flex: 1
-  },
-  personnelList: {
     flex: 1
   },
   groupArea: {

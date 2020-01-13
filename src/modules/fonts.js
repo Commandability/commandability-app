@@ -1,19 +1,10 @@
-import React, { Component } from "react";
 import {
-  AppRegistry,
-  TouchableOpacity,
-  Flatlist,
-  Text,
-  View,
-  Image,
-  Alert,
-  StyleSheet,
   Dimensions,
   PixelRatio,
   Platform
 } from "react-native";
 
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const scale = SCREEN_WIDTH / 400;
 
 export const scaleFont = size => {

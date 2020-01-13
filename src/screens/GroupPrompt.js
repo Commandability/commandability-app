@@ -5,13 +5,13 @@
  */
 
 import React, { Component } from "react";
-import { TextInput, TouchableOpacity, Text, View } from "react-native";
-import { StackNavigatior } from "react-navigation";
+import { TextInput, TouchableOpacity, Text, View, StyleSheet } from "react-native";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import { getGroupByLocation } from "../reducers";
 
-import { removeGroup, editName, logRemoveGroup, logEditName } from "../actions";
+import { removeGroup, editName } from "../actions";
 
 class GroupPrompt extends Component {
   constructor(props) {
@@ -42,23 +42,23 @@ class GroupPrompt extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <View style={styles.container}>
           <TextInput
-            style={{ borderColor: "gray", borderWidth: 1 }}
+            style={styles.buttonContainer}
             placeholder="Please enter a new group name"
             value={this.state.text}
             onChangeText={text => this.setState({ text: text })}
           />
         </View>
 
-        <View style={{ flex: 1, borderWidth: 1 }}>
+        <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={this._onEditPressed}>
             <Text>Save name change and exit</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={{ flex: 1, borderWidth: 1 }}>
+        <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={this._onRemovePressed}>
             <Text>Delete Group</Text>
           </TouchableOpacity>
@@ -67,6 +67,15 @@ class GroupPrompt extends Component {
     );
   }
 }
+
+// props validation
+GroupPrompt.propTypes = {
+  logRemoveGroup: PropTypes.func,
+  navigation: PropTypes.object,
+  editName: PropTypes.func,
+  removeGroup: PropTypes.func,
+  local: PropTypes.string,
+};
 
 const mapStateToProps = (state, ownProps) => {
   const local = ownProps.navigation.getParam("local", "default");
@@ -77,6 +86,17 @@ const mapStateToProps = (state, ownProps) => {
     local
   };
 };
+
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  buttonContainer: {
+    flex: 1,
+    borderWidth: 1,
+  },
+
+});
 
 export default connect(
   mapStateToProps,

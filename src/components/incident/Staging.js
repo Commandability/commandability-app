@@ -1,16 +1,8 @@
 import React, { Component } from "react";
 import {
-  AppRegistry,
-  TouchableOpacity,
-  Flatlist,
   Text,
   View,
-  Image,
-  Alert,
   StyleSheet,
-  Dimensions,
-  PixelRatio,
-  Platform
 } from "react-native";
 import colors from "../../modules/colors";
 import { scaleFont } from "../../modules/fonts";
@@ -46,8 +38,4 @@ var styles = StyleSheet.create({
     textAlign: "center",
     color: colors.primary.text
   },
-  groupList: {
-    flex: 7,
-    backgroundColor: colors.primary.dark
-  }
 });

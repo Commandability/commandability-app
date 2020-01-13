@@ -1,20 +1,16 @@
 import React, { Component } from "react";
 import {
-  AppRegistry,
   TouchableOpacity,
   Text,
   View,
-  Image,
   Alert,
   StyleSheet,
-  Dimensions,
-  PixelRatio,
-  Platform
 } from "react-native";
 import colors from "../../modules/colors";
 import { scaleFont } from "../../modules/fonts";
 import { getCurrentReportData } from "../../reducers/ReportReducer";
 import { withNavigation } from 'react-navigation';
+import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
 import { resetIncident, endIncident } from "../../actions";
@@ -89,22 +85,22 @@ class NavBar extends Component {
             <Text style={styles.timerContent}>{`Time: ${this.state.hour}:${this.state.minute}:${this.state.second}`}</Text>
           </View>
           <View style={styles.timer}>
-            <Text style={styles.timerContent}>{`Elapsed: ${Math.floor((this.state.time-this.props.initialTime)/3600000)}:${Math.floor(((this.state.time-this.props.initialTime)%3600000)/60000)}:${Math.floor((((this.state.time-this.props.initialTime)%3600000)%60000)/1000)}`}</Text>
+            <Text style={styles.timerContent}>{`Elapsed: ${Math.floor((this.state.time-initialTime)/3600000)}:${Math.floor(((this.state.time-initialTime)%3600000)/60000)}:${Math.floor((((this.state.time-initialTime)%3600000)%60000)/1000)}`}</Text>
           </View>
         </View>
         <View style={styles.pageTabs}></View>
         <View style={styles.pageOptions}>
-          <TouchableOpacity style={{flex:1}} onPress={this._onReportPressed}>
+          <TouchableOpacity style={styles.container} onPress={this._onReportPressed}>
             <Text style={styles.pageOptionContent}> Report </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.pageOptions}>
-          <TouchableOpacity style={{flex:1}} onPress={this._onResetPressed}>
+          <TouchableOpacity style={styles.container} onPress={this._onResetPressed}>
             <Text style={styles.pageOptionContent}> Reset </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.pageOptions}>
-          <TouchableOpacity style={{flex:1}} onPress={this._onEndPressed}>
+          <TouchableOpacity style={styles.container} onPress={this._onEndPressed}>
             <Text style={styles.pageOptionContent}> End </Text>
           </TouchableOpacity>
         </View>
@@ -112,6 +108,15 @@ class NavBar extends Component {
     );
   }
 }
+
+// props validation
+NavBar.propTypes = {
+  resetIncident: PropTypes.function,
+  endIncident: PropTypes.function,
+  navigation: PropTypes.object,
+  initialTime: PropTypes.number,
+
+};
 
 const mapStateToProps = state => {
   return {
@@ -165,5 +170,8 @@ var styles = StyleSheet.create({
     textAlignVertical: "center",
     textAlign: "center",
     color: colors.primary.text
+  },
+  container: {
+    flex: 1,
   }
 });

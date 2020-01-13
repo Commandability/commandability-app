@@ -4,8 +4,6 @@
  * Reducers to add and remove groups, and change group names.
  */
 
-import { combineReducers } from "redux";
-
 import { EDIT_NAME, ADD_GROUP, REMOVE_GROUP } from "../actions/types";
 
 const initialState = {
@@ -15,7 +13,7 @@ const initialState = {
 const editName = (state, action) => {
   const { payload } = action;
   const { location, name } = payload; 
-  const group = state[location]
+  const group = state[location];
   return {
     ...state,
     [location]: {
@@ -29,7 +27,7 @@ const editName = (state, action) => {
 const addGroup = (state, action) => {
   const { payload } = action;
 	const { location } = payload;
-	const group = state[location]
+	const group = state[location];
   return {
 		...state,
 		[location]: {
@@ -37,13 +35,12 @@ const addGroup = (state, action) => {
 			visibility: true
 		}
 	};
-	return state;
 };
 
 const removeGroup = (state, action) => {
   const { payload } = action;
 	const { location } = payload;
-	const group = state[location]
+	const group = state[location];
   return {
 		...state,
 		[location]: {
@@ -51,12 +48,11 @@ const removeGroup = (state, action) => {
 			visibility: false
 		}
 	};
-	return state;
 };
 
 export const getGroupByLocation = (state, location) => state[location];
 
-export default (group = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case EDIT_NAME:
       return editName(state, action);
@@ -67,4 +63,4 @@ export default (group = (state = initialState, action) => {
     default:
       return state;
   }
-});
+};

@@ -1,3 +1,9 @@
+/**
+ * Screens
+ * 
+ * Export all app screens and prompts. 
+ */
+
 import LoadingScreen from './LoadingScreen';
 import LoginScreen from './LoginScreen';
 import HomeScreen from './HomeScreen';

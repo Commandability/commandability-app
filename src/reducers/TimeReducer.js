@@ -6,10 +6,6 @@
 
 import { START_INCIDENT } from '../actions/types';
 
-const initialState = {
-  time: {},
-};
-
 const updateInitialTime = (state) => {
   return {
     ...state,
@@ -21,7 +17,7 @@ export const getInitialTime = state => {
   return state.initialTime;
 };
 
-export default (state = initialState, action) => {
+export default (state = 0, action) => {
   switch (action.type) {
     case START_INCIDENT:
       return updateInitialTime(state, action);

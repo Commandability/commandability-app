@@ -4,39 +4,50 @@
  * Displays the options for editing a group. Can take user input for a new group name, or remove the group
  */
 
-import React, { Component } from "react";
-import { TextInput, TouchableOpacity, Text, View, StyleSheet } from "react-native";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import {
+  TextInput,
+  TouchableOpacity,
+  Text,
+  View,
+  StyleSheet,
+} from 'react-native';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { getGroupByLocation } from "../reducers";
-
-import { removeGroup, editName } from "../actions";
+import { getGroupByLocation } from '../reducers';
+import { removeGroup, editName } from '../actions';
 
 class GroupPrompt extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ""
+      newName: '',
     };
   }
 
   static navigationOptions = {
-    title: "Edit Group"
+    title: 'Edit Group',
   };
 
   _onRemovePressed = () => {
-    const { navigation, removeGroup, local } = this.props;
-    const { goBack } = navigation;
-    removeGroup({ location: local });
+    const {
+      navigation: { goBack },
+      removeGroup,
+      group
+    } = this.props;
+    removeGroup(group);
     goBack();
   };
 
   _onEditPressed = () => {
-    const { navigation, editName, local } = this.props;
-    const { text } = this.state || {};
-    const { goBack } = navigation;
-    editName({ location: local, name: text });
+    const {
+      navigation: { goBack },
+      editName,
+      group,
+    } = this.props;
+    const { newName } = this.state || {};
+    editName(group, newName);
     goBack();
   };
 
@@ -47,8 +58,8 @@ class GroupPrompt extends Component {
           <TextInput
             style={styles.buttonContainer}
             placeholder="Please enter a new group name"
-            value={this.state.text}
-            onChangeText={text => this.setState({ text: text })}
+            value={this.state.newName}
+            onChangeText={newName => this.setState({ newName })}
           />
         </View>
 
@@ -74,18 +85,18 @@ GroupPrompt.propTypes = {
   navigation: PropTypes.object,
   editName: PropTypes.func,
   removeGroup: PropTypes.func,
-  local: PropTypes.string,
+  group: PropTypes.object,
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const local = ownProps.navigation.getParam("local", "default");
-  const { name, visibility } = getGroupByLocation(state, local);
-  return {
-    groupName: name,
-    visibility,
-    local
-  };
+  const location = ownProps.navigation.getParam('location', 'default');
+  return { group: getGroupByLocation(state, location) };
 };
+
+export default connect(mapStateToProps, {
+  removeGroup,
+  editName,
+})(GroupPrompt);
 
 var styles = StyleSheet.create({
   container: {
@@ -95,13 +106,4 @@ var styles = StyleSheet.create({
     flex: 1,
     borderWidth: 1,
   },
-
 });
-
-export default connect(
-  mapStateToProps,
-  {
-    removeGroup,
-    editName
-  }
-)(GroupPrompt);

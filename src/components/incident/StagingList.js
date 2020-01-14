@@ -1,7 +1,6 @@
 /**
  * StagingList Component
  *
- *
  * Manages displaying personnel in the staging list, as well as  adding selected personnel to
  * the group when it is selected.
  */
@@ -58,7 +57,7 @@ class StagingList extends React.PureComponent {
       <TouchableOpacity
         onPress={this._onPress}
         disabled={
-          selectedLocation == '' || selectedLocation == STAGING ? true : false
+          selectedLocation == '' || selectedLocation == STAGING
         }
         style={styles.listContainer}
       >

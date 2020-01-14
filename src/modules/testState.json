@@ -130,7 +130,7 @@
     }
   },
   "time": {
-    "initialTime": {}
+    "initialTime": 0
   },
   "report": {}
 }

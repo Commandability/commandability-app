@@ -1,3 +1,9 @@
+/**
+ * Locations module
+ * 
+ * Store all incident location static variables. 
+ */
+
 export const ROSTER = "roster";
 export const STAGING = "staging";
 export const GROUP_ONE = "group_one";

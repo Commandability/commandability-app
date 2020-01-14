@@ -8,29 +8,29 @@ import uuidv4 from 'uuid/v4';
 
 import { EDIT_NAME, ADD_GROUP, REMOVE_GROUP } from './types';
 
-export const editName = ({ location, name }) => {
-  const entryId = uuidv4();
+export const editName = (group, newName) => {
+  const entryId = uuidv4(); // for storage in the report reducer
   const dateTime = new Date().toLocaleString();
   return {
     type: EDIT_NAME,
-    payload: { entryId, dateTime, location, name },
+    payload: { entryId, dateTime, group, newName },
   };
 };
 
-export const addGroup = ({ location }) => {
+export const addGroup = group => {
   const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   return {
     type: ADD_GROUP,
-    payload: { entryId, dateTime, location },
+    payload: { entryId, dateTime, group },
   };
 };
 
-export const removeGroup = ({ location }) => {
+export const removeGroup = group => {
   const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   return {
     type: REMOVE_GROUP,
-    payload: { entryId, dateTime, location },
+    payload: { entryId, dateTime, group },
   };
 };

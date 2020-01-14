@@ -1,5 +1,6 @@
 /**
  * RosterItem Component
+ * 
  * Manages displaying a person in a the roster and sets a persons location in redux to staging when selected.
  */
 

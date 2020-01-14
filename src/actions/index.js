@@ -1,3 +1,9 @@
+/**
+ * App Actions
+ *
+ * Actions to handle general app state changes, and export all actions.
+ */
+
 import { RESET_APP } from './types';
 
 export * from './PersonnelActions';

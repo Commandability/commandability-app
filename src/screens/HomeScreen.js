@@ -1,5 +1,6 @@
 /**
  * HomeScreen component
+ * 
  * Manages displaying the home screen and activity indicator when signing out.
  */
 

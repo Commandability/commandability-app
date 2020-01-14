@@ -94,36 +94,36 @@ const logSetLocation = (state, action) => {
 
 const logEditName = (state, action) => {
   const { payload } = action;
-  const { location, name, entryId, dateTime } = payload;
+  const { group: { name }, newName, entryId, dateTime } = payload;
   return {
     ...state,
     [entryId]: {
       dateTime,
-      log: `Renamed group ${location} to ${name}`,
+      log: `Renamed group ${name} to ${newName}`,
     },
   };
 };
 
 const logAddGroup = (state, action) => {
   const { payload } = action;
-  const { location, entryId, dateTime } = payload;
+  const { group: { name }, entryId, dateTime } = payload;
   return {
     ...state,
     [entryId]: {
       dateTime,
-      log: `Added group ${location}`,
+      log: `Added group ${name}`,
     },
   };
 };
 
 const logRemoveGroup = (state, action) => {
   const { payload } = action;
-  const { location, entryId, dateTime } = payload;
+  const { group: { name }, entryId, dateTime } = payload;
   return {
     ...state,
     [entryId]: {
       dateTime,
-      log: `Removed group ${location}`,
+      log: `Removed group ${name}`,
     },
   };
 };

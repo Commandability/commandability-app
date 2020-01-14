@@ -1,5 +1,6 @@
 /**
  * LoginScreen component
+ * 
  * Manages displaying the login page.
  */
 

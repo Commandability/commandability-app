@@ -1,12 +1,9 @@
-import React, { Component } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-} from "react-native";
-import colors from "../../modules/colors";
-import { scaleFont } from "../../modules/fonts";
-import RosterList from "./RosterList";
+import React, { Component } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+
+import colors from '../../modules/colors';
+import { scaleFont } from '../../modules/fonts';
+import RosterList from './RosterList';
 
 export default class Roster extends Component {
   render() {
@@ -15,7 +12,7 @@ export default class Roster extends Component {
         <View style={styles.groupHeader}>
           <Text style={styles.groupHeaderContent}> Roster </Text>
         </View>
-        <RosterList/>
+        <RosterList />
       </View>
     );
   }
@@ -24,18 +21,18 @@ export default class Roster extends Component {
 var styles = StyleSheet.create({
   groupLayout: {
     flex: 1,
-    flexDirection: "column"
+    flexDirection: 'column',
   },
   groupHeader: {
-    flexDirection: "row",
+    flexDirection: 'row',
     flex: 1,
     padding: 5,
-    backgroundColor: colors.secondary.dark
+    backgroundColor: colors.secondary.dark,
   },
   groupHeaderContent: {
     flex: 5,
     fontSize: scaleFont(6),
-    textAlign: "center",
-    color: colors.primary.text
-  }
+    textAlign: 'center',
+    color: colors.primary.text,
+  },
 });

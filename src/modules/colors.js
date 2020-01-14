@@ -1,3 +1,9 @@
+/**
+ * Colors module
+ * 
+ * Store all colors used in app styling.
+ */
+
 const colors = {
   primary: {
     main: '#757575',

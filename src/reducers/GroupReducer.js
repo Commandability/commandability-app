@@ -4,50 +4,57 @@
  * Reducers to add and remove groups, and change group names.
  */
 
-import { EDIT_NAME, ADD_GROUP, REMOVE_GROUP } from "../actions/types";
+import { EDIT_NAME, ADD_GROUP, REMOVE_GROUP } from '../actions/types';
 
 const initialState = {
-  group: {}
+  group: {},
 };
 
 const editName = (state, action) => {
   const { payload } = action;
-  const { location, name } = payload; 
-  const group = state[location];
+  const {
+    group,
+    group: { location },
+    newName,
+  } = payload;
   return {
     ...state,
     [location]: {
       ...group,
-      name,
-      visibility: true
-    }
+      name: newName,
+      visibility: true,
+    },
   };
 };
 
 const addGroup = (state, action) => {
   const { payload } = action;
-	const { location } = payload;
-	const group = state[location];
+  const {
+    group,
+    group: { location },
+  } = payload;
   return {
-		...state,
-		[location]: {
+    ...state,
+    [location]: {
       ...group,
-			visibility: true
-		}
-	};
+      visibility: true,
+    },
+  };
 };
 
 const removeGroup = (state, action) => {
   const { payload } = action;
-	const { location } = payload;
-	const group = state[location];
+  const {
+    group,
+    group: { location },
+  } = payload;
   return {
-		...state,
-		[location]: {
+    ...state,
+    [location]: {
       ...group,
-			visibility: false
-		}
-	};
+      visibility: false,
+    },
+  };
 };
 
 export const getGroupByLocation = (state, location) => state[location];

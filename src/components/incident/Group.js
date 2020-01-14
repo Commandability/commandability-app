@@ -8,17 +8,17 @@
  * list and handles visibility control of groups
  */
 
-import React, { Component } from "react";
-import { TouchableOpacity, Text, View, Image, StyleSheet } from "react-native";
-import colors from "../../modules/colors";
-import { scaleFont } from "../../modules/fonts";
-import GroupList from "./GroupList";
-import { withNavigation } from "react-navigation";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import { TouchableOpacity, Text, View, Image, StyleSheet } from 'react-native';
+import { withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { getGroupByLocation } from "../../reducers";
-import { addGroup } from "../../actions";
+import colors from '../../modules/colors';
+import { scaleFont } from '../../modules/fonts';
+import GroupList from './GroupList';
+import { getGroupByLocation } from '../../reducers';
+import { addGroup } from '../../actions';
 
 class Group extends Component {
   constructor() {
@@ -26,42 +26,48 @@ class Group extends Component {
   }
 
   _onAddPressed = () => {
-    const { addGroup, location } = this.props;
-    addGroup({ location });
+    const { addGroup, group } = this.props;
+    addGroup(group);
   };
 
   _onSettingsPressed = () => {
-    const { navigation: { navigate }, location } = this.props;
-    navigate("GroupPrompt", { local: location });
+    const {
+      navigation: { navigate },
+      group: { location },
+    } = this.props;
+    navigate('GroupPrompt', { location });
   };
 
   render() {
-    const { groupName, visibility } = this.props;
+    const { group: {name, visibility, location} } = this.props;
     if (visibility) {
       return (
         <View style={styles.groupLayout}>
           <View style={styles.groupHeader}>
-            <Text style={styles.groupHeaderContent}> {groupName} </Text>
+            <Text style={styles.groupHeaderContent}> {name} </Text>
             <TouchableOpacity
               style={styles.container}
               onPress={this._onSettingsPressed}
             >
               <Image
                 style={styles.settingsIcon}
-                source={require("../../assets/settings_icon.png")}
+                source={require('../../assets/settings_icon.png')}
               ></Image>
             </TouchableOpacity>
           </View>
-          <GroupList location={this.props.location} />
+          <GroupList location={location} />
         </View>
       );
     } else {
       return (
         <View style={styles.container}>
-          <TouchableOpacity style={styles.container} onPress={this._onAddPressed}>
+          <TouchableOpacity
+            style={styles.container}
+            onPress={this._onAddPressed}
+          >
             <Image
               style={styles.addButton}
-              source={require("../../assets/add.png")}
+              source={require('../../assets/add.png')}
             ></Image>
           </TouchableOpacity>
         </View>
@@ -72,62 +78,53 @@ class Group extends Component {
 
 // props validation
 Group.propTypes = {
-  addGroup: PropTypes.function,
+  addGroup: PropTypes.func,
   navigation: PropTypes.object,
-  location: PropTypes.string, // the parent groupName
-  groupName: PropTypes.string,
-  visibility: PropTypes.bool,
+  group: PropTypes.object,
 };
 
 const mapStateToProps = (state, ownProps) => {
   const { location } = ownProps;
-  const { name, visibility } = getGroupByLocation(state, location);
-  return {
-    groupName: name,
-    visibility
-  };
+  return { group: getGroupByLocation(state, location) };
 };
+
+export default withNavigation(
+  connect(mapStateToProps, {
+    addGroup,
+  })(Group)
+);
 
 var styles = StyleSheet.create({
   groupLayout: {
     flex: 1,
-    flexDirection: "column",
-    padding: 4
+    flexDirection: 'column',
+    padding: 4,
   },
   groupHeader: {
-    flexDirection: "row",
+    flexDirection: 'row',
     flex: 1,
     padding: 5,
-    backgroundColor: colors.secondary.dark
+    backgroundColor: colors.secondary.dark,
   },
   groupHeaderContent: {
     flex: 5,
     fontSize: scaleFont(6),
-    textAlign: "center",
-    color: colors.primary.text
+    textAlign: 'center',
+    color: colors.primary.text,
   },
   settingsIcon: {
     flex: 1,
     padding: 1,
     width: null,
     height: null,
-    resizeMode: "contain"
+    resizeMode: 'contain',
   },
   addButton: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   container: {
     flex: 1,
   },
 });
-
-export default withNavigation(
-  connect(
-    mapStateToProps,
-    {
-      addGroup
-    }
-  )(Group)
-);

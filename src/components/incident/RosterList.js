@@ -1,5 +1,6 @@
 /**
  * RosterList Component
+ * 
  * Manages displaying personnel in the roster.
  */
 
@@ -69,7 +70,7 @@ class RosterList extends React.PureComponent {
         onPress={this._onPress}
         style={styles.listContainer}
         disabled={
-          selectedLocation === '' || selectedLocation === ROSTER ? true : false
+          selectedLocation === '' || selectedLocation === ROSTER
         }
       >
         <FlatList

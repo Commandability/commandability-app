@@ -13,7 +13,7 @@ export const resetIncident = () => ({
 });
 
 export const startIncident = () => {
-  const entryId = uuidv4();
+  const entryId = uuidv4(); // for storage in the report reducer
   const dateTime = new Date().toLocaleString();
   return {
     type: START_INCIDENT,

@@ -1,5 +1,6 @@
 /**
  * GroupItem Component
+ * 
  * Manages displaying a person in a group and sets a person as selected in redux and in local state on press.
  */
 

@@ -1,3 +1,9 @@
+/**
+ * CommandAbility App Main
+ * 
+ * Handle all screen and prompt navigation stacks, and create and manage the global redux store shared with all components. 
+ */
+
 import React from 'react';
 import { Dimensions } from 'react-native';
 import { Provider } from 'react-redux';

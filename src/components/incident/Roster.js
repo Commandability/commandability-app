@@ -18,7 +18,7 @@ export default class Roster extends Component {
   }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   groupLayout: {
     flex: 1,
     flexDirection: 'column',

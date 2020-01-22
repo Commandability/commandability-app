@@ -94,7 +94,7 @@ export default withNavigation(
   })(Group)
 );
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   groupLayout: {
     flex: 1,
     flexDirection: 'column',

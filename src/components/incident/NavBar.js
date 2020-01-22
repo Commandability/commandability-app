@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Text, View, Alert, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { scaleFont } from '../../modules/fonts';
-import { getCurrentReportData } from '../../reducers/ReportReducer';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 
+import { scaleFont } from '../../modules/fonts';
+import { getCurrentReportData } from '../../reducers/ReportReducer';
 import colors from '../../modules/colors';
 import { resetIncident, endIncident } from '../../actions';
 import { getInitialTime } from '../../reducers';
 import { saveCurrentReport } from '../../modules/reportManager';
+import { generateCurrentReport } from '../../modules/reportManager';
 
 const MS_IN_SECOND = 1000;
 
-import { generateCurrentReport } from '../../modules/reportManager';
+function digitFix(num){
+  if (num.toString().length == 1 ){
+    num = "0" + num;
+  }
+  return num;
+}
 
 class NavBar extends Component {
   constructor(props) {
@@ -54,7 +60,7 @@ class NavBar extends Component {
   };
 
   componentDidMount() {
-    var currentTime = new Date();
+    const currentTime = new Date();
     this.intervalID = setInterval(
       () =>
         this.setState(() => ({
@@ -78,13 +84,13 @@ class NavBar extends Component {
             >{`Time: ${this.state.hour}:${this.state.minute}:${this.state.second}`}</Text>
           </View>
           <View style={styles.timer}>
-            <Text style={styles.timerContent}>{`Elapsed: ${Math.floor(
+            <Text style={styles.timerContent}>{`Elapsed: ${digitFix(Math.floor(
               (this.state.time - initialTime) / 3600000
-            )}:${Math.floor(
+            ))}:${digitFix(Math.floor(
               ((this.state.time - initialTime) % 3600000) / 60000
-            )}:${Math.floor(
+            ))}:${digitFix(Math.floor(
               (((this.state.time - initialTime) % 3600000) % 60000) / 1000
-            )}`}</Text>
+            ))}`}</Text>
           </View>
         </View>
         <View style={styles.pageTabs}></View>
@@ -139,7 +145,7 @@ export default withNavigation(
   })(NavBar)
 );
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   navBar: {
     flexDirection: 'row',
     flex: 1,

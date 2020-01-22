@@ -40,7 +40,6 @@ const reportPersistConfig = {
 const timePersistConfig = {
   key: 'time',
   storage: AsyncStorage,
-  stateReconciler: autoMergeLevel2,
 };
 
 const appReducer = combineReducers({
@@ -66,6 +65,7 @@ const rootReducer = (state, action) => {
     purgeStoredState(groupPersistConfig);
     purgeStoredState(reportPersistConfig);
     purgeStoredState(rootPersistConfig);
+    purgeStoredState(timePersistConfig);
   }
   return appReducer(state, action);
 };

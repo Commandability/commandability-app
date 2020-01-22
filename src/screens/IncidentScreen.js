@@ -3,13 +3,13 @@ import {
   View,
   StyleSheet
 } from "react-native";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
 import { NavBar, Group, Staging, Roster } from "../components/incident";
 import colors from "../modules/colors";
 import { activeReport } from '../reducers';
 import { startIncident } from "../actions";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-
 import { GROUP_ONE, GROUP_TWO, GROUP_THREE, GROUP_FOUR, GROUP_FIVE, GROUP_SIX } from "../modules/locations";
 
 class IncidentScreen extends Component {
@@ -67,7 +67,7 @@ export default connect(
   }
 )(IncidentScreen);
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   incidentLayout: {
     flexDirection: "column",
     flex: 2

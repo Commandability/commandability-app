@@ -1,3 +1,9 @@
+/**
+ * NavBar Component
+ * 
+ * This component handles the NavBar above the incidentScreen
+ */
+
 import React, { Component } from 'react';
 import { TouchableOpacity, Text, View, Alert, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';

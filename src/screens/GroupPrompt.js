@@ -18,7 +18,9 @@ import PropTypes from 'prop-types';
 import { getGroupByLocation } from '../reducers';
 import { removeGroup, editName } from '../actions';
 
+
 class GroupPrompt extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -28,7 +30,7 @@ class GroupPrompt extends Component {
 
   static navigationOptions = {
     title: 'Edit Group',
-  };
+  }
 
   _onRemovePressed = () => {
     const {

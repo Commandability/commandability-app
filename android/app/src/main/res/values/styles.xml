@@ -5,6 +5,8 @@
         <!-- Customize your theme here. -->
         <item name="android:navigationBarColor">@color/primary_dark</item>
         <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <!-- Remove white flash before splash screen https://github.com/crazycodeboy/react-native-splash-screen/issues/338 -->
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="SplashScreenTheme" parent="SplashScreen_SplashTheme">

@@ -9,8 +9,10 @@ import { ActivityIndicator, Button, View, StyleSheet } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import PropTypes from 'prop-types';
 
-import { generateCurrentReport } from '../modules/reportManager';
+import { generateReport } from '../modules/reportManager';
 import colors from '../modules/colors';
+import {store} from '../../App';
+import { getCurrentReportData } from '../reducers';
 
 export default class HomeScreen extends Component {
   constructor() {
@@ -21,7 +23,7 @@ export default class HomeScreen extends Component {
   componentDidMount() {
     const { currentUser } = auth();
     this.setState({ currentUser, loading: false });
-    if (generateCurrentReport()) {
+    if (generateReport(getCurrentReportData(store.getState()))) {
       this.props.navigation.navigate('IncidentStack');
     }
   }

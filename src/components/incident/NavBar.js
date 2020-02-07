@@ -16,7 +16,9 @@ import colors from '../../modules/colors';
 import { resetIncident, endIncident } from '../../actions';
 import { getInitialTime } from '../../reducers';
 import { saveCurrentReport } from '../../modules/reportManager';
-import { generateCurrentReport } from '../../modules/reportManager';
+import { generateReport } from '../../modules/reportManager';
+import { firebase } from '@react-native-firebase/auth';
+import {store} from '../../App';
 
 const MS_IN_SECOND = 1000;
 
@@ -46,7 +48,7 @@ class NavBar extends Component {
   _onReportPressed = () => {
     Alert.alert(
       'Report Page',
-      generateCurrentReport(),
+      generateReport(getCurrentReportData(store.getState())),
       [{ text: 'Cancel' }, { text: 'OK' }],
       { cancelable: false }
     );
@@ -79,6 +81,11 @@ class NavBar extends Component {
     );
   }
 
+  _onUploadPressed = async () => {
+    var storageRef = firebase.storage().ref();
+    var reportRef = storageRef.child('');
+  }
+
   render() {
     const { initialTime } = this.props;
     return (
@@ -106,6 +113,14 @@ class NavBar extends Component {
             onPress={this._onReportPressed}
           >
             <Text style={styles.pageOptionContent}> Report </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.pageOptions}>
+          <TouchableOpacity
+            style={styles.container}
+            onPress={this._onUploadPressed}
+          >
+            <Text style={styles.pageOptionContent}> Upload </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.pageOptions}>

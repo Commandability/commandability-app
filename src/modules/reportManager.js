@@ -4,12 +4,12 @@
  */
 
 import AsyncStorage from '@react-native-community/async-storage';
+import uuidv4 from 'uuid/v4';
 
 import { store } from '../App.js';
 import { getCurrentReportData } from '../reducers';
 
-export const generateCurrentReport = () => {
-  const report = getCurrentReportData(store.getState());
+export const generateReport = (report) => {
   let reportString = '';
   if (report) {
     for (const entry in report) {
@@ -24,13 +24,10 @@ export const generateCurrentReport = () => {
 
 export const saveCurrentReport = async () => {
   try {
-    const reportString = generateCurrentReport();
-    const reportData = getCurrentReportData(store.getState());
+    const reportString = generateReport(getCurrentReportData(store.getState()));
+    const reportId = uuidv4();
     
-    // get dateString from START_INCIDENT action
-    const { dateTime } = reportData[Object.keys(reportData)[0]];
-    
-    await AsyncStorage.setItem(`@CAA:${dateTime}`, reportString);
+    await AsyncStorage.setItem(`@CAA:${reportId}`, reportString);
   } catch (error) {
     throw new Error(error);
   }

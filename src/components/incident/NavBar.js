@@ -94,7 +94,7 @@ class NavBar extends Component {
           <View style={styles.timer}>
             <Text
               style={styles.timerContent}
-            >{`Time: ${this.state.hour}:${this.state.minute}:${this.state.second}`}</Text>
+            >{`Time: ${digitFix(this.state.hour)}:${digitFix(this.state.minute)}:${digitFix(this.state.second)}`}</Text>
           </View>
           <View style={styles.timer}>
             <Text style={styles.timerContent}>{`Elapsed: ${digitFix(Math.floor(

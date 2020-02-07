@@ -11,7 +11,7 @@ import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 
 import { scaleFont } from '../../modules/fonts';
-import { getCurrentReportData } from '../../reducers/ReportReducer';
+import { getCurrentReportData } from '../../reducers';
 import colors from '../../modules/colors';
 import { resetIncident, endIncident } from '../../actions';
 import { getInitialTime } from '../../reducers';
@@ -48,7 +48,7 @@ class NavBar extends Component {
   _onReportPressed = () => {
     Alert.alert(
       'Report Page',
-      generateReport(getCurrentReportData(store.getState())),
+      generateReport(getCurrentReportData(store.getState())).toString(),
       [{ text: 'Cancel' }, { text: 'OK' }],
       { cancelable: false }
     );
@@ -150,6 +150,7 @@ NavBar.propTypes = {
   endIncident: PropTypes.func,
   navigation: PropTypes.object,
   initialTime: PropTypes.number,
+  report: PropTypes.object,
 };
 
 const mapStateToProps = state => {

@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 
 import { generateReport } from '../modules/reportManager';
 import colors from '../modules/colors';
-import {store} from '../../App';
+import {store} from '../App';
 import { getCurrentReportData } from '../reducers';
 
 export default class HomeScreen extends Component {

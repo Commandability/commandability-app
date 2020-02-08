@@ -9,6 +9,7 @@ import { TouchableOpacity, Text, View, Alert, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
+import { firebase } from '@react-native-firebase/storage';
 
 import { scaleFont } from '../../modules/fonts';
 import { getCurrentReportData } from '../../reducers';
@@ -17,7 +18,6 @@ import { resetIncident, endIncident } from '../../actions';
 import { getInitialTime } from '../../reducers';
 import { saveCurrentReport } from '../../modules/reportManager';
 import { generateReport } from '../../modules/reportManager';
-import { firebase } from '@react-native-firebase/auth';
 import {store} from '../../App';
 
 const MS_IN_SECOND = 1000;
@@ -83,7 +83,10 @@ class NavBar extends Component {
 
   _onUploadPressed = async () => {
     var storageRef = firebase.storage().ref();
-    var reportRef = storageRef.child('');
+    var reportRef = storageRef.child('../../modules/reports.json');
+    reportRef.putFile('../../modules/reports.json', { contentType: 'application/JSON'}).then(function(){
+      return reportRef.getDownloadURL();
+    });
   }
 
   render() {

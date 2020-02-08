@@ -83,9 +83,8 @@ class NavBar extends Component {
 
   _onUploadPressed = async () => {
     let storageRef = firebase.storage().ref();
-    let reportRef = storageRef.child('../../modules/reports.json');
-    let file = new File(["reports"], '../../modules/reports.json', {contentType: 'application/JSON'});
-    reportRef.put(file).then(function(snapshot){
+    const message = "Testing! Yay!";
+    storageRef.putString(message).then(function(snapshot){
 
     });
   }

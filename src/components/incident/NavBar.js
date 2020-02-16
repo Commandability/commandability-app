@@ -9,7 +9,6 @@ import { TouchableOpacity, Text, View, Alert, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
-import { firebase } from '@react-native-firebase/storage';
 
 import { scaleFont } from '../../modules/fonts';
 import { getCurrentReportData } from '../../reducers';
@@ -17,8 +16,7 @@ import colors from '../../modules/colors';
 import { resetIncident, endIncident } from '../../actions';
 import { getInitialTime } from '../../reducers';
 import { saveCurrentReport } from '../../modules/reportManager';
-import { generateCurrentReport } from '../../modules/reportManager';
-import {store} from '../../App';
+import { generateCurrentReport, uploadReports } from '../../modules/reportManager';
 
 const MS_IN_SECOND = 1000;
 
@@ -81,12 +79,8 @@ class NavBar extends Component {
     );
   }
 
-  _onUploadPressed = async () => {
-    let storageRef = firebase.storage().ref('gs://commandability-1d375.appspot.com');
-    const message = "Testing! Yay!";
-    storageRef.putString(message).then(function(snapshot){
-
-    });
+  _onUploadPressed = () => {
+    uploadReports();
   }
 
   render() {

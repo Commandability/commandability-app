@@ -5,6 +5,7 @@
 
 import AsyncStorage from '@react-native-community/async-storage';
 import uuidv4 from 'uuid/v4';
+import { firebase } from '@react-native-firebase/storage';
 
 import { store } from '../App.js';
 import { getCurrentReportData } from '../reducers';
@@ -69,6 +70,14 @@ export const deleteReport = async report => {
   } catch (error) {
     throw new Error(error);
   }
+};
+
+export const uploadReports = async () => {
+  let storageRef = firebase.storage().ref('gs://commandability-1d375.appspot.com');
+    const message = "Testing! Yay!";
+    storageRef.putString(message).then(function(snapshot){
+
+    });
 };
 
 export const backupReports = async () => {};

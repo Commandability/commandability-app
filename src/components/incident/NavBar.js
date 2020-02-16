@@ -17,7 +17,7 @@ import colors from '../../modules/colors';
 import { resetIncident, endIncident } from '../../actions';
 import { getInitialTime } from '../../reducers';
 import { saveCurrentReport } from '../../modules/reportManager';
-import { generateReport } from '../../modules/reportManager';
+import { generateCurrentReport } from '../../modules/reportManager';
 import {store} from '../../App';
 
 const MS_IN_SECOND = 1000;
@@ -48,7 +48,7 @@ class NavBar extends Component {
   _onReportPressed = () => {
     Alert.alert(
       'Report Page',
-      generateReport(getCurrentReportData(store.getState())).toString(),
+      generateCurrentReport(),
       [{ text: 'Cancel' }, { text: 'OK' }],
       { cancelable: false }
     );
@@ -82,7 +82,7 @@ class NavBar extends Component {
   }
 
   _onUploadPressed = async () => {
-    let storageRef = firebase.storage().ref();
+    let storageRef = firebase.storage().ref('gs://commandability-1d375.appspot.com');
     const message = "Testing! Yay!";
     storageRef.putString(message).then(function(snapshot){
 

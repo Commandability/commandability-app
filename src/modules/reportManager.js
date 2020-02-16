@@ -9,7 +9,8 @@ import uuidv4 from 'uuid/v4';
 import { store } from '../App.js';
 import { getCurrentReportData } from '../reducers';
 
-export const generateReport = (report) => {
+export const generateCurrentReport = () => {
+  const report = getCurrentReportData(store.getState());
   let reportString = '';
   if (report) {
     for (const entry in report) {
@@ -24,7 +25,7 @@ export const generateReport = (report) => {
 
 export const saveCurrentReport = async () => {
   try {
-    const reportString = generateReport(getCurrentReportData(store.getState()));
+    const reportString = generateCurrentReport();
     const reportId = uuidv4();
     
     await AsyncStorage.setItem(`@CAA:${reportId}`, reportString);

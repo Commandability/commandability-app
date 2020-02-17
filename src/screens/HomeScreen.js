@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 
 import { generateCurrentReport } from '../modules/reportManager';
 import colors from '../modules/colors';
+import updateUser from '../reducers/index';
 
 export default class HomeScreen extends Component {
   constructor() {
@@ -41,8 +42,9 @@ export default class HomeScreen extends Component {
 
   render() {
     // TODO: Add welcome
-    // const { currentUser } = this.state;
-    // const { email } = currentUser || {}; // destructuring throws a type error with null objects
+    const { currentUser } = this.state;
+    const { email } = currentUser || {}; // destructuring throws a type error with null objects
+    updateUser(email);
     return (
       <View style={styles.container}>
         <Button

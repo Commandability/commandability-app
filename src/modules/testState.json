@@ -132,5 +132,10 @@
   "time": {
     "initialTime": 0
   },
-  "report": {}
+  "report": {
+
+  },
+  "user": {
+    "email":"",
+  }
 }

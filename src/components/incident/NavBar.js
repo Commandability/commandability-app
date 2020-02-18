@@ -11,12 +11,12 @@ import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 
 import { scaleFont } from '../../modules/fonts';
-import { getCurrentReportData } from '../../reducers/ReportReducer';
+import { getCurrentReportData } from '../../reducers';
 import colors from '../../modules/colors';
 import { resetIncident, endIncident } from '../../actions';
 import { getInitialTime } from '../../reducers';
 import { saveCurrentReport } from '../../modules/reportManager';
-import { generateCurrentReport } from '../../modules/reportManager';
+import { generateCurrentReport, uploadReports } from '../../modules/reportManager';
 
 const MS_IN_SECOND = 1000;
 
@@ -79,6 +79,10 @@ class NavBar extends Component {
     );
   }
 
+  _onUploadPressed = () => {
+    uploadReports();
+  }
+
   render() {
     const { initialTime } = this.props;
     return (
@@ -87,7 +91,7 @@ class NavBar extends Component {
           <View style={styles.timer}>
             <Text
               style={styles.timerContent}
-            >{`Time: ${this.state.hour}:${this.state.minute}:${this.state.second}`}</Text>
+            >{`Time: ${digitFix(this.state.hour)}:${digitFix(this.state.minute)}:${digitFix(this.state.second)}`}</Text>
           </View>
           <View style={styles.timer}>
             <Text style={styles.timerContent}>{`Elapsed: ${digitFix(Math.floor(
@@ -106,6 +110,14 @@ class NavBar extends Component {
             onPress={this._onReportPressed}
           >
             <Text style={styles.pageOptionContent}> Report </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.pageOptions}>
+          <TouchableOpacity
+            style={styles.container}
+            onPress={this._onUploadPressed}
+          >
+            <Text style={styles.pageOptionContent}> Upload </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.pageOptions}>
@@ -135,6 +147,7 @@ NavBar.propTypes = {
   endIncident: PropTypes.func,
   navigation: PropTypes.object,
   initialTime: PropTypes.number,
+  report: PropTypes.object,
 };
 
 const mapStateToProps = state => {

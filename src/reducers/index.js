@@ -15,6 +15,7 @@ import group, * as fromGroup from './GroupReducer';
 import report, * as fromReport from './ReportReducer';
 import time, * as fromTime from './TimeReducer';
 import selected, * as fromSelected from './SelectedReducer';
+import user, * as fromUser from './UserReducer';
 import { RESET_APP } from '../actions/types';
 import deleteAllReports from '../modules/reportManager';
 
@@ -42,11 +43,17 @@ const timePersistConfig = {
   storage: AsyncStorage,
 };
 
+const userPersistConfig = {
+  key: 'user',
+  storage: AsyncStorage,
+};
+
 const appReducer = combineReducers({
   personnel: persistReducer(personnelPersistConfig, personnel),
   group: persistReducer(groupPersistConfig, group),
   time: persistReducer(timePersistConfig, time),
   report: persistReducer(reportPersistConfig, report),
+  user: persistReducer(userPersistConfig, user),
   selected,
 });
 
@@ -98,3 +105,6 @@ export const getInitialTime = state => fromTime.getInitialTime(state.time);
 export const activeReport = state => fromReport.activeReport(state.report);
 export const getCurrentReportData = state =>
   fromReport.getCurrentReportData(state.report);
+
+// User selectors
+export const getUser = state => fromUser.getUser(state.user);

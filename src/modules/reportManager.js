@@ -4,6 +4,8 @@
  */
 
 import AsyncStorage from '@react-native-community/async-storage';
+import uuidv4 from 'uuid/v4';
+import { firebase } from '@react-native-firebase/storage';
 
 import { store } from '../App.js';
 import { getCurrentReportData } from '../reducers';
@@ -25,12 +27,9 @@ export const generateCurrentReport = () => {
 export const saveCurrentReport = async () => {
   try {
     const reportString = generateCurrentReport();
-    const reportData = getCurrentReportData(store.getState());
+    const reportId = uuidv4();
     
-    // get dateString from START_INCIDENT action
-    const { dateTime } = reportData[Object.keys(reportData)[0]];
-    
-    await AsyncStorage.setItem(`@CAA:${dateTime}`, reportString);
+    await AsyncStorage.setItem(`@CAA:${reportId}`, reportString);
   } catch (error) {
     throw new Error(error);
   }
@@ -73,4 +72,13 @@ export const deleteReport = async report => {
   }
 };
 
+export const uploadReports = async () => {
+  let storageRef = firebase.storage().ref('gs://commandability-1d375.appspot.com');
+    const message = "Testing! Yay!";
+    storageRef.putString(message).then((snapshot) => {
+
+    });
+};
+
 export const backupReports = async () => {};
+ 

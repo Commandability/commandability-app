@@ -8,11 +8,11 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Button, View, StyleSheet } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import PropTypes from 'prop-types';
-import connect from 'react-redux';
+import { connect } from 'react-redux';
 
 import { generateCurrentReport } from '../modules/reportManager';
 import colors from '../modules/colors';
-import updateUser from '../actions';
+import { updateUser } from '../actions';
 
 class HomeScreen extends Component {
   constructor() {

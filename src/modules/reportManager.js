@@ -75,9 +75,10 @@ export const deleteReport = async report => {
 export const uploadReports = async () => {
   let storageRef = firebase.storage().ref('gs://commandability-1d375.appspot.com');
     const message = "Testing! Yay!";
-    storageRef.putString(message).then(function(snapshot){
+    storageRef.putString(message).then((snapshot) => {
 
     });
 };
 
 export const backupReports = async () => {};
+ 

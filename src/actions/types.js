@@ -15,5 +15,3 @@ export const REMOVE_GROUP = 'REMOVE_GROUP';
 
 export const START_INCIDENT = 'START_INCIDENT';
 export const END_INCIDENT = 'END_INCIDENT';
-
-export const NEW_USER = 'NEW_USER';

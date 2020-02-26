@@ -8,13 +8,11 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Button, View, StyleSheet } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import { generateCurrentReport } from '../modules/reportManager';
 import colors from '../modules/colors';
-import { updateUser } from '../actions';
 
-class HomeScreen extends Component {
+export default class HomeScreen extends Component {
   constructor() {
     super();
     this.state = { currentUser: null, loading: false };
@@ -42,10 +40,6 @@ class HomeScreen extends Component {
   };
 
   render() {
-    // TODO: Add welcome
-    const { currentUser } = this.state;
-    const { email } = currentUser || {}; // destructuring throws a type error with null objects
-    updateUser(email);
     return (
       <View style={styles.container}>
         <Button
@@ -76,12 +70,7 @@ HomeScreen.propTypes = {
   navigate: PropTypes.func,
   reportData: PropTypes.object,
   email: PropTypes.string,
-  updateUser: PropTypes.func,
 };
-
-export default connect(null, {updateUser})(
-  HomeScreen
-);
 
 const styles = StyleSheet.create({
   activityIndicator: {

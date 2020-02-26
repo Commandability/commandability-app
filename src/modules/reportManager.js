@@ -6,6 +6,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import uuidv4 from 'uuid/v4';
 import { firebase } from '@react-native-firebase/storage';
+import { auth, FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 import { store } from '../App.js';
 import { getCurrentReportData } from '../reducers';
@@ -37,7 +38,7 @@ export const saveCurrentReport = async () => {
 
 // avoid the promise constructor anti-pattern: a promise's then() clause always returns a new promise
 // https://stackoverflow.com/questions/43036229/is-it-an-anti-pattern-to-use-async-await-inside-of-a-new-promise-constructor/43050114
-export const getAllReports = async () => {
+export const getAllReportKeys = async () => {
   try {
     const keys = await AsyncStorage.getAllKeys();
     await keys;
@@ -56,7 +57,7 @@ export const getReport = async key => {
 };
 
 export const deleteAllReports = async () => {
-  const keys = await getAllReports();
+  const keys = await getAllReportKeys();
   try {
     await AsyncStorage.multiRemove(keys);
   } catch (error) {
@@ -73,11 +74,19 @@ export const deleteReport = async report => {
 };
 
 export const uploadReports = async () => {
-  let storageRef = firebase.storage().ref('gs://commandability-1d375.appspot.com');
-    const message = "Testing! Yay!";
-    storageRef.putString(message).then((snapshot) => {
+  const reports = await getAllReportKeys();
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      reports.forEach((element) => {
+        const uploadId = uuidv4();
+        const message = getReport(element);
+        let storageRef = firebase.storage().ref(`@CAA/${user.uid}/${uploadId}`);
+        storageRef.putString(message).then((snapshot) => {
 
-    });
+        });
+      });
+    }
+  });  
 };
 
 export const backupReports = async () => {};

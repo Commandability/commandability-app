@@ -94,6 +94,3 @@ export const uploadReports = async () => {
     throw new Error(error);
   }
 };
-
-export const backupReports = async () => {};
- 

@@ -9,9 +9,9 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getSelectedLocation } from '../../reducers';
-import { setPersonLocation } from '../../actions';
-import { ROSTER, STAGING } from '../../modules/locations';
+import { getSelectedGroup } from '../../reducers';
+import { setPersonGroup } from '../../actions';
+import { ROSTER, STAGING } from '../../modules/groups';
 
 class RosterItem extends Component {
   constructor() {
@@ -19,8 +19,8 @@ class RosterItem extends Component {
   }
 
   _onPress = () => {
-    const { item, setPersonLocation } = this.props;
-    setPersonLocation(
+    const { item, setPersonGroup } = this.props;
+    setPersonGroup(
       item,
       { location: ROSTER, name: 'Roster' },
       { location: STAGING, name: 'Staging' }
@@ -28,15 +28,13 @@ class RosterItem extends Component {
   };
 
   render() {
-    const { item, groupName, selectedLocation } = this.props;
+    const { item, selectedLocation } = this.props;
     return (
       // disable item if a list other than the parent list is selected,
       // so items can be moved to the items parent list
       <TouchableOpacity
         onPress={this._onPress}
-        disabled={
-          selectedLocation == groupName || selectedLocation == '' ? false : true
-        }
+        disabled={ selectedLocation == '' ? false : true }
       >
         <View>
           <Text>{`${item.badge} - ${item.firstName} ${item.lastName}`}</Text>
@@ -48,7 +46,7 @@ class RosterItem extends Component {
 
 // props validation
 RosterItem.propTypes = {
-  setPersonLocation: PropTypes.func,
+  setPersonGroup: PropTypes.func,
   groupName: PropTypes.string,
   item: PropTypes.object, // the current person
   location: PropTypes.string,
@@ -57,8 +55,8 @@ RosterItem.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    selectedLocation: getSelectedLocation(state),
+    selectedLocation: getSelectedGroup(state),
   };
 };
 
-export default connect(mapStateToProps, { setPersonLocation })(RosterItem);
+export default connect(mapStateToProps, { setPersonGroup })(RosterItem);

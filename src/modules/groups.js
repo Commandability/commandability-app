@@ -1,7 +1,7 @@
 /**
- * Locations module
+ * Groups module
  * 
- * Store all incident location static variables. 
+ * Store all group id static variables. 
  */
 
 export const ROSTER = "roster";

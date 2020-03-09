@@ -10,13 +10,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
-  getPersonnelByLocation,
-  getSelectedLocation,
+  getPersonnelByGroup,
+  getSelectedGroup,
   getSelectedPersonnelGroups,
 } from '../../reducers';
-import { clearSelectedPersonnel, setPersonLocation } from '../../actions';
+import { clearSelectedPersonnel, setPersonGroup } from '../../actions';
 import RosterItem from './RosterItem';
-import { ROSTER, STAGING } from '../../modules/locations';
+import { ROSTER, STAGING } from '../../modules/groups';
 
 class RosterList extends React.PureComponent {
   constructor() {
@@ -27,7 +27,7 @@ class RosterList extends React.PureComponent {
     const {
       selectedPersonnelGroups,
       clearSelectedPersonnel,
-      setPersonLocation,
+      setPersonGroup,
     } = this.props;
 
     Alert.alert(
@@ -44,7 +44,7 @@ class RosterList extends React.PureComponent {
             // set each selected ids new location to the current group
             selectedPersonnelGroups.forEach(personGroup => {
               const { person, group: prevGroup } = personGroup;
-              return setPersonLocation(
+              return setPersonGroup(
                 person,
                 prevGroup || { location: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
                 { location: ROSTER, name: 'Roster' }
@@ -89,22 +89,22 @@ RosterList.propTypes = {
   location: PropTypes.string,
   selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
-  setPersonLocation: PropTypes.func,
+  setPersonGroup: PropTypes.func,
   personnel: PropTypes.array,
   selectedLocation: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
-    personnel: getPersonnelByLocation(state, ROSTER),
-    selectedLocation: getSelectedLocation(state),
+    personnel: getPersonnelByGroup(state, ROSTER),
+    selectedLocation: getSelectedGroup(state),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };
 
 export default connect(mapStateToProps, {
   clearSelectedPersonnel,
-  setPersonLocation,
+  setPersonGroup,
 })(RosterList);
 
 const styles = StyleSheet.create({

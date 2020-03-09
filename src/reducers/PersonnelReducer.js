@@ -8,11 +8,11 @@
 import {
   ADD_PERSON,
   REMOVE_PERSON,
-  SET_LOCATION,
+  SET_PERSON_GROUP,
   SET_VISIBILITY,
   RESET_INCIDENT
 } from '../actions/types';
-import { ROSTER } from '../modules/locations';
+import { ROSTER } from '../modules/groups';
 
 const initialState = {
   byId: {},
@@ -25,8 +25,8 @@ const byId = (state = initialState.byId, action) => {
       return addPerson(state, action);
     case REMOVE_PERSON:
       return removePerson(state, action);
-    case SET_LOCATION:
-      return setPersonLocation(state, action);
+    case SET_PERSON_GROUP:
+      return setPersonGroup(state, action);
     default:
       return state;
   }
@@ -73,7 +73,7 @@ const removePerson = (state, action) => {
 };
 
 // set location of person by id
-const setPersonLocation = (state, action) => {
+const setPersonGroup = (state, action) => {
   const { payload } = action;
   const {
     person: { id },
@@ -156,16 +156,16 @@ const resetIncident = (state, action) => {
   };
 };
 
-export const getPersonnelByLocation = (state, location) => {
-  const personnelIdsByLocation = state.allIds.filter(
+export const getPersonnelByGroup = (state, location) => {
+  const personnelIdsByGroup = state.allIds.filter(
     id => state.byId[id].location === location
   );
-  return personnelIdsByLocation.map(id => state.byId[id]);
+  return personnelIdsByGroup.map(id => state.byId[id]);
 };
 
 export const getPersonById = (state, id) => state.byId[id];
 
-export const getLocationUpdateTimeByPerson = (state, person) => {
+export const getPersonGroupUpdateTime = (state, person) => {
   const { id } = person;
   return state.byId[id].locationUpdateTime;
 };

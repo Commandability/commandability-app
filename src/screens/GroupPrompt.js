@@ -15,7 +15,7 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getGroupByLocation } from '../reducers';
+import { getGroupById } from '../reducers';
 import { setVisibility, editName } from '../actions';
 
 class GroupPrompt extends Component {
@@ -90,7 +90,7 @@ GroupPrompt.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   const location = ownProps.navigation.getParam('location', 'default');
-  return { group: getGroupByLocation(state, location) };
+  return { group: getGroupById(state, location) };
 };
 
 export default connect(mapStateToProps, {

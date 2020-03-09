@@ -10,7 +10,7 @@ import { NavBar, Group, Staging, Roster } from "../components/incident";
 import colors from "../modules/colors";
 import { activeReport } from '../reducers';
 import { startIncident } from "../actions";
-import { GROUP_ONE, GROUP_TWO, GROUP_THREE, GROUP_FOUR, GROUP_FIVE, GROUP_SIX } from "../modules/locations";
+import { GROUP_ONE, GROUP_TWO, GROUP_THREE, GROUP_FOUR, GROUP_FIVE, GROUP_SIX } from "../modules/groups";
 
 class IncidentScreen extends Component {
 

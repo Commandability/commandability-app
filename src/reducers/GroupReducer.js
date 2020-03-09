@@ -39,7 +39,7 @@ const setVisibility = (state, action) => {
   };
 };
 
-export const getGroupByLocation = (state, location) => state[location];
+export const getGroupById = (state, location) => state[location];
 
 export default (state = {}, action) => {
   switch (action.type) {

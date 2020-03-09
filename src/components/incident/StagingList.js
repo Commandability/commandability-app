@@ -11,13 +11,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
-  getPersonnelByLocation,
-  getSelectedLocation,
+  getPersonnelByGroup,
+  getSelectedGroup,
   getSelectedPersonnelGroups,
 } from '../../reducers';
-import { clearSelectedPersonnel, setPersonLocation } from '../../actions';
+import { clearSelectedPersonnel, setPersonGroup } from '../../actions';
 import GroupItem from './GroupItem';
-import { STAGING, ROSTER } from '../../modules/locations';
+import { STAGING, ROSTER } from '../../modules/groups';
 
 class StagingList extends React.PureComponent {
   constructor() {
@@ -28,14 +28,14 @@ class StagingList extends React.PureComponent {
     const {
       selectedPersonnelGroups,
       clearSelectedPersonnel,
-      setPersonLocation,
+      setPersonGroup,
     } = this.props;
 
     // set each selected ids new location to the current group
     selectedPersonnelGroups.forEach(personGroup => {
       const { person, group: prevGroup } = personGroup;
 
-      setPersonLocation(
+      setPersonGroup(
         person,
         prevGroup || { location: ROSTER, name: 'Roster' }, // Set prev group to roster if no prev group in redux
         { location: STAGING, name: 'Staging' }
@@ -75,22 +75,22 @@ StagingList.propTypes = {
   location: PropTypes.string,
   selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
-  setPersonLocation: PropTypes.func,
+  setPersonGroup: PropTypes.func,
   personnel: PropTypes.array,
   selectedLocation: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
-    personnel: getPersonnelByLocation(state, STAGING),
-    selectedLocation: getSelectedLocation(state),
+    personnel: getPersonnelByGroup(state, STAGING),
+    selectedLocation: getSelectedGroup(state),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };
 
 export default connect(mapStateToProps, {
   clearSelectedPersonnel,
-  setPersonLocation,
+  setPersonGroup,
 })(StagingList);
 
 const styles = StyleSheet.create({

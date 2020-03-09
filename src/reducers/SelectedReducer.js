@@ -41,7 +41,7 @@ const toggleSelectedPersonById = (state, action) => {
 const location = (state = initialState.location, action) => {
   switch (action.type) {
     case TOGGLE_SELECTED_PERSON:
-      return setLocation(state, action);
+      return setGroup(state, action);
     case RESET_INCIDENT:
     case CLEAR_SELECTED_PERSONNEL:
       return '';
@@ -50,7 +50,7 @@ const location = (state = initialState.location, action) => {
   }
 };
 
-const setLocation = (state, action) => {
+const setGroup = (state, action) => {
   const { payload } = action;
   const { location, id } = payload;
 
@@ -73,14 +73,14 @@ export const getSelectedIds = state => {
   return state.ids;
 };
 
-export const getSelectedLocation = state => {
+export const getSelectedGroup = state => {
   return state.location;
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case TOGGLE_SELECTED_PERSON:
-      return setLocation(state, action);
+      return setGroup(state, action);
     default:
       return {
         ids: ids(state.ids, action),

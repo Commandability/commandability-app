@@ -73,23 +73,23 @@ const rootReducer = (state, action) => {
 export default persistReducer(rootPersistConfig, rootReducer);
 
 // Personnel selectors
-export const getPersonnelByLocation = (state, location) =>
-  fromPersonnel.getPersonnelByLocation(state.personnel, location);
-export const getLocationUpdateTimeByPerson = (state, person) =>
-  fromPersonnel.getLocationUpdateTimeByPerson(state.personnel, person);
+export const getPersonnelByGroup = (state, location) =>
+  fromPersonnel.getPersonnelByGroup(state.personnel, location);
+export const getPersonGroupUpdateTime = (state, person) =>
+  fromPersonnel.getPersonGroupUpdateTime(state.personnel, person);
 
 // Selected selectors
-export const getSelectedLocation = state =>
-  fromSelected.getSelectedLocation(state.selected);
+export const getSelectedGroup = state =>
+  fromSelected.getSelectedGroup(state.selected);
 export const getSelectedPersonnelGroups = state =>
   fromSelected
     .getSelectedIds(state.selected)
     .map(id => fromPersonnel.getPersonById(state.personnel, id))
-    .map(person => ({ person, group: fromGroup.getGroupByLocation(state.group, person.location) }));
+    .map(person => ({ person, group: fromGroup.getGroupById(state.group, person.location) }));
 
 // Group selectors
-export const getGroupByLocation = (state, location) =>
-  fromGroup.getGroupByLocation(state.group, location);
+export const getGroupById = (state, location) =>
+  fromGroup.getGroupById(state.group, location);
 
 // Time selectors
 export const getInitialTime = state => fromTime.getInitialTime(state.time);

@@ -10,8 +10,8 @@ import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import {
-  getSelectedLocation,
-  getLocationUpdateTimeByPerson,
+  getSelectedGroup,
+  getPersonGroupUpdateTime,
 } from '../../reducers';
 import { toggleSelectedPersonById } from '../../actions';
 import colors from '../../modules/colors';
@@ -104,8 +104,8 @@ GroupItem.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const { item } = ownProps;
   return {
-    selectedLocation: getSelectedLocation(state),
-    locationUpdateTime: getLocationUpdateTimeByPerson(state, item),
+    selectedLocation: getSelectedGroup(state),
+    locationUpdateTime: getPersonGroupUpdateTime(state, item),
   };
 };
 

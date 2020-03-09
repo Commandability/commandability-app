@@ -11,28 +11,28 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
-  getGroupByLocation,
-  getPersonnelByLocation,
-  getSelectedLocation,
+  getGroupById,
+  getPersonnelByGroup,
+  getSelectedGroup,
   getSelectedPersonnelGroups,
 } from '../../reducers';
-import { clearSelectedPersonnel, setPersonLocation } from '../../actions';
+import { clearSelectedPersonnel, setPersonGroup } from '../../actions';
 import GroupItem from './GroupItem';
-import { STAGING } from '../../modules/locations';
+import { STAGING } from '../../modules/groups';
 
 class GroupList extends React.PureComponent {
   onPress = () => {
     const {
       selectedPersonnelGroups,
       clearSelectedPersonnel,
-      setPersonLocation,
+      setPersonGroup,
       group,
     } = this.props;
 
     // set each selected ids new location to the current group
     selectedPersonnelGroups.forEach(personGroup => {
       const { person, group: prevGroup } = personGroup;
-      setPersonLocation(
+      setPersonGroup(
         person,
         prevGroup || { location: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
         group
@@ -75,7 +75,7 @@ GroupList.propTypes = {
   group: PropTypes.object,
   selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
-  setPersonLocation: PropTypes.func,
+  setPersonGroup: PropTypes.func,
   personnel: PropTypes.array,
   selectedLocation: PropTypes.string,
 };
@@ -83,16 +83,16 @@ GroupList.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const { location } = ownProps;
   return {
-    group: getGroupByLocation(state, location),
-    personnel: getPersonnelByLocation(state, location),
-    selectedLocation: getSelectedLocation(state),
+    group: getGroupById(state, location),
+    personnel: getPersonnelByGroup(state, location),
+    selectedLocation: getSelectedGroup(state),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };
 
 export default connect(mapStateToProps, {
   clearSelectedPersonnel,
-  setPersonLocation,
+  setPersonGroup,
 })(GroupList);
 
 const styles = StyleSheet.create({

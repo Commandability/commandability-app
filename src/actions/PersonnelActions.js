@@ -6,8 +6,8 @@
 
 import uuidv4 from 'uuid/v4';
 
-import { ADD_PERSON, REMOVE_PERSON, SET_LOCATION } from './types';
-import { STAGING } from '../modules/locations';
+import { ADD_PERSON, REMOVE_PERSON, SET_PERSON_GROUP } from './types';
+import { STAGING } from '../modules/groups';
 
 export const addPerson = person => {
   const personId = uuidv4();
@@ -30,11 +30,11 @@ export const removePerson = person => {
   };
 };
 
-export const setPersonLocation = (person, prevGroup, group) => {
+export const setPersonGroup = (person, prevGroup, group) => {
   const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   return {
-    type: SET_LOCATION,
+    type: SET_PERSON_GROUP,
     payload: { entryId, dateTime, person, currTime: Date.now(), prevGroup, group },
   };
 };

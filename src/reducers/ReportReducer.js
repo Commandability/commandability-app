@@ -10,7 +10,7 @@ import {
   END_INCIDENT,
   ADD_PERSON,
   REMOVE_PERSON,
-  SET_LOCATION,
+  SET_PERSON_GROUP,
   EDIT_NAME,
   SET_VISIBILITY
 } from '../actions/types';
@@ -72,7 +72,7 @@ const logRemovePerson = (state, action) => {
   };
 };
 
-const logSetLocation = (state, action) => {
+const logSetGroup = (state, action) => {
   const { payload } = action;
   const {
     entryId,
@@ -131,8 +131,8 @@ export default (state = {}, action) => {
       return logAddPerson(state, action);
     case REMOVE_PERSON:
       return logRemovePerson(state, action);
-    case SET_LOCATION:
-      return logSetLocation(state, action);
+    case SET_PERSON_GROUP:
+      return logSetGroup(state, action);
     case EDIT_NAME:
       return logEditName(state, action);
     case SET_VISIBILITY:

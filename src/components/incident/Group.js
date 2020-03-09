@@ -17,7 +17,7 @@ import PropTypes from 'prop-types';
 import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
 import GroupList from './GroupList';
-import { getGroupByLocation } from '../../reducers';
+import { getGroupById } from '../../reducers';
 import { setVisibility } from '../../actions';
 
 class Group extends Component {
@@ -85,7 +85,7 @@ Group.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   const { location } = ownProps;
-  return { group: getGroupByLocation(state, location) };
+  return { group: getGroupById(state, location) };
 };
 
 export default withNavigation(

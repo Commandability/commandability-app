@@ -175,20 +175,17 @@ export default (state = initialState, action) => {
     case RESET_INCIDENT:
       return resetIncident(state, action);
     case SET_VISIBILITY:
+      // reset personnel location only if the group is being removed
       const { payload: { newVisibility } } = action;
       if(newVisibility){
-        return {
-          byId: byId(state.byId, action),
-          allIds: allIds(state.allIds, action),
-        };
+        break;
       }
       else{
         return returnToRoster(state, action);
       }
-    default:
-      return {
-        byId: byId(state.byId, action),
-        allIds: allIds(state.allIds, action),
-      };
   }
+  return {
+    byId: byId(state.byId, action),
+    allIds: allIds(state.allIds, action),
+  };
 };

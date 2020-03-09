@@ -28,13 +28,13 @@ class RosterItem extends Component {
   };
 
   render() {
-    const { item, selectedLocation } = this.props;
+    const { item, selectedGroup } = this.props;
     return (
       // disable item if a list other than the parent list is selected,
       // so items can be moved to the items parent list
       <TouchableOpacity
         onPress={this._onPress}
-        disabled={ selectedLocation == '' ? false : true }
+        disabled={ selectedGroup == '' ? false : true }
       >
         <View>
           <Text>{`${item.badge} - ${item.firstName} ${item.lastName}`}</Text>
@@ -50,12 +50,12 @@ RosterItem.propTypes = {
   groupName: PropTypes.string,
   item: PropTypes.object, // the current person
   location: PropTypes.string,
-  selectedLocation: PropTypes.string,
+  selectedGroup: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
-    selectedLocation: getSelectedGroup(state),
+    selectedGroup: getSelectedGroup(state),
   };
 };
 

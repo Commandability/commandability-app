@@ -51,12 +51,12 @@ class StagingList extends React.PureComponent {
   _keyExtractor = item => item.id;
 
   render() {
-    const { personnel, selectedLocation } = this.props;
+    const { personnel, selectedGroup } = this.props;
     return (
       <TouchableOpacity
         onPress={this._onPress}
         disabled={
-          selectedLocation == '' || selectedLocation == STAGING
+          selectedGroup === '' || selectedGroup === STAGING
         }
         style={styles.listContainer}
       >
@@ -77,13 +77,13 @@ StagingList.propTypes = {
   clearSelectedPersonnel: PropTypes.func,
   setPersonGroup: PropTypes.func,
   personnel: PropTypes.array,
-  selectedLocation: PropTypes.string,
+  selectedGroup: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
     personnel: getPersonnelByGroup(state, STAGING),
-    selectedLocation: getSelectedGroup(state),
+    selectedGroup: getSelectedGroup(state),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };

@@ -21,32 +21,32 @@ const MS_IN_MINUTE = 60000;
 class GroupItem extends Component {
   constructor(props) {
     super(props);
-    const { locationUpdateTime } = this.props;
+    const { groupUpdateEpochTime } = this.props;
     this.state = {
       selected: false,
-      time: Date.now() - locationUpdateTime,
+      time: Date.now() - groupUpdateEpochTime,
     };
   }
 
   componentDidMount() {
-    const { locationUpdateTime } = this.props;
+    const { groupUpdateEpochTime } = this.props;
     // set first timer manually to reduce interval when remounting component after crash
     this.timeoutID = setTimeout(
       () => {
         this.setState(() => ({
-          time: Date.now() - locationUpdateTime,
+          time: Date.now() - groupUpdateEpochTime,
         }));
         // set recurring timers at constant intervals
         this.intervalID = setInterval(
           () =>
             this.setState(() => ({
-              time: Date.now() - locationUpdateTime,
+              time: Date.now() - groupUpdateEpochTime,
             })),
           MS_IN_MINUTE
         );
       },
       // calculate remaining ms in last count before a new interval should be started
-      MS_IN_MINUTE - ((Date.now() - locationUpdateTime) % MS_IN_MINUTE)
+      MS_IN_MINUTE - ((Date.now() - groupUpdateEpochTime) % MS_IN_MINUTE)
     );
   }
 
@@ -66,14 +66,14 @@ class GroupItem extends Component {
   };
 
   render() {
-    const { item, location, selectedLocation } = this.props;
+    const { item, location, selectedGroup } = this.props;
     return (
       // disable item if a list other than the parent list is selected,
       // so items can be moved to the items parent list
       <TouchableOpacity
         onPress={this._onPress}
         disabled={
-          selectedLocation == location || selectedLocation == '' ? false : true
+          selectedGroup === location || selectedGroup === '' ? false : true
         }
       >
         <View>
@@ -94,18 +94,18 @@ class GroupItem extends Component {
 
 // props validation
 GroupItem.propTypes = {
-  locationUpdateTime: PropTypes.number,
+  groupUpdateEpochTime: PropTypes.number,
   item: PropTypes.object, // the current person
   location: PropTypes.string, // the parent groupName
   toggleSelectedPersonById: PropTypes.func,
-  selectedLocation: PropTypes.string,
+  selectedGroup: PropTypes.string,
 };
 
 const mapStateToProps = (state, ownProps) => {
   const { item } = ownProps;
   return {
-    selectedLocation: getSelectedGroup(state),
-    locationUpdateTime: getPersonGroupUpdateTime(state, item),
+    selectedGroup: getSelectedGroup(state),
+    groupUpdateEpochTime: getPersonGroupUpdateTime(state, item),
   };
 };
 

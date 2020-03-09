@@ -43,7 +43,7 @@ const addPerson = (state, action) => {
       rank,
       shift,
       location,
-      locationUpdateTime,
+      groupUpdateEpochTime,
     },
   } = payload;
   return {
@@ -56,7 +56,7 @@ const addPerson = (state, action) => {
       rank,
       shift,
       location,
-      locationUpdateTime,
+      groupUpdateEpochTime,
     },
   };
 };
@@ -86,7 +86,7 @@ const setPersonGroup = (state, action) => {
     [id]: {
       ...person,
       location,
-      locationUpdateTime: location === ROSTER ? 0 : currTime,
+      groupUpdateEpochTime: location === ROSTER ? 0 : currTime,
     },
   };
 };
@@ -125,7 +125,7 @@ const returnToRoster = (state, action) => {
       byId[id] = {
         ...person,
         location: ROSTER,
-        locationUpdateTime: 0,
+        groupUpdateEpochTime: 0,
       };
     } else {
       byId[id] = {
@@ -139,7 +139,7 @@ const returnToRoster = (state, action) => {
   };
 };
 
-// set all locations to default and locationUpdateTime to 0 at end of incident
+// set all locations to default and groupUpdateEpochTime to 0 at end of incident
 const resetIncident = (state, action) => {
   const byId = {};
   state.allIds.forEach(id => {
@@ -147,7 +147,7 @@ const resetIncident = (state, action) => {
     byId[id] = {
       ...person,
       location: ROSTER,
-      locationUpdateTime: 0,
+      groupUpdateEpochTime: 0,
     };
   });
   return {
@@ -167,7 +167,7 @@ export const getPersonById = (state, id) => state.byId[id];
 
 export const getPersonGroupUpdateTime = (state, person) => {
   const { id } = person;
-  return state.byId[id].locationUpdateTime;
+  return state.byId[id].groupUpdateEpochTime;
 };
 
 export default (state = initialState, action) => {

@@ -9,8 +9,8 @@ import {
   ADD_PERSON,
   REMOVE_PERSON,
   SET_LOCATION,
-  RESET_INCIDENT,
-  REMOVE_GROUP,
+  SET_VISIBILITY,
+  RESET_INCIDENT
 } from '../actions/types';
 import { ROSTER } from '../modules/locations';
 
@@ -116,8 +116,7 @@ const removePersonId = (state, action) => {
 
 // set all locations in a group to roster if the group is deleted
 const returnToRoster = (state, action) => {
-  const { payload } = action;
-  const { location } = payload;
+  const { payload: { group: { location } } } = action;
   const byId = {};
 
   state.allIds.forEach(id => {
@@ -175,8 +174,17 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case RESET_INCIDENT:
       return resetIncident(state, action);
-    case REMOVE_GROUP:
-      return returnToRoster(state, action);
+    case SET_VISIBILITY:
+      const { payload: { newVisibility } } = action;
+      if(newVisibility){
+        return {
+          byId: byId(state.byId, action),
+          allIds: allIds(state.allIds, action),
+        };
+      }
+      else{
+        return returnToRoster(state, action);
+      }
     default:
       return {
         byId: byId(state.byId, action),

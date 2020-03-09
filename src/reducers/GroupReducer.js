@@ -4,11 +4,7 @@
  * Reducers to add and remove groups, and change group names.
  */
 
-import { EDIT_NAME, ADD_GROUP, REMOVE_GROUP } from '../actions/types';
-
-const initialState = {
-  group: {},
-};
+import { EDIT_NAME, SET_VISIBILITY } from '../actions/types';
 
 const editName = (state, action) => {
   const { payload } = action;
@@ -27,46 +23,30 @@ const editName = (state, action) => {
   };
 };
 
-const addGroup = (state, action) => {
+const setVisibility = (state, action) => {
   const { payload } = action;
   const {
     group,
     group: { location },
+    newVisibility
   } = payload;
   return {
     ...state,
     [location]: {
       ...group,
-      visibility: true,
-    },
-  };
-};
-
-const removeGroup = (state, action) => {
-  const { payload } = action;
-  const {
-    group,
-    group: { location },
-  } = payload;
-  return {
-    ...state,
-    [location]: {
-      ...group,
-      visibility: false,
+      visibility: newVisibility,
     },
   };
 };
 
 export const getGroupByLocation = (state, location) => state[location];
 
-export default (state = initialState, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case EDIT_NAME:
       return editName(state, action);
-    case ADD_GROUP:
-      return addGroup(state, action);
-    case REMOVE_GROUP:
-      return removeGroup(state, action);
+    case SET_VISIBILITY:
+      return setVisibility(state, action);
     default:
       return state;
   }

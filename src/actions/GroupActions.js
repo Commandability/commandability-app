@@ -6,7 +6,7 @@
 
 import uuidv4 from 'uuid/v4';
 
-import { EDIT_NAME, ADD_GROUP, REMOVE_GROUP } from './types';
+import { EDIT_NAME, SET_VISIBILITY } from './types';
 
 export const editName = (group, newName) => {
   const entryId = uuidv4(); // for storage in the report reducer
@@ -17,20 +17,11 @@ export const editName = (group, newName) => {
   };
 };
 
-export const addGroup = group => {
+export const setVisibility = (group, newVisibility) => {
   const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   return {
-    type: ADD_GROUP,
-    payload: { entryId, dateTime, group },
-  };
-};
-
-export const removeGroup = group => {
-  const entryId = uuidv4();
-  const dateTime = new Date().toLocaleString();
-  return {
-    type: REMOVE_GROUP,
-    payload: { entryId, dateTime, group },
+    type: SET_VISIBILITY,
+    payload: { entryId, dateTime, group, newVisibility },
   };
 };

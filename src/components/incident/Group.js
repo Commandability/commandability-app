@@ -18,7 +18,7 @@ import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
 import GroupList from './GroupList';
 import { getGroupByLocation } from '../../reducers';
-import { addGroup } from '../../actions';
+import { setVisibility } from '../../actions';
 
 class Group extends Component {
   constructor() {
@@ -26,8 +26,8 @@ class Group extends Component {
   }
 
   _onAddPressed = () => {
-    const { addGroup, group } = this.props;
-    addGroup(group);
+    const { setVisibility, group } = this.props;
+    setVisibility(group, true);
   };
 
   _onSettingsPressed = () => {
@@ -78,7 +78,7 @@ class Group extends Component {
 
 // props validation
 Group.propTypes = {
-  addGroup: PropTypes.func,
+  setVisibility: PropTypes.func,
   navigation: PropTypes.object,
   group: PropTypes.object,
 };
@@ -90,7 +90,7 @@ const mapStateToProps = (state, ownProps) => {
 
 export default withNavigation(
   connect(mapStateToProps, {
-    addGroup,
+    setVisibility,
   })(Group)
 );
 

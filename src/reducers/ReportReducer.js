@@ -12,8 +12,7 @@ import {
   REMOVE_PERSON,
   SET_LOCATION,
   EDIT_NAME,
-  ADD_GROUP,
-  REMOVE_GROUP,
+  SET_VISIBILITY
 } from '../actions/types';
 
 const logStartIncident = action => {
@@ -104,26 +103,14 @@ const logEditName = (state, action) => {
   };
 };
 
-const logAddGroup = (state, action) => {
+const logSetVisibility = (state, action) => {
   const { payload } = action;
-  const { group: { name }, entryId, dateTime } = payload;
+  const { group: { name }, newVisibility, entryId, dateTime } = payload;
   return {
     ...state,
     [entryId]: {
       dateTime,
-      log: `Added group ${name}`,
-    },
-  };
-};
-
-const logRemoveGroup = (state, action) => {
-  const { payload } = action;
-  const { group: { name }, entryId, dateTime } = payload;
-  return {
-    ...state,
-    [entryId]: {
-      dateTime,
-      log: `Removed group ${name}`,
+      log: newVisibility ? `Added group ${name}` : `Removed group ${name}`,
     },
   };
 };
@@ -148,10 +135,8 @@ export default (state = {}, action) => {
       return logSetLocation(state, action);
     case EDIT_NAME:
       return logEditName(state, action);
-    case ADD_GROUP:
-      return logAddGroup(state, action);
-    case REMOVE_GROUP:
-      return logRemoveGroup(state, action);
+    case SET_VISIBILITY:
+      return logSetVisibility(state, action);
     default:
       return state;
   }

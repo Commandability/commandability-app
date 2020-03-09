@@ -16,8 +16,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getGroupByLocation } from '../reducers';
-import { removeGroup, editName } from '../actions';
-
+import { setVisibility, editName } from '../actions';
 
 class GroupPrompt extends Component {
 
@@ -35,10 +34,10 @@ class GroupPrompt extends Component {
   _onRemovePressed = () => {
     const {
       navigation: { goBack },
-      removeGroup,
+      setVisibility,
       group
     } = this.props;
-    removeGroup(group);
+    setVisibility(group, false);
     goBack();
   };
 
@@ -83,10 +82,9 @@ class GroupPrompt extends Component {
 
 // props validation
 GroupPrompt.propTypes = {
-  logRemoveGroup: PropTypes.func,
   navigation: PropTypes.object,
   editName: PropTypes.func,
-  removeGroup: PropTypes.func,
+  setVisibility: PropTypes.func,
   group: PropTypes.object,
 };
 
@@ -96,7 +94,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps, {
-  removeGroup,
+  setVisibility,
   editName,
 })(GroupPrompt);
 

@@ -6,9 +6,9 @@
 
 import { TOGGLE_SELECTED_PERSON, CLEAR_SELECTED_PERSONNEL } from './types';
 
-export const toggleSelectedPersonById = (id, location) => ({
+export const toggleSelectedPersonById = (id, groupId) => ({
   type: TOGGLE_SELECTED_PERSON,
-  payload: { id, location },
+  payload: { id, groupId },
 });
 
 export const clearSelectedPersonnel = () => ({

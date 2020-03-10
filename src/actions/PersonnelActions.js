@@ -12,12 +12,12 @@ import { STAGING } from '../modules/groups';
 export const addPerson = person => {
   const personId = uuidv4();
   const entryId = uuidv4(); // for storage in the report reducer
-  const location = STAGING;
+  const groupId = STAGING;
   const groupUpdateEpochTime = 0;
   const dateTime = new Date().toLocaleString();
   return {
     type: ADD_PERSON,
-    payload: { entryId, dateTime, person: { personId, ...person, location, groupUpdateEpochTime } },
+    payload: { entryId, dateTime, person: { personId, ...person, groupId, groupUpdateEpochTime } },
   };
 };
 

@@ -61,19 +61,19 @@ class GroupItem extends Component {
       selected: !prevState.selected,
     }));
 
-    const { item, location, toggleSelectedPersonById } = this.props;
-    toggleSelectedPersonById(item.id, location);
+    const { item, groupId, toggleSelectedPersonById } = this.props;
+    toggleSelectedPersonById(item.id, groupId);
   };
 
   render() {
-    const { item, location, selectedGroup } = this.props;
+    const { item: { badge, firstName, lastName }, groupId, selectedGroup } = this.props;
     return (
       // disable item if a list other than the parent list is selected,
       // so items can be moved to the items parent list
       <TouchableOpacity
         onPress={this._onPress}
         disabled={
-          selectedGroup === location || selectedGroup === '' ? false : true
+          selectedGroup === groupId || selectedGroup === '' ? false : true
         }
       >
         <View>
@@ -82,8 +82,8 @@ class GroupItem extends Component {
               this.state.selected ? styles.selectedItem : styles.unselectedItem
             }
           >
-            {`${item.badge} - ${item.firstName}  ${
-              item.lastName
+            {`${badge} - ${firstName}  ${
+              lastName
             } - ${Math.floor(this.state.time / MS_IN_MINUTE)}`}
           </Text>
         </View>
@@ -96,7 +96,7 @@ class GroupItem extends Component {
 GroupItem.propTypes = {
   groupUpdateEpochTime: PropTypes.number,
   item: PropTypes.object, // the current person
-  location: PropTypes.string, // the parent groupName
+  groupId: PropTypes.string, // the parent groupName
   toggleSelectedPersonById: PropTypes.func,
   selectedGroup: PropTypes.string,
 };

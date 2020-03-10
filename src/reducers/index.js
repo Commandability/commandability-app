@@ -11,7 +11,7 @@ import { persistReducer, purgeStoredState } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 import personnel, * as fromPersonnel from './PersonnelReducer';
-import group, * as fromGroup from './GroupReducer';
+import groups, * as fromGroups from './GroupReducer';
 import report, * as fromReport from './ReportReducer';
 import time, * as fromTime from './TimeReducer';
 import selected, * as fromSelected from './SelectedReducer';
@@ -26,8 +26,8 @@ const personnelPersistConfig = {
   stateReconciler: autoMergeLevel2,
 };
 
-const groupPersistConfig = {
-  key: 'group',
+const groupsPersistConfig = {
+  key: 'groups',
   storage: AsyncStorage,
   stateReconciler: autoMergeLevel2,
 };
@@ -44,7 +44,7 @@ const timePersistConfig = {
 
 const appReducer = combineReducers({
   personnel: persistReducer(personnelPersistConfig, personnel),
-  group: persistReducer(groupPersistConfig, group),
+  groups: persistReducer(groupsPersistConfig, groups),
   time: persistReducer(timePersistConfig, time),
   report: persistReducer(reportPersistConfig, report),
   selected,
@@ -73,8 +73,8 @@ const rootReducer = (state, action) => {
 export default persistReducer(rootPersistConfig, rootReducer);
 
 // Personnel selectors
-export const getPersonnelByGroup = (state, location) =>
-  fromPersonnel.getPersonnelByGroup(state.personnel, location);
+export const getPersonnelByGroup = (state, groupId) =>
+  fromPersonnel.getPersonnelByGroup(state.personnel, groupId);
 export const getPersonGroupUpdateTime = (state, person) =>
   fromPersonnel.getPersonGroupUpdateTime(state.personnel, person);
 
@@ -85,11 +85,11 @@ export const getSelectedPersonnelGroups = state =>
   fromSelected
     .getSelectedIds(state.selected)
     .map(id => fromPersonnel.getPersonById(state.personnel, id))
-    .map(person => ({ person, group: fromGroup.getGroupById(state.group, person.location) }));
+    .map(person => ({ person, group: fromGroups.getGroupById(state.groups, person.groupId) }));
 
-// Group selectors
-export const getGroupById = (state, location) =>
-  fromGroup.getGroupById(state.group, location);
+// Groups selectors
+export const getGroupById = (state, groupId) =>
+  fromGroups.getGroupById(state.groups, groupId);
 
 // Time selectors
 export const getInitialTime = state => fromTime.getInitialTime(state.time);

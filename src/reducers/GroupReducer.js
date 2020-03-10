@@ -10,12 +10,12 @@ const editName = (state, action) => {
   const { payload } = action;
   const {
     group,
-    group: { location },
+    group: { groupId },
     newName,
   } = payload;
   return {
     ...state,
-    [location]: {
+    [groupId]: {
       ...group,
       name: newName,
       visibility: true,
@@ -27,19 +27,19 @@ const setVisibility = (state, action) => {
   const { payload } = action;
   const {
     group,
-    group: { location },
+    group: { groupId },
     newVisibility
   } = payload;
   return {
     ...state,
-    [location]: {
+    [groupId]: {
       ...group,
       visibility: newVisibility,
     },
   };
 };
 
-export const getGroupById = (state, location) => state[location];
+export const getGroupById = (state, groupId) => state[groupId];
 
 export default (state = {}, action) => {
   switch (action.type) {

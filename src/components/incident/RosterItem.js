@@ -1,7 +1,7 @@
 /**
  * RosterItem Component
  * 
- * Manages displaying a person in a the roster and sets a persons location in redux to staging when selected.
+ * Manages displaying a person in a the roster and sets a persons groupId in redux to staging when selected.
  */
 
 import React, { Component } from 'react';
@@ -22,13 +22,13 @@ class RosterItem extends Component {
     const { item, setPersonGroup } = this.props;
     setPersonGroup(
       item,
-      { location: ROSTER, name: 'Roster' },
-      { location: STAGING, name: 'Staging' }
+      { groupId: ROSTER, name: 'Roster' },
+      { groupId: STAGING, name: 'Staging' }
     );
   };
 
   render() {
-    const { item, selectedGroup } = this.props;
+    const { item: { badge, firstName, lastName }, selectedGroup } = this.props;
     return (
       // disable item if a list other than the parent list is selected,
       // so items can be moved to the items parent list
@@ -37,7 +37,7 @@ class RosterItem extends Component {
         disabled={ selectedGroup == '' ? false : true }
       >
         <View>
-          <Text>{`${item.badge} - ${item.firstName} ${item.lastName}`}</Text>
+          <Text>{`${badge} - ${firstName} ${lastName}`}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -49,7 +49,7 @@ RosterItem.propTypes = {
   setPersonGroup: PropTypes.func,
   groupName: PropTypes.string,
   item: PropTypes.object, // the current person
-  location: PropTypes.string,
+  groupId: PropTypes.string,
   selectedGroup: PropTypes.string,
 };
 

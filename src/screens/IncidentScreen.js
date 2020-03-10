@@ -33,16 +33,16 @@ class IncidentScreen extends Component {
           </View>
           <View style={styles.groupArea}>
             <View style={styles.subGroupArea}>
-              <Group location={GROUP_ONE} />
-              <Group location={GROUP_TWO} />
+              <Group groupId={GROUP_ONE} />
+              <Group groupId={GROUP_TWO} />
             </View>
             <View style={styles.subGroupArea}>
-              <Group location={GROUP_THREE} />
-              <Group location={GROUP_FOUR} />
+              <Group groupId={GROUP_THREE} />
+              <Group groupId={GROUP_FOUR} />
             </View>
             <View style={styles.subGroupArea}>
-              <Group location={GROUP_FIVE} />
-              <Group location={GROUP_SIX} />
+              <Group groupId={GROUP_FIVE} />
+              <Group groupId={GROUP_SIX} />
             </View>
           </View>
         </View>

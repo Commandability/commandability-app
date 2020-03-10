@@ -41,13 +41,13 @@ class RosterList extends React.PureComponent {
         {
           text: 'OK',
           onPress: () => {
-            // set each selected ids new location to the current group
+            // set each selected ids new groupId to the current group
             selectedPersonnelGroups.forEach(personGroup => {
               const { person, group: prevGroup } = personGroup;
               return setPersonGroup(
                 person,
-                prevGroup || { location: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
-                { location: ROSTER, name: 'Roster' }
+                prevGroup || { groupId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
+                { groupId: ROSTER, name: 'Roster' }
               );
             });
             clearSelectedPersonnel();
@@ -86,7 +86,7 @@ class RosterList extends React.PureComponent {
 
 // props validation
 RosterList.propTypes = {
-  location: PropTypes.string,
+  groupId: PropTypes.string,
   selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
   setPersonGroup: PropTypes.func,

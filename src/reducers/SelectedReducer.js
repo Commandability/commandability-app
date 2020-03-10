@@ -1,7 +1,7 @@
 /**
  * Selected Reducer
  *
- * Add and remove personnel from selected list, and set selected location
+ * Add and remove personnel from selected list, and set selected groupId
  * so that groups know when to disable their child list items.
  */
 
@@ -12,11 +12,11 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  ids: [],
-  location: '',
+  personnelIds: [],
+  groupId: '',
 };
 
-const ids = (state = initialState.ids, action) => {
+const personnelIds = (state = initialState.personnelIds, action) => {
   switch (action.type) {
     case TOGGLE_SELECTED_PERSON:
       return toggleSelectedPersonById(state, action);
@@ -38,7 +38,7 @@ const toggleSelectedPersonById = (state, action) => {
   }
 };
 
-const location = (state = initialState.location, action) => {
+const groupId = (state = initialState.groupId, action) => {
   switch (action.type) {
     case TOGGLE_SELECTED_PERSON:
       return setGroup(state, action);
@@ -52,29 +52,29 @@ const location = (state = initialState.location, action) => {
 
 const setGroup = (state, action) => {
   const { payload } = action;
-  const { location, id } = payload;
+  const { groupId, id } = payload;
 
-  // check if current id is the only id in selected to determine if location should be reset
+  // check if current id is the only id in selected to determine if groupId should be reset
   // and all groups should be enabled
-  if (state.ids.length == 1 && state.ids.indexOf(id) > -1) {
+  if (state.personnelIds.length == 1 && state.personnelIds.includes(id)) {
     return {
-      ids: ids(state.ids, action),
-      location: '',
+      personnelIds: personnelIds(state.personnelIds, action),
+      groupId: '',
     };
   } else {
     return {
-      ids: ids(state.ids, action),
-      location,
+      personnelIds: personnelIds(state.personnelIds, action),
+      groupId,
     };
   }
 };
 
 export const getSelectedIds = state => {
-  return state.ids;
+  return state.personnelIds;
 };
 
 export const getSelectedGroup = state => {
-  return state.location;
+  return state.groupId;
 };
 
 export default (state = initialState, action) => {
@@ -83,8 +83,8 @@ export default (state = initialState, action) => {
       return setGroup(state, action);
     default:
       return {
-        ids: ids(state.ids, action),
-        location: location(state.location, action),
+        personnelIds: personnelIds(state.personnelIds, action),
+        groupId: groupId(state.groupId, action),
       };
   }
 };

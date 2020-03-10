@@ -29,12 +29,12 @@ class GroupList extends React.PureComponent {
       group,
     } = this.props;
 
-    // set each selected ids new location to the current group
+    // set each selected ids new groupId to the current group
     selectedPersonnelGroups.forEach(personGroup => {
       const { person, group: prevGroup } = personGroup;
       setPersonGroup(
         person,
-        prevGroup || { location: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
+        prevGroup || { groupId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
         group
       );
     });
@@ -42,19 +42,19 @@ class GroupList extends React.PureComponent {
   };
 
   renderItem = ({ item }) => {
-    const { location } = this.props;
-    return <GroupItem location={location} item={item} />;
+    const { groupId } = this.props;
+    return <GroupItem groupId={groupId} item={item} />;
   };
 
   keyExtractor = item => item.id;
 
   render() {
-    const { location, personnel, selectedGroup } = this.props;
+    const { groupId, personnel, selectedGroup } = this.props;
     return (
       <TouchableOpacity
         onPress={this.onPress}
         disabled={
-          selectedGroup === '' || selectedGroup === location
+          selectedGroup === '' || selectedGroup === groupId
         }
         style={styles.listContainer}
       >
@@ -71,7 +71,7 @@ class GroupList extends React.PureComponent {
 
 // props validation
 GroupList.propTypes = {
-  location: PropTypes.string,
+  groupId: PropTypes.string,
   group: PropTypes.object,
   selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
@@ -81,10 +81,10 @@ GroupList.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const { location } = ownProps;
+  const { groupId } = ownProps;
   return {
-    group: getGroupById(state, location),
-    personnel: getPersonnelByGroup(state, location),
+    group: getGroupById(state, groupId),
+    personnel: getPersonnelByGroup(state, groupId),
     selectedGroup: getSelectedGroup(state),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };

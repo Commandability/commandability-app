@@ -31,21 +31,21 @@ class StagingList extends React.PureComponent {
       setPersonGroup,
     } = this.props;
 
-    // set each selected ids new location to the current group
+    // set each selected ids new groupId to the current group
     selectedPersonnelGroups.forEach(personGroup => {
       const { person, group: prevGroup } = personGroup;
 
       setPersonGroup(
         person,
-        prevGroup || { location: ROSTER, name: 'Roster' }, // Set prev group to roster if no prev group in redux
-        { location: STAGING, name: 'Staging' }
+        prevGroup || { groupId: ROSTER, name: 'Roster' }, // Set prev group to roster if no prev group in redux
+        { groupId: STAGING, name: 'Staging' }
       );
     });
     clearSelectedPersonnel();
   };
 
   _renderItem = ({ item }) => {
-    return <GroupItem location={STAGING} item={item} />;
+    return <GroupItem groupId={STAGING} item={item} />;
   };
 
   _keyExtractor = item => item.id;
@@ -72,7 +72,7 @@ class StagingList extends React.PureComponent {
 }
 
 StagingList.propTypes = {
-  location: PropTypes.string,
+  groupId: PropTypes.string,
   selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
   setPersonGroup: PropTypes.func,

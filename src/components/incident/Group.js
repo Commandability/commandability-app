@@ -1,9 +1,6 @@
 /**
  * Group Component
  *
- * props:
- *  - location: the current group's data location
- *
  * This component displays each of the six main groups, each group's relevant data
  * list and handles visibility control of groups
  */
@@ -33,13 +30,13 @@ class Group extends Component {
   _onSettingsPressed = () => {
     const {
       navigation: { navigate },
-      group: { location },
+      group: { groupId },
     } = this.props;
-    navigate('GroupPrompt', { location });
+    navigate('GroupPrompt', { groupId });
   };
 
   render() {
-    const { group: {name, visibility, location} } = this.props;
+    const { group: {name, visibility, groupId} } = this.props;
     if (visibility) {
       return (
         <View style={styles.groupLayout}>
@@ -55,7 +52,7 @@ class Group extends Component {
               ></Image>
             </TouchableOpacity>
           </View>
-          <GroupList location={location} />
+          <GroupList groupId={groupId} />
         </View>
       );
     } else {
@@ -84,8 +81,8 @@ Group.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const { location } = ownProps;
-  return { group: getGroupById(state, location) };
+  const { groupId } = ownProps;
+  return { group: getGroupById(state, groupId) };
 };
 
 export default withNavigation(

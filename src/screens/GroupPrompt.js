@@ -89,8 +89,8 @@ GroupPrompt.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const location = ownProps.navigation.getParam('location', 'default');
-  return { group: getGroupById(state, location) };
+  const groupId = ownProps.navigation.getParam('groupId', 'default');
+  return { group: getGroupById(state, groupId) };
 };
 
 export default connect(mapStateToProps, {

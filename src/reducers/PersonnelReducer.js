@@ -12,7 +12,7 @@ import {
   SET_VISIBILITY,
   RESET_INCIDENT
 } from '../actions/types';
-import { ROSTER } from '../modules/groups';
+import { ROSTER } from '../modules/groupIds';
 
 const initialState = {
   byId: {},

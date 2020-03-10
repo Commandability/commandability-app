@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 
 import { getSelectedGroup } from '../../reducers';
 import { setPersonGroup } from '../../actions';
-import { ROSTER, STAGING } from '../../modules/groups';
+import { ROSTER, STAGING } from '../../modules/groupIds';
 
 class RosterItem extends Component {
   constructor() {

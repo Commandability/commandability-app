@@ -18,7 +18,7 @@ import {
 } from '../../reducers';
 import { clearSelectedPersonnel, setPersonGroup } from '../../actions';
 import GroupItem from './GroupItem';
-import { STAGING } from '../../modules/groups';
+import { STAGING } from '../../modules/groupIds';
 
 class GroupList extends React.PureComponent {
   onPress = () => {

@@ -7,7 +7,7 @@
 import uuidv4 from 'uuid/v4';
 
 import { ADD_PERSON, REMOVE_PERSON, SET_PERSON_GROUP } from './types';
-import { STAGING } from '../modules/groups';
+import { STAGING } from '../modules/groupIds';
 
 export const addPerson = person => {
   const personId = uuidv4();

@@ -17,7 +17,7 @@ import {
 } from '../../reducers';
 import { clearSelectedPersonnel, setPersonGroup } from '../../actions';
 import GroupItem from './GroupItem';
-import { STAGING, ROSTER } from '../../modules/groups';
+import { STAGING, ROSTER } from '../../modules/groupIds';
 
 class StagingList extends React.PureComponent {
   constructor() {

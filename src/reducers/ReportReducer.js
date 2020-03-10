@@ -72,21 +72,21 @@ const logRemovePerson = (state, action) => {
   };
 };
 
-const logSetGroup = (state, action) => {
+const logSetLocationId = (state, action) => {
   const { payload } = action;
   const {
     entryId,
     dateTime,
     person: { firstName, lastName },
-    prevGroup: { name: prevName },
-    group: { name: currName },
+    prevLocationData: { name: prevName },
+    nextLocationData: { name: nextName },
   } = payload;
 
   return {
     ...state,
     [entryId]: {
       dateTime,
-      log: `${firstName} ${lastName} moved from ${prevName} to ${currName}`,
+      log: `${firstName} ${lastName} moved from ${prevName} to ${nextName}`,
     },
   };
 };
@@ -132,7 +132,7 @@ export default (state = {}, action) => {
     case REMOVE_PERSON:
       return logRemovePerson(state, action);
     case SET_PERSON_GROUP:
-      return logSetGroup(state, action);
+      return logSetLocationId(state, action);
     case EDIT_NAME:
       return logEditName(state, action);
     case SET_VISIBILITY:

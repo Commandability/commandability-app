@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
 import GroupList from './GroupList';
-import { getGroupById } from '../../reducers';
+import { getGroupByLocationId } from '../../reducers';
 import { setVisibility } from '../../actions';
 
 class Group extends Component {
@@ -30,13 +30,13 @@ class Group extends Component {
   _onSettingsPressed = () => {
     const {
       navigation: { navigate },
-      group: { groupId },
+      group: { locationId },
     } = this.props;
-    navigate('GroupPrompt', { groupId });
+    navigate('GroupPrompt', { locationId });
   };
 
   render() {
-    const { group: {name, visibility, groupId} } = this.props;
+    const { group: {name, visibility, locationId} } = this.props;
     if (visibility) {
       return (
         <View style={styles.groupLayout}>
@@ -52,7 +52,7 @@ class Group extends Component {
               ></Image>
             </TouchableOpacity>
           </View>
-          <GroupList groupId={groupId} />
+          <GroupList locationId={locationId} />
         </View>
       );
     } else {
@@ -81,8 +81,8 @@ Group.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const { groupId } = ownProps;
-  return { group: getGroupById(state, groupId) };
+  const { locationId } = ownProps;
+  return { group: getGroupByLocationId(state, locationId) };
 };
 
 export default withNavigation(

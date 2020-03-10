@@ -1,5 +1,5 @@
 /**
- * GroupItem Component
+ * ListItem Component
  * 
  * Manages displaying a person in a group and sets a person as selected in redux and in local state on press.
  */
@@ -10,7 +10,7 @@ import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import {
-  getSelectedGroup,
+  getSelectedLocationId,
   getPersonGroupUpdateTime,
 } from '../../reducers';
 import { toggleSelectedPersonById } from '../../actions';
@@ -18,7 +18,7 @@ import colors from '../../modules/colors';
 
 const MS_IN_MINUTE = 60000;
 
-class GroupItem extends Component {
+class ListItem extends Component {
   constructor(props) {
     super(props);
     const { groupUpdateEpochTime } = this.props;
@@ -61,19 +61,19 @@ class GroupItem extends Component {
       selected: !prevState.selected,
     }));
 
-    const { item, groupId, toggleSelectedPersonById } = this.props;
-    toggleSelectedPersonById(item.id, groupId);
+    const { item, locationId, toggleSelectedPersonById } = this.props;
+    toggleSelectedPersonById(item.id, locationId);
   };
 
   render() {
-    const { item: { badge, firstName, lastName }, groupId, selectedGroup } = this.props;
+    const { item: { badge, firstName, lastName }, locationId, selectedGroup } = this.props;
     return (
       // disable item if a list other than the parent list is selected,
       // so items can be moved to the items parent list
       <TouchableOpacity
         onPress={this._onPress}
         disabled={
-          selectedGroup === groupId || selectedGroup === '' ? false : true
+          selectedGroup === locationId || selectedGroup === '' ? false : true
         }
       >
         <View>
@@ -93,10 +93,10 @@ class GroupItem extends Component {
 }
 
 // props validation
-GroupItem.propTypes = {
+ListItem.propTypes = {
   groupUpdateEpochTime: PropTypes.number,
   item: PropTypes.object, // the current person
-  groupId: PropTypes.string, // the parent groupName
+  locationId: PropTypes.string, // the parent groupName
   toggleSelectedPersonById: PropTypes.func,
   selectedGroup: PropTypes.string,
 };
@@ -104,13 +104,13 @@ GroupItem.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const { item } = ownProps;
   return {
-    selectedGroup: getSelectedGroup(state),
+    selectedGroup: getSelectedLocationId(state),
     groupUpdateEpochTime: getPersonGroupUpdateTime(state, item),
   };
 };
 
 export default connect(mapStateToProps, { toggleSelectedPersonById })(
-  GroupItem
+  ListItem
 );
 
 const styles = StyleSheet.create({

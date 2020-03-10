@@ -11,13 +11,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
-  getPersonnelByGroup,
-  getSelectedGroup,
+  getPersonnelByLocationId,
+  getSelectedLocationId,
   getSelectedPersonnelGroups,
 } from '../../reducers';
-import { clearSelectedPersonnel, setPersonGroup } from '../../actions';
-import GroupItem from './GroupItem';
-import { STAGING, ROSTER } from '../../modules/groupIds';
+import { clearSelectedPersonnel, setPersonLocationId } from '../../actions';
+import ListItem from './ListItem';
+import { STAGING, ROSTER } from '../../modules/locationIds';
 
 class StagingList extends React.PureComponent {
   constructor() {
@@ -28,24 +28,24 @@ class StagingList extends React.PureComponent {
     const {
       selectedPersonnelGroups,
       clearSelectedPersonnel,
-      setPersonGroup,
+      setPersonLocationId,
     } = this.props;
 
-    // set each selected ids new groupId to the current group
+    // set each selected id's new locationId to the current group
     selectedPersonnelGroups.forEach(personGroup => {
       const { person, group: prevGroup } = personGroup;
 
-      setPersonGroup(
+      setPersonLocationId(
         person,
-        prevGroup || { groupId: ROSTER, name: 'Roster' }, // Set prev group to roster if no prev group in redux
-        { groupId: STAGING, name: 'Staging' }
+        prevGroup || { locationId: ROSTER, name: 'Roster' }, // Set prev group to roster if no prev group in redux
+        { locationId: STAGING, name: 'Staging' }
       );
     });
     clearSelectedPersonnel();
   };
 
   _renderItem = ({ item }) => {
-    return <GroupItem groupId={STAGING} item={item} />;
+    return <ListItem locationId={STAGING} item={item} />;
   };
 
   _keyExtractor = item => item.id;
@@ -72,25 +72,25 @@ class StagingList extends React.PureComponent {
 }
 
 StagingList.propTypes = {
-  groupId: PropTypes.string,
+  locationId: PropTypes.string,
   selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
-  setPersonGroup: PropTypes.func,
+  setPersonLocationId: PropTypes.func,
   personnel: PropTypes.array,
   selectedGroup: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
-    personnel: getPersonnelByGroup(state, STAGING),
-    selectedGroup: getSelectedGroup(state),
+    personnel: getPersonnelByLocationId(state, STAGING),
+    selectedGroup: getSelectedLocationId(state),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };
 
 export default connect(mapStateToProps, {
   clearSelectedPersonnel,
-  setPersonGroup,
+  setPersonLocationId,
 })(StagingList);
 
 const styles = StyleSheet.create({

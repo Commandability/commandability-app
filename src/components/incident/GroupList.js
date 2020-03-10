@@ -11,30 +11,30 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
-  getGroupById,
-  getPersonnelByGroup,
-  getSelectedGroup,
+  getGroupByLocationId,
+  getPersonnelByLocationId,
+  getSelectedLocationId,
   getSelectedPersonnelGroups,
 } from '../../reducers';
-import { clearSelectedPersonnel, setPersonGroup } from '../../actions';
-import GroupItem from './GroupItem';
-import { STAGING } from '../../modules/groupIds';
+import { clearSelectedPersonnel, setPersonLocationId } from '../../actions';
+import ListItem from './ListItem';
+import { STAGING } from '../../modules/locationIds';
 
 class GroupList extends React.PureComponent {
   onPress = () => {
     const {
       selectedPersonnelGroups,
       clearSelectedPersonnel,
-      setPersonGroup,
+      setPersonLocationId,
       group,
     } = this.props;
 
-    // set each selected ids new groupId to the current group
+    // set each selected id's new locationId to the current group
     selectedPersonnelGroups.forEach(personGroup => {
       const { person, group: prevGroup } = personGroup;
-      setPersonGroup(
+      setPersonLocationId(
         person,
-        prevGroup || { groupId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
+        prevGroup || { locationId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
         group
       );
     });
@@ -42,19 +42,19 @@ class GroupList extends React.PureComponent {
   };
 
   renderItem = ({ item }) => {
-    const { groupId } = this.props;
-    return <GroupItem groupId={groupId} item={item} />;
+    const { locationId } = this.props;
+    return <ListItem locationId={locationId} item={item} />;
   };
 
   keyExtractor = item => item.id;
 
   render() {
-    const { groupId, personnel, selectedGroup } = this.props;
+    const { locationId, personnel, selectedGroup } = this.props;
     return (
       <TouchableOpacity
         onPress={this.onPress}
         disabled={
-          selectedGroup === '' || selectedGroup === groupId
+          selectedGroup === '' || selectedGroup === locationId
         }
         style={styles.listContainer}
       >
@@ -71,28 +71,28 @@ class GroupList extends React.PureComponent {
 
 // props validation
 GroupList.propTypes = {
-  groupId: PropTypes.string,
+  locationId: PropTypes.string,
   group: PropTypes.object,
   selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
-  setPersonGroup: PropTypes.func,
+  setPersonLocationId: PropTypes.func,
   personnel: PropTypes.array,
   selectedGroup: PropTypes.string,
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const { groupId } = ownProps;
+  const { locationId } = ownProps;
   return {
-    group: getGroupById(state, groupId),
-    personnel: getPersonnelByGroup(state, groupId),
-    selectedGroup: getSelectedGroup(state),
+    group: getGroupByLocationId(state, locationId),
+    personnel: getPersonnelByLocationId(state, locationId),
+    selectedGroup: getSelectedLocationId(state),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };
 
 export default connect(mapStateToProps, {
   clearSelectedPersonnel,
-  setPersonGroup,
+  setPersonLocationId,
 })(GroupList);
 
 const styles = StyleSheet.create({

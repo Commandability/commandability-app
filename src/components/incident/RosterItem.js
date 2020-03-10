@@ -1,7 +1,7 @@
 /**
  * RosterItem Component
  * 
- * Manages displaying a person in a the roster and sets a persons groupId in redux to staging when selected.
+ * Manages displaying a person in a the roster and sets a persons locationId in redux to staging when selected.
  */
 
 import React, { Component } from 'react';
@@ -9,9 +9,9 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getSelectedGroup } from '../../reducers';
-import { setPersonGroup } from '../../actions';
-import { ROSTER, STAGING } from '../../modules/groupIds';
+import { getSelectedLocationId } from '../../reducers';
+import { setPersonLocationId } from '../../actions';
+import { ROSTER, STAGING } from '../../modules/locationIds';
 
 class RosterItem extends Component {
   constructor() {
@@ -19,11 +19,11 @@ class RosterItem extends Component {
   }
 
   _onPress = () => {
-    const { item, setPersonGroup } = this.props;
-    setPersonGroup(
+    const { item, setPersonLocationId } = this.props;
+    setPersonLocationId(
       item,
-      { groupId: ROSTER, name: 'Roster' },
-      { groupId: STAGING, name: 'Staging' }
+      { locationId: ROSTER, name: 'Roster' },
+      { locationId: STAGING, name: 'Staging' }
     );
   };
 
@@ -46,17 +46,17 @@ class RosterItem extends Component {
 
 // props validation
 RosterItem.propTypes = {
-  setPersonGroup: PropTypes.func,
+  setPersonLocationId: PropTypes.func,
   groupName: PropTypes.string,
   item: PropTypes.object, // the current person
-  groupId: PropTypes.string,
+  locationId: PropTypes.string,
   selectedGroup: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
-    selectedGroup: getSelectedGroup(state),
+    selectedGroup: getSelectedLocationId(state),
   };
 };
 
-export default connect(mapStateToProps, { setPersonGroup })(RosterItem);
+export default connect(mapStateToProps, { setPersonLocationId })(RosterItem);

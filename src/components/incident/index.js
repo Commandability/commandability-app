@@ -1,5 +1,5 @@
 import Group from './Group';
-import GroupItem from './GroupItem';
+import ListItem from './ListItem';
 import GroupList from './GroupList';
 import NavBar from './NavBar';
 import Roster from './Roster';
@@ -9,7 +9,7 @@ import Staging from './Staging';
 
 export {
   Group,
-  GroupItem,
+  ListItem,
   GroupList,
   NavBar,
   Roster,

@@ -10,13 +10,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
-  getPersonnelByGroup,
-  getSelectedGroup,
+  getPersonnelByLocationId,
+  getSelectedLocationId,
   getSelectedPersonnelGroups,
 } from '../../reducers';
-import { clearSelectedPersonnel, setPersonGroup } from '../../actions';
+import { clearSelectedPersonnel, setPersonLocationId } from '../../actions';
 import RosterItem from './RosterItem';
-import { ROSTER, STAGING } from '../../modules/groupIds';
+import { ROSTER, STAGING } from '../../modules/locationIds';
 
 class RosterList extends React.PureComponent {
   constructor() {
@@ -27,7 +27,7 @@ class RosterList extends React.PureComponent {
     const {
       selectedPersonnelGroups,
       clearSelectedPersonnel,
-      setPersonGroup,
+      setPersonLocationId,
     } = this.props;
 
     Alert.alert(
@@ -41,13 +41,13 @@ class RosterList extends React.PureComponent {
         {
           text: 'OK',
           onPress: () => {
-            // set each selected ids new groupId to the current group
+            // set each selected id's new locationId to the current group
             selectedPersonnelGroups.forEach(personGroup => {
               const { person, group: prevGroup } = personGroup;
-              return setPersonGroup(
+              return setPersonLocationId(
                 person,
-                prevGroup || { groupId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
-                { groupId: ROSTER, name: 'Roster' }
+                prevGroup || { locationId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
+                { locationId: ROSTER, name: 'Roster' }
               );
             });
             clearSelectedPersonnel();
@@ -86,25 +86,25 @@ class RosterList extends React.PureComponent {
 
 // props validation
 RosterList.propTypes = {
-  groupId: PropTypes.string,
+  locationId: PropTypes.string,
   selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
-  setPersonGroup: PropTypes.func,
+  setPersonLocationId: PropTypes.func,
   personnel: PropTypes.array,
   selectedGroup: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
-    personnel: getPersonnelByGroup(state, ROSTER),
-    selectedGroup: getSelectedGroup(state),
+    personnel: getPersonnelByLocationId(state, ROSTER),
+    selectedGroup: getSelectedLocationId(state),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };
 
 export default connect(mapStateToProps, {
   clearSelectedPersonnel,
-  setPersonGroup,
+  setPersonLocationId,
 })(RosterList);
 
 const styles = StyleSheet.create({

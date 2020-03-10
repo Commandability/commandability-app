@@ -10,7 +10,7 @@ import { NavBar, Group, Staging, Roster } from "../components/incident";
 import colors from "../modules/colors";
 import { activeReport } from '../reducers';
 import { startIncident } from "../actions";
-import { GROUP_ONE, GROUP_TWO, GROUP_THREE, GROUP_FOUR, GROUP_FIVE, GROUP_SIX } from "../modules/groupIds";
+import { GROUP_ONE, GROUP_TWO, GROUP_THREE, GROUP_FOUR, GROUP_FIVE, GROUP_SIX } from "../modules/locationIds";
 
 class IncidentScreen extends Component {
 
@@ -33,16 +33,16 @@ class IncidentScreen extends Component {
           </View>
           <View style={styles.groupArea}>
             <View style={styles.subGroupArea}>
-              <Group groupId={GROUP_ONE} />
-              <Group groupId={GROUP_TWO} />
+              <Group locationId={GROUP_ONE} />
+              <Group locationId={GROUP_TWO} />
             </View>
             <View style={styles.subGroupArea}>
-              <Group groupId={GROUP_THREE} />
-              <Group groupId={GROUP_FOUR} />
+              <Group locationId={GROUP_THREE} />
+              <Group locationId={GROUP_FOUR} />
             </View>
             <View style={styles.subGroupArea}>
-              <Group groupId={GROUP_FIVE} />
-              <Group groupId={GROUP_SIX} />
+              <Group locationId={GROUP_FIVE} />
+              <Group locationId={GROUP_SIX} />
             </View>
           </View>
         </View>

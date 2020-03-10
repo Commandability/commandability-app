@@ -26,14 +26,13 @@ Download or clone this repository, then run `npm install` inside the directory.
 - [Redux-Persist](https://github.com/rt2zz/redux-persist)
 - [React Navigation](https://reactnavigation.org/)
 - [Firebase](https://firebase.google.com/)
-- [React Native Firebase](https://rnfirebase.io/)
+- [React Native Firebase](https://invertase.io/oss/react-native-firebase/)
+- [React Native Firebase Storage](https://invertase.io/oss/react-native-firebase/v6/storage)
+- [React Native Firebase Firestore](https://invertase.io/oss/react-native-firebase/v6/firestore)
 - [AsyncStorage](https://github.com/react-native-community/async-storage)
+- [React Native Splash Screen](https://github.com/crazycodeboy/react-native-splash-screen)
 - [NetInfo](https://github.com/react-native-community/react-native-netinfo)
 - [uuid](https://github.com/kelektiv/node-uuid)
-- [React Native Splash Screen](https://github.com/crazycodeboy/react-native-splash-screen)
-- [React Native Firebase Storage](https://invertase.io/oss/react-native-firebase/v6/storage)
-- [React Native Firebase App](https://invertase.io/oss/react-native-firebase/v6/app)
-- [React Native Firebase Cloud Firestore](https://invertase.io/oss/react-native-firebase/v6/firestore)
 
 ## License
 

@@ -12,7 +12,7 @@ import {
   REMOVE_PERSON,
   SET_PERSON_LOCATION_ID,
   SET_NAME,
-  SET_VISIBILITY
+  SET_VISIBILITY,
 } from '../actions/types';
 
 const logStartIncident = action => {
@@ -44,16 +44,18 @@ const logAddPerson = (state, action) => {
     entryId,
     dateTime,
     person: { firstName, lastName },
-    log
+    log,
   } = payload;
 
-  return log ? {
-    ...state,
-    [entryId]: {
-      dateTime,
-      log: `${firstName} ${lastName} added to incident`,
-    },
-  } : state; // return state if log is false
+  return log
+    ? {
+        ...state,
+        [entryId]: {
+          dateTime,
+          log: `${firstName} ${lastName} added to incident`,
+        },
+      }
+    : state; // return state if log is false
 };
 
 const logRemovePerson = (state, action) => {
@@ -62,16 +64,18 @@ const logRemovePerson = (state, action) => {
     entryId,
     dateTime,
     person: { firstName, lastName },
-    log
+    log,
   } = payload;
 
-  return log ? {
-    ...state,
-    [entryId]: {
-      dateTime,
-      log: `${firstName} ${lastName} removed from incident`,
-    },
-  } : state; // return state if log is false
+  return log
+    ? {
+        ...state,
+        [entryId]: {
+          dateTime,
+          log: `${firstName} ${lastName} removed from incident`,
+        },
+      }
+    : state; // return state if log is false
 };
 
 const logSetLocationId = (state, action) => {
@@ -95,7 +99,12 @@ const logSetLocationId = (state, action) => {
 
 const logsetName = (state, action) => {
   const { payload } = action;
-  const { group: { name }, newName, entryId, dateTime } = payload;
+  const {
+    group: { name },
+    newName,
+    entryId,
+    dateTime,
+  } = payload;
   return {
     ...state,
     [entryId]: {
@@ -107,7 +116,12 @@ const logsetName = (state, action) => {
 
 const logSetVisibility = (state, action) => {
   const { payload } = action;
-  const { group: { name }, newVisibility, entryId, dateTime } = payload;
+  const {
+    group: { name },
+    newVisibility,
+    entryId,
+    dateTime,
+  } = payload;
   return {
     ...state,
     [entryId]: {

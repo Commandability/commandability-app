@@ -1,6 +1,6 @@
 /**
  * NavBar Component
- * 
+ *
  * This component handles the NavBar above the incidentScreen
  */
 
@@ -16,13 +16,16 @@ import colors from '../../modules/colors';
 import { resetIncident, endIncident } from '../../actions';
 import { getInitialTime } from '../../reducers';
 import { saveCurrentReport } from '../../modules/reportManager';
-import { generateCurrentReport, uploadReports } from '../../modules/reportManager';
+import {
+  generateCurrentReport,
+  uploadReports,
+} from '../../modules/reportManager';
 
 const MS_IN_SECOND = 1000;
 
-function digitFix(num){
-  if (num.toString().length == 1 ){
-    num = "0" + num;
+function digitFix(num) {
+  if (num.toString().length == 1) {
+    num = '0' + num;
   }
   return num;
 }
@@ -81,7 +84,7 @@ class NavBar extends Component {
 
   _onUploadPressed = () => {
     uploadReports();
-  }
+  };
 
   render() {
     const { initialTime } = this.props;
@@ -89,18 +92,22 @@ class NavBar extends Component {
       <View style={styles.navBar}>
         <View style={styles.timerLayout}>
           <View style={styles.timer}>
-            <Text
-              style={styles.timerContent}
-            >{`Time: ${digitFix(this.state.hour)}:${digitFix(this.state.minute)}:${digitFix(this.state.second)}`}</Text>
+            <Text style={styles.timerContent}>{`Time: ${digitFix(
+              this.state.hour
+            )}:${digitFix(this.state.minute)}:${digitFix(
+              this.state.second
+            )}`}</Text>
           </View>
           <View style={styles.timer}>
-            <Text style={styles.timerContent}>{`Elapsed: ${digitFix(Math.floor(
-              (this.state.time - initialTime) / 3600000
-            ))}:${digitFix(Math.floor(
-              ((this.state.time - initialTime) % 3600000) / 60000
-            ))}:${digitFix(Math.floor(
-              (((this.state.time - initialTime) % 3600000) % 60000) / 1000
-            ))}`}</Text>
+            <Text style={styles.timerContent}>{`Elapsed: ${digitFix(
+              Math.floor((this.state.time - initialTime) / 3600000)
+            )}:${digitFix(
+              Math.floor(((this.state.time - initialTime) % 3600000) / 60000)
+            )}:${digitFix(
+              Math.floor(
+                (((this.state.time - initialTime) % 3600000) % 60000) / 1000
+              )
+            )}`}</Text>
           </View>
         </View>
         <View style={styles.pageTabs}></View>

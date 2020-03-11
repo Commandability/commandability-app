@@ -109,13 +109,17 @@ const allIds = (state = initialState.allIds, action) => {
 
 const addPersonId = (state, action) => {
   const { payload } = action;
-  const { person: { id } } = payload;
+  const {
+    person: { id },
+  } = payload;
   return state.concat(id);
 };
 
 const removePersonId = (state, action) => {
   const { payload } = action;
-  const { person: { id } } = payload;
+  const {
+    person: { id },
+  } = payload;
   return state.filter(currId => currId != id);
 };
 

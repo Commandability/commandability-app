@@ -1,6 +1,6 @@
 /**
  * ListItem Component
- * 
+ *
  * Manages displaying a person in a group and sets a person as selected in redux and in local state on press.
  */
 
@@ -66,7 +66,11 @@ class ListItem extends Component {
   };
 
   render() {
-    const { item: { badge, firstName, lastName }, locationId, selectedGroup } = this.props;
+    const {
+      item: { badge, firstName, lastName },
+      locationId,
+      selectedGroup,
+    } = this.props;
     return (
       // disable item if a list other than the parent list is selected,
       // so items can be moved to the items parent list
@@ -82,9 +86,9 @@ class ListItem extends Component {
               this.state.selected ? styles.selectedItem : styles.unselectedItem
             }
           >
-            {`${badge} - ${firstName}  ${
-              lastName
-            } - ${Math.floor(this.state.time / MS_IN_MINUTE)}`}
+            {`${badge} - ${firstName}  ${lastName} - ${Math.floor(
+              this.state.time / MS_IN_MINUTE
+            )}`}
           </Text>
         </View>
       </TouchableOpacity>
@@ -109,9 +113,7 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { toggleSelectedPersonById })(
-  ListItem
-);
+export default connect(mapStateToProps, { toggleSelectedPersonById })(ListItem);
 
 const styles = StyleSheet.create({
   selectedItem: {

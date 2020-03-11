@@ -4,10 +4,10 @@
  * Handle all redux middleware and generate redux store with redux-persist.
  */
 
-import { createStore } from "redux";
-import { persistStore } from "redux-persist";
+import { createStore } from 'redux';
+import { persistStore } from 'redux-persist';
 
-import persistedReducers from "../reducers";
+import persistedReducers from '../reducers';
 // import testState from "./testState";
 
 export default () => {

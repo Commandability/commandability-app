@@ -1,5 +1,6 @@
 /**
  * configManager module
+ * 
  * Load firestore user data into redux persist.
  */
 

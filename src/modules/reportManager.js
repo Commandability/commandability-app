@@ -1,5 +1,6 @@
 /**
  * reportManager module
+ *
  * Generate incident reports from the report state and manage storage of all reports through AsyncStorage.
  */
 
@@ -35,7 +36,6 @@ export const saveCurrentReport = async () => {
     throw new Error(error);
   }
 };
-
 
 // avoid the promise constructor anti-pattern: a promise's then() clause always returns a new promise
 // https://stackoverflow.com/questions/43036229/is-it-an-anti-pattern-to-use-async-await-inside-of-a-new-promise-constructor/43050114
@@ -82,7 +82,7 @@ export const uploadReports = async () => {
     auth().onAuthStateChanged(async user => {
       if (user) {
         const uploadPromises = reports.map(report => {
-          const uploadId = report.substring(11,48);    
+          const uploadId = report.substring(11, 48);
           let storageRef = storage().ref(`@CAA/${user.uid}/${uploadId}`);
           return storageRef.putString(report);
         });
@@ -90,8 +90,7 @@ export const uploadReports = async () => {
         deleteAllReports();
       }
     });
-  }
-  catch (error) {
+  } catch (error) {
     throw new Error(error);
   }
 };

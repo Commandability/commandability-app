@@ -6,7 +6,12 @@
 
 import uuidv4 from 'uuid/v4';
 
-import { ADD_PERSON, REMOVE_PERSON, SET_PERSON_LOCATION_ID, CLEAR_PERSONNEL } from './types';
+import {
+  ADD_PERSON,
+  REMOVE_PERSON,
+  SET_PERSON_LOCATION_ID,
+  CLEAR_PERSONNEL,
+} from './types';
 import { ROSTER } from '../modules/locationIds';
 
 export const addPerson = (person, log = true) => {
@@ -17,7 +22,12 @@ export const addPerson = (person, log = true) => {
   const dateTime = new Date().toLocaleString();
   return {
     type: ADD_PERSON,
-    payload: { entryId, dateTime, person: { id, ...person, locationId, groupUpdateEpochTime }, log },
+    payload: {
+      entryId,
+      dateTime,
+      person: { id, ...person, locationId, groupUpdateEpochTime },
+      log,
+    },
   };
 };
 
@@ -26,16 +36,28 @@ export const removePerson = (person, log = true) => {
   const dateTime = new Date().toLocaleString();
   return {
     type: REMOVE_PERSON,
-    payload: { entryId, dateTime, person }, log,
+    payload: { entryId, dateTime, person },
+    log,
   };
 };
 
-export const setPersonLocationId = (person, prevLocationData, nextLocationData) => {
+export const setPersonLocationId = (
+  person,
+  prevLocationData,
+  nextLocationData
+) => {
   const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   return {
     type: SET_PERSON_LOCATION_ID,
-    payload: { entryId, dateTime, person, currTime: Date.now(), prevLocationData, nextLocationData },
+    payload: {
+      entryId,
+      dateTime,
+      person,
+      currTime: Date.now(),
+      prevLocationData,
+      nextLocationData,
+    },
   };
 };
 

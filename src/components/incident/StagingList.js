@@ -55,9 +55,7 @@ class StagingList extends React.PureComponent {
     return (
       <TouchableOpacity
         onPress={this._onPress}
-        disabled={
-          selectedGroup === '' || selectedGroup === STAGING
-        }
+        disabled={selectedGroup === '' || selectedGroup === STAGING}
         style={styles.listContainer}
       >
         <FlatList

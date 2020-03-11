@@ -1,6 +1,6 @@
 /**
  * RosterItem Component
- * 
+ *
  * Manages displaying a person in a the roster and sets a persons locationId in redux to staging when selected.
  */
 
@@ -28,13 +28,16 @@ class RosterItem extends Component {
   };
 
   render() {
-    const { item: { badge, firstName, lastName }, selectedGroup } = this.props;
+    const {
+      item: { badge, firstName, lastName },
+      selectedGroup,
+    } = this.props;
     return (
       // disable item if a list other than the parent list is selected,
       // so items can be moved to the items parent list
       <TouchableOpacity
         onPress={this._onPress}
-        disabled={ selectedGroup == '' ? false : true }
+        disabled={selectedGroup == '' ? false : true}
       >
         <View>
           <Text>{`${badge} - ${firstName} ${lastName}`}</Text>

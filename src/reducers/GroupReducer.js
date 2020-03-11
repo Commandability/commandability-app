@@ -28,7 +28,7 @@ const setVisibility = (state, action) => {
   const {
     group,
     group: { locationId },
-    newVisibility
+    newVisibility,
   } = payload;
   return {
     ...state,
@@ -47,8 +47,8 @@ const setGroup = (state, action) => {
     [locationId]: {
       locationId,
       name,
-      visibility
-    }
+      visibility,
+    },
   };
 };
 

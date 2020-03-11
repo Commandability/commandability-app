@@ -36,7 +36,9 @@ class Group extends Component {
   };
 
   render() {
-    const { group: {name, visibility, locationId} } = this.props;
+    const {
+      group: { name, visibility, locationId },
+    } = this.props;
     if (visibility) {
       return (
         <View style={styles.groupLayout}>

@@ -6,7 +6,7 @@
 
 import { START_INCIDENT } from '../actions/types';
 
-const updateInitialTime = (state) => {
+const updateInitialTime = state => {
   return {
     ...state,
     initialTime: Date.now(),

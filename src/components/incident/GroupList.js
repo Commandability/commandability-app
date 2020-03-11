@@ -1,6 +1,6 @@
 /**
  * GroupList Component
- * 
+ *
  * Manages displaying personnel in a group by groupName, as well as  adding selected personnel to
  * the group when it is selected.
  */
@@ -53,9 +53,7 @@ class GroupList extends React.PureComponent {
     return (
       <TouchableOpacity
         onPress={this.onPress}
-        disabled={
-          selectedGroup === '' || selectedGroup === locationId
-        }
+        disabled={selectedGroup === '' || selectedGroup === locationId}
         style={styles.listContainer}
       >
         <FlatList

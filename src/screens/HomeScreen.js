@@ -1,6 +1,6 @@
 /**
  * HomeScreen component
- * 
+ *
  * Manages displaying the home screen and activity indicator when signing out.
  */
 
@@ -25,10 +25,9 @@ export default class HomeScreen extends Component {
     if (generateCurrentReport()) {
       this.props.navigation.navigate('IncidentStack');
     }
-    try{
+    try {
       await updateUserData();
-    }
-    catch(error){
+    } catch (error) {
       console.log(error);
     }
   }

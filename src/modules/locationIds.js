@@ -1,5 +1,6 @@
 /**
  * LocationIds module
+ * 
  * Store all location id static variables.
  */
 

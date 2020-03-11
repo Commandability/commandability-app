@@ -1,6 +1,6 @@
 /**
  * RosterList Component
- * 
+ *
  * Manages displaying personnel in the roster.
  */
 
@@ -69,9 +69,7 @@ class RosterList extends React.PureComponent {
       <TouchableOpacity
         onPress={this._onPress}
         style={styles.listContainer}
-        disabled={
-          selectedGroup === '' || selectedGroup === ROSTER
-        }
+        disabled={selectedGroup === '' || selectedGroup === ROSTER}
       >
         <FlatList
           data={personnel}

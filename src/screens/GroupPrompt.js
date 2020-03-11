@@ -19,7 +19,6 @@ import { getGroupByLocationId } from '../reducers';
 import { setVisibility, setName } from '../actions';
 
 class GroupPrompt extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -29,13 +28,13 @@ class GroupPrompt extends Component {
 
   static navigationOptions = {
     title: 'Edit Group',
-  }
+  };
 
   _onRemovePressed = () => {
     const {
       navigation: { goBack },
       setVisibility,
-      group
+      group,
     } = this.props;
     setVisibility(group, false);
     goBack();

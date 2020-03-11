@@ -85,7 +85,10 @@ export const getSelectedPersonnelGroups = state =>
   fromSelected
     .getSelectedIds(state.selected)
     .map(id => fromPersonnel.getPersonById(state.personnel, id))
-    .map(person => ({ person, group: fromGroups.getGroupByLocationId(state.groups, person.locationId) }));
+    .map(person => ({
+      person,
+      group: fromGroups.getGroupByLocationId(state.groups, person.locationId),
+    }));
 
 // Groups selectors
 export const getGroupByLocationId = (state, locationId) =>

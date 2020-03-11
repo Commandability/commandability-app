@@ -1,23 +1,32 @@
-import React, { Component } from "react";
-import {
-  View,
-  StyleSheet
-} from "react-native";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+/**
+ * IncidentScreen component
+ *
+ * Manages displaying the incident screen.
+ */
 
-import { NavBar, Group, Staging, Roster } from "../components/incident";
-import colors from "../modules/colors";
+import React, { Component } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import { NavBar, Group, Staging, Roster } from '../components/incident';
+import colors from '../modules/colors';
 import { activeReport } from '../reducers';
-import { startIncident } from "../actions";
-import { GROUP_ONE, GROUP_TWO, GROUP_THREE, GROUP_FOUR, GROUP_FIVE, GROUP_SIX } from "../modules/locationIds";
+import { startIncident } from '../actions';
+import {
+  GROUP_ONE,
+  GROUP_TWO,
+  GROUP_THREE,
+  GROUP_FOUR,
+  GROUP_FIVE,
+  GROUP_SIX,
+} from '../modules/locationIds';
 
 class IncidentScreen extends Component {
-
-  componentDidMount(){
+  componentDidMount() {
     const { startIncident, activeReport } = this.props;
     // prevent start incident from wiping report when IncidentScreen is re-mounted after a crash
-    if (!activeReport){
+    if (!activeReport) {
       startIncident();
     }
   }
@@ -28,8 +37,8 @@ class IncidentScreen extends Component {
         <NavBar />
         <View style={styles.pageLayout}>
           <View style={styles.stagingArea}>
-            <Staging/>
-            <Roster/>
+            <Staging />
+            <Roster />
           </View>
           <View style={styles.groupArea}>
             <View style={styles.subGroupArea}>
@@ -57,38 +66,34 @@ IncidentScreen.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  activeReport: activeReport(state)
+  activeReport: activeReport(state),
 });
 
-export default connect(
-  mapStateToProps,
-  {
-    startIncident,
-  }
-)(IncidentScreen);
+export default connect(mapStateToProps, {
+  startIncident,
+})(IncidentScreen);
 
 const styles = StyleSheet.create({
   incidentLayout: {
-    flexDirection: "column",
-    flex: 2
+    flexDirection: 'column',
+    flex: 2,
   },
   pageLayout: {
-    flexDirection: "row",
-    flex: 10
+    flexDirection: 'row',
+    flex: 10,
   },
   stagingArea: {
-    flexDirection: "column",
-    flex: 1
+    flexDirection: 'column',
+    flex: 1,
   },
   groupArea: {
-    flexDirection: "row",
+    flexDirection: 'row',
     flex: 3,
     padding: 5,
-    backgroundColor: colors.primary.dark
+    backgroundColor: colors.primary.dark,
   },
   subGroupArea: {
-    flexDirection: "column",
-    flex: 1
-  }
+    flexDirection: 'column',
+    flex: 1,
+  },
 });
-

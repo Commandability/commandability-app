@@ -1,7 +1,7 @@
 /**
  * Screens
- * 
- * Export all app screens and prompts. 
+ *
+ * Export all app screens and prompts.
  */
 
 import LoadingScreen from './LoadingScreen';

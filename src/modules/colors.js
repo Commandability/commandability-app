@@ -1,6 +1,6 @@
 /**
  * Colors module
- * 
+ *
  * Store all colors used in app styling.
  */
 

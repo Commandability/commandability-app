@@ -1,6 +1,6 @@
 /**
  * LoadingScreen component
- * 
+ *
  * Manages splashscreen visibility.
  */
 

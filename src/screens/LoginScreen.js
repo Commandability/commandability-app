@@ -1,6 +1,6 @@
 /**
  * LoginScreen component
- * 
+ *
  * Manages displaying the login page.
  */
 
@@ -25,7 +25,7 @@ export default class LoginScreen extends Component {
     this.state = {
       loading: false,
       email: '', // empty string
-      password: '' // empty string
+      password: '', // empty string
     };
   }
 

@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getGroupByLocationId } from '../reducers';
-import { setVisibility, editName } from '../actions';
+import { setVisibility, setName } from '../actions';
 
 class GroupPrompt extends Component {
 
@@ -44,11 +44,11 @@ class GroupPrompt extends Component {
   _onEditPressed = () => {
     const {
       navigation: { goBack },
-      editName,
+      setName,
       group,
     } = this.props;
     const { newName } = this.state || {};
-    editName(group, newName);
+    setName(group, newName);
     goBack();
   };
 
@@ -83,7 +83,7 @@ class GroupPrompt extends Component {
 // props validation
 GroupPrompt.propTypes = {
   navigation: PropTypes.object,
-  editName: PropTypes.func,
+  setName: PropTypes.func,
   setVisibility: PropTypes.func,
   group: PropTypes.object,
 };
@@ -95,7 +95,7 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(mapStateToProps, {
   setVisibility,
-  editName,
+  setName,
 })(GroupPrompt);
 
 const styles = StyleSheet.create({

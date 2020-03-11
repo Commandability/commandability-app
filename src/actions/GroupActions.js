@@ -6,13 +6,13 @@
 
 import uuidv4 from 'uuid/v4';
 
-import { EDIT_NAME, SET_VISIBILITY } from './types';
+import { SET_NAME, SET_VISIBILITY, SET_GROUP } from './types';
 
-export const editName = (group, newName) => {
+export const setName = (group, newName) => {
   const entryId = uuidv4(); // for storage in the report reducer
   const dateTime = new Date().toLocaleString();
   return {
-    type: EDIT_NAME,
+    type: SET_NAME,
     payload: { entryId, dateTime, group, newName },
   };
 };
@@ -25,3 +25,8 @@ export const setVisibility = (group, newVisibility) => {
     payload: { entryId, dateTime, group, newVisibility },
   };
 };
+
+export const setGroup = (locationId, name, visibility) => ({
+  type: SET_GROUP,
+  payload: { locationId, name, visibility }
+});

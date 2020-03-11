@@ -10,8 +10,8 @@ import {
   END_INCIDENT,
   ADD_PERSON,
   REMOVE_PERSON,
-  SET_PERSON_GROUP,
-  EDIT_NAME,
+  SET_PERSON_LOCATION_ID,
+  SET_NAME,
   SET_VISIBILITY
 } from '../actions/types';
 
@@ -44,15 +44,16 @@ const logAddPerson = (state, action) => {
     entryId,
     dateTime,
     person: { firstName, lastName },
+    log
   } = payload;
 
-  return {
+  return log ? {
     ...state,
     [entryId]: {
       dateTime,
       log: `${firstName} ${lastName} added to incident`,
     },
-  };
+  } : state; // return state if log is false
 };
 
 const logRemovePerson = (state, action) => {
@@ -61,15 +62,16 @@ const logRemovePerson = (state, action) => {
     entryId,
     dateTime,
     person: { firstName, lastName },
+    log
   } = payload;
 
-  return {
+  return log ? {
     ...state,
     [entryId]: {
       dateTime,
       log: `${firstName} ${lastName} removed from incident`,
     },
-  };
+  } : state; // return state if log is false
 };
 
 const logSetLocationId = (state, action) => {
@@ -91,7 +93,7 @@ const logSetLocationId = (state, action) => {
   };
 };
 
-const logEditName = (state, action) => {
+const logsetName = (state, action) => {
   const { payload } = action;
   const { group: { name }, newName, entryId, dateTime } = payload;
   return {
@@ -131,10 +133,10 @@ export default (state = {}, action) => {
       return logAddPerson(state, action);
     case REMOVE_PERSON:
       return logRemovePerson(state, action);
-    case SET_PERSON_GROUP:
+    case SET_PERSON_LOCATION_ID:
       return logSetLocationId(state, action);
-    case EDIT_NAME:
-      return logEditName(state, action);
+    case SET_NAME:
+      return logsetName(state, action);
     case SET_VISIBILITY:
       return logSetVisibility(state, action);
     default:

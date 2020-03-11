@@ -3,9 +3,10 @@
  * Generate incident reports from the report state and manage storage of all reports through AsyncStorage.
  */
 
+import auth from '@react-native-firebase/auth';
+import storage from '@react-native-firebase/storage';
 import AsyncStorage from '@react-native-community/async-storage';
 import uuidv4 from 'uuid/v4';
-import { firebase } from '@react-native-firebase/storage';
 
 import { store } from '../App.js';
 import { getCurrentReportData } from '../reducers';
@@ -78,11 +79,11 @@ export const uploadReports = async () => {
     const reportKeys = await getAllReportKeys();
     const reportPromises = reportKeys.map(key => getReport(key));
     const reports = await Promise.all(reportPromises);
-    firebase.auth().onAuthStateChanged(async user => {
+    auth().onAuthStateChanged(async user => {
       if (user) {
         const uploadPromises = reports.map(report => {
           const uploadId = report.substring(11,48);    
-          let storageRef = firebase.storage().ref(`@CAA/${user.uid}/${uploadId}`);
+          let storageRef = storage().ref(`@CAA/${user.uid}/${uploadId}`);
           return storageRef.putString(report);
         });
         await Promise.all(uploadPromises);

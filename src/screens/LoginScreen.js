@@ -24,8 +24,8 @@ export default class LoginScreen extends Component {
     super();
     this.state = {
       loading: false,
-      email: 'test@test.com', // empty string
-      password: 'password', // empty string
+      email: '', // empty string
+      password: '' // empty string
     };
   }
 

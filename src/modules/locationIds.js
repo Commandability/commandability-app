@@ -1,14 +1,13 @@
 /**
- * Groups module
- * 
- * Store all group id static variables. 
+ * LocationIds module
+ * Store all location id static variables.
  */
 
-export const ROSTER = "roster";
-export const STAGING = "staging";
-export const GROUP_ONE = "group_one";
-export const GROUP_TWO = "group_two";
-export const GROUP_THREE = "group_three";
-export const GROUP_FOUR = "group_four";
-export const GROUP_FIVE = "group_five";
-export const GROUP_SIX = "group_six";
+export const ROSTER = 'ROSTER';
+export const STAGING = 'STAGING';
+export const GROUP_ONE = 'GROUP_ONE';
+export const GROUP_TWO = 'GROUP_TWO';
+export const GROUP_THREE = 'GROUP_THREE';
+export const GROUP_FOUR = 'GROUP_FOUR';
+export const GROUP_FIVE = 'GROUP_FIVE';
+export const GROUP_SIX = 'GROUP_SIX';

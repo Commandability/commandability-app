@@ -10,6 +10,7 @@ import auth from '@react-native-firebase/auth';
 import PropTypes from 'prop-types';
 
 import { generateCurrentReport } from '../modules/reportManager';
+import { updateUserData } from '../modules/configManager';
 import colors from '../modules/colors';
 
 export default class HomeScreen extends Component {
@@ -18,11 +19,17 @@ export default class HomeScreen extends Component {
     this.state = { currentUser: null, loading: false };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { currentUser } = auth();
     this.setState({ currentUser, loading: false });
     if (generateCurrentReport()) {
       this.props.navigation.navigate('IncidentStack');
+    }
+    try{
+      await updateUserData();
+    }
+    catch(error){
+      console.log(error);
     }
   }
 

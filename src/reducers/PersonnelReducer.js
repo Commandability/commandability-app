@@ -8,9 +8,10 @@
 import {
   ADD_PERSON,
   REMOVE_PERSON,
-  SET_PERSON_GROUP,
+  CLEAR_PERSONNEL,
+  SET_PERSON_LOCATION_ID,
   SET_VISIBILITY,
-  RESET_INCIDENT
+  RESET_INCIDENT,
 } from '../actions/types';
 import { ROSTER } from '../modules/locationIds';
 
@@ -25,8 +26,10 @@ const byId = (state = initialState.byId, action) => {
       return addPerson(state, action);
     case REMOVE_PERSON:
       return removePerson(state, action);
-    case SET_PERSON_GROUP:
+    case SET_PERSON_LOCATION_ID:
       return setPersonLocationId(state, action);
+    case CLEAR_PERSONNEL:
+      return undefined; // maybe initialstate.byId?
     default:
       return state;
   }
@@ -36,7 +39,7 @@ const addPerson = (state, action) => {
   const { payload } = action;
   const {
     person: {
-      personId,
+      id,
       badge,
       firstName,
       lastName,
@@ -48,8 +51,8 @@ const addPerson = (state, action) => {
   } = payload;
   return {
     ...state,
-    [personId]: {
-      id: personId,
+    [id]: {
+      id,
       badge,
       firstName,
       lastName,
@@ -97,6 +100,8 @@ const allIds = (state = initialState.allIds, action) => {
       return addPersonId(state, action);
     case REMOVE_PERSON:
       return removePersonId(state, action);
+    case CLEAR_PERSONNEL:
+      return undefined; // maybe initialstate.allIds?
     default:
       return state;
   }
@@ -104,19 +109,23 @@ const allIds = (state = initialState.allIds, action) => {
 
 const addPersonId = (state, action) => {
   const { payload } = action;
-  const { id } = payload;
+  const { person: { id } } = payload;
   return state.concat(id);
 };
 
 const removePersonId = (state, action) => {
   const { payload } = action;
-  const { id } = payload;
+  const { person: { id } } = payload;
   return state.filter(currId => currId != id);
 };
 
 // set all groupIds in a group to roster if the group is deleted
 const returnToRoster = (state, action) => {
-  const { payload: { group: { locationId } } } = action;
+  const {
+    payload: {
+      group: { locationId },
+    },
+  } = action;
   const byId = {};
 
   state.allIds.forEach(id => {
@@ -174,15 +183,17 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case RESET_INCIDENT:
       return resetIncident(state, action);
-    case SET_VISIBILITY:
+    case SET_VISIBILITY: {
       // reset personnel locationId only if the group is being removed
-      const { payload: { newVisibility } } = action;
-      if(newVisibility){
+      const {
+        payload: { newVisibility },
+      } = action;
+      if (newVisibility) {
         break;
-      }
-      else{
+      } else {
         return returnToRoster(state, action);
       }
+    }
   }
   return {
     byId: byId(state.byId, action),

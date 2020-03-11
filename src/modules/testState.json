@@ -8,7 +8,7 @@
         "lastName": "Sandlin",
         "rank": "Chief",
         "shift": "*",
-        "locationId": "roster",
+        "locationId": "ROSTER",
         "groupUpdateEpochTime": 0
       },
       "51d87ca9-dbee-48a4-a7ba-88a2927fc5d1": {
@@ -18,7 +18,7 @@
         "lastName": "Eckler",
         "rank": "Volunteer",
         "shift": "*",
-        "locationId": "roster",
+        "locationId": "ROSTER",
         "groupUpdateEpochTime": 0
       },
       "a52af612-de0a-4c42-a1ff-fc7d17d30ff1": {
@@ -28,7 +28,7 @@
         "lastName": "Sandlin",
         "rank": "Battalion Chief",
         "shift": "*",
-        "locationId": "roster",
+        "locationId": "ROSTER",
         "groupUpdateEpochTime": 0
       },
       "e02cddbf-031d-4f4a-a296-49c737463266": {
@@ -38,7 +38,7 @@
         "lastName": "Anderson",
         "rank": "Volunteer",
         "shift": "*",
-        "locationId": "roster",
+        "locationId": "ROSTER",
         "groupUpdateEpochTime": 0
       },
       "c94daa01-5c98-437a-a465-87384deaf163": {
@@ -48,7 +48,7 @@
         "lastName": "Adams",
         "rank": "Battalion Chief",
         "shift": "*",
-        "locationId": "roster",
+        "locationId": "ROSTER",
         "groupUpdateEpochTime": 0
       },
       "e09e5978-34bf-4d3a-a286-e51e5a481c0d": {
@@ -58,7 +58,7 @@
         "lastName": "Height",
         "rank": "Volunteer",
         "shift": "*",
-        "locationId": "roster",
+        "locationId": "ROSTER",
         "groupUpdateEpochTime": 0
       },
       "fa27c992-1d7b-4b96-9693-b204a91a1d22": {
@@ -68,7 +68,7 @@
         "lastName": "Quinley",
         "rank": "Battalion Chief",
         "shift": "*",
-        "locationId": "roster",
+        "locationId": "ROSTER",
         "groupUpdateEpochTime": 0
       },
       "7721afd8-17a6-4b27-bcec-91c661079808": {
@@ -78,7 +78,7 @@
         "lastName": "Howard",
         "rank": "Volunteer",
         "shift": "*",
-        "locationId": "roster",
+        "locationId": "ROSTER",
         "groupUpdateEpochTime": 0
       }
     },
@@ -98,33 +98,33 @@
     "locationId": ""
   },
   "groups": {
-    "group_one": {
-      "locationId": "group_one",
+    "GROUP_ONE": {
+      "locationId": "GROUP_ONE",
       "name": "Group One",
       "visibility": true
     },
-    "group_two": {
-      "locationId": "group_two",
+    "GROUP_TWO": {
+      "locationId": "GROUP_TWO",
       "name": "Group Two",
       "visibility": true
     },
-    "group_three": {
-      "locationId": "group_three",
+    "GROUP_THREE": {
+      "locationId": "GROUP_THREE",
       "name": "Group Three",
       "visibility": false
     },
-    "group_four": {
-      "locationId": "group_four",
+    "GROUP_FOUR": {
+      "locationId": "GROUP_FOUR",
       "name": "Group Four",
       "visibility": false
     },
-    "group_five": {
-      "locationId": "group_five",
+    "GROUP_FIVE": {
+      "locationId": "GROUP_FIVE",
       "name": "Group Five",
       "visibility": false
     },
-    "group_six": {
-      "locationId": "group_six",
+    "GROUP_SIX": {
+      "locationId": "GROUP_SIX",
       "name": "Rehab",
       "visibility": true
     }

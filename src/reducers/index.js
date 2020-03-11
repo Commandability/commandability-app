@@ -62,7 +62,7 @@ const rootReducer = (state, action) => {
     // undefined state results in all reducers returning default state because of default parameters
     state = undefined; // does not mutate state
     purgeStoredState(personnelPersistConfig);
-    purgeStoredState(groupPersistConfig);
+    purgeStoredState(groupsPersistConfig);
     purgeStoredState(reportPersistConfig);
     purgeStoredState(rootPersistConfig);
     purgeStoredState(timePersistConfig);

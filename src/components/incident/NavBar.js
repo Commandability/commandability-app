@@ -62,9 +62,9 @@ class NavBar extends Component {
 
   _onEndPressed = () => {
     const { endIncident, resetIncident } = this.props;
-    endIncident();
+    endIncident(); // log incident end
     saveCurrentReport();
-    resetIncident();
+    resetIncident(); // reset personnel locations and group settings, remove all unlogged personnel from state
     this.props.navigation.navigate('HomeScreen');
   };
 

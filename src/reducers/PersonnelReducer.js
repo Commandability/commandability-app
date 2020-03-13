@@ -38,6 +38,7 @@ const byId = (state = initialState.byId, action) => {
 const addPerson = (state, action) => {
   const { payload } = action;
   const {
+    log, // record if the person was added in an active incident
     person: {
       id,
       badge,
@@ -60,6 +61,7 @@ const addPerson = (state, action) => {
       shift,
       locationId,
       groupUpdateEpochTime,
+      log,
     },
   };
 };
@@ -67,12 +69,27 @@ const addPerson = (state, action) => {
 const removePerson = (state, action) => {
   const { payload } = action;
   const {
+    log,
     person: { id },
   } = payload;
 
-  // eslint-disable-next-line no-unused-vars
-  const { [id]: removed, ...updatedPersonnel } = state;
-  return updatedPersonnel;
+  // if added outside incident, only change location so that the person isn't removed from state
+  if (!log) {
+    const person = state[id];
+    return {
+      ...state,
+      [id]: {
+        ...person,
+        locationId: '',
+      },
+    };
+  }
+  // otherwise remove from state
+  else {
+    // eslint-disable-next-line no-unused-vars
+    const { [id]: removed, ...updatedPersonnel } = state;
+    return updatedPersonnel;
+  }
 };
 
 // set locationId of person by id
@@ -118,9 +135,18 @@ const addPersonId = (state, action) => {
 const removePersonId = (state, action) => {
   const { payload } = action;
   const {
+    log,
     person: { id },
   } = payload;
-  return state.filter(currId => currId != id);
+  
+  // if added outside incident, don't remove id
+  if(!log){
+    return state;
+  }
+  // otherwise remove id from state
+  else{
+    return state.filter(currId => currId != id);
+  }
 };
 
 // set all groupIds in a group to roster if the group is deleted
@@ -153,19 +179,25 @@ const returnToRoster = (state, action) => {
 };
 
 // set all groupIds to default and groupUpdateEpochTime to 0 at end of incident
-const resetIncident = (state, action) => {
+const resetIncident = state => {
   const byId = {};
+  const allIds = [];
   state.allIds.forEach(id => {
     const person = state.byId[id];
-    byId[id] = {
-      ...person,
-      locationId: ROSTER,
-      groupUpdateEpochTime: 0,
-    };
+    const { log } = person;
+    // only add a person to the reset state if they weren't added during the incident
+    if (!log) {
+      byId[id] = {
+        ...person,
+        locationId: ROSTER,
+        groupUpdateEpochTime: 0,
+      };
+      allIds.push(id);
+    }
   });
   return {
     byId,
-    allIds: allIds(state.allIds, action),
+    allIds,
   };
 };
 
@@ -186,7 +218,7 @@ export const getPersonGroupUpdateTime = (state, person) => {
 export default (state = initialState, action) => {
   switch (action.type) {
     case RESET_INCIDENT:
-      return resetIncident(state, action);
+      return resetIncident(state);
     case SET_VISIBILITY: {
       // reset personnel locationId only if the group is being removed
       const {

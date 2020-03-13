@@ -8,6 +8,7 @@
 import {
   TOGGLE_SELECTED_PERSON,
   CLEAR_SELECTED_PERSONNEL,
+  SET_VISIBILITY,
   RESET_INCIDENT,
 } from '../actions/types';
 
@@ -20,8 +21,10 @@ const personnelIds = (state = initialState.personnelIds, action) => {
   switch (action.type) {
     case TOGGLE_SELECTED_PERSON:
       return toggleSelectedPersonById(state, action);
-    case RESET_INCIDENT:
+    case SET_VISIBILITY:
+      return resetPersonnelIdsOnSetVisibility(state, action);
     case CLEAR_SELECTED_PERSONNEL:
+    case RESET_INCIDENT:
       return [];
     default:
       return state;
@@ -38,10 +41,24 @@ const toggleSelectedPersonById = (state, action) => {
   }
 };
 
+const resetPersonnelIdsOnSetVisibility = (state, action) => {
+  // reset personnelIds only if the group is being removed
+  const {
+    payload: { newVisibility },
+  } = action;
+  if (newVisibility) {
+    return state;
+  } else {
+    return [];
+  }
+};
+
 const locationId = (state = initialState.locationId, action) => {
   switch (action.type) {
     case TOGGLE_SELECTED_PERSON:
       return setGroup(state, action);
+    case SET_VISIBILITY:
+      return resetLocationIdOnSetVisibility(state, action);
     case RESET_INCIDENT:
     case CLEAR_SELECTED_PERSONNEL:
       return '';
@@ -66,6 +83,18 @@ const setGroup = (state, action) => {
       personnelIds: personnelIds(state.personnelIds, action),
       locationId,
     };
+  }
+};
+
+const resetLocationIdOnSetVisibility = (state, action) => {
+  // reset personnelIds only if the group is being removed
+  const {
+    payload: { newVisibility },
+  } = action;
+  if (newVisibility) {
+    return state;
+  } else {
+    return '';
   }
 };
 

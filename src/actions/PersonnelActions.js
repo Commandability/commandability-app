@@ -25,8 +25,8 @@ export const addPerson = (person, log = true) => {
     payload: {
       entryId,
       dateTime,
-      person: { id, ...person, locationId, groupUpdateEpochTime },
       log,
+      person: { id, ...person, locationId, groupUpdateEpochTime },
     },
   };
 };
@@ -36,8 +36,7 @@ export const removePerson = (person, log = true) => {
   const dateTime = new Date().toLocaleString();
   return {
     type: REMOVE_PERSON,
-    payload: { entryId, dateTime, person },
-    log,
+    payload: { entryId, dateTime, log, person },
   };
 };
 

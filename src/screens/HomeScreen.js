@@ -5,15 +5,16 @@
  */
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { ActivityIndicator, Button, View, StyleSheet } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import PropTypes from 'prop-types';
 
-import { generateCurrentReport } from '../modules/reportManager';
+import { activeReport } from '../reducers';
 import { updateUserData } from '../modules/configManager';
 import colors from '../modules/colors';
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
   constructor() {
     super();
     this.state = { currentUser: null, loading: false };
@@ -22,7 +23,9 @@ export default class HomeScreen extends Component {
   async componentDidMount() {
     const { currentUser } = auth();
     this.setState({ currentUser, loading: false });
-    if (generateCurrentReport()) {
+
+    const { activeReport } = this.props;
+    if (activeReport) {
       this.props.navigation.navigate('IncidentStack');
     }
     else{
@@ -75,10 +78,17 @@ export default class HomeScreen extends Component {
 // props validation
 HomeScreen.propTypes = {
   navigation: PropTypes.object,
+  activeReport: PropTypes.bool,
   navigate: PropTypes.func,
   reportData: PropTypes.object,
   email: PropTypes.string,
 };
+
+const mapStateToProps = state => ({
+  activeReport: activeReport(state),
+});
+
+export default connect(mapStateToProps, null)(HomeScreen);
 
 const styles = StyleSheet.create({
   activityIndicator: {

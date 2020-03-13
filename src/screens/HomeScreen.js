@@ -25,10 +25,12 @@ export default class HomeScreen extends Component {
     if (generateCurrentReport()) {
       this.props.navigation.navigate('IncidentStack');
     }
-    try {
-      await updateUserData();
-    } catch (error) {
-      console.log(error);
+    else{
+      try {
+        await updateUserData();
+      } catch (error) {
+        // ignore network connectivity errors
+      }
     }
   }
 

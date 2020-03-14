@@ -29,7 +29,7 @@ const byId = (state = initialState.byId, action) => {
     case SET_PERSON_LOCATION_ID:
       return setPersonLocationId(state, action);
     case CLEAR_PERSONNEL:
-      return undefined; // maybe initialstate.byId?
+      return initialState.byId;
     default:
       return state;
   }
@@ -118,7 +118,7 @@ const allIds = (state = initialState.allIds, action) => {
     case REMOVE_PERSON:
       return removePersonId(state, action);
     case CLEAR_PERSONNEL:
-      return undefined; // maybe initialstate.allIds?
+      return initialState.allIds;
     default:
       return state;
   }
@@ -214,6 +214,8 @@ export const getPersonGroupUpdateTime = (state, person) => {
   const { id } = person;
   return state.byId[id].groupUpdateEpochTime;
 };
+
+export const configurationLoaded = state => Object.keys(state.byId).length || state.allIds.length;
 
 export default (state = initialState, action) => {
   switch (action.type) {

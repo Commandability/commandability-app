@@ -54,6 +54,8 @@ const setGroup = (state, action) => {
 
 export const getGroupByLocationId = (state, locationId) => state[locationId];
 
+export const configurationLoaded = state => Object.keys(state).length > 1; // When unconfigured, groups will have only the `_persist` property
+
 export default (state = {}, action) => {
   switch (action.type) {
     case SET_NAME:

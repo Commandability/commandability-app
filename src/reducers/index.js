@@ -57,6 +57,7 @@ const rootPersistConfig = {
 };
 
 const rootReducer = (state, action) => {
+  // should ONLY be called immediately before signing user out
   if (action.type === RESET_APP) {
     deleteAllReports();
     // undefined state results in all reducers returning default state because of default parameters
@@ -71,6 +72,13 @@ const rootReducer = (state, action) => {
 };
 
 export default persistReducer(rootPersistConfig, rootReducer);
+
+// General selectors
+export const configurationLoaded = state =>
+  Boolean(
+    fromPersonnel.configurationLoaded(state.personnel) ||
+      fromGroups.configurationLoaded(state.groups)
+  );
 
 // Personnel selectors
 export const getPersonnelByLocationId = (state, locationId) =>

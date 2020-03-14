@@ -24,8 +24,8 @@ export default class LoginScreen extends Component {
     super();
     this.state = {
       loading: false,
-      email: '', // empty string
-      password: '', // empty string
+      email: 'commandabilityapp@gmail.com', // empty string
+      password: 'dev-password', // empty string
     };
   }
 

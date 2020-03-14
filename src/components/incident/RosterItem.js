@@ -16,16 +16,17 @@ import { ROSTER, STAGING } from '../../modules/locationIds';
 class RosterItem extends Component {
   constructor() {
     super();
+    this._onPress = this._onPress.bind(this); // use bind to avoid duplicating methods on demanding components
   }
 
-  _onPress = () => {
+  _onPress(){
     const { item, setPersonLocationId } = this.props;
     setPersonLocationId(
       item,
       { locationId: ROSTER, name: 'Roster' },
       { locationId: STAGING, name: 'Staging' }
     );
-  };
+  }
 
   render() {
     const {

@@ -21,6 +21,8 @@ const MS_IN_MINUTE = 60000;
 class ListItem extends Component {
   constructor(props) {
     super(props);
+    this._onPress = this._onPress.bind(this); // use bind to avoid duplicating methods on demanding components
+
     const { groupUpdateEpochTime } = this.props;
     this.state = {
       selected: false,
@@ -56,14 +58,14 @@ class ListItem extends Component {
     clearInterval(this.intervalID);
   }
 
-  _onPress = () => {
+  _onPress(){
     this.setState(prevState => ({
       selected: !prevState.selected,
     }));
 
     const { item, locationId, toggleSelectedPersonById } = this.props;
     toggleSelectedPersonById(item.id, locationId);
-  };
+  }
 
   render() {
     const {

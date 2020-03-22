@@ -18,6 +18,7 @@ import auth from '@react-native-firebase/auth';
 import PropTypes from 'prop-types';
 
 import { activeReport, configurationLoaded } from '../reducers';
+import { resetApp } from '../actions';
 import { updateUserData } from '../modules/configManager';
 import colors from '../modules/colors';
 
@@ -90,6 +91,8 @@ class HomeScreen extends Component {
   };
 
   _signOut = async () => {
+    const { resetApp } = this.props;
+    resetApp();
     this.setState(prevState => ({
       currentUser: prevState.currentUser,
       loading: true,
@@ -145,6 +148,7 @@ HomeScreen.propTypes = {
   navigate: PropTypes.func,
   reportData: PropTypes.object,
   email: PropTypes.string,
+  resetApp: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -152,7 +156,7 @@ const mapStateToProps = state => ({
   configurationLoaded: configurationLoaded(state),
 });
 
-export default connect(mapStateToProps, null)(HomeScreen);
+export default connect(mapStateToProps, { resetApp })(HomeScreen);
 
 const styles = StyleSheet.create({
   activityIndicator: {

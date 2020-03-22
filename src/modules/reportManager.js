@@ -28,10 +28,13 @@ export const generateCurrentReport = () => {
 
 export const saveCurrentReport = async () => {
   try {
+    const {
+      currentUser: { uid },
+    } = auth();
     const reportId = uuidv4();
     const reportString = `Report ID: ${reportId}\n${generateCurrentReport()}`;
 
-    await AsyncStorage.setItem(`@CAA:${reportId}`, reportString);
+    await AsyncStorage.setItem(`@CAA/${uid}/${reportId}`, reportString);
   } catch (error) {
     throw new Error(error);
   }
@@ -41,9 +44,12 @@ export const saveCurrentReport = async () => {
 // https://stackoverflow.com/questions/43036229/is-it-an-anti-pattern-to-use-async-await-inside-of-a-new-promise-constructor/43050114
 export const getAllReportKeys = async () => {
   try {
+    const {
+      currentUser: { uid },
+    } = auth();
     const keys = await AsyncStorage.getAllKeys();
     await keys;
-    return keys.filter(key => key.slice(0, 5) === '@CAA:');
+    return keys.filter(key => key.slice(0, 34) === `@CAA/${uid}/`);
   } catch (error) {
     throw new Error(error);
   }
@@ -58,8 +64,8 @@ export const getReport = async key => {
 };
 
 export const deleteAllReports = async () => {
-  const keys = await getAllReportKeys();
   try {
+    const keys = await getAllReportKeys();
     await AsyncStorage.multiRemove(keys);
   } catch (error) {
     throw new Error(error);
@@ -74,22 +80,24 @@ export const deleteReport = async report => {
   }
 };
 
-export const uploadReports = async () => {
+export const backupReports = async () => {
   try {
     const reportKeys = await getAllReportKeys();
     const reportPromises = reportKeys.map(key => getReport(key));
     const reports = await Promise.all(reportPromises);
-    auth().onAuthStateChanged(async user => {
-      if (user) {
-        const uploadPromises = reports.map(report => {
-          const uploadId = report.substring(11, 48);
-          let storageRef = storage().ref(`@CAA/${user.uid}/${uploadId}`);
-          return storageRef.putString(report);
-        });
-        await Promise.all(uploadPromises);
-        deleteAllReports();
-      }
-    });
+    const {
+      currentUser,
+      currentUser: { uid },
+    } = auth();
+    if (currentUser) {
+      const uploadPromises = reports.map(report => {
+        const uploadId = report.substring(11, 48);
+        let storageRef = storage().ref(`@CAA/${uid}/${uploadId}`);
+        return storageRef.putString(report);
+      });
+      await Promise.all(uploadPromises);
+      deleteAllReports();
+    }
   } catch (error) {
     throw new Error(error);
   }

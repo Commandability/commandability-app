@@ -16,7 +16,6 @@ import report, * as fromReport from './ReportReducer';
 import time, * as fromTime from './TimeReducer';
 import selected, * as fromSelected from './SelectedReducer';
 import { RESET_APP } from '../actions/types';
-import deleteAllReports from '../modules/reportManager';
 
 // personnel reducer config, set persisted data to autoMergeLevel2 to track personnel changes
 // https://blog.reactnativecoach.com/the-definitive-guide-to-redux-persist-84738167975
@@ -59,7 +58,6 @@ const rootPersistConfig = {
 const rootReducer = (state, action) => {
   // should ONLY be called immediately before signing user out
   if (action.type === RESET_APP) {
-    deleteAllReports();
     // undefined state results in all reducers returning default state because of default parameters
     state = undefined; // does not mutate state
     purgeStoredState(personnelPersistConfig);

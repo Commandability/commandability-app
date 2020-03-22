@@ -1,6 +1,6 @@
 /**
  * configManager module
- * 
+ *
  * Load firestore user data into redux persist.
  */
 
@@ -20,36 +20,35 @@ import { setGroup, addPerson, clearPersonnel } from '../actions';
 
 export const updateUserData = async () => {
   try {
-    auth().onAuthStateChanged(async user => {
-      // User is signed in.
-      if (user) {
-        const { email } = user;
-        const documentSnapshot = await firestore()
-          .collection('departments')
-          .doc(email)
-          .get();
-        const { groups, personnel } = documentSnapshot.data();
+    const { currentUser } = auth();
+    // User is signed in.
+    if (currentUser) {
+      const { email } = currentUser;
+      const documentSnapshot = await firestore()
+        .collection('departments')
+        .doc(email)
+        .get();
+      const { groups, personnel } = documentSnapshot.data();
 
-        const groupIds = [
-          GROUP_ONE,
-          GROUP_TWO,
-          GROUP_THREE,
-          GROUP_FOUR,
-          GROUP_FIVE,
-          GROUP_SIX,
-        ];
-        // set default group settings
-        groupIds.forEach(id => {
-          const { name, visibility } = groups[id];
-          store.dispatch(setGroup(id, name, visibility));
-        });
-        // refresh personnel data
-        store.dispatch(clearPersonnel());
-        personnel.forEach(person => {
-          store.dispatch(addPerson(person, false)); // disable logging
-        });
-      }
-    });
+      const groupIds = [
+        GROUP_ONE,
+        GROUP_TWO,
+        GROUP_THREE,
+        GROUP_FOUR,
+        GROUP_FIVE,
+        GROUP_SIX,
+      ];
+      // set default group settings
+      groupIds.forEach(id => {
+        const { name, visibility } = groups[id];
+        store.dispatch(setGroup(id, name, visibility));
+      });
+      // refresh personnel data
+      store.dispatch(clearPersonnel());
+      personnel.forEach(person => {
+        store.dispatch(addPerson(person, false)); // disable logging
+      });
+    }
   } catch (error) {
     throw new Error(error);
   }

@@ -18,7 +18,7 @@ import { getInitialTime } from '../../reducers';
 import { saveCurrentReport } from '../../modules/reportManager';
 import {
   generateCurrentReport,
-  uploadReports,
+  backupReports,
 } from '../../modules/reportManager';
 
 const MS_IN_SECOND = 1000;
@@ -83,7 +83,7 @@ class NavBar extends Component {
   }
 
   _onUploadPressed = () => {
-    uploadReports();
+    backupReports();
   };
 
   render() {

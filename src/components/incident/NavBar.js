@@ -69,14 +69,15 @@ class NavBar extends Component {
   };
 
   componentDidMount() {
-    const currentTime = new Date();
     this.intervalID = setInterval(
+      
       () =>
         this.setState(() => ({
           time: Date.now(),
-          hour: currentTime.getHours(),
-          minute: currentTime.getMinutes(),
-          second: currentTime.getSeconds(),
+          currentTimes: new Date().toLocaleString(),
+          hour: new Date().getHours(),
+          minute: new Date().getMinutes(),
+          second: new Date().getSeconds(),
         })),
       MS_IN_SECOND
     );

@@ -23,10 +23,10 @@ export const updateUserData = async () => {
     const { currentUser } = auth();
     // User is signed in.
     if (currentUser) {
-      const { email } = currentUser;
+      const { uid } = currentUser;
       const documentSnapshot = await firestore()
         .collection('departments')
-        .doc(email)
+        .doc(uid)
         .get();
       const { groups, personnel } = documentSnapshot.data();
 

@@ -92,9 +92,8 @@ export const backupReports = async () => {
     } = auth();
     if (currentUser) {
       const uploadPromises = reports.map(report => {
-        const uploadId = report.substring(11, 48);
-        const newId = uuidv4();
-        const uploadPath = `/@CAA/${uid}/${newId}`;
+        const uploadId = uuidv4();
+        const uploadPath = `/@CAA/${uid}/${uploadId}`;
         console.log(uploadPath);
         let storageRef = storage().ref();
         let reportRef = storageRef.child(uploadPath);

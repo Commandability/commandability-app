@@ -32,8 +32,9 @@ export const saveCurrentReport = async () => {
       currentUser: { uid },
     } = auth();
     const reportId = uuidv4();
+    const reportString = generateCurrentReport();
 
-    await AsyncStorage.setItem(`@CAA/${uid}/${reportId}`, getCurrentReportData());
+    await AsyncStorage.setItem(`@CAA/${uid}/${reportId}`, reportString);
   } catch (error) {
     throw new Error(error);
   }
@@ -91,6 +92,7 @@ export const backupReports = async () => {
     } = auth();
     if (currentUser) {
       const uploadPromises = reports.map(report => {
+        const uploadId = report.substring(11, 48);
         const newId = uuidv4();
         const uploadPath = `/@CAA/${uid}/${newId}`;
         console.log(uploadPath);

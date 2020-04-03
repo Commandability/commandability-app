@@ -92,8 +92,16 @@ export const backupReports = async () => {
     if (currentUser) {
       const uploadPromises = reports.map(report => {
         const uploadId = report.substring(11, 48);
-        let storageRef = storage().ref(`@CAA/${uid}/${uploadId}`);
-        return storageRef.putString(report);
+        const uploadPath = `/@CAA/${uid}/${uploadId}`;
+        console.log(uploadPath);
+        let storageRef = storage().ref();
+        let reportRef = storageRef.child('/@CAA/reportOne');
+        try { 
+          return reportRef.putString(report);
+        }
+        catch (error){
+          throw new Error(error);
+        }
       });
       await Promise.all(uploadPromises);
       deleteAllReports();

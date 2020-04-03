@@ -25,7 +25,7 @@ export const updateUserData = async () => {
     if (currentUser) {
       const { uid } = currentUser;
       const documentSnapshot = await firestore()
-        .collection('departments')
+        .collection('users')
         .doc(uid)
         .get();
       const { groups, personnel } = documentSnapshot.data();

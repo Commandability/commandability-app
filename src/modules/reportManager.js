@@ -93,7 +93,7 @@ export const backupReports = async () => {
     if (currentUser) {
       const uploadPromises = reports.map(report => {
         const uploadId = uuidv4();
-        const uploadPath = `/@CAA/${uid}/${uploadId}`;
+        const uploadPath = `/users/${uid}/${uploadId}`;
         console.log(uploadPath);
         let storageRef = storage().ref();
         let reportRef = storageRef.child(uploadPath);

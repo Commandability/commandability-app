@@ -32,9 +32,8 @@ export const saveCurrentReport = async () => {
       currentUser: { uid },
     } = auth();
     const reportId = uuidv4();
-    const reportString = `Report ID: ${reportId}\n${generateCurrentReport()}`;
 
-    await AsyncStorage.setItem(`@CAA/${uid}/${reportId}`, reportString);
+    await AsyncStorage.setItem(`@CAA/${uid}/${reportId}`, getCurrentReportData());
   } catch (error) {
     throw new Error(error);
   }
@@ -85,17 +84,18 @@ export const backupReports = async () => {
     const reportKeys = await getAllReportKeys();
     const reportPromises = reportKeys.map(key => getReport(key));
     const reports = await Promise.all(reportPromises);
+    console.log(reports);
     const {
       currentUser,
       currentUser: { uid },
     } = auth();
     if (currentUser) {
       const uploadPromises = reports.map(report => {
-        const uploadId = report.substring(11, 48);
-        const uploadPath = `/@CAA/${uid}/${uploadId}`;
+        const newId = uuidv4();
+        const uploadPath = `/@CAA/${uid}/${newId}`;
         console.log(uploadPath);
         let storageRef = storage().ref();
-        let reportRef = storageRef.child('/@CAA/reportOne');
+        let reportRef = storageRef.child(uploadPath);
         try { 
           return reportRef.putString(report);
         }

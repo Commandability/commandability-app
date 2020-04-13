@@ -4,7 +4,7 @@
  * Manages displaying a person in a the roster and sets a persons locationId in redux to staging when selected.
  */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -13,7 +13,7 @@ import { getSelectedLocationId } from '../../reducers';
 import { setPersonLocationId } from '../../actions';
 import { ROSTER, STAGING } from '../../modules/locationIds';
 
-class RosterItem extends Component {
+class RosterItem extends PureComponent {
   constructor() {
     super();
     this._onPress = this._onPress.bind(this); // use bind to avoid duplicating methods on demanding components
@@ -41,7 +41,7 @@ class RosterItem extends Component {
         disabled={selectedGroup == '' ? false : true}
       >
         <View>
-          <Text>{`${badge} - ${firstName} ${lastName}`}</Text>
+          <Text>{`${badge ? badge + ' - ': ''}${firstName} ${lastName}`}</Text>
         </View>
       </TouchableOpacity>
     );

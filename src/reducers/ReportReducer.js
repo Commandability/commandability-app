@@ -43,7 +43,7 @@ const logAddPerson = (state, action) => {
   const {
     entryId,
     dateTime,
-    person: { firstName, lastName },
+    person: { badge, firstName, lastName },
     log,
   } = payload;
 
@@ -52,7 +52,7 @@ const logAddPerson = (state, action) => {
         ...state,
         [entryId]: {
           dateTime,
-          log: `${firstName} ${lastName} added to incident`,
+          log: `${badge ? badge + ' - ': ''}${firstName} ${lastName} added to incident`,
         },
       }
     : state; // return state if log is false
@@ -63,7 +63,7 @@ const logRemovePerson = (state, action) => {
   const {
     entryId,
     dateTime,
-    person: { firstName, lastName },
+    person: { badge, firstName, lastName },
     log,
   } = payload;
 
@@ -72,7 +72,7 @@ const logRemovePerson = (state, action) => {
         ...state,
         [entryId]: {
           dateTime,
-          log: `${firstName} ${lastName} removed from incident`,
+          log: `${badge ? badge + ' - ': ''}${firstName} ${lastName} removed from incident`,
         },
       }
     : state; // return state if log is false
@@ -83,7 +83,7 @@ const logSetLocationId = (state, action) => {
   const {
     entryId,
     dateTime,
-    person: { firstName, lastName },
+    person: { badge, firstName, lastName },
     prevLocationData: { name: prevName },
     nextLocationData: { name: nextName },
   } = payload;
@@ -92,12 +92,12 @@ const logSetLocationId = (state, action) => {
     ...state,
     [entryId]: {
       dateTime,
-      log: `${firstName} ${lastName} moved from ${prevName} to ${nextName}`,
+      log: `${badge ? badge + ' - ': ''}${firstName} ${lastName} moved from ${prevName} to ${nextName}`,
     },
   };
 };
 
-const logsetName = (state, action) => {
+const logSetName = (state, action) => {
   const { payload } = action;
   const {
     group: { name },
@@ -150,7 +150,7 @@ export default (state = {}, action) => {
     case SET_PERSON_LOCATION_ID:
       return logSetLocationId(state, action);
     case SET_NAME:
-      return logsetName(state, action);
+      return logSetName(state, action);
     case SET_VISIBILITY:
       return logSetVisibility(state, action);
     default:

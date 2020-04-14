@@ -48,7 +48,6 @@ export const getAllReportKeys = async () => {
       currentUser: { uid },
     } = auth();
     const keys = await AsyncStorage.getAllKeys();
-    await keys;
     return keys.filter(key => key.slice(0, 34) === `@CAA/${uid}/`);
   } catch (error) {
     throw new Error(error);

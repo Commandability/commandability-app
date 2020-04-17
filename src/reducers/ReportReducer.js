@@ -8,6 +8,7 @@ import {
   RESET_INCIDENT,
   START_INCIDENT,
   END_INCIDENT,
+  RESUME_INCIDENT,
   ADD_PERSON,
   REMOVE_PERSON,
   SET_PERSON_LOCATION_ID,
@@ -36,6 +37,12 @@ const logEndIncident = (state, action) => {
       log: `Incident ended`,
     },
   };
+};
+
+const resumeIncident = state => {
+  // eslint-disable-next-line no-unused-vars
+  const { [Object.keys(state).slice(-1)[0]]: removed, ...updatedReport } = state;
+  return updatedReport;
 };
 
 const logAddPerson = (state, action) => {
@@ -141,6 +148,8 @@ export default (state = {}, action) => {
       return logStartIncident(action);
     case END_INCIDENT:
       return logEndIncident(state, action);
+    case RESUME_INCIDENT:
+      return resumeIncident(state);
     case RESET_INCIDENT:
       return {};
     case ADD_PERSON:

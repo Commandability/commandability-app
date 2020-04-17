@@ -13,9 +13,8 @@ import PropTypes from 'prop-types';
 import { scaleFont } from '../../modules/fonts';
 import { getCurrentReportData } from '../../reducers';
 import colors from '../../modules/colors';
-import { resetIncident, endIncident } from '../../actions';
+import { resetIncident } from '../../actions';
 import { getInitialTime } from '../../reducers';
-import { saveCurrentReport } from '../../modules/reportManager';
 import {
   generateCurrentReport,
   backupReports,
@@ -61,11 +60,7 @@ class NavBar extends Component {
   };
 
   _onEndPressed = () => {
-    const { endIncident, resetIncident } = this.props;
-    endIncident(); // log incident end
-    saveCurrentReport();
-    resetIncident(); // reset personnel locations and group settings, remove all unlogged personnel from state
-    this.props.navigation.navigate('HomeScreen');
+    this.props.navigation.navigate('EndScreen');
   };
 
   componentDidMount() {
@@ -151,9 +146,8 @@ class NavBar extends Component {
 
 // props validation
 NavBar.propTypes = {
-  resetIncident: PropTypes.func,
-  endIncident: PropTypes.func,
   navigation: PropTypes.object,
+  resetIncident: PropTypes.func,
   initialTime: PropTypes.number,
   report: PropTypes.object,
 };
@@ -167,8 +161,7 @@ const mapStateToProps = state => {
 
 export default withNavigation(
   connect(mapStateToProps, {
-    endIncident,
-    resetIncident,
+    resetIncident
   })(NavBar)
 );
 

@@ -4,7 +4,7 @@
  * Manages displaying a person in a group and sets a person as selected in redux and in local state on press.
  */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
@@ -18,7 +18,7 @@ import colors from '../../modules/colors';
 
 const MS_IN_MINUTE = 60000;
 
-class ListItem extends Component {
+class ListItem extends PureComponent {
   constructor(props) {
     super(props);
     this._onPress = this._onPress.bind(this); // use bind to avoid duplicating methods on demanding components
@@ -88,7 +88,7 @@ class ListItem extends Component {
               this.state.selected ? styles.selectedItem : styles.unselectedItem
             }
           >
-            {`${badge} - ${firstName}  ${lastName} - ${Math.floor(
+            {`${badge ? badge + ' - ': ''}${firstName} ${lastName} - ${Math.floor(
               this.state.time / MS_IN_MINUTE
             )}`}
           </Text>

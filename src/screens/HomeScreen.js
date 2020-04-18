@@ -21,6 +21,7 @@ import { activeReport, configurationLoaded } from '../reducers';
 import { resetApp } from '../actions';
 import { updateUserData } from '../modules/configManager';
 import colors from '../modules/colors';
+import { scaleFont } from '../modules/fonts';
 
 class HomeScreen extends Component {
   constructor() {
@@ -31,11 +32,23 @@ class HomeScreen extends Component {
   componentDidMount() {
     const { currentUser } = auth();
     this.setState({ currentUser, loading: false });
+    this.props.navigation.setParams({userEmail: auth().currentUser.email});
 
     const { activeReport } = this.props;
     if (activeReport) {
       this.props.navigation.navigate('IncidentStack');
     }
+  }
+
+  static navigationOptions = ({navigation}) => {
+    return {
+      headerTitle: navigation.getParam('userEmail'),
+      headerTitleStyle: {
+        color: 'white',
+        textAlign: 'right',
+        fontSize: scaleFont(6),
+      },
+    };
   }
 
   _startIncident = () => {
@@ -148,7 +161,8 @@ HomeScreen.propTypes = {
   navigate: PropTypes.func,
   reportData: PropTypes.object,
   email: PropTypes.string,
-  resetApp: PropTypes.func
+  resetApp: PropTypes.func,
+  currentUser: PropTypes.string,
 };
 
 const mapStateToProps = state => ({

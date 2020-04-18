@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import auth from '@react-native-firebase/auth';
 
 import { NavBar, Group, Staging, Roster } from '../components/incident';
 import colors from '../modules/colors';
@@ -21,14 +22,27 @@ import {
   GROUP_FIVE,
   GROUP_SIX,
 } from '../modules/locationIds';
+import { scaleFont } from '../modules/fonts';
 
 class IncidentScreen extends Component {
   componentDidMount() {
     const { startIncident, activeReport } = this.props;
+    this.props.navigation.setParams({userEmail: auth().currentUser.email});
     // prevent start incident from wiping report when IncidentScreen is re-mounted after a crash
     if (!activeReport) {
       startIncident();
     }
+  }
+
+  static navigationOptions = ({navigation}) => {
+    return {
+      headerTitle: navigation.getParam('userEmail'),
+      headerTitleStyle: {
+        color: 'white',
+        textAlign: 'right',
+        fontSize: scaleFont(6),
+      },
+    };
   }
 
   render() {
@@ -63,6 +77,7 @@ class IncidentScreen extends Component {
 IncidentScreen.propTypes = {
   activeReport: PropTypes.bool,
   startIncident: PropTypes.func,
+  navigation: PropTypes.object,
 };
 
 const mapStateToProps = state => ({

@@ -85,7 +85,7 @@ class EndScreen extends Component {
           color={colors.primary.light}
         />
         <TextInput
-          style={styles.textInput}
+          style={styles.locationInput}
           autoCapitalize="none"
           placeholder="Incident Location"
           placeholderTextColor={colors.primary.light}
@@ -93,11 +93,11 @@ class EndScreen extends Component {
           value={this.state.location}
         />
         <TextInput
-          style={styles.textInput}
+          style={styles.notesInput}
           autoCapitalize="none"
           placeholder="Notes"
           placeholderTextColor={colors.primary.light}
-          // multiline={true}
+          multiline={true}
           onChangeText={notes => this.setState({ notes })}
           value={this.state.notes}
         />
@@ -146,8 +146,17 @@ const styles = StyleSheet.create({
     bottom: 0,
     height: 80,
   },
-  textInput: {
+  locationInput: {
     height: 40,
+    color: colors.text.primaryLight,
+    borderColor: colors.primary.light,
+    borderWidth: 1,
+    marginBottom: 8,
+    marginTop: 8,
+  },
+  notesInput: {
+    height: 120,
+    textAlignVertical: 'top',
     color: colors.text.primaryLight,
     borderColor: colors.primary.light,
     borderWidth: 1,

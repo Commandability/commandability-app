@@ -9,6 +9,7 @@ import {
   START_INCIDENT,
   END_INCIDENT,
   RESUME_INCIDENT,
+  LOG_INCIDENT_DATA,
   ADD_PERSON,
   REMOVE_PERSON,
   SET_PERSON_LOCATION_ID,
@@ -46,6 +47,15 @@ const resumeIncident = state => {
     ...updatedReport
   } = state;
   return updatedReport;
+};
+
+const logIncidentData = (state, action) => {
+  const { payload } = action;
+  const { entryId, data } = payload;
+  return {
+    ...state,
+    [entryId]: data
+  };
 };
 
 const logAddPerson = (state, action) => {
@@ -162,6 +172,8 @@ export default (state = {}, action) => {
       return logEndIncident(state, action);
     case RESUME_INCIDENT:
       return resumeIncident(state);
+    case LOG_INCIDENT_DATA:
+      return logIncidentData(state, action);
     case RESET_INCIDENT:
       return {};
     case ADD_PERSON:

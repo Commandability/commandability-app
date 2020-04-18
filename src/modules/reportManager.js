@@ -16,6 +16,13 @@ export const generateCurrentReport = () => {
   const report = getCurrentReportData(store.getState());
   let reportString = '';
   if (report) {
+    reportString += `Location: ${report['LOCATION']}\n`;
+    if(report['NOTES']){
+      reportString += `Notes: ${report['NOTES']}\n`;
+    }
+    else{
+      reportString += `Notes: none.\n`;
+    }
     for (const entry in report) {
       const { dateTime, log } = report[entry];
       if (dateTime && log) {

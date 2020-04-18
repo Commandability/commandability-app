@@ -5,21 +5,34 @@
  */
 
 import React, { Component } from 'react';
-import { ActivityIndicator, Alert, Button, View, StyleSheet, TextInput } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  Button,
+  View,
+  StyleSheet,
+  TextInput,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 
-import { resetIncident, endIncident, resumeIncident } from '../actions';
+import {
+  resetIncident,
+  endIncident,
+  resumeIncident,
+  logIncidentData,
+} from '../actions';
 import { saveCurrentReport } from '../modules/reportManager';
 import colors from '../modules/colors';
 
 class EndScreen extends Component {
   constructor() {
     super();
-    this.state = { 
+    this.state = {
       loading: false,
-      location: ''
+      location: '',
+      notes: '',
     };
   }
 
@@ -29,13 +42,16 @@ class EndScreen extends Component {
   }
 
   _saveAndExit = async () => {
-    if(this.state.location){
-      const { resetIncident } = this.props;
-      this.setState({ loading: true });
-      try{
-        await saveCurrentReport();
+    if (this.state.location) {
+      const { resetIncident, logIncidentData } = this.props;
+      logIncidentData('LOCATION', this.state.location);
+      if (this.state.notes) {
+        logIncidentData('NOTES', this.state.notes);
       }
-      catch(error){
+      this.setState({ loading: true });
+      try {
+        await saveCurrentReport();
+      } catch (error) {
         Alert.alert('Error', error, [
           {
             text: 'OK',
@@ -45,20 +61,20 @@ class EndScreen extends Component {
       this.setState({ loading: false });
       resetIncident(); // reset personnel locations and group settings, remove all un-logged personnel from state
       this.props.navigation.navigate('HomeScreen');
-    } else{
+    } else {
       Alert.alert('Error:', 'Location is required.', [
         {
           text: 'OK',
         },
       ]);
     }
-  }
+  };
 
   _resumeIncident = () => {
     const { resumeIncident } = this.props;
     resumeIncident();
     this.props.navigation.navigate('IncidentScreen');
-  }
+  };
 
   render() {
     return (
@@ -73,16 +89,23 @@ class EndScreen extends Component {
           autoCapitalize="none"
           placeholder="Incident Location"
           placeholderTextColor={colors.primary.light}
-          disableFullscreenUI={false}
           onChangeText={location => this.setState({ location })}
           value={this.state.location}
+        />
+        <TextInput
+          style={styles.textInput}
+          autoCapitalize="none"
+          placeholder="Notes"
+          placeholderTextColor={colors.primary.light}
+          // multiline={true}
+          onChangeText={notes => this.setState({ notes })}
+          value={this.state.notes}
         />
         <Button
           onPress={this._saveAndExit}
           title="Save and Exit"
           color={colors.primary.light}
         />
-
         {this.state.loading && (
           <ActivityIndicator
             style={styles.activityIndicator}
@@ -99,15 +122,20 @@ EndScreen.propTypes = {
   navigation: PropTypes.object,
   endIncident: PropTypes.func,
   resetIncident: PropTypes.func,
-  resumeIncident: PropTypes.func
+  resumeIncident: PropTypes.func,
+  logIncidentData: PropTypes.func,
 };
 
 export default withNavigation(
-  connect(null, {
-    endIncident,
-    resetIncident,
-    resumeIncident
-  })(EndScreen)
+  connect(
+    null,
+    {
+      endIncident,
+      resetIncident,
+      resumeIncident,
+      logIncidentData,
+    }
+  )(EndScreen)
 );
 
 const styles = StyleSheet.create({
@@ -124,7 +152,7 @@ const styles = StyleSheet.create({
     borderColor: colors.primary.light,
     borderWidth: 1,
     marginBottom: 8,
-    marginTop: 8
+    marginTop: 8,
   },
   container: {
     flex: 1,

@@ -4,7 +4,7 @@
  * Actions managing the state of the current incident.
  */
 
-import { RESET_INCIDENT, START_INCIDENT, END_INCIDENT, RESUME_INCIDENT } from './types';
+import { RESET_INCIDENT, START_INCIDENT, END_INCIDENT, RESUME_INCIDENT, LOG_INCIDENT_DATA } from './types';
 
 export const resetIncident = () => ({
   type: RESET_INCIDENT,
@@ -31,3 +31,10 @@ export const endIncident = () => {
 export const resumeIncident = () => ({
   type: RESUME_INCIDENT,
 });
+
+export const logIncidentData = (entryId, data) => {
+  return {
+    type: LOG_INCIDENT_DATA,
+    payload: { entryId, data },
+  };
+};

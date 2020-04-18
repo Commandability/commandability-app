@@ -105,5 +105,7 @@ export const getInitialTime = state => fromTime.getInitialTime(state.time);
 
 // Report selectors
 export const activeReport = state => fromReport.activeReport(state.report);
+export const completedReport = state =>
+  fromReport.completedReport(state.report);
 export const getCurrentReportData = state =>
   fromReport.getCurrentReportData(state.report);

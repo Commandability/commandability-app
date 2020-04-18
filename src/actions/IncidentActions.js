@@ -4,8 +4,6 @@
  * Actions managing the state of the current incident.
  */
 
-import uuidv4 from 'uuid/v4';
-
 import { RESET_INCIDENT, START_INCIDENT, END_INCIDENT, RESUME_INCIDENT } from './types';
 
 export const resetIncident = () => ({
@@ -13,7 +11,7 @@ export const resetIncident = () => ({
 });
 
 export const startIncident = () => {
-  const entryId = uuidv4(); // for storage in the report reducer
+  const entryId = START_INCIDENT; // for storage in the report reducer
   const dateTime = new Date().toLocaleString();
   return {
     type: START_INCIDENT,
@@ -22,7 +20,7 @@ export const startIncident = () => {
 };
 
 export const endIncident = () => {
-  const entryId = uuidv4();
+  const entryId = END_INCIDENT;
   const dateTime = new Date().toLocaleString();
   return {
     type: END_INCIDENT,

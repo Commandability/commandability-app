@@ -40,8 +40,11 @@ const logEndIncident = (state, action) => {
 };
 
 const resumeIncident = state => {
-  // eslint-disable-next-line no-unused-vars
-  const { [Object.keys(state).slice(-1)[0]]: removed, ...updatedReport } = state;
+  const {
+    // eslint-disable-next-line no-unused-vars
+    [END_INCIDENT]: removed,
+    ...updatedReport
+  } = state;
   return updatedReport;
 };
 
@@ -59,7 +62,9 @@ const logAddPerson = (state, action) => {
         ...state,
         [entryId]: {
           dateTime,
-          log: `${badge ? badge + ' - ': ''}${firstName} ${lastName} added to incident`,
+          log: `${
+            badge ? badge + ' - ' : ''
+          }${firstName} ${lastName} added to incident`,
         },
       }
     : state; // return state if log is false
@@ -79,7 +84,9 @@ const logRemovePerson = (state, action) => {
         ...state,
         [entryId]: {
           dateTime,
-          log: `${badge ? badge + ' - ': ''}${firstName} ${lastName} removed from incident`,
+          log: `${
+            badge ? badge + ' - ' : ''
+          }${firstName} ${lastName} removed from incident`,
         },
       }
     : state; // return state if log is false
@@ -99,7 +106,9 @@ const logSetLocationId = (state, action) => {
     ...state,
     [entryId]: {
       dateTime,
-      log: `${badge ? badge + ' - ': ''}${firstName} ${lastName} moved from ${prevName} to ${nextName}`,
+      log: `${
+        badge ? badge + ' - ' : ''
+      }${firstName} ${lastName} moved from ${prevName} to ${nextName}`,
     },
   };
 };
@@ -138,7 +147,10 @@ const logSetVisibility = (state, action) => {
   };
 };
 
-export const activeReport = state => Object.keys(state).length > 1; // Inactive incidents have only the `_persist` property
+export const activeReport = state =>
+  state[START_INCIDENT] && !state[END_INCIDENT];
+
+export const completedReport = state => !!state[END_INCIDENT];
 
 export const getCurrentReportData = state => state;
 

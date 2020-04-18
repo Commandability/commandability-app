@@ -17,7 +17,11 @@ import NetInfo from '@react-native-community/netinfo';
 import auth from '@react-native-firebase/auth';
 import PropTypes from 'prop-types';
 
-import { activeReport, configurationLoaded } from '../reducers';
+import {
+  activeReport,
+  completedReport,
+  configurationLoaded,
+} from '../reducers';
 import { resetApp } from '../actions';
 import { updateUserData } from '../modules/configManager';
 import colors from '../modules/colors';
@@ -32,9 +36,12 @@ class HomeScreen extends Component {
     const { currentUser } = auth();
     this.setState({ currentUser, loading: false });
 
-    const { activeReport } = this.props;
+    const { activeReport, completedReport } = this.props;
     if (activeReport) {
       this.props.navigation.navigate('IncidentStack');
+    }
+    if (completedReport) {
+      this.props.navigation.navigate('EndStack');
     }
   }
 
@@ -97,11 +104,10 @@ class HomeScreen extends Component {
       currentUser: prevState.currentUser,
       loading: true,
     }));
-    try{
+    try {
       await auth().signOut();
       this.props.navigation.navigate('AuthStack');
-    }
-    catch(error){
+    } catch (error) {
       Alert.alert('Error', error, [
         {
           text: 'OK',
@@ -117,7 +123,7 @@ class HomeScreen extends Component {
           onPress={this._startIncident}
           color={colors.primary.light}
           title={'Start Incident'}
-        ></Button>
+        />
         <Button
           onPress={this._updateConfiguration}
           title="Update Configuration"
@@ -144,19 +150,24 @@ class HomeScreen extends Component {
 HomeScreen.propTypes = {
   navigation: PropTypes.object,
   activeReport: PropTypes.bool,
+  completedReport: PropTypes.bool,
   configurationLoaded: PropTypes.bool,
   navigate: PropTypes.func,
   reportData: PropTypes.object,
   email: PropTypes.string,
-  resetApp: PropTypes.func
+  resetApp: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   activeReport: activeReport(state),
+  completedReport: completedReport(state),
   configurationLoaded: configurationLoaded(state),
 });
 
-export default connect(mapStateToProps, { resetApp })(HomeScreen);
+export default connect(
+  mapStateToProps,
+  { resetApp }
+)(HomeScreen);
 
 const styles = StyleSheet.create({
   activityIndicator: {

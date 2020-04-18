@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import { Alert, Button, View, StyleSheet, ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Alert, Button, View, StyleSheet, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
@@ -17,7 +17,10 @@ import colors from '../modules/colors';
 class EndScreen extends Component {
   constructor() {
     super();
-    this.state = { loading: false };
+    this.state = { 
+      loading: false,
+      location: ''
+    };
   }
 
   componentDidMount() {
@@ -26,21 +29,29 @@ class EndScreen extends Component {
   }
 
   _saveAndExit = async () => {
-    const { resetIncident } = this.props;
-    this.setState({ loading: true });
-    try{
-      await saveCurrentReport();
-    }
-    catch(error){
-      Alert.alert('Error', error, [
+    if(this.state.location){
+      const { resetIncident } = this.props;
+      this.setState({ loading: true });
+      try{
+        await saveCurrentReport();
+      }
+      catch(error){
+        Alert.alert('Error', error, [
+          {
+            text: 'OK',
+          },
+        ]);
+      }
+      this.setState({ loading: false });
+      resetIncident(); // reset personnel locations and group settings, remove all un-logged personnel from state
+      this.props.navigation.navigate('HomeScreen');
+    } else{
+      Alert.alert('Error:', 'Location is required.', [
         {
           text: 'OK',
         },
       ]);
     }
-    this.setState({ loading: false });
-    resetIncident(); // reset personnel locations and group settings, remove all un-logged personnel from state
-    this.props.navigation.navigate('HomeScreen');
   }
 
   _resumeIncident = () => {
@@ -57,11 +68,21 @@ class EndScreen extends Component {
           title="Resume Incident"
           color={colors.primary.light}
         />
+        <TextInput
+          style={styles.textInput}
+          autoCapitalize="none"
+          placeholder="Incident Location"
+          placeholderTextColor={colors.primary.light}
+          disableFullscreenUI={false}
+          onChangeText={location => this.setState({ location })}
+          value={this.state.location}
+        />
         <Button
           onPress={this._saveAndExit}
           title="Save and Exit"
           color={colors.primary.light}
         />
+
         {this.state.loading && (
           <ActivityIndicator
             style={styles.activityIndicator}
@@ -96,6 +117,14 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     height: 80,
+  },
+  textInput: {
+    height: 40,
+    color: colors.text.primaryLight,
+    borderColor: colors.primary.light,
+    borderWidth: 1,
+    marginBottom: 8,
+    marginTop: 8
   },
   container: {
     flex: 1,

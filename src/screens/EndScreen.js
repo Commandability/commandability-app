@@ -70,6 +70,10 @@ class EndScreen extends Component {
     }
   };
 
+  _exitWithoutSaving = () => {
+    this.props.navigation.navigate('ExitIncidentPrompt');
+  }
+
   _resumeIncident = () => {
     const { resumeIncident } = this.props;
     resumeIncident();
@@ -104,6 +108,11 @@ class EndScreen extends Component {
         <Button
           onPress={this._saveAndExit}
           title="Save and Exit"
+          color={colors.primary.light}
+        />
+        <Button
+          onPress={this._exitWithoutSaving}
+          title="Exit without saving"
           color={colors.primary.light}
         />
         {this.state.loading && (

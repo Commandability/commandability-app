@@ -18,7 +18,8 @@ import {
   HomeScreen,
   IncidentScreen,
   GroupPrompt,
-  EndScreen
+  EndScreen,
+  ExitIncidentPrompt
 } from './screens';
 import colors from './modules/colors';
 
@@ -46,7 +47,7 @@ const IncidentStack = createStackNavigator(
   { defaultNavigationOptions }
 );
 const EndStack = createStackNavigator(
-  { EndScreen },
+  { EndScreen, ExitIncidentPrompt },
   { defaultNavigationOptions }
 );
 

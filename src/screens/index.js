@@ -11,6 +11,7 @@ import IncidentScreen from './IncidentScreen';
 import GroupPrompt from './GroupPrompt';
 import PersonPrompt from './PersonPrompt';
 import EndScreen from './EndScreen';
+import ExitIncidentPrompt from './ExitIncidentPrompt';
 
 export {
   LoadingScreen,
@@ -20,4 +21,5 @@ export {
   GroupPrompt,
   PersonPrompt,
   EndScreen,
+  ExitIncidentPrompt
 };

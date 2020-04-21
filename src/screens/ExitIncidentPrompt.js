@@ -1,3 +1,9 @@
+/**
+ * EndScreen component
+ *
+ * Manages exiting the incident without saving.
+ */
+
 import React, { Component } from 'react';
 import { Alert, Button, View, StyleSheet, TextInput, Text } from 'react-native';
 import { connect } from 'react-redux';
@@ -24,8 +30,7 @@ class ExitIncidentPrompt extends Component {
       const { resetIncident } = this.props;
       resetIncident(); // reset personnel locations and group settings, remove all un-logged personnel from state
       this.props.navigation.navigate('HomeScreen');
-    }
-    else {
+    } else {
       Alert.alert('Error', 'Incorrect organization email.', [
         {
           text: 'OK',

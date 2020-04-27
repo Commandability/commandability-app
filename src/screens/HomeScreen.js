@@ -22,7 +22,7 @@ import { resetApp } from '../actions';
 import { updateUserData } from '../modules/configManager';
 import colors from '../modules/colors';
 import { scaleFont } from '../modules/fonts';
-import { backupReports } from '../modules/reportManager';
+ import { backupReports } from '../modules/reportManager';
 
 class HomeScreen extends Component {
   constructor() {

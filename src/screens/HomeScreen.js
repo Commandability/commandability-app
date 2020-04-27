@@ -22,6 +22,7 @@ import { resetApp } from '../actions';
 import { updateUserData } from '../modules/configManager';
 import colors from '../modules/colors';
 import { scaleFont } from '../modules/fonts';
+import { backupReports } from '../modules/reportManager';
 
 class HomeScreen extends Component {
   constructor() {
@@ -103,6 +104,10 @@ class HomeScreen extends Component {
     }
   };
 
+  _backupReports = async () => {
+    backupReports();
+  }
+
   _signOut = async () => {
     const { resetApp } = this.props;
     resetApp();
@@ -134,6 +139,11 @@ class HomeScreen extends Component {
         <Button
           onPress={this._updateConfiguration}
           title="Update Configuration"
+          color={colors.primary.light}
+        />
+        <Button
+          onPress={this._backupReports}
+          title="Backup Reports"
           color={colors.primary.light}
         />
         <Button

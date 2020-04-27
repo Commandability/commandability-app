@@ -11,6 +11,7 @@ import uuidv4 from 'uuid/v4';
 
 import { store } from '../App.js';
 import { getCurrentReportData } from '../reducers';
+import { Alert } from 'react-native';
 
 export const generateCurrentReport = () => {
   const report = getCurrentReportData(store.getState());
@@ -104,6 +105,13 @@ export const backupReports = async () => {
         }
       });
       await Promise.all(uploadPromises);
+      console.log(uploadPromises);
+      if (uploadPromises.length > 0) {
+        Alert.alert('Reports uploaded');
+      }
+      else {
+        Alert.alert('No new reports uploaded');
+      }
       deleteAllReports();
     }
   } catch (error) {

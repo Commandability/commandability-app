@@ -15,11 +15,7 @@ import { getCurrentReportData } from '../../reducers';
 import colors from '../../modules/colors';
 import { resetIncident, endIncident } from '../../actions';
 import { getInitialTime } from '../../reducers';
-import { saveCurrentReport } from '../../modules/reportManager';
-import {
-  generateCurrentReport,
-  backupReports,
-} from '../../modules/reportManager';
+import { saveCurrentReport, generateCurrentReport } from '../../modules/reportManager';
 
 const MS_IN_SECOND = 1000;
 
@@ -70,7 +66,6 @@ class NavBar extends Component {
 
   componentDidMount() {
     this.intervalID = setInterval(
-      
       () =>
         this.setState(() => ({
           time: Date.now(),
@@ -83,22 +78,11 @@ class NavBar extends Component {
     );
   }
 
-  _onUploadPressed = () => {
-    backupReports();
-  };
-
   render() {
     const { initialTime } = this.props;
     return (
       <View style={styles.navBar}>
         <View style={styles.timerLayout}>
-          <View style={styles.timer}>
-            <Text style={styles.timerContent}>{`Time: ${digitFix(
-              this.state.hour
-            )}:${digitFix(this.state.minute)}:${digitFix(
-              this.state.second
-            )}`}</Text>
-          </View>
           <View style={styles.timer}>
             <Text style={styles.timerContent}>{`Elapsed: ${digitFix(
               Math.floor((this.state.time - initialTime) / 3600000)
@@ -118,14 +102,6 @@ class NavBar extends Component {
             onPress={this._onReportPressed}
           >
             <Text style={styles.pageOptionContent}> Report </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.pageOptions}>
-          <TouchableOpacity
-            style={styles.container}
-            onPress={this._onUploadPressed}
-          >
-            <Text style={styles.pageOptionContent}> Upload </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.pageOptions}>

@@ -28,6 +28,7 @@ class GroupPrompt extends Component {
 
   static navigationOptions = {
     title: 'Edit Group',
+    headerLeft: null,
   };
 
   _onRemovePressed = () => {
@@ -51,6 +52,13 @@ class GroupPrompt extends Component {
     goBack();
   };
 
+  _onCancelPressed = () => {
+    const {
+      navigation: { goBack },
+    } = this.props;
+    goBack();
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -65,10 +73,14 @@ class GroupPrompt extends Component {
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={this._onEditPressed}>
-            <Text>Save name change and exit</Text>
+            <Text>Save Changes</Text>
           </TouchableOpacity>
         </View>
-
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={this._onCancelPressed}>
+            <Text>Cancel Changes</Text>
+          </TouchableOpacity>
+        </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={this._onRemovePressed}>
             <Text>Delete Group</Text>

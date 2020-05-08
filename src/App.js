@@ -18,6 +18,7 @@ import {
   HomeScreen,
   IncidentScreen,
   GroupPrompt,
+  RosterPrompt,
 } from './screens';
 import colors from './modules/colors';
 
@@ -41,7 +42,7 @@ const AuthStack = createStackNavigator(
   { defaultNavigationOptions }
 );
 const IncidentStack = createStackNavigator(
-  { IncidentScreen, GroupPrompt },
+  { IncidentScreen, GroupPrompt, RosterPrompt },
   { defaultNavigationOptions }
 );
 

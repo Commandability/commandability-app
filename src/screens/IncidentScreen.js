@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import auth from '@react-native-firebase/auth';
 
-import { NavBar, Group, Staging, Roster } from '../components/incident';
+import { NavBar, Group, Staging } from '../components/incident';
 import colors from '../modules/colors';
 import { activeReport } from '../reducers';
 import { startIncident } from '../actions';
@@ -52,7 +52,6 @@ class IncidentScreen extends Component {
         <View style={styles.pageLayout}>
           <View style={styles.stagingArea}>
             <Staging />
-            <Roster />
           </View>
           <View style={styles.groupArea}>
             <View style={styles.subGroupArea}>

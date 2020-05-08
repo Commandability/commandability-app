@@ -51,9 +51,8 @@ class NavBar extends Component {
     );
   };
 
-  _onResetPressed = () => {
-    const { resetIncident } = this.props;
-    resetIncident();
+  _onAddPressed = () => {
+    this.props.navigation.navigate('RosterPrompt', { });
   };
 
   _onEndPressed = () => {
@@ -107,9 +106,9 @@ class NavBar extends Component {
         <View style={styles.pageOptions}>
           <TouchableOpacity
             style={styles.container}
-            onPress={this._onResetPressed}
+            onPress={this._onAddPressed}
           >
-            <Text style={styles.pageOptionContent}> Reset </Text>
+            <Text style={styles.pageOptionContent}> Add Personnel </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.pageOptions}>

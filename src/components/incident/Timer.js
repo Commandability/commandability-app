@@ -42,9 +42,18 @@ class Timer extends Component {
   }
 
   render() {
-    let hour = ('0' + Math.floor(this.state.time / 3600000)).slice(-2);
-    let minute = ('0' + (Math.floor(this.state.time / 60000) % 60)).slice(-2);
-    let second = ('0' + (Math.floor(this.state.time / 1000) % 60)).slice(-2);
+    const hour = (
+      '0' + Math.floor(this.state.time / (MS_IN_SECOND * 60 * 60))
+    ).slice(-2);
+    const minute = (
+      '0' +
+      (Math.floor(this.state.time / (MS_IN_SECOND * 60)) % 60)
+    ).slice(-2);
+    const second = (
+      '0' +
+      (Math.floor(this.state.time / MS_IN_SECOND) % 60)
+    ).slice(-2);
+    
     return (
       <View style={styles.timerLayout}>
         <View style={styles.timer}>

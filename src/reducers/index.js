@@ -13,7 +13,7 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import personnel, * as fromPersonnel from './PersonnelReducer';
 import groups, * as fromGroups from './GroupReducer';
 import report, * as fromReport from './ReportReducer';
-import time, * as fromTime from './TimeReducer';
+import timer, * as fromTimer from './TimerReducer';
 import selected, * as fromSelected from './SelectedReducer';
 import { RESET_APP } from '../actions/types';
 
@@ -37,14 +37,14 @@ const reportPersistConfig = {
 };
 
 const timePersistConfig = {
-  key: 'time',
+  key: 'timer',
   storage: AsyncStorage,
 };
 
 const appReducer = combineReducers({
   personnel: persistReducer(personnelPersistConfig, personnel),
   groups: persistReducer(groupsPersistConfig, groups),
-  time: persistReducer(timePersistConfig, time),
+  timer: persistReducer(timePersistConfig, timer),
   report: persistReducer(reportPersistConfig, report),
   selected,
 });
@@ -101,7 +101,7 @@ export const getGroupByLocationId = (state, locationId) =>
   fromGroups.getGroupByLocationId(state.groups, locationId);
 
 // Time selectors
-export const getInitialTime = state => fromTime.getInitialTime(state.time);
+export const getInitialEpoch = state => fromTimer.getInitialEpoch(state.timer);
 
 // Report selectors
 export const activeReport = state => fromReport.activeReport(state.report);

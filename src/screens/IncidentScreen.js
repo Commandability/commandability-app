@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 
 import { NavBar, Group, Staging, Roster } from '../components/incident';
 import colors from '../modules/colors';
-import { activeReport } from '../reducers';
+import { activeReport, getInitialEpoch } from '../reducers';
 import { startIncident } from '../actions';
 import {
   GROUP_ONE,
@@ -27,14 +27,17 @@ class IncidentScreen extends Component {
     const { startIncident, activeReport } = this.props;
     // prevent start incident from wiping report when IncidentScreen is re-mounted after a crash
     if (!activeReport) {
-      startIncident();
+      startIncident(this.initialEpoch);
     }
   }
 
   render() {
+    const { activeReport, activeInitialEpoch } = this.props;
+    this.initialEpoch = Date.now();
+
     return (
       <View style={styles.incidentLayout}>
-        <NavBar />
+        <NavBar initialEpoch={activeReport ? activeInitialEpoch : this.initialEpoch}/>
         <View style={styles.pageLayout}>
           <View style={styles.stagingArea}>
             <Staging />
@@ -63,10 +66,12 @@ class IncidentScreen extends Component {
 IncidentScreen.propTypes = {
   activeReport: PropTypes.bool,
   startIncident: PropTypes.func,
+  activeInitialEpoch: PropTypes.number
 };
 
 const mapStateToProps = state => ({
   activeReport: activeReport(state),
+  activeInitialEpoch: getInitialEpoch(state)
 });
 
 export default connect(mapStateToProps, {

@@ -4,18 +4,24 @@
  * Actions managing the state of the current incident.
  */
 
-import { RESET_INCIDENT, START_INCIDENT, END_INCIDENT, RESUME_INCIDENT, LOG_INCIDENT_DATA } from './types';
+import {
+  RESET_INCIDENT,
+  START_INCIDENT,
+  END_INCIDENT,
+  RESUME_INCIDENT,
+  LOG_INCIDENT_DATA,
+} from './types';
 
 export const resetIncident = () => ({
   type: RESET_INCIDENT,
 });
 
-export const startIncident = () => {
+export const startIncident = initialEpoch => {
   const entryId = START_INCIDENT; // for storage in the report reducer
   const dateTime = new Date().toLocaleString();
   return {
     type: START_INCIDENT,
-    payload: { entryId, dateTime },
+    payload: { entryId, dateTime, initialEpoch },
   };
 };
 

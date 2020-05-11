@@ -14,37 +14,13 @@ import { scaleFont } from '../../modules/fonts';
 import { getCurrentReportData } from '../../reducers';
 import colors from '../../modules/colors';
 import { resetIncident } from '../../actions';
-import { getInitialTime } from '../../reducers';
+import Timer from './Timer';
 import {
   generateCurrentReport,
   backupReports,
 } from '../../modules/reportManager';
 
-const MS_IN_SECOND = 1000;
-
-function digitFix(num) {
-  if (num.toString().length == 1) {
-    num = '0' + num;
-  }
-  return num;
-}
-
 class NavBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      time: '',
-      hour: '',
-      minute: '',
-      second: '',
-    };
-  }
-
-  componentWillUnmount() {
-    // clear timers to prevent memory leaks
-    clearInterval(this.intervalID);
-  }
-
   _onReportPressed = () => {
     Alert.alert(
       'Report Page',
@@ -63,49 +39,16 @@ class NavBar extends Component {
     this.props.navigation.navigate('EndScreen');
   };
 
-  componentDidMount() {
-    this.intervalID = setInterval(
-      
-      () =>
-        this.setState(() => ({
-          time: Date.now(),
-          currentTimes: new Date().toLocaleString(),
-          hour: new Date().getHours(),
-          minute: new Date().getMinutes(),
-          second: new Date().getSeconds(),
-        })),
-      MS_IN_SECOND
-    );
-  }
-
   _onUploadPressed = () => {
     backupReports();
   };
 
   render() {
-    const { initialTime } = this.props;
+    const { initialEpoch } = this.props;
+
     return (
       <View style={styles.navBar}>
-        <View style={styles.timerLayout}>
-          <View style={styles.timer}>
-            <Text style={styles.timerContent}>{`Time: ${digitFix(
-              this.state.hour
-            )}:${digitFix(this.state.minute)}:${digitFix(
-              this.state.second
-            )}`}</Text>
-          </View>
-          <View style={styles.timer}>
-            <Text style={styles.timerContent}>{`Elapsed: ${digitFix(
-              Math.floor((this.state.time - initialTime) / 3600000)
-            )}:${digitFix(
-              Math.floor(((this.state.time - initialTime) % 3600000) / 60000)
-            )}:${digitFix(
-              Math.floor(
-                (((this.state.time - initialTime) % 3600000) % 60000) / 1000
-              )
-            )}`}</Text>
-          </View>
-        </View>
+        <Timer initialEpoch={initialEpoch} />
         <View style={styles.pageTabs}></View>
         <View style={styles.pageOptions}>
           <TouchableOpacity
@@ -148,20 +91,19 @@ class NavBar extends Component {
 NavBar.propTypes = {
   navigation: PropTypes.object,
   resetIncident: PropTypes.func,
-  initialTime: PropTypes.number,
   report: PropTypes.object,
+  initialEpoch: PropTypes.number
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    initialTime: getInitialTime(state),
     report: getCurrentReportData(state),
   };
 };
 
 export default withNavigation(
   connect(mapStateToProps, {
-    resetIncident
+    resetIncident,
   })(NavBar)
 );
 
@@ -171,20 +113,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.primary.dark,
     borderWidth: 0.5,
-  },
-  timerLayout: {
-    flexDirection: 'column',
-    flex: 1,
-  },
-  timer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  timerContent: {
-    fontSize: scaleFont(5),
-    textAlignVertical: 'center',
-    textAlign: 'center',
-    color: colors.primary.text,
   },
   pageTabs: {
     flexDirection: 'row',

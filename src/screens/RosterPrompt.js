@@ -15,7 +15,7 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { Roster } from '../components/incident';
+import { Roster, NewPersonnel } from '../components/incident';
 
 class RosterPrompt extends Component {
   constructor(props) {
@@ -42,7 +42,7 @@ class RosterPrompt extends Component {
                 <Text>List</Text>
             </View>
             <View style={styles.subContainer}>
-                <Text>Add</Text>
+                <NewPersonnel />
             </View>
         </View>
 

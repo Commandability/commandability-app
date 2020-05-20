@@ -6,6 +6,7 @@ import Roster from './Roster';
 import RosterItem from './RosterItem';
 import RosterList from './RosterList';
 import Staging from './Staging';
+import NewPersonnel from './NewPersonnel';
 
 export {
   Group,
@@ -16,4 +17,5 @@ export {
   RosterItem,
   RosterList,
   Staging,
+  NewPersonnel,
 };

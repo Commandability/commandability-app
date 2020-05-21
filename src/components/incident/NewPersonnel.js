@@ -1,39 +1,114 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 
 import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
+import { addPerson, setPersonLocationId } from '../../actions';
+import { STAGING } from '../../modules/locationIds';
 
-export default class NewPersonnel extends Component {
+class NewPersonnel extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: '',
+      lastName: '',
+      badge: '',
+    };
+  }
+
+  _onAddPressed = () => {
+    const person = {
+      badge: this.state.badge,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+    };
+    this.setState({firstName: '', lastName: '', badge: ''});
+    console.log(person);
+    addPerson(person, true);
+    setPersonLocationId(
+      person,
+      { locationId: '', name: 'New Entry' },
+      { locationId: STAGING, name: 'Staging' }
+    );
+  }
+
   render() {
     return (
       <View style={styles.layout}>
-        <View style={styles.firstName}>
-          
+        <View style={styles.groupHeader}>
+          <Text style={styles.groupHeaderContent}> Add Temporary Personnel </Text>
         </View>
-        <View style={styles.lastName}>
-
+        <View style={styles.firstNameStyle}>
+          <TextInput
+            style={styles.buttonContainer}
+            placeholder="First Name"
+            value={this.state.firstName}
+            onChangeText={firstName => this.setState({ firstName })}
+          />
         </View>
-        <View style={styles.badge}>
-
+        <View style={styles.lastNameStyle}>
+          <TextInput
+            style={styles.buttonContainer}
+            placeholder="Last Name"
+            value={this.state.lastName}
+            onChangeText={lastName => this.setState({ lastName })}
+          />
         </View>
+        <View style={styles.badgeNumberStyle}>
+          <TextInput
+            style={styles.buttonContainer}
+            placeholder="Badge Number"
+            value={this.state.bade}
+            onChangeText={badge => this.setState({ badge })}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.container}
+            onPress={this._onAddPressed}
+            disabled={this.state.firstName === '' || this.state.lastName === ''}
+          >
+            <Text style={styles.buttonContent}> Add New Entry </Text>
+          </TouchableOpacity>
+          </View>
       </View>
     );
   }
 }
+
+const mapStateToProps = () => {
+  return {
+    
+  };
+};
+
+export default connect(mapStateToProps, { setPersonLocationId })(NewPersonnel);
 
 const styles = StyleSheet.create({
   layout: {
     flex: 1,
     flexDirection: 'column',
   },
-  firstName: {
+  firstNameStyle: {
     flex: 1,
   },
-  lastName: {
+  lastNameStyle: {
     flex: 1,
   },
-  badge: {
+  badgeNumberStyle: {
     flex: 1,
+  },
+  groupHeader: {
+    flexDirection: 'row',
+    flex: 1,
+    padding: 5,
+    backgroundColor: colors.secondary.dark,
+  },
+  groupHeaderContent: {
+    flex: 5,
+    fontSize: scaleFont(6),
+    textAlign: 'center',
+    color: colors.primary.text,
   },
 });

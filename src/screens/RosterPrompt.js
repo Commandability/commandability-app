@@ -39,9 +39,6 @@ class RosterPrompt extends Component {
                 <Roster />
             </View>
             <View style={styles.subContainer}>
-                <Text>List</Text>
-            </View>
-            <View style={styles.subContainer}>
                 <NewPersonnel />
             </View>
         </View>

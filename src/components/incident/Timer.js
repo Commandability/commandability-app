@@ -32,7 +32,6 @@ class Timer extends Component {
     this.intervalID = setInterval(
       () =>
         this.setState(() => {
-          console.log(Date.now(), initialEpoch, Date.now() - initialEpoch);
           return {
             time: Date.now() - initialEpoch,
           };

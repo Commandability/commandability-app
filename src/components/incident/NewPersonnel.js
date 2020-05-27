@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
@@ -18,6 +19,7 @@ class NewPersonnel extends Component {
   }
 
   _onAddPressed = () => {
+    const { addPerson, setPersonLocationId } = this.props;
     const person = {
       badge: this.state.badge,
       firstName: this.state.firstName,
@@ -59,7 +61,7 @@ class NewPersonnel extends Component {
           <TextInput
             style={styles.buttonContainer}
             placeholder="Badge Number"
-            value={this.state.bade}
+            value={this.state.badge}
             onChangeText={badge => this.setState({ badge })}
           />
         </View>
@@ -77,13 +79,12 @@ class NewPersonnel extends Component {
   }
 }
 
-const mapStateToProps = () => {
-  return {
-    
-  };
+NewPersonnel.propTypes = {
+  addPerson: PropTypes.func,
+  setPersonLocationId: PropTypes.func,  
 };
 
-export default connect(mapStateToProps, { setPersonLocationId })(NewPersonnel);
+export default connect( null, { setPersonLocationId, addPerson })(NewPersonnel);
 
 const styles = StyleSheet.create({
   layout: {

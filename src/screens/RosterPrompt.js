@@ -6,13 +6,9 @@
 
 import React, { Component } from 'react';
 import {
-  TextInput,
-  TouchableOpacity,
-  Text,
   View,
   StyleSheet,
 } from 'react-native';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { Roster, NewPersonnel } from '../components/incident';
@@ -26,11 +22,9 @@ class RosterPrompt extends Component {
   }
 
   static navigationOptions = {
-    title: 'Manage Personel',
+    title: 'Manage Personnel',
     headerLeft: null,
   };
-
-  
 
   render() {
     return (
@@ -53,15 +47,7 @@ RosterPrompt.propTypes = {
   
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return { 
-       
-    };
-};
-
-export default connect(mapStateToProps, {
-  
-})(RosterPrompt);
+export default RosterPrompt;
 
 const styles = StyleSheet.create({
   container: {

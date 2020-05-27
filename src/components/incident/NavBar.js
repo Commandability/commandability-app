@@ -52,7 +52,7 @@ class NavBar extends Component {
   };
 
   _onAddPressed = () => {
-    this.props.navigation.navigate('RosterPrompt', { });
+    this.props.navigation.navigate('RosterPrompt');
   };
 
   _onEndPressed = () => {

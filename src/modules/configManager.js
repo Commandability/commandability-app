@@ -15,6 +15,7 @@ import {
   GROUP_FOUR,
   GROUP_FIVE,
   GROUP_SIX,
+  ROSTER,
 } from './locationIds.js';
 import { setGroup, addPerson, clearPersonnel } from '../actions';
 
@@ -46,7 +47,7 @@ export const updateUserData = async () => {
       // refresh personnel data
       store.dispatch(clearPersonnel());
       personnel.forEach(person => {
-        store.dispatch(addPerson(person, false)); // disable logging
+        store.dispatch(addPerson(person, false, ROSTER)); // disable logging
       });
     }
   } catch (error) {

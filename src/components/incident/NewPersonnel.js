@@ -27,7 +27,7 @@ class NewPersonnel extends Component {
     };
     this.setState({firstName: '', lastName: '', badge: ''});
     console.log(person);
-    addPerson(person, true);
+    addPerson(person, true, STAGING);
     setPersonLocationId(
       person,
       { locationId: '', name: 'New Entry' },

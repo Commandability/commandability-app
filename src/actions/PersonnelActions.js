@@ -12,12 +12,10 @@ import {
   SET_PERSON_LOCATION_ID,
   CLEAR_PERSONNEL,
 } from './types';
-import { ROSTER } from '../modules/locationIds';
 
-export const addPerson = (person, log = true) => {
+export const addPerson = (person, log = true, locationId) => {
   const id = uuidv4();
   const entryId = uuidv4(); // for storage in the report reducer
-  const locationId = ROSTER;
   const groupUpdateEpochTime = 0;
   const dateTime = new Date().toLocaleString();
   return {

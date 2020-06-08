@@ -10,6 +10,7 @@ import { TouchableOpacity, Text, View, Image, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
@@ -64,10 +65,7 @@ class Group extends Component {
             style={styles.container}
             onPress={this._onAddPressed}
           >
-            <Image
-              style={styles.addButton}
-              source={require('../../assets/add.png')}
-            ></Image>
+            <Icon name="plus" size={100} color="#900" />
           </TouchableOpacity>
         </View>
       );
@@ -117,11 +115,6 @@ const styles = StyleSheet.create({
     width: null,
     height: null,
     resizeMode: 'contain',
-  },
-  addButton: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   container: {
     flex: 1,

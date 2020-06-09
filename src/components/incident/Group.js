@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from 'react';
-import { TouchableOpacity, Text, View, Image, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -15,25 +15,20 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
 import GroupList from './GroupList';
-import { getGroupByLocationId } from '../../reducers';
-import { setVisibility } from '../../actions';
+import { getGroupByLocationId, getPersonnelByLocationId, personIsSelected } from '../../reducers';
+import { setVisibility, selectPerson, deselectPerson } from '../../actions';
 
 class Group extends Component {
-  constructor() {
-    super();
-  }
-
   _onAddPressed = () => {
     const { setVisibility, group } = this.props;
     setVisibility(group, true);
   };
 
-  _onSettingsPressed = () => {
-    const {
-      navigation: { navigate },
-      group: { locationId },
-    } = this.props;
-    navigate('GroupPrompt', { locationId });
+  _onSelectAllPressed = () => {
+    const { locationId, personnel, allPersonnelSelected, selectPerson, deselectPerson } = this.props;
+    personnel.forEach(item => {
+      allPersonnelSelected ? deselectPerson(item, locationId) : selectPerson(item, locationId);
+    });
   };
 
   render() {
@@ -43,18 +38,13 @@ class Group extends Component {
     if (visibility) {
       return (
         <View style={styles.groupLayout}>
-          <View style={styles.groupHeader}>
-            <Text style={styles.groupHeaderContent}> {name} </Text>
-            <TouchableOpacity
-              style={styles.container}
-              onPress={this._onSettingsPressed}
+          <TouchableOpacity
+              onPress={this._onSelectAllPressed}
             >
-              <Image
-                style={styles.settingsIcon}
-                source={require('../../assets/settings_icon.png')}
-              ></Image>
-            </TouchableOpacity>
-          </View>
+            <View style={styles.groupHeader}>
+              <Text style={styles.groupHeaderContent}> {name} </Text>
+            </View>
+          </TouchableOpacity>
           <GroupList locationId={locationId} />
         </View>
       );
@@ -78,16 +68,30 @@ Group.propTypes = {
   setVisibility: PropTypes.func,
   navigation: PropTypes.object,
   group: PropTypes.object,
+  personnel: PropTypes.array,
+  selectPerson: PropTypes.func,
+  deselectPerson: PropTypes.func,
+  locationId: PropTypes.string,
+  allPersonnelSelected: PropTypes.bool,
 };
 
 const mapStateToProps = (state, ownProps) => {
   const { locationId } = ownProps;
-  return { group: getGroupByLocationId(state, locationId) };
+
+  const personnel = getPersonnelByLocationId(state, locationId);
+  
+  return { 
+    group: getGroupByLocationId(state, locationId),
+    personnel,
+    allPersonnelSelected: personnel.every(person => personIsSelected(state, person)) 
+  };
 };
 
 export default withNavigation(
   connect(mapStateToProps, {
     setVisibility,
+    selectPerson,
+    deselectPerson
   })(Group)
 );
 
@@ -99,7 +103,7 @@ const styles = StyleSheet.create({
   },
   groupHeader: {
     flexDirection: 'row',
-    flex: 1,
+    height: 20,
     padding: 5,
     backgroundColor: colors.secondary.dark,
   },
@@ -108,13 +112,6 @@ const styles = StyleSheet.create({
     fontSize: scaleFont(6),
     textAlign: 'center',
     color: colors.primary.text,
-  },
-  settingsIcon: {
-    flex: 1,
-    padding: 1,
-    width: null,
-    height: null,
-    resizeMode: 'contain',
   },
   container: {
     flex: 1,

@@ -7,6 +7,8 @@
 
 import {
   TOGGLE_SELECTED_PERSON,
+  SELECT_PERSON, 
+  DESELECT_PERSON,
   CLEAR_SELECTED_PERSONNEL,
   SET_VISIBILITY,
   RESET_INCIDENT,
@@ -21,6 +23,10 @@ const personnelIds = (state = initialState.personnelIds, action) => {
   switch (action.type) {
     case TOGGLE_SELECTED_PERSON:
       return toggleSelectedPersonById(state, action);
+    case SELECT_PERSON:
+      return selectPerson(state, action);
+    case DESELECT_PERSON:
+      return deselectPerson(state, action);
     case SET_VISIBILITY:
       return resetPersonnelIdsOnSetVisibility(state, action);
     case CLEAR_SELECTED_PERSONNEL:
@@ -34,11 +40,31 @@ const personnelIds = (state = initialState.personnelIds, action) => {
 const toggleSelectedPersonById = (state, action) => {
   const { payload } = action;
   const { id } = payload;
+
   if (state.includes(id)) {
     return state.filter(currId => currId != id);
   } else {
     return state.concat(id);
   }
+};
+
+const selectPerson = (state, action) => {
+  const { payload } = action;
+  const { person: { id } } = payload;
+
+  if (state.includes(id)) {
+    return state;
+  }
+  else{
+    return state.concat(id);
+  }
+};
+
+const deselectPerson = (state, action) => {
+  const { payload } = action;
+  const { person: { id } } = payload;
+
+  return state.filter(currId => currId != id);
 };
 
 const resetPersonnelIdsOnSetVisibility = (state, action) => {
@@ -73,7 +99,7 @@ const setGroup = (state, action) => {
 
   // check if current id is the only id in selected to determine if locationId should be reset
   // and all groups should be enabled
-  if (state.personnelIds.length == 1 && state.personnelIds.includes(id)) {
+  if (state.personnelIds.length === 1 && state.personnelIds.includes(id)) {
     return {
       personnelIds: personnelIds(state.personnelIds, action),
       locationId: '',
@@ -106,9 +132,16 @@ export const getSelectedLocationId = state => {
   return state.locationId;
 };
 
+export const personIsSelected = (state, person) => {
+  const { id } = person;
+  return state.personnelIds.includes(id);
+};
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case TOGGLE_SELECTED_PERSON:
+    case SELECT_PERSON:
+    case DESELECT_PERSON:
       return setGroup(state, action);
     default:
       return {

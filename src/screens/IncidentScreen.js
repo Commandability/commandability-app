@@ -23,6 +23,15 @@ import {
 } from '../modules/locationIds';
 
 class IncidentScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      removeGroupMode: false,
+      editGroupMode: false,
+      addGroupMode: false,
+    };
+  }
+
   componentDidMount() {
     const { startIncident, activeReport } = this.props;
     // prevent start incident from wiping report when IncidentScreen is re-mounted after a crash
@@ -31,13 +40,47 @@ class IncidentScreen extends Component {
     }
   }
 
+  addGroup = () => {
+    this.setState(prevState => ({
+      addGroupMode: !prevState.addGroupMode,
+    }));
+  };
+
+  removeGroup = () => {
+    this.setState(prevState => ({
+      removeGroupMode: !prevState.removeGroupMode,
+    }));
+  };
+
+  editGroup = () => {
+    this.setState(prevState => ({
+      editGroupMode: !prevState.editGroupMode,
+    }));
+  };
+
+  groupSelected = () => {
+    this.setState(() => ({
+      addGroupMode: false,
+      removeGroupMode: false,
+      editGroupMode: false,
+    }));
+  };
+
   render() {
     const { activeReport, activeInitialEpoch } = this.props;
     this.initialEpoch = Date.now();
 
     return (
       <View style={styles.incidentLayout}>
-        <NavBar initialEpoch={activeReport ? activeInitialEpoch : this.initialEpoch}/>
+        <NavBar
+          initialEpoch={activeReport ? activeInitialEpoch : this.initialEpoch}
+          addGroupHandler={this.addGroup}
+          removeGroupHandler={this.removeGroup}
+          editGroupHandler={this.editGroup}
+          addGroupMode={this.state.addGroupMode}
+          removeGroupMode={this.state.removeGroupMode}
+          editGroupMode={this.state.editGroupMode}
+        />
         <View style={styles.pageLayout}>
           <View style={styles.stagingArea}>
             <Staging />
@@ -45,16 +88,52 @@ class IncidentScreen extends Component {
           </View>
           <View style={styles.groupArea}>
             <View style={styles.subGroupArea}>
-              <Group locationId={GROUP_ONE} />
-              <Group locationId={GROUP_TWO} />
+              <Group
+                locationId={GROUP_ONE}
+                addGroupMode={this.state.addGroupMode}
+                removeGroupMode={this.state.removeGroupMode}
+                editGroupMode={this.state.editGroupMode}
+                groupSelectedHandler={this.groupSelected}
+              />
+              <Group
+                locationId={GROUP_TWO}
+                addGroupMode={this.state.addGroupMode}
+                removeGroupMode={this.state.removeGroupMode}
+                editGroupMode={this.state.editGroupMode}
+                groupSelectedHandler={this.groupSelected}
+              />
             </View>
             <View style={styles.subGroupArea}>
-              <Group locationId={GROUP_THREE} />
-              <Group locationId={GROUP_FOUR} />
+              <Group
+                locationId={GROUP_THREE}
+                addGroupMode={this.state.addGroupMode}
+                removeGroupMode={this.state.removeGroupMode}
+                editGroupMode={this.state.editGroupMode}
+                groupSelectedHandler={this.groupSelected}
+              />
+              <Group
+                locationId={GROUP_FOUR}
+                addGroupMode={this.state.addGroupMode}
+                removeGroupMode={this.state.removeGroupMode}
+                editGroupMode={this.state.editGroupMode}
+                groupSelectedHandler={this.groupSelected}
+              />
             </View>
             <View style={styles.subGroupArea}>
-              <Group locationId={GROUP_FIVE} />
-              <Group locationId={GROUP_SIX} />
+              <Group
+                locationId={GROUP_FIVE}
+                addGroupMode={this.state.addGroupMode}
+                removeGroupMode={this.state.removeGroupMode}
+                editGroupMode={this.state.editGroupMode}
+                groupSelectedHandler={this.groupSelected}
+              />
+              <Group
+                locationId={GROUP_SIX}
+                addGroupMode={this.state.addGroupMode}
+                removeGroupMode={this.state.removeGroupMode}
+                editGroupMode={this.state.editGroupMode}
+                groupSelectedHandler={this.groupSelected}
+              />
             </View>
           </View>
         </View>
@@ -66,17 +145,20 @@ class IncidentScreen extends Component {
 IncidentScreen.propTypes = {
   activeReport: PropTypes.bool,
   startIncident: PropTypes.func,
-  activeInitialEpoch: PropTypes.number
+  activeInitialEpoch: PropTypes.number,
 };
 
 const mapStateToProps = state => ({
   activeReport: activeReport(state),
-  activeInitialEpoch: getInitialEpoch(state)
+  activeInitialEpoch: getInitialEpoch(state),
 });
 
-export default connect(mapStateToProps, {
-  startIncident,
-})(IncidentScreen);
+export default connect(
+  mapStateToProps,
+  {
+    startIncident,
+  }
+)(IncidentScreen);
 
 const styles = StyleSheet.create({
   incidentLayout: {

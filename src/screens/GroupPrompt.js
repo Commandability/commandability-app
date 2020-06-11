@@ -30,16 +30,6 @@ class GroupPrompt extends Component {
     title: 'Edit Group',
   };
 
-  _onRemovePressed = () => {
-    const {
-      navigation: { goBack },
-      setVisibility,
-      group,
-    } = this.props;
-    setVisibility(group, false);
-    goBack();
-  };
-
   _onEditPressed = () => {
     const {
       navigation: { goBack },
@@ -66,12 +56,6 @@ class GroupPrompt extends Component {
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={this._onEditPressed}>
             <Text>Save name change and exit</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={this._onRemovePressed}>
-            <Text>Delete Group</Text>
           </TouchableOpacity>
         </View>
       </View>

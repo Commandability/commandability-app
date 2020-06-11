@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import {
   getSelectedLocationId,
   getPersonGroupUpdateTime,
-  personIsSelected
+  personIsSelected,
 } from '../../reducers';
 import { toggleSelectedPersonById } from '../../actions';
 import colors from '../../modules/colors';
@@ -58,7 +58,7 @@ class ListItem extends PureComponent {
     clearInterval(this.intervalID);
   }
 
-  _onPress(){
+  _onPress() {
     const { item, locationId, toggleSelectedPersonById } = this.props;
     toggleSelectedPersonById(item.id, locationId);
   }
@@ -85,7 +85,9 @@ class ListItem extends PureComponent {
               personIsSelected ? styles.selectedItem : styles.unselectedItem
             }
           >
-            {`${badge ? badge + ' - ': ''}${firstName} ${lastName} - ${Math.floor(
+            {`${
+              badge ? badge + ' - ' : ''
+            }${firstName} ${lastName} - ${Math.floor(
               this.state.time / MS_IN_MINUTE
             )}`}
           </Text>
@@ -102,7 +104,7 @@ ListItem.propTypes = {
   locationId: PropTypes.string, // the parent groupName
   toggleSelectedPersonById: PropTypes.func,
   selectedGroup: PropTypes.string,
-  personIsSelected: PropTypes.bool
+  personIsSelected: PropTypes.bool,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -110,11 +112,14 @@ const mapStateToProps = (state, ownProps) => {
   return {
     selectedGroup: getSelectedLocationId(state),
     groupUpdateEpochTime: getPersonGroupUpdateTime(state, item),
-    personIsSelected: personIsSelected(state, item)
+    personIsSelected: personIsSelected(state, item),
   };
 };
 
-export default connect(mapStateToProps, { toggleSelectedPersonById })(ListItem);
+export default connect(
+  mapStateToProps,
+  { toggleSelectedPersonById }
+)(ListItem);
 
 const styles = StyleSheet.create({
   selectedItem: {

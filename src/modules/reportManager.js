@@ -91,7 +91,6 @@ export const backupReports = async () => {
     const reportKeys = await getAllReportKeys();
     const reportPromises = reportKeys.map(key => getReport(key));
     const reports = await Promise.all(reportPromises);
-    console.log(reports);
     const {
       currentUser,
       currentUser: { uid },
@@ -100,7 +99,6 @@ export const backupReports = async () => {
       const uploadPromises = reports.map(report => {
         const uploadId = uuidv4();
         const uploadPath = `/users/${uid}/${uploadId}`;
-        console.log(uploadPath);
         let storageRef = storage().ref();
         let reportRef = storageRef.child(uploadPath);
         try { 

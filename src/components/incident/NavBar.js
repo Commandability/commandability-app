@@ -1,77 +1,68 @@
 /**
  * NavBar Component
  *
- * This component handles the NavBar above the incidentScreen
+ * This component handles the NavBar above the incident screen, including:
+ *  - the incident timer
+ *  - the edit group, remove group, and end incident buttons
  */
 
 import React, { Component } from 'react';
-import { TouchableOpacity, Text, View, Alert, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
+import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 
 import { scaleFont } from '../../modules/fonts';
-import { getCurrentReportData } from '../../reducers';
 import colors from '../../modules/colors';
-import { resetIncident } from '../../actions';
 import Timer from './Timer';
-import {
-  generateCurrentReport,
-  backupReports,
-} from '../../modules/reportManager';
 
 class NavBar extends Component {
-  _onReportPressed = () => {
-    Alert.alert(
-      'Report Page',
-      generateCurrentReport(),
-      [{ text: 'Cancel' }, { text: 'OK' }],
-      { cancelable: false }
-    );
-  };
-
-  _onResetPressed = () => {
-    const { resetIncident } = this.props;
-    resetIncident();
-  };
-
   _onEndPressed = () => {
     this.props.navigation.navigate('EndScreen');
   };
 
-  _onUploadPressed = () => {
-    backupReports();
+  _onAddGroupPressed = () => {
+    this.props.addGroupHandler();
+  };
+
+  _onRemoveGroupPressed = () => {
+    this.props.removeGroupHandler();
+  };
+
+  _onEditGroupPressed = () => {
+    this.props.editGroupHandler();
   };
 
   render() {
-    const { initialEpoch } = this.props;
+    const { initialEpoch, addGroupMode, removeGroupMode, editGroupMode } = this.props;
 
     return (
       <View style={styles.navBar}>
         <Timer initialEpoch={initialEpoch} />
-        <View style={styles.pageTabs}></View>
         <View style={styles.pageOptions}>
           <TouchableOpacity
             style={styles.container}
-            onPress={this._onReportPressed}
+            onPress={this._onAddGroupPressed}
+            disabled={editGroupMode || removeGroupMode}
           >
-            <Text style={styles.pageOptionContent}> Report </Text>
+            <Text style={styles.pageOptionContent}> Add Group </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.pageOptions}>
           <TouchableOpacity
             style={styles.container}
-            onPress={this._onUploadPressed}
+            onPress={this._onRemoveGroupPressed}
+            disabled={editGroupMode || addGroupMode}
           >
-            <Text style={styles.pageOptionContent}> Upload </Text>
+            <Text style={styles.pageOptionContent}> Remove Group </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.pageOptions}>
           <TouchableOpacity
             style={styles.container}
-            onPress={this._onResetPressed}
+            onPress={this._onEditGroupPressed}
+            disabled={removeGroupMode || addGroupMode}
           >
-            <Text style={styles.pageOptionContent}> Reset </Text>
+            <Text style={styles.pageOptionContent}> Edit Group </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.pageOptions}>
@@ -90,22 +81,16 @@ class NavBar extends Component {
 // props validation
 NavBar.propTypes = {
   navigation: PropTypes.object,
-  resetIncident: PropTypes.func,
-  report: PropTypes.object,
-  initialEpoch: PropTypes.number
+  initialEpoch: PropTypes.number,
+  addGroupHandler: PropTypes.func,
+  removeGroupHandler: PropTypes.func,
+  editGroupHandler: PropTypes.func,
+  addGroupMode: PropTypes.bool,
+  removeGroupMode: PropTypes.bool,
+  editGroupMode: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    report: getCurrentReportData(state),
-  };
-};
-
-export default withNavigation(
-  connect(mapStateToProps, {
-    resetIncident,
-  })(NavBar)
-);
+export default withNavigation(NavBar);
 
 const styles = StyleSheet.create({
   navBar: {
@@ -113,10 +98,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.primary.dark,
     borderWidth: 0.5,
-  },
-  pageTabs: {
-    flexDirection: 'row',
-    flex: 6,
   },
   pageOptions: {
     flex: 1,

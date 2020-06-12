@@ -6,7 +6,7 @@
 
 import uuidv4 from 'uuid/v4';
 
-import { RESET_INCIDENT, START_INCIDENT, END_INCIDENT } from './types';
+import { RESET_INCIDENT, START_INCIDENT, END_INCIDENT, TOGGLE_GROUP } from './types';
 
 export const resetIncident = () => ({
   type: RESET_INCIDENT,
@@ -27,5 +27,12 @@ export const endIncident = () => {
   return {
     type: END_INCIDENT,
     payload: { entryId, dateTime },
+  };
+};
+
+export const toggleGroup = (flag) => {
+  return {
+    type: TOGGLE_GROUP,
+    payload: { flag: flag },
   };
 };

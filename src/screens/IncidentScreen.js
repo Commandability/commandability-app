@@ -10,19 +10,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import auth from '@react-native-firebase/auth';
 
-import { NavBar, Group, Staging } from '../components/incident';
-import colors from '../modules/colors';
+import { NavBar, Staging } from '../components/incident';
 import { activeReport } from '../reducers';
 import { startIncident } from '../actions';
-import {
-  GROUP_ONE,
-  GROUP_TWO,
-  GROUP_THREE,
-  GROUP_FOUR,
-  GROUP_FIVE,
-  GROUP_SIX,
-} from '../modules/locationIds';
 import { scaleFont } from '../modules/fonts';
+import GroupArea from '../components/incident/GroupArea';
 
 class IncidentScreen extends Component {
   componentDidMount() {
@@ -53,20 +45,7 @@ class IncidentScreen extends Component {
           <View style={styles.stagingArea}>
             <Staging />
           </View>
-          <View style={styles.groupArea}>
-            <View style={styles.subGroupArea}>
-              <Group locationId={GROUP_ONE} />
-              <Group locationId={GROUP_TWO} />
-            </View>
-            <View style={styles.subGroupArea}>
-              <Group locationId={GROUP_THREE} />
-              <Group locationId={GROUP_FOUR} />
-            </View>
-            <View style={styles.subGroupArea}>
-              <Group locationId={GROUP_FIVE} />
-              <Group locationId={GROUP_SIX} />
-            </View>
-          </View>
+          <GroupArea />
         </View>
       </View>
     );
@@ -83,9 +62,7 @@ const mapStateToProps = state => ({
   activeReport: activeReport(state),
 });
 
-export default connect(mapStateToProps, {
-  startIncident,
-})(IncidentScreen);
+export default connect(mapStateToProps, {startIncident})(IncidentScreen);
 
 const styles = StyleSheet.create({
   incidentLayout: {
@@ -97,16 +74,6 @@ const styles = StyleSheet.create({
     flex: 10,
   },
   stagingArea: {
-    flexDirection: 'column',
-    flex: 1,
-  },
-  groupArea: {
-    flexDirection: 'row',
-    flex: 3,
-    padding: 5,
-    backgroundColor: colors.primary.dark,
-  },
-  subGroupArea: {
     flexDirection: 'column',
     flex: 1,
   },

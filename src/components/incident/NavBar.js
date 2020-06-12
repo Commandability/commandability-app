@@ -13,9 +13,10 @@ import PropTypes from 'prop-types';
 import { scaleFont } from '../../modules/fonts';
 import { getCurrentReportData } from '../../reducers';
 import colors from '../../modules/colors';
-import { resetIncident, endIncident } from '../../actions';
+import { resetIncident, endIncident, toggleGroup } from '../../actions';
 import { getInitialTime } from '../../reducers';
 import { saveCurrentReport, generateCurrentReport } from '../../modules/reportManager';
+import { getToggleGroup } from '../../reducers/IncidentReducer';
 
 const MS_IN_SECOND = 1000;
 
@@ -51,8 +52,14 @@ class NavBar extends Component {
     );
   };
 
-  _onAddPressed = () => {
-    this.props.navigation.navigate('RosterPrompt');
+  _onTogglePressed = () => {
+    const { toggle } = this.props;
+    if(toggle){
+      toggleGroup(false);
+    }
+    else {
+      toggleGroup(true);
+    }
   };
 
   _onEndPressed = () => {
@@ -106,9 +113,9 @@ class NavBar extends Component {
         <View style={styles.pageOptions}>
           <TouchableOpacity
             style={styles.container}
-            onPress={this._onAddPressed}
+            onPress={this._onTogglePressed}
           >
-            <Text style={styles.pageOptionContent}> Add Personnel </Text>
+            <Text style={styles.pageOptionContent}> Toggle Group Area </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.pageOptions}>
@@ -131,12 +138,14 @@ NavBar.propTypes = {
   navigation: PropTypes.object,
   initialTime: PropTypes.number,
   report: PropTypes.object,
+  toggle: PropTypes.bool,
 };
 
 const mapStateToProps = state => {
   return {
     initialTime: getInitialTime(state),
     report: getCurrentReportData(state),
+    toggle: getToggleGroup(state),
   };
 };
 

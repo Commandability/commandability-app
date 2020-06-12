@@ -15,6 +15,7 @@ import groups, * as fromGroups from './GroupReducer';
 import report, * as fromReport from './ReportReducer';
 import time, * as fromTime from './TimeReducer';
 import selected, * as fromSelected from './SelectedReducer';
+import incident, * as fromIncident from './IncidentReducer';
 import { RESET_APP } from '../actions/types';
 
 // personnel reducer config, set persisted data to autoMergeLevel2 to track personnel changes
@@ -47,6 +48,7 @@ const appReducer = combineReducers({
   time: persistReducer(timePersistConfig, time),
   report: persistReducer(reportPersistConfig, report),
   selected,
+  incident,
 });
 
 // root reducer config, persisted data defaults to autoMergeLevel1
@@ -107,3 +109,7 @@ export const getInitialTime = state => fromTime.getInitialTime(state.time);
 export const activeReport = state => fromReport.activeReport(state.report);
 export const getCurrentReportData = state =>
   fromReport.getCurrentReportData(state.report);
+
+//Incident selectors
+export const getToggleGroup = state =>
+    fromIncident.getToggleGroup(state.incident);

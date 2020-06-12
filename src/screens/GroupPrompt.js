@@ -7,8 +7,7 @@
 import React, { Component } from 'react';
 import {
   TextInput,
-  TouchableOpacity,
-  Text,
+  Button,
   View,
   StyleSheet,
 } from 'react-native';
@@ -17,6 +16,7 @@ import PropTypes from 'prop-types';
 
 import { getGroupByLocationId } from '../reducers';
 import { setVisibility, setName } from '../actions';
+import colors from '../modules/colors';
 
 class GroupPrompt extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class GroupPrompt extends Component {
     title: 'Edit Group',
   };
 
-  _onEditPressed = () => {
+  _onSave = () => {
     const {
       navigation: { goBack },
       setName,
@@ -44,20 +44,19 @@ class GroupPrompt extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.container}>
-          <TextInput
-            style={styles.buttonContainer}
-            placeholder="Please enter a new group name"
-            value={this.state.newName}
-            onChangeText={newName => this.setState({ newName })}
-          />
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={this._onEditPressed}>
-            <Text>Save name change and exit</Text>
-          </TouchableOpacity>
-        </View>
+        <TextInput
+          style={styles.nameInput}
+          autoCapitalize="none"
+          placeholder="New group name"
+          placeholderTextColor={colors.primary.light}
+          value={this.state.newName}
+          onChangeText={newName => this.setState({ newName })}
+        />
+        <Button
+          onPress={this._onSave}
+          title="Save"
+          color={colors.primary.light}
+        />
       </View>
     );
   }
@@ -76,17 +75,25 @@ const mapStateToProps = (state, ownProps) => {
   return { group: getGroupByLocationId(state, locationId) };
 };
 
-export default connect(mapStateToProps, {
-  setVisibility,
-  setName,
-})(GroupPrompt);
+export default connect(
+  mapStateToProps,
+  {
+    setVisibility,
+    setName,
+  }
+)(GroupPrompt);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.primary.dark,
   },
-  buttonContainer: {
-    flex: 1,
+  nameInput: {
+    height: 40,
+    color: colors.text.primaryLight,
+    borderColor: colors.primary.light,
     borderWidth: 1,
+    marginBottom: 8,
+    marginTop: 8,
   },
 });

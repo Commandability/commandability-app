@@ -33,7 +33,12 @@ class NavBar extends Component {
   };
 
   render() {
-    const { initialEpoch, addGroupMode, removeGroupMode, editGroupMode } = this.props;
+    const {
+      initialEpoch,
+      addGroupMode,
+      removeGroupMode,
+      editGroupMode,
+    } = this.props;
 
     return (
       <View style={styles.navBar}>

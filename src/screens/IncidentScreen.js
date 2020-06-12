@@ -70,6 +70,15 @@ class IncidentScreen extends Component {
     const { activeReport, activeInitialEpoch } = this.props;
     this.initialEpoch = Date.now();
 
+    const groupIds = [
+      GROUP_ONE,
+      GROUP_TWO,
+      GROUP_THREE,
+      GROUP_FOUR,
+      GROUP_FIVE,
+      GROUP_SIX,
+    ];
+
     return (
       <View style={styles.incidentLayout}>
         <NavBar
@@ -87,54 +96,16 @@ class IncidentScreen extends Component {
             <Roster />
           </View>
           <View style={styles.groupArea}>
-            <View style={styles.subGroupArea}>
+            {groupIds.map(id => (
               <Group
-                locationId={GROUP_ONE}
+                key={id}
+                locationId={id}
                 addGroupMode={this.state.addGroupMode}
                 removeGroupMode={this.state.removeGroupMode}
                 editGroupMode={this.state.editGroupMode}
                 groupSelectedHandler={this.groupSelected}
               />
-              <Group
-                locationId={GROUP_TWO}
-                addGroupMode={this.state.addGroupMode}
-                removeGroupMode={this.state.removeGroupMode}
-                editGroupMode={this.state.editGroupMode}
-                groupSelectedHandler={this.groupSelected}
-              />
-            </View>
-            <View style={styles.subGroupArea}>
-              <Group
-                locationId={GROUP_THREE}
-                addGroupMode={this.state.addGroupMode}
-                removeGroupMode={this.state.removeGroupMode}
-                editGroupMode={this.state.editGroupMode}
-                groupSelectedHandler={this.groupSelected}
-              />
-              <Group
-                locationId={GROUP_FOUR}
-                addGroupMode={this.state.addGroupMode}
-                removeGroupMode={this.state.removeGroupMode}
-                editGroupMode={this.state.editGroupMode}
-                groupSelectedHandler={this.groupSelected}
-              />
-            </View>
-            <View style={styles.subGroupArea}>
-              <Group
-                locationId={GROUP_FIVE}
-                addGroupMode={this.state.addGroupMode}
-                removeGroupMode={this.state.removeGroupMode}
-                editGroupMode={this.state.editGroupMode}
-                groupSelectedHandler={this.groupSelected}
-              />
-              <Group
-                locationId={GROUP_SIX}
-                addGroupMode={this.state.addGroupMode}
-                removeGroupMode={this.state.removeGroupMode}
-                editGroupMode={this.state.editGroupMode}
-                groupSelectedHandler={this.groupSelected}
-              />
-            </View>
+            ))}
           </View>
         </View>
       </View>
@@ -174,13 +145,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   groupArea: {
-    flexDirection: 'row',
-    flex: 3,
-    padding: 5,
-    backgroundColor: colors.primary.dark,
-  },
-  subGroupArea: {
     flexDirection: 'column',
-    flex: 1,
+    flex: 3,
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    backgroundColor: colors.primary.dark,
   },
 });

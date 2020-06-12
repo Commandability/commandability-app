@@ -90,10 +90,11 @@ class Group extends Component {
         )}
         {visibility && (
           <>
-            <TouchableOpacity onPress={this._onSelectAllPressed}>
-              <View style={styles.groupHeader}>
-                <Text style={styles.groupHeaderContent}> {name} </Text>
-              </View>
+            <TouchableOpacity
+              onPress={this._onSelectAllPressed}
+              style={styles.groupHeader}
+            >
+              <Text style={styles.groupHeaderContent}> {name} </Text>
             </TouchableOpacity>
             <GroupList locationId={locationId} />
           </>
@@ -146,29 +147,31 @@ export default withNavigation(
 
 const styles = StyleSheet.create({
   groupSelect: {
-    // backgroundColor: `rgba(52, 52, 52, 0.8)`
-    backgroundColor: `blue`,
+    backgroundColor: `rgb(12, 12, 12)`,
     position: 'absolute',
+    top: 4,
+    left: 4,
     zIndex: 1,
     width: '100%',
     height: '100%',
-    opacity: 0.5,
+    opacity: 0.6,
   },
   groupLayout: {
-    flex: 1,
+    height: '50%',
+    width: '33%',
     flexDirection: 'column',
     padding: 4,
   },
   groupHeader: {
     flexDirection: 'row',
-    height: 20,
-    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 4,
+    width: '100%',
     backgroundColor: colors.secondary.dark,
   },
   groupHeaderContent: {
-    flex: 5,
     fontSize: scaleFont(6),
-    textAlign: 'center',
     color: colors.primary.text,
   },
 });

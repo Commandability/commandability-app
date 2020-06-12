@@ -17,7 +17,7 @@ import {
   GROUP_SIX,
   ROSTER,
 } from './locationIds.js';
-import { setGroup, addPerson, clearPersonnel } from '../actions';
+import { setGroup, addPerson, clearPersonnel, setToggle } from '../actions';
 
 export const updateUserData = async () => {
   try {
@@ -29,7 +29,7 @@ export const updateUserData = async () => {
         .collection('users')
         .doc(uid)
         .get();
-      const { groups, personnel } = documentSnapshot.data();
+      const { groups, incident, personnel } = documentSnapshot.data();
 
       const groupIds = [
         GROUP_ONE,
@@ -44,6 +44,7 @@ export const updateUserData = async () => {
         const { name, visibility } = groups[id];
         store.dispatch(setGroup(id, name, visibility));
       });
+      store.dispatch(setToggle(incident));
       // refresh personnel data
       store.dispatch(clearPersonnel());
       personnel.forEach(person => {

@@ -17,3 +17,4 @@ export const START_INCIDENT = 'START_INCIDENT';
 export const END_INCIDENT = 'END_INCIDENT';
 
 export const TOGGLE_GROUP = 'TOGGLE_GROUP';
+export const SET_TOGGLE = 'SET_TOGGLE';

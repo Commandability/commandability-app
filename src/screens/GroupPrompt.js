@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import {
+  Alert,
   TextInput,
   Button,
   View,
@@ -31,14 +32,23 @@ class GroupPrompt extends Component {
   };
 
   _onSave = () => {
-    const {
-      navigation: { goBack },
-      setName,
-      group,
-    } = this.props;
-    const { newName } = this.state || {};
-    setName(group, newName);
-    goBack();
+    if (this.state.newName) {
+      const {
+        navigation: { goBack },
+        setName,
+        group,
+      } = this.props;
+      const { newName } = this.state || {};
+      setName(group, newName);
+      goBack();
+    }
+    else {
+      Alert.alert('Error', 'Please enter a new name.', [
+        {
+          text: 'OK',
+        },
+      ]);
+    }
   };
 
   render() {

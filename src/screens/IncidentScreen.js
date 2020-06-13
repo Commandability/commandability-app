@@ -10,11 +10,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import auth from '@react-native-firebase/auth';
 
-import { NavBar, Group, Staging, Roster } from '../components/incident';
+import { NavBar, Group, Staging, NewPersonnel, Roster } from '../components/incident';
 import colors from '../modules/colors';
 import { activeReport, getInitialEpoch } from '../reducers';
 import { startIncident } from '../actions';
-import GroupArea from '../components/incident/GroupArea';
 import {
   GROUP_ONE,
   GROUP_TWO,
@@ -31,6 +30,7 @@ class IncidentScreen extends Component {
       removeGroupMode: false,
       editGroupMode: false,
       addGroupMode: false,
+      toggle: true,
     };
   }
 
@@ -61,6 +61,12 @@ class IncidentScreen extends Component {
     }));
   };
 
+  _toggleArea = () => {
+    this.setState(prevState => ({
+      toggle: !prevState.toggle,
+    }));
+  }
+
   groupSelected = () => {
     this.setState(() => ({
       addGroupMode: false,
@@ -89,6 +95,7 @@ class IncidentScreen extends Component {
           addGroupHandler={this.addGroup}
           removeGroupHandler={this.removeGroup}
           editGroupHandler={this.editGroup}
+          toggleHandler={this._toggleArea}
           addGroupMode={this.state.addGroupMode}
           removeGroupMode={this.state.removeGroupMode}
           editGroupMode={this.state.editGroupMode}
@@ -96,21 +103,31 @@ class IncidentScreen extends Component {
         <View style={styles.pageLayout}>
           <View style={styles.stagingArea}>
             <Staging />
-            <Roster />
           </View>
-          <View style={styles.groupArea}>
-            {groupIds.map(id => (
-              <Group
-                key={id}
-                locationId={id}
-                addGroupMode={this.state.addGroupMode}
-                removeGroupMode={this.state.removeGroupMode}
-                editGroupMode={this.state.editGroupMode}
-                groupSelectedHandler={this.groupSelected}
-              />
+          {
+            this.state.toggle ? 
+              <View style={styles.groupArea}>
+                {groupIds.map(id => (
+                  <Group
+                    key={id}
+                    locationId={id}
+                    addGroupMode={this.state.addGroupMode}
+                    removeGroupMode={this.state.removeGroupMode}
+                    editGroupMode={this.state.editGroupMode}
+                    groupSelectedHandler={this.groupSelected}
+                  />
             ))}
           </View>
-          <GroupArea />
+          :
+          <View style={styles.container}>
+            <View style={styles.subContainer}>
+              <Roster />
+            </View>
+            <View style={styles.subContainer}>
+              <NewPersonnel />
+            </View>
+          </View>
+        }
         </View>
       </View>
     );
@@ -156,4 +173,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: colors.primary.dark,
   },
+  container: {
+    flex: 3,
+    flexDirection: 'row',
+  },
+  subContainer: {
+    flex: 1,
+  },
 });
+

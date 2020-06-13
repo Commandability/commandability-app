@@ -21,12 +21,7 @@ class NavBar extends Component {
   };
 
   _onTogglePressed = () => {
-    const { toggle } = this.props;
-    if (toggle) {
-      console.log('true');
-    } else {
-      console.log('false');
-    }
+    this.props.toggleHandler();
   };
 
   _onAddGroupPressed = () => {
@@ -115,6 +110,7 @@ NavBar.propTypes = {
   addGroupMode: PropTypes.bool,
   removeGroupMode: PropTypes.bool,
   editGroupMode: PropTypes.bool,
+  toggleHandler: PropTypes.func,
 };
 
 export default withNavigation(NavBar);

@@ -7,12 +7,10 @@
 
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { Group } from '../incident/Group';
 import colors from '../../modules/colors';
-import { getToggleGroup } from '../../reducers';
 import { Roster, NewPersonnel } from '../../components/incident';
 import {
   GROUP_ONE,
@@ -26,7 +24,8 @@ import {
 class GroupArea extends Component {
 
   render() {
-    const { toggle } = this.props;
+    //const { toggle } = this.props;
+    const toggle = true;
     if (toggle) {
       return (
         <View style={styles.groupArea}>
@@ -61,15 +60,10 @@ class GroupArea extends Component {
 
 // props validation
 GroupArea.propTypes = {
-  getToggleGroup: PropTypes.func,
   toggle: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => {
-  return { toggle: getToggleGroup(state) };
-};
-
-export default connect(mapStateToProps)(GroupArea);
+export default GroupArea;
 
 const styles = StyleSheet.create({
   groupArea: {

@@ -48,7 +48,6 @@ const appReducer = combineReducers({
   time: persistReducer(timePersistConfig, time),
   report: persistReducer(reportPersistConfig, report),
   selected,
-  incident,
 });
 
 // root reducer config, persisted data defaults to autoMergeLevel1
@@ -109,7 +108,3 @@ export const getInitialTime = state => fromTime.getInitialTime(state.time);
 export const activeReport = state => fromReport.activeReport(state.report);
 export const getCurrentReportData = state =>
   fromReport.getCurrentReportData(state.report);
-
-//Incident selectors
-export const getToggleGroup = state =>
-    fromIncident.getToggleGroup(state.incident);

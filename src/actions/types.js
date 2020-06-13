@@ -15,5 +15,3 @@ export const SET_GROUP = 'SET_GROUP';
 
 export const START_INCIDENT = 'START_INCIDENT';
 export const END_INCIDENT = 'END_INCIDENT';
-
-export const TOGGLE_GROUP = 'TOGGLE_GROUP';

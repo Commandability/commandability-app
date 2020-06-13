@@ -13,10 +13,9 @@ import PropTypes from 'prop-types';
 import { scaleFont } from '../../modules/fonts';
 import { getCurrentReportData } from '../../reducers';
 import colors from '../../modules/colors';
-import { resetIncident, endIncident, toggleGroup } from '../../actions';
+import { resetIncident, endIncident } from '../../actions';
 import { getInitialTime } from '../../reducers';
 import { saveCurrentReport, generateCurrentReport } from '../../modules/reportManager';
-import { getToggleGroup } from '../../reducers/IncidentReducer';
 
 const MS_IN_SECOND = 1000;
 
@@ -55,10 +54,10 @@ class NavBar extends Component {
   _onTogglePressed = () => {
     const { toggle } = this.props;
     if(toggle){
-      toggleGroup(false);
+      console.log('true');
     }
     else {
-      toggleGroup(true);
+      console.log('false');
     }
   };
 
@@ -145,7 +144,6 @@ const mapStateToProps = state => {
   return {
     initialTime: getInitialTime(state),
     report: getCurrentReportData(state),
-    toggle: getToggleGroup(state),
   };
 };
 

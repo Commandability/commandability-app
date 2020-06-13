@@ -17,6 +17,13 @@ export const generateCurrentReport = () => {
   const report = getCurrentReportData(store.getState());
   let reportString = '';
   if (report) {
+    reportString += `Location: ${report['LOCATION']}\n`;
+    if(report['NOTES']){
+      reportString += `Notes: ${report['NOTES']}\n`;
+    }
+    else{
+      reportString += `Notes: none.\n`;
+    }
     for (const entry in report) {
       const { dateTime, log } = report[entry];
       if (dateTime && log) {
@@ -85,7 +92,6 @@ export const backupReports = async () => {
     const reportKeys = await getAllReportKeys();
     const reportPromises = reportKeys.map(key => getReport(key));
     const reports = await Promise.all(reportPromises);
-    console.log(reports);
     const {
       currentUser,
       currentUser: { uid },
@@ -94,7 +100,6 @@ export const backupReports = async () => {
       const uploadPromises = reports.map(report => {
         const uploadId = uuidv4();
         const uploadPath = `/users/${uid}/${uploadId}`;
-        console.log(uploadPath);
         let storageRef = storage().ref();
         let reportRef = storageRef.child(uploadPath);
         try { 

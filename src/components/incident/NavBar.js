@@ -1,54 +1,23 @@
 /**
  * NavBar Component
  *
- * This component handles the NavBar above the incidentScreen
+ * This component handles the NavBar above the incident screen, including:
+ *  - the incident timer
+ *  - the edit group, remove group, and end incident buttons
  */
 
 import React, { Component } from 'react';
-import { TouchableOpacity, Text, View, Alert, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
+import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 
 import { scaleFont } from '../../modules/fonts';
-import { getCurrentReportData } from '../../reducers';
 import colors from '../../modules/colors';
-import { resetIncident, endIncident } from '../../actions';
-import { getInitialTime } from '../../reducers';
-import { saveCurrentReport, generateCurrentReport } from '../../modules/reportManager';
-
-const MS_IN_SECOND = 1000;
-
-function digitFix(num) {
-  if (num.toString().length == 1) {
-    num = '0' + num;
-  }
-  return num;
-}
+import Timer from './Timer';
 
 class NavBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      time: '',
-      hour: '',
-      minute: '',
-      second: '',
-    };
-  }
-
-  componentWillUnmount() {
-    // clear timers to prevent memory leaks
-    clearInterval(this.intervalID);
-  }
-
-  _onReportPressed = () => {
-    Alert.alert(
-      'Report Page',
-      generateCurrentReport(),
-      [{ text: 'Cancel' }, { text: 'OK' }],
-      { cancelable: false }
-    );
+  _onEndPressed = () => {
+    this.props.navigation.navigate('EndScreen');
   };
 
   _onTogglePressed = () => {
@@ -59,56 +28,60 @@ class NavBar extends Component {
     else {
       console.log('false');
     }
-  };
-
-  _onEndPressed = () => {
-    const { endIncident, resetIncident } = this.props;
-    endIncident(); // log incident end
-    saveCurrentReport();
-    resetIncident(); // reset personnel locations and group settings, remove all unlogged personnel from state
-    this.props.navigation.navigate('HomeScreen');
-  };
-
-  componentDidMount() {
-    this.intervalID = setInterval(
-      () =>
-        this.setState(() => ({
-          time: Date.now(),
-          currentTimes: new Date().toLocaleString(),
-          hour: new Date().getHours(),
-          minute: new Date().getMinutes(),
-          second: new Date().getSeconds(),
-        })),
-      MS_IN_SECOND
-    );
   }
 
+  _onAddGroupPressed = () => {
+    this.props.addGroupHandler();
+  };
+
+  _onRemoveGroupPressed = () => {
+    this.props.removeGroupHandler();
+  };
+
+  _onEditGroupPressed = () => {
+    this.props.editGroupHandler();
+  };
+
   render() {
-    const { initialTime } = this.props;
+    const {
+      initialEpoch,
+      addGroupMode,
+      removeGroupMode,
+      editGroupMode,
+    } = this.props;
+
     return (
       <View style={styles.navBar}>
-        <View style={styles.timerLayout}>
-          <View style={styles.timer}>
-            <Text style={styles.timerContent}>{`Elapsed: ${digitFix(
-              Math.floor((this.state.time - initialTime) / 3600000)
-            )}:${digitFix(
-              Math.floor(((this.state.time - initialTime) % 3600000) / 60000)
-            )}:${digitFix(
-              Math.floor(
-                (((this.state.time - initialTime) % 3600000) % 60000) / 1000
-              )
-            )}`}</Text>
-          </View>
-        </View>
-        <View style={styles.pageTabs}></View>
+        <Timer initialEpoch={initialEpoch} />
         <View style={styles.pageOptions}>
           <TouchableOpacity
             style={styles.container}
-            onPress={this._onReportPressed}
+            onPress={this._onAddGroupPressed}
+            disabled={editGroupMode || removeGroupMode}
           >
-            <Text style={styles.pageOptionContent}> Report </Text>
+            <Text style={styles.pageOptionContent}> Add Group </Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.pageOptions}>
+          <TouchableOpacity
+            style={styles.container}
+            onPress={this._onRemoveGroupPressed}
+            disabled={editGroupMode || addGroupMode}
+          >
+            <Text style={styles.pageOptionContent}> Remove Group </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.pageOptions}>
+          <TouchableOpacity
+            style={styles.container}
+            onPress={this._onEditGroupPressed}
+            disabled={removeGroupMode || addGroupMode}
+          >
+            <Text style={styles.pageOptionContent}> Edit Group </Text>
+          </TouchableOpacity>
+        </View>
+
+
         <View style={styles.pageOptions}>
           <TouchableOpacity
             style={styles.container}
@@ -117,6 +90,8 @@ class NavBar extends Component {
             <Text style={styles.pageOptionContent}> Toggle Group Area </Text>
           </TouchableOpacity>
         </View>
+
+
         <View style={styles.pageOptions}>
           <TouchableOpacity
             style={styles.container}
@@ -132,27 +107,20 @@ class NavBar extends Component {
 
 // props validation
 NavBar.propTypes = {
-  resetIncident: PropTypes.func,
-  endIncident: PropTypes.func,
   navigation: PropTypes.object,
   initialTime: PropTypes.number,
   report: PropTypes.object,
   toggle: PropTypes.bool,
+  initialEpoch: PropTypes.number,
+  addGroupHandler: PropTypes.func,
+  removeGroupHandler: PropTypes.func,
+  editGroupHandler: PropTypes.func,
+  addGroupMode: PropTypes.bool,
+  removeGroupMode: PropTypes.bool,
+  editGroupMode: PropTypes.bool,
 };
 
-const mapStateToProps = state => {
-  return {
-    initialTime: getInitialTime(state),
-    report: getCurrentReportData(state),
-  };
-};
-
-export default withNavigation(
-  connect(mapStateToProps, {
-    endIncident,
-    resetIncident,
-  })(NavBar)
-);
+export default withNavigation(NavBar);
 
 const styles = StyleSheet.create({
   navBar: {
@@ -160,24 +128,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.primary.dark,
     borderWidth: 0.5,
-  },
-  timerLayout: {
-    flexDirection: 'column',
-    flex: 1,
-  },
-  timer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  timerContent: {
-    fontSize: scaleFont(5),
-    textAlignVertical: 'center',
-    textAlign: 'center',
-    color: colors.primary.text,
-  },
-  pageTabs: {
-    flexDirection: 'row',
-    flex: 6,
   },
   pageOptions: {
     flex: 1,

@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from 'react';
-import { TouchableOpacity, Text, View, Image, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -14,64 +14,93 @@ import PropTypes from 'prop-types';
 import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
 import GroupList from './GroupList';
-import { getGroupByLocationId } from '../../reducers';
-import { setVisibility } from '../../actions';
+import {
+  getGroupByLocationId,
+  getPersonnelByLocationId,
+  personIsSelected,
+} from '../../reducers';
+import { setVisibility, selectPerson, deselectPerson } from '../../actions';
 
 class Group extends Component {
-  constructor() {
-    super();
-  }
-
   _onAddPressed = () => {
     const { setVisibility, group } = this.props;
     setVisibility(group, true);
   };
 
-  _onSettingsPressed = () => {
+  _onSelectAllPressed = () => {
     const {
-      navigation: { navigate },
-      group: { locationId },
+      locationId,
+      personnel,
+      allPersonnelSelected,
+      selectPerson,
+      deselectPerson,
     } = this.props;
-    navigate('GroupPrompt', { locationId });
+    personnel.forEach(item => {
+      allPersonnelSelected
+        ? deselectPerson(item, locationId)
+        : selectPerson(item, locationId);
+    });
+  };
+
+  _onGroupSelected = () => {
+    const {
+      groupSelectedHandler,
+      addGroupMode,
+      removeGroupMode,
+      editGroupMode,
+      setVisibility,
+      group,
+      navigation: { navigate },
+    } = this.props;
+
+    if (addGroupMode) {
+      setVisibility(group, true);
+    }
+    if (removeGroupMode) {
+      setVisibility(group, false);
+    }
+    if (editGroupMode) {
+      navigate('GroupPrompt', group);
+    }
+    groupSelectedHandler();
   };
 
   render() {
     const {
       group: { name, visibility, locationId },
+      addGroupMode,
+      removeGroupMode,
+      editGroupMode,
     } = this.props;
-    if (visibility) {
-      return (
-        <View style={styles.groupLayout}>
-          <View style={styles.groupHeader}>
-            <Text style={styles.groupHeaderContent}> {name} </Text>
-            <TouchableOpacity
-              style={styles.container}
-              onPress={this._onSettingsPressed}
-            >
-              <Image
-                style={styles.settingsIcon}
-                source={require('../../assets/settings_icon.png')}
-              ></Image>
-            </TouchableOpacity>
-          </View>
-          <GroupList locationId={locationId} />
-        </View>
-      );
-    } else {
-      return (
-        <View style={styles.container}>
+
+    return (
+      <View style={styles.groupLayout}>
+        {((visibility && (removeGroupMode || editGroupMode)) ||
+          (!visibility && addGroupMode)) && (
           <TouchableOpacity
-            style={styles.container}
-            onPress={this._onAddPressed}
-          >
-            <Image
-              style={styles.addButton}
-              source={require('../../assets/add.png')}
-            ></Image>
-          </TouchableOpacity>
-        </View>
-      );
-    }
+            style={
+              (addGroupMode || removeGroupMode || editGroupMode) &&
+              styles.groupSelect
+            }
+            onPress={this._onGroupSelected}
+            disabled={
+              addGroupMode || removeGroupMode || editGroupMode ? false : true
+            }
+          />
+        )}
+        {visibility && (
+          <>
+            <TouchableOpacity
+              onPress={this._onSelectAllPressed}
+              style={styles.groupHeader}
+            >
+              <Text style={styles.groupHeaderContent}> {name} </Text>
+            </TouchableOpacity>
+            <GroupList locationId={locationId} />
+          </>
+        )}
+      </View>
+    );
   }
 }
 
@@ -80,50 +109,69 @@ Group.propTypes = {
   setVisibility: PropTypes.func,
   navigation: PropTypes.object,
   group: PropTypes.object,
+  personnel: PropTypes.array,
+  selectPerson: PropTypes.func,
+  deselectPerson: PropTypes.func,
+  locationId: PropTypes.string,
+  allPersonnelSelected: PropTypes.bool,
+  addGroupMode: PropTypes.bool,
+  removeGroupMode: PropTypes.bool,
+  editGroupMode: PropTypes.bool,
+  groupSelectedHandler: PropTypes.func,
 };
 
 const mapStateToProps = (state, ownProps) => {
   const { locationId } = ownProps;
-  return { group: getGroupByLocationId(state, locationId) };
+
+  const personnel = getPersonnelByLocationId(state, locationId);
+
+  return {
+    group: getGroupByLocationId(state, locationId),
+    personnel,
+    allPersonnelSelected: personnel.every(person =>
+      personIsSelected(state, person)
+    ),
+  };
 };
 
 export default withNavigation(
-  connect(mapStateToProps, {
-    setVisibility,
-  })(Group)
+  connect(
+    mapStateToProps,
+    {
+      setVisibility,
+      selectPerson,
+      deselectPerson,
+    }
+  )(Group)
 );
 
 const styles = StyleSheet.create({
+  groupSelect: {
+    backgroundColor: `rgb(12, 12, 12)`,
+    position: 'absolute',
+    top: 4,
+    left: 4,
+    zIndex: 1,
+    width: '100%',
+    height: '100%',
+    opacity: 0.6,
+  },
   groupLayout: {
-    flex: 1,
+    height: '50%',
+    width: '33%',
     flexDirection: 'column',
     padding: 4,
   },
   groupHeader: {
     flexDirection: 'row',
-    flex: 1,
-    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 4,
+    width: '100%',
     backgroundColor: colors.secondary.dark,
   },
   groupHeaderContent: {
-    flex: 5,
     fontSize: scaleFont(6),
-    textAlign: 'center',
     color: colors.primary.text,
-  },
-  settingsIcon: {
-    flex: 1,
-    padding: 1,
-    width: null,
-    height: null,
-    resizeMode: 'contain',
-  },
-  addButton: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  container: {
-    flex: 1,
   },
 });

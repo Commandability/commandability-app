@@ -18,7 +18,8 @@ import {
   HomeScreen,
   IncidentScreen,
   GroupPrompt,
-  RosterPrompt,
+  EndScreen,
+  ExitIncidentPrompt
 } from './screens';
 import colors from './modules/colors';
 
@@ -42,7 +43,11 @@ const AuthStack = createStackNavigator(
   { defaultNavigationOptions }
 );
 const IncidentStack = createStackNavigator(
-  { IncidentScreen, GroupPrompt, RosterPrompt },
+  { IncidentScreen, GroupPrompt },
+  { defaultNavigationOptions }
+);
+const EndStack = createStackNavigator(
+  { EndScreen, ExitIncidentPrompt },
   { defaultNavigationOptions }
 );
 
@@ -52,6 +57,7 @@ const AppNavigator = createSwitchNavigator(
     AuthStack,
     AppStack,
     IncidentStack,
+    EndStack
   },
   {
     defaultNavigationOptions,

@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import {
   getSelectedLocationId,
   getPersonGroupUpdateTime,
+  personIsSelected,
 } from '../../reducers';
 import { toggleSelectedPersonById } from '../../actions';
 import colors from '../../modules/colors';
@@ -25,7 +26,6 @@ class ListItem extends PureComponent {
 
     const { groupUpdateEpochTime } = this.props;
     this.state = {
-      selected: false,
       time: Date.now() - groupUpdateEpochTime,
     };
   }
@@ -58,11 +58,7 @@ class ListItem extends PureComponent {
     clearInterval(this.intervalID);
   }
 
-  _onPress(){
-    this.setState(prevState => ({
-      selected: !prevState.selected,
-    }));
-
+  _onPress() {
     const { item, locationId, toggleSelectedPersonById } = this.props;
     toggleSelectedPersonById(item.id, locationId);
   }
@@ -72,6 +68,7 @@ class ListItem extends PureComponent {
       item: { badge, firstName, lastName },
       locationId,
       selectedGroup,
+      personIsSelected,
     } = this.props;
     return (
       // disable item if a list other than the parent list is selected,
@@ -85,10 +82,12 @@ class ListItem extends PureComponent {
         <View>
           <Text
             style={
-              this.state.selected ? styles.selectedItem : styles.unselectedItem
+              personIsSelected ? styles.selectedItem : styles.unselectedItem
             }
           >
-            {`${badge ? badge + ' - ': ''}${firstName} ${lastName} - ${Math.floor(
+            {`${
+              badge ? badge + ' - ' : ''
+            }${firstName} ${lastName} - ${Math.floor(
               this.state.time / MS_IN_MINUTE
             )}`}
           </Text>
@@ -105,6 +104,7 @@ ListItem.propTypes = {
   locationId: PropTypes.string, // the parent groupName
   toggleSelectedPersonById: PropTypes.func,
   selectedGroup: PropTypes.string,
+  personIsSelected: PropTypes.bool,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -112,10 +112,14 @@ const mapStateToProps = (state, ownProps) => {
   return {
     selectedGroup: getSelectedLocationId(state),
     groupUpdateEpochTime: getPersonGroupUpdateTime(state, item),
+    personIsSelected: personIsSelected(state, item),
   };
 };
 
-export default connect(mapStateToProps, { toggleSelectedPersonById })(ListItem);
+export default connect(
+  mapStateToProps,
+  { toggleSelectedPersonById }
+)(ListItem);
 
 const styles = StyleSheet.create({
   selectedItem: {

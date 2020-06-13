@@ -10,40 +10,105 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import auth from '@react-native-firebase/auth';
 
-import { NavBar, Staging } from '../components/incident';
-import { activeReport } from '../reducers';
+import { NavBar, Group, Staging, Roster } from '../components/incident';
+import colors from '../modules/colors';
+import { activeReport, getInitialEpoch } from '../reducers';
 import { startIncident } from '../actions';
-import { scaleFont } from '../modules/fonts';
 import GroupArea from '../components/incident/GroupArea';
+import {
+  GROUP_ONE,
+  GROUP_TWO,
+  GROUP_THREE,
+  GROUP_FOUR,
+  GROUP_FIVE,
+  GROUP_SIX,
+} from '../modules/locationIds.js';
 
 class IncidentScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      removeGroupMode: false,
+      editGroupMode: false,
+      addGroupMode: false,
+    };
+  }
+
   componentDidMount() {
     const { startIncident, activeReport } = this.props;
     this.props.navigation.setParams({userEmail: auth().currentUser.email});
     // prevent start incident from wiping report when IncidentScreen is re-mounted after a crash
     if (!activeReport) {
-      startIncident();
+      startIncident(this.initialEpoch);
     }
   }
 
-  static navigationOptions = ({navigation}) => {
-    return {
-      headerTitle: navigation.getParam('userEmail'),
-      headerTitleStyle: {
-        color: 'white',
-        textAlign: 'right',
-        fontSize: scaleFont(6),
-      },
-    };
-  }
+  addGroup = () => {
+    this.setState(prevState => ({
+      addGroupMode: !prevState.addGroupMode,
+    }));
+  };
+
+  removeGroup = () => {
+    this.setState(prevState => ({
+      removeGroupMode: !prevState.removeGroupMode,
+    }));
+  };
+
+  editGroup = () => {
+    this.setState(prevState => ({
+      editGroupMode: !prevState.editGroupMode,
+    }));
+  };
+
+  groupSelected = () => {
+    this.setState(() => ({
+      addGroupMode: false,
+      removeGroupMode: false,
+      editGroupMode: false,
+    }));
+  };
 
   render() {
+    const { activeReport, activeInitialEpoch } = this.props;
+    this.initialEpoch = Date.now();
+
+    const groupIds = [
+      GROUP_ONE,
+      GROUP_TWO,
+      GROUP_THREE,
+      GROUP_FOUR,
+      GROUP_FIVE,
+      GROUP_SIX,
+    ];
+
     return (
       <View style={styles.incidentLayout}>
-        <NavBar />
+        <NavBar
+          initialEpoch={activeReport ? activeInitialEpoch : this.initialEpoch}
+          addGroupHandler={this.addGroup}
+          removeGroupHandler={this.removeGroup}
+          editGroupHandler={this.editGroup}
+          addGroupMode={this.state.addGroupMode}
+          removeGroupMode={this.state.removeGroupMode}
+          editGroupMode={this.state.editGroupMode}
+        />
         <View style={styles.pageLayout}>
           <View style={styles.stagingArea}>
             <Staging />
+            <Roster />
+          </View>
+          <View style={styles.groupArea}>
+            {groupIds.map(id => (
+              <Group
+                key={id}
+                locationId={id}
+                addGroupMode={this.state.addGroupMode}
+                removeGroupMode={this.state.removeGroupMode}
+                editGroupMode={this.state.editGroupMode}
+                groupSelectedHandler={this.groupSelected}
+              />
+            ))}
           </View>
           <GroupArea />
         </View>
@@ -55,14 +120,21 @@ class IncidentScreen extends Component {
 IncidentScreen.propTypes = {
   activeReport: PropTypes.bool,
   startIncident: PropTypes.func,
-  navigation: PropTypes.object,
+  activeInitialEpoch: PropTypes.number,
+  navigation: PropTypes.object
 };
 
 const mapStateToProps = state => ({
   activeReport: activeReport(state),
+  activeInitialEpoch: getInitialEpoch(state),
 });
 
-export default connect(mapStateToProps, {startIncident})(IncidentScreen);
+export default connect(
+  mapStateToProps,
+  {
+    startIncident,
+  }
+)(IncidentScreen);
 
 const styles = StyleSheet.create({
   incidentLayout: {
@@ -76,5 +148,12 @@ const styles = StyleSheet.create({
   stagingArea: {
     flexDirection: 'column',
     flex: 1,
+  },
+  groupArea: {
+    flexDirection: 'column',
+    flex: 3,
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    backgroundColor: colors.primary.dark,
   },
 });

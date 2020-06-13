@@ -6,9 +6,9 @@
 
 import React, { Component } from 'react';
 import {
+  Alert,
   TextInput,
-  TouchableOpacity,
-  Text,
+  Button,
   View,
   StyleSheet,
 } from 'react-native';
@@ -17,6 +17,7 @@ import PropTypes from 'prop-types';
 
 import { getGroupByLocationId } from '../reducers';
 import { setVisibility, setName } from '../actions';
+import colors from '../modules/colors';
 
 class GroupPrompt extends Component {
   constructor(props) {
@@ -31,25 +32,24 @@ class GroupPrompt extends Component {
     headerLeft: null,
   };
 
-  _onRemovePressed = () => {
-    const {
-      navigation: { goBack },
-      setVisibility,
-      group,
-    } = this.props;
-    setVisibility(group, false);
-    goBack();
-  };
-
-  _onEditPressed = () => {
-    const {
-      navigation: { goBack },
-      setName,
-      group,
-    } = this.props;
-    const { newName } = this.state || {};
-    setName(group, newName);
-    goBack();
+  _onSave = () => {
+    if (this.state.newName) {
+      const {
+        navigation: { goBack },
+        setName,
+        group,
+      } = this.props;
+      const { newName } = this.state || {};
+      setName(group, newName);
+      goBack();
+    }
+    else {
+      Alert.alert('Error', 'Please enter a new name.', [
+        {
+          text: 'OK',
+        },
+      ]);
+    }
   };
 
   _onCancelPressed = () => {
@@ -62,30 +62,19 @@ class GroupPrompt extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.container}>
-          <TextInput
-            style={styles.buttonContainer}
-            placeholder="Please enter a new group name"
-            value={this.state.newName}
-            onChangeText={newName => this.setState({ newName })}
-          />
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={this._onEditPressed}>
-            <Text>Save Changes</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={this._onCancelPressed}>
-            <Text>Cancel Changes</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={this._onRemovePressed}>
-            <Text>Delete Group</Text>
-          </TouchableOpacity>
-        </View>
+        <TextInput
+          style={styles.nameInput}
+          autoCapitalize="none"
+          placeholder="New group name"
+          placeholderTextColor={colors.primary.light}
+          value={this.state.newName}
+          onChangeText={newName => this.setState({ newName })}
+        />
+        <Button
+          onPress={this._onSave}
+          title="Save"
+          color={colors.primary.light}
+        />
       </View>
     );
   }
@@ -104,17 +93,25 @@ const mapStateToProps = (state, ownProps) => {
   return { group: getGroupByLocationId(state, locationId) };
 };
 
-export default connect(mapStateToProps, {
-  setVisibility,
-  setName,
-})(GroupPrompt);
+export default connect(
+  mapStateToProps,
+  {
+    setVisibility,
+    setName,
+  }
+)(GroupPrompt);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.primary.dark,
   },
-  buttonContainer: {
-    flex: 1,
+  nameInput: {
+    height: 40,
+    color: colors.text.primaryLight,
+    borderColor: colors.primary.light,
     borderWidth: 1,
+    marginBottom: 8,
+    marginTop: 8,
   },
 });

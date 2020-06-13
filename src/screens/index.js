@@ -10,8 +10,8 @@ import HomeScreen from './HomeScreen';
 import IncidentScreen from './IncidentScreen';
 import GroupPrompt from './GroupPrompt';
 import PersonPrompt from './PersonPrompt';
-import ReportScreen from './ReportScreen';
-import RosterPrompt from './RosterPrompt';
+import EndScreen from './EndScreen';
+import ExitIncidentPrompt from './ExitIncidentPrompt';
 
 export {
   LoadingScreen,
@@ -20,6 +20,6 @@ export {
   IncidentScreen,
   GroupPrompt,
   PersonPrompt,
-  ReportScreen,
-  RosterPrompt,
+  EndScreen,
+  ExitIncidentPrompt
 };

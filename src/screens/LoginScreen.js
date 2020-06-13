@@ -87,7 +87,6 @@ export default class LoginScreen extends Component {
           autoCapitalize="none"
           placeholder="Email"
           placeholderTextColor={colors.primary.light}
-          disableFullscreenUI
           keyboardType="email-address"
           onChangeText={email => this.setState({ email })}
           value={this.state.email}
@@ -97,7 +96,6 @@ export default class LoginScreen extends Component {
           autoCapitalize="none"
           placeholder="Password"
           placeholderTextColor={colors.primary.light}
-          disableFullscreenUI
           secureTextEntry
           onChangeText={password => this.setState({ password })}
           value={this.state.password}

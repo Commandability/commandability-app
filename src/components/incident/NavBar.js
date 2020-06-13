@@ -22,13 +22,12 @@ class NavBar extends Component {
 
   _onTogglePressed = () => {
     const { toggle } = this.props;
-    if(toggle){
+    if (toggle) {
       console.log('true');
-    }
-    else {
+    } else {
       console.log('false');
     }
-  }
+  };
 
   _onAddGroupPressed = () => {
     this.props.addGroupHandler();
@@ -81,7 +80,6 @@ class NavBar extends Component {
           </TouchableOpacity>
         </View>
 
-
         <View style={styles.pageOptions}>
           <TouchableOpacity
             style={styles.container}
@@ -90,7 +88,6 @@ class NavBar extends Component {
             <Text style={styles.pageOptionContent}> Toggle Group Area </Text>
           </TouchableOpacity>
         </View>
-
 
         <View style={styles.pageOptions}>
           <TouchableOpacity

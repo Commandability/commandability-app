@@ -36,7 +36,7 @@ class IncidentScreen extends Component {
 
   componentDidMount() {
     const { startIncident, activeReport } = this.props;
-    this.props.navigation.setParams({userEmail: auth().currentUser.email});
+    this.props.navigation.setParams({ userEmail: auth().currentUser.email });
     // prevent start incident from wiping report when IncidentScreen is re-mounted after a crash
     if (!activeReport) {
       startIncident(this.initialEpoch);
@@ -121,7 +121,7 @@ IncidentScreen.propTypes = {
   activeReport: PropTypes.bool,
   startIncident: PropTypes.func,
   activeInitialEpoch: PropTypes.number,
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
 };
 
 const mapStateToProps = state => ({

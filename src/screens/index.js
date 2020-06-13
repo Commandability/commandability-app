@@ -21,5 +21,5 @@ export {
   GroupPrompt,
   PersonPrompt,
   EndScreen,
-  ExitIncidentPrompt
+  ExitIncidentPrompt,
 };

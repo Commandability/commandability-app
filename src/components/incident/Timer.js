@@ -52,7 +52,7 @@ class Timer extends Component {
       '0' +
       (Math.floor(this.state.time / MS_IN_SECOND) % 60)
     ).slice(-2);
-    
+
     return (
       <View style={styles.timerLayout}>
         <View style={styles.timer}>

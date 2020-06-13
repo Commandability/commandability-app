@@ -19,7 +19,7 @@ class RosterItem extends PureComponent {
     this._onPress = this._onPress.bind(this); // use bind to avoid duplicating methods on demanding components
   }
 
-  _onPress(){
+  _onPress() {
     const { item, setPersonLocationId } = this.props;
     setPersonLocationId(
       item,
@@ -41,7 +41,7 @@ class RosterItem extends PureComponent {
         disabled={selectedGroup == '' ? false : true}
       >
         <View>
-          <Text>{`${badge ? badge + ' - ': ''}${firstName} ${lastName}`}</Text>
+          <Text>{`${badge ? badge + ' - ' : ''}${firstName} ${lastName}`}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -63,4 +63,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { setPersonLocationId })(RosterItem);
+export default connect(
+  mapStateToProps,
+  { setPersonLocationId }
+)(RosterItem);

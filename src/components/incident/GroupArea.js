@@ -21,36 +21,35 @@ import {
 } from '../../modules/locationIds';
 
 class GroupArea extends Component {
-
   render() {
     //const { toggle } = this.props;
     const toggle = true;
     if (toggle) {
       return (
         <View style={styles.groupArea}>
-            <View style={styles.subGroupArea}>
-              <Group locationId={GROUP_ONE} />
-              <Group locationId={GROUP_TWO} />
-            </View>
-            <View style={styles.subGroupArea}>
-              <Group locationId={GROUP_THREE} />
-              <Group locationId={GROUP_FOUR} />
-            </View>
-            <View style={styles.subGroupArea}>
-              <Group locationId={GROUP_FIVE} />
-              <Group locationId={GROUP_SIX} />
-            </View>
+          <View style={styles.subGroupArea}>
+            <Group locationId={GROUP_ONE} />
+            <Group locationId={GROUP_TWO} />
           </View>
+          <View style={styles.subGroupArea}>
+            <Group locationId={GROUP_THREE} />
+            <Group locationId={GROUP_FOUR} />
+          </View>
+          <View style={styles.subGroupArea}>
+            <Group locationId={GROUP_FIVE} />
+            <Group locationId={GROUP_SIX} />
+          </View>
+        </View>
       );
     } else {
-    return (
-      <View style={styles.container}>
-            <View style={styles.subContainer}>
-                <Roster />
-            </View>
-            <View style={styles.subContainer}>
-                <NewPersonnel />
-            </View>
+      return (
+        <View style={styles.container}>
+          <View style={styles.subContainer}>
+            <Roster />
+          </View>
+          <View style={styles.subContainer}>
+            <NewPersonnel />
+          </View>
         </View>
       );
     }
@@ -77,9 +76,9 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 3,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   subContainer: {
     flex: 1,
-  }
+  },
 });

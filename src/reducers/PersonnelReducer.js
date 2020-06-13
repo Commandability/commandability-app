@@ -136,13 +136,13 @@ const removePersonId = (state, action) => {
     log,
     person: { id },
   } = payload;
-  
+
   // if added outside incident, don't remove id
-  if(!log){
+  if (!log) {
     return state;
   }
   // otherwise remove id from state
-  else{
+  else {
     return state.filter(currId => currId != id);
   }
 };
@@ -213,7 +213,8 @@ export const getPersonGroupUpdateTime = (state, person) => {
   return state.byId[id].groupUpdateEpochTime;
 };
 
-export const configurationLoaded = state => Object.keys(state.byId).length || state.allIds.length;
+export const configurationLoaded = state =>
+  Object.keys(state.byId).length || state.allIds.length;
 
 export default (state = initialState, action) => {
   switch (action.type) {

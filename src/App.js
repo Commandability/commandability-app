@@ -1,7 +1,7 @@
 /**
  * CommandAbility App Main
- * 
- * Handle all screen and prompt navigation stacks, and create and manage the global redux store shared with all components. 
+ *
+ * Handle all screen and prompt navigation stacks, and create and manage the global redux store shared with all components.
  */
 
 import React from 'react';
@@ -19,7 +19,7 @@ import {
   IncidentScreen,
   GroupPrompt,
   EndScreen,
-  ExitIncidentPrompt
+  ExitIncidentPrompt,
 } from './screens';
 import colors from './modules/colors';
 
@@ -57,7 +57,7 @@ const AppNavigator = createSwitchNavigator(
     AuthStack,
     AppStack,
     IncidentStack,
-    EndStack
+    EndStack,
   },
   {
     defaultNavigationOptions,

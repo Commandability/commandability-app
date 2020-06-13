@@ -13,7 +13,7 @@ const setInitialEpoch = (state, action) => {
   const { initialEpoch } = payload;
   return {
     ...state,
-    initialEpoch
+    initialEpoch,
   };
 };
 

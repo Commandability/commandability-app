@@ -4,7 +4,12 @@
  * Actions to add and remove personnel from selected list.
  */
 
-import { TOGGLE_SELECTED_PERSON, SELECT_PERSON, DESELECT_PERSON, CLEAR_SELECTED_PERSONNEL } from './types';
+import {
+  TOGGLE_SELECTED_PERSON,
+  SELECT_PERSON,
+  DESELECT_PERSON,
+  CLEAR_SELECTED_PERSONNEL,
+} from './types';
 
 export const toggleSelectedPersonById = (id, locationId) => ({
   type: TOGGLE_SELECTED_PERSON,

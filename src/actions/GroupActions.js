@@ -28,5 +28,5 @@ export const setVisibility = (group, newVisibility) => {
 
 export const setGroup = (locationId, name, visibility) => ({
   type: SET_GROUP,
-  payload: { locationId, name, visibility }
+  payload: { locationId, name, visibility },
 });

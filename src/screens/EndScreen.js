@@ -72,7 +72,7 @@ class EndScreen extends Component {
 
   _exitWithoutSaving = () => {
     this.props.navigation.navigate('ExitIncidentPrompt');
-  }
+  };
 
   _resumeIncident = () => {
     const { resumeIncident } = this.props;

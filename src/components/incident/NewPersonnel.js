@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -25,7 +31,7 @@ class NewPersonnel extends Component {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
     };
-    this.setState({firstName: '', lastName: '', badge: ''});
+    this.setState({ firstName: '', lastName: '', badge: '' });
     console.log(person);
     addPerson(person, true, STAGING);
     setPersonLocationId(
@@ -33,13 +39,16 @@ class NewPersonnel extends Component {
       { locationId: '', name: 'New Entry' },
       { locationId: STAGING, name: 'Staging' }
     );
-  }
+  };
 
   render() {
     return (
       <View style={styles.layout}>
         <View style={styles.groupHeader}>
-          <Text style={styles.groupHeaderContent}> Add Temporary Personnel </Text>
+          <Text style={styles.groupHeaderContent}>
+            {' '}
+            Add Temporary Personnel{' '}
+          </Text>
         </View>
         <View style={styles.firstNameStyle}>
           <TextInput
@@ -73,7 +82,7 @@ class NewPersonnel extends Component {
           >
             <Text style={styles.buttonContent}> Add New Entry </Text>
           </TouchableOpacity>
-          </View>
+        </View>
       </View>
     );
   }
@@ -81,10 +90,13 @@ class NewPersonnel extends Component {
 
 NewPersonnel.propTypes = {
   addPerson: PropTypes.func,
-  setPersonLocationId: PropTypes.func,  
+  setPersonLocationId: PropTypes.func,
 };
 
-export default connect( null, { setPersonLocationId, addPerson })(NewPersonnel);
+export default connect(
+  null,
+  { setPersonLocationId, addPerson }
+)(NewPersonnel);
 
 const styles = StyleSheet.create({
   layout: {

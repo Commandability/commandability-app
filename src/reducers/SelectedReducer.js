@@ -7,7 +7,7 @@
 
 import {
   TOGGLE_SELECTED_PERSON,
-  SELECT_PERSON, 
+  SELECT_PERSON,
   DESELECT_PERSON,
   CLEAR_SELECTED_PERSONNEL,
   SET_VISIBILITY,
@@ -50,19 +50,22 @@ const toggleSelectedPersonById = (state, action) => {
 
 const selectPerson = (state, action) => {
   const { payload } = action;
-  const { person: { id } } = payload;
+  const {
+    person: { id },
+  } = payload;
 
   if (state.includes(id)) {
     return state;
-  }
-  else{
+  } else {
     return state.concat(id);
   }
 };
 
 const deselectPerson = (state, action) => {
   const { payload } = action;
-  const { person: { id } } = payload;
+  const {
+    person: { id },
+  } = payload;
 
   return state.filter(currId => currId != id);
 };

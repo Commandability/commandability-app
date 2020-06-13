@@ -100,10 +100,13 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {
-  clearSelectedPersonnel,
-  setPersonLocationId,
-})(RosterList);
+export default connect(
+  mapStateToProps,
+  {
+    clearSelectedPersonnel,
+    setPersonLocationId,
+  }
+)(RosterList);
 
 const styles = StyleSheet.create({
   listContainer: {

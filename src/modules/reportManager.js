@@ -18,10 +18,9 @@ export const generateCurrentReport = () => {
   let reportString = '';
   if (report) {
     reportString += `Location: ${report['LOCATION']}\n`;
-    if(report['NOTES']){
+    if (report['NOTES']) {
       reportString += `Notes: ${report['NOTES']}\n`;
-    }
-    else{
+    } else {
       reportString += `Notes: none.\n`;
     }
     for (const entry in report) {
@@ -102,10 +101,9 @@ export const backupReports = async () => {
         const uploadPath = `/users/${uid}/${uploadId}`;
         let storageRef = storage().ref();
         let reportRef = storageRef.child(uploadPath);
-        try { 
+        try {
           return reportRef.putString(report);
-        }
-        catch (error){
+        } catch (error) {
           throw new Error(error);
         }
       });
@@ -113,8 +111,7 @@ export const backupReports = async () => {
       console.log(uploadPromises);
       if (uploadPromises.length > 0) {
         Alert.alert('Reports uploaded');
-      }
-      else {
+      } else {
         Alert.alert('No new reports uploaded');
       }
       deleteAllReports();

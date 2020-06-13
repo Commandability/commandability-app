@@ -1,13 +1,13 @@
 {
-    "cSpell.words": [
-        "component",
-        "flatlist",
-        "netinfo",
-        "persistor",
-        "unmount",
-        "unsubscriber",
-        "uuidv",
-        "will"
-    ],
-    "eslint.enable": true
+  "cSpell.words": [
+    "component",
+    "flatlist",
+    "netinfo",
+    "persistor",
+    "unmount",
+    "unsubscriber",
+    "uuidv",
+    "will"
+  ],
+  "eslint.enable": true
 }

@@ -5,13 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import {
-  Alert,
-  TextInput,
-  Button,
-  View,
-  StyleSheet,
-} from 'react-native';
+import { Alert, TextInput, Button, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -42,8 +36,7 @@ class GroupPrompt extends Component {
       const { newName } = this.state || {};
       setName(group, newName);
       goBack();
-    }
-    else {
+    } else {
       Alert.alert('Error', 'Please enter a new name.', [
         {
           text: 'OK',
@@ -57,7 +50,7 @@ class GroupPrompt extends Component {
       navigation: { goBack },
     } = this.props;
     goBack();
-  }
+  };
 
   render() {
     return (

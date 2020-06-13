@@ -26,7 +26,7 @@ import { resetApp } from '../actions';
 import { updateUserData } from '../modules/configManager';
 import colors from '../modules/colors';
 import { scaleFont } from '../modules/fonts';
- import { backupReports } from '../modules/reportManager';
+import { backupReports } from '../modules/reportManager';
 
 class HomeScreen extends Component {
   constructor() {
@@ -37,7 +37,7 @@ class HomeScreen extends Component {
   componentDidMount() {
     const { currentUser } = auth();
     this.setState({ currentUser, loading: false });
-    this.props.navigation.setParams({userEmail: auth().currentUser.email});
+    this.props.navigation.setParams({ userEmail: auth().currentUser.email });
 
     const { activeReport, completedReport } = this.props;
     if (activeReport) {
@@ -48,7 +48,7 @@ class HomeScreen extends Component {
     }
   }
 
-  static navigationOptions = ({navigation}) => {
+  static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: navigation.getParam('userEmail'),
       headerTitleStyle: {
@@ -57,7 +57,7 @@ class HomeScreen extends Component {
         fontSize: scaleFont(6),
       },
     };
-  }
+  };
 
   _startIncident = () => {
     const { configurationLoaded } = this.props;
@@ -113,7 +113,7 @@ class HomeScreen extends Component {
 
   _backupReports = async () => {
     backupReports();
-  }
+  };
 
   _signOut = async () => {
     const { resetApp } = this.props;

@@ -88,10 +88,13 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  clearSelectedPersonnel,
-  setPersonLocationId,
-})(GroupList);
+export default connect(
+  mapStateToProps,
+  {
+    clearSelectedPersonnel,
+    setPersonLocationId,
+  }
+)(GroupList);
 
 const styles = StyleSheet.create({
   listContainer: {

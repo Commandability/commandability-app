@@ -54,7 +54,7 @@ const logIncidentData = (state, action) => {
   const { entryId, data } = payload;
   return {
     ...state,
-    [entryId]: data
+    [entryId]: data,
   };
 };
 

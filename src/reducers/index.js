@@ -96,7 +96,7 @@ export const getSelectedPersonnelGroups = state =>
       group: fromGroups.getGroupByLocationId(state.groups, person.locationId),
     }));
 export const personIsSelected = (state, person) =>
-    fromSelected.personIsSelected(state.selected, person);
+  fromSelected.personIsSelected(state.selected, person);
 
 // Groups selectors
 export const getGroupByLocationId = (state, locationId) =>

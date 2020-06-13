@@ -15,7 +15,6 @@ import groups, * as fromGroups from './GroupReducer';
 import report, * as fromReport from './ReportReducer';
 import time, * as fromTime from './TimeReducer';
 import selected, * as fromSelected from './SelectedReducer';
-import incident, * as fromIncident from './IncidentReducer';
 import { RESET_APP } from '../actions/types';
 
 // personnel reducer config, set persisted data to autoMergeLevel2 to track personnel changes

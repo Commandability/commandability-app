@@ -9,9 +9,8 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { Group } from '../incident/Group';
+import { Group, Roster, NewPersonnel } from '../incident';
 import colors from '../../modules/colors';
-import { Roster, NewPersonnel } from '../../components/incident';
 import {
   GROUP_ONE,
   GROUP_TWO,

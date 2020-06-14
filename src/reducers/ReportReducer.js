@@ -16,6 +16,7 @@ import {
   SET_NAME,
   SET_VISIBILITY,
 } from '../actions/types';
+import { ROSTER } from '../modules/locationIds';
 
 const logStartIncident = action => {
   const { payload } = action;
@@ -108,17 +109,30 @@ const logSetLocationId = (state, action) => {
     entryId,
     dateTime,
     person: { badge, firstName, lastName },
-    prevLocationData: { name: prevName },
-    nextLocationData: { name: nextName },
+    prevLocationData: { name: prevName, locationId: prevLocationId },
+    nextLocationData: { name: nextName, locationId: nextLocationId },
   } = payload;
+
+  let log = '';
+  if (prevLocationId === ROSTER) {
+    log = `${
+      badge ? badge + ' - ' : ''
+    }${firstName} ${lastName} added to incident`;
+  } else if (nextLocationId === ROSTER) {
+    log = `${
+      badge ? badge + ' - ' : ''
+    }${firstName} ${lastName} removed from incident`;
+  } else {
+    log = `${
+      badge ? badge + ' - ' : ''
+    }${firstName} ${lastName} moved from ${prevName} to ${nextName}`;
+  }
 
   return {
     ...state,
     [entryId]: {
       dateTime,
-      log: `${
-        badge ? badge + ' - ' : ''
-      }${firstName} ${lastName} moved from ${prevName} to ${nextName}`,
+      log,
     },
   };
 };

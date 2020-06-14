@@ -13,7 +13,7 @@ import {
   SET_VISIBILITY,
   RESET_INCIDENT,
 } from '../actions/types';
-import { ROSTER } from '../modules/locationIds';
+import { ROSTER, STAGING } from '../modules/locationIds';
 
 const initialState = {
   byId: {},
@@ -148,9 +148,10 @@ const removePersonId = (state, action) => {
 };
 
 // set all groupIds in a group to roster if the group is deleted
-const returnToRoster = (state, action) => {
+const returnToStaging = (state, action) => {
   const {
     payload: {
+      currTime,
       group: { locationId },
     },
   } = action;
@@ -161,8 +162,8 @@ const returnToRoster = (state, action) => {
     if (person.locationId === locationId) {
       byId[id] = {
         ...person,
-        locationId: ROSTER,
-        groupUpdateEpochTime: 0,
+        locationId: STAGING,
+        groupUpdateEpochTime: currTime,
       };
     } else {
       byId[id] = {
@@ -228,7 +229,7 @@ export default (state = initialState, action) => {
       if (newVisibility) {
         break;
       } else {
-        return returnToRoster(state, action);
+        return returnToStaging(state, action);
       }
     }
   }

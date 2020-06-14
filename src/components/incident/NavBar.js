@@ -47,48 +47,69 @@ class NavBar extends Component {
     return (
       <View style={styles.navBar}>
         <Timer initialEpoch={initialEpoch} />
-        <View style={styles.pageOptions}>
+        <View style={styles.pageOption}>
           <TouchableOpacity
-            style={styles.container}
             onPress={this._onAddGroupPressed}
             disabled={editGroupMode || removeGroupMode}
           >
-            <Text style={styles.pageOptionContent}> Add Group </Text>
+            <Text
+              style={[
+                styles.pageOptionContent,
+                addGroupMode
+                  ? styles.selected
+                  : (editGroupMode || removeGroupMode) && styles.deselected,
+              ]}
+            >
+              {' '}
+              Add Group{' '}
+            </Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.pageOptions}>
+        <View style={styles.pageOption}>
           <TouchableOpacity
-            style={styles.container}
             onPress={this._onRemoveGroupPressed}
             disabled={editGroupMode || addGroupMode}
           >
-            <Text style={styles.pageOptionContent}> Remove Group </Text>
+            <Text
+              style={[
+                styles.pageOptionContent,
+                removeGroupMode
+                  ? styles.selected
+                  : (editGroupMode || addGroupMode) && styles.deselected,
+              ]}
+            >
+              {' '}
+              Remove Group{' '}
+            </Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.pageOptions}>
+        <View style={styles.pageOption}>
           <TouchableOpacity
-            style={styles.container}
             onPress={this._onEditGroupPressed}
             disabled={removeGroupMode || addGroupMode}
           >
-            <Text style={styles.pageOptionContent}> Edit Group </Text>
+            <Text
+              style={[
+                styles.pageOptionContent,
+                editGroupMode
+                  ? styles.selected
+                  : (removeGroupMode || addGroupMode) && styles.deselected,
+              ]}
+            >
+              {' '}
+              Edit Group{' '}
+            </Text>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.pageOptions}>
-          <TouchableOpacity
-            style={styles.container}
-            onPress={this._onTogglePressed}
-          >
+        <View style={styles.pageOption}>
+          <TouchableOpacity onPress={this._onTogglePressed}>
             <Text style={styles.pageOptionContent}> Toggle Group Area </Text>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.pageOptions}>
-          <TouchableOpacity
-            style={styles.container}
-            onPress={this._onEndPressed}
-          >
+        <View style={styles.pageOption}>
+          <TouchableOpacity onPress={this._onEndPressed}>
             <Text style={styles.pageOptionContent}> End </Text>
           </TouchableOpacity>
         </View>
@@ -121,19 +142,26 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.primary.dark,
     borderWidth: 0.5,
-  },
-  pageOptions: {
-    flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  pageOption: {
+    flex: 1,
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderWidth: 1,
   },
   pageOptionContent: {
     fontSize: scaleFont(5),
-    textAlignVertical: 'center',
-    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     color: colors.primary.text,
   },
-  container: {
-    flex: 1,
+  selected: {
+    color: colors.secondary.light,
+  },
+  deselected: {
+    color: colors.primary.main,
   },
 });

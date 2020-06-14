@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from 'react';
-import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
+import { Alert, TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -57,7 +57,22 @@ class Group extends Component {
       setVisibility(group, true);
     }
     if (removeGroupMode) {
-      setVisibility(group, false);
+      Alert.alert(
+        'Remove group?',
+        'All personnel will be returned to staging',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+          },
+          {
+            text: 'OK',
+            onPress: () => {
+              setVisibility(group, false);
+            },
+          },
+        ]
+      );
     }
     if (editGroupMode) {
       navigate('GroupPrompt', group);

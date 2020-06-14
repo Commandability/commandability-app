@@ -21,11 +21,6 @@ class GroupPrompt extends Component {
     };
   }
 
-  static navigationOptions = {
-    title: 'Edit Group',
-    headerLeft: null,
-  };
-
   _onSave = () => {
     if (this.state.newName) {
       const {

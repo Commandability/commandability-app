@@ -45,13 +45,14 @@ export const setPersonLocationId = (
 ) => {
   const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
+  const currTime = Date.now();
   return {
     type: SET_PERSON_LOCATION_ID,
     payload: {
       entryId,
       dateTime,
       person,
-      currTime: Date.now(),
+      currTime,
       prevLocationData,
       nextLocationData,
     },

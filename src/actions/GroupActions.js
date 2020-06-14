@@ -22,7 +22,7 @@ export const setVisibility = (group, newVisibility) => {
   const dateTime = new Date().toLocaleString();
   return {
     type: SET_VISIBILITY,
-    payload: { entryId, dateTime, group, newVisibility },
+    payload: { entryId, dateTime, currTime: Date.now(), group, newVisibility },
   };
 };
 

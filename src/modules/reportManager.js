@@ -108,7 +108,6 @@ export const backupReports = async () => {
         }
       });
       await Promise.all(uploadPromises);
-      console.log(uploadPromises);
       if (uploadPromises.length > 0) {
         Alert.alert('Reports uploaded');
       } else {

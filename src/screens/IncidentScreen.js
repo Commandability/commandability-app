@@ -10,7 +10,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import auth from '@react-native-firebase/auth';
 
-import { NavBar, Group, Staging, NewPersonnel, Roster } from '../components/incident';
+import {
+  NavBar,
+  Group,
+  Staging,
+  NewPersonnel,
+  Roster,
+} from '../components/incident';
 import colors from '../modules/colors';
 import { activeReport, getInitialEpoch } from '../reducers';
 import { startIncident } from '../actions';
@@ -65,12 +71,10 @@ class IncidentScreen extends Component {
     this.setState(prevState => ({
       toggle: !prevState.toggle,
     }));
-  }
+  };
 
   groupSelected = () => {
     this.setState(() => ({
-      addGroupMode: false,
-      removeGroupMode: false,
       editGroupMode: false,
     }));
   };
@@ -104,30 +108,29 @@ class IncidentScreen extends Component {
           <View style={styles.stagingArea}>
             <Staging />
           </View>
-          {
-            this.state.toggle ? 
-              <View style={styles.groupArea}>
-                {groupIds.map(id => (
-                  <Group
-                    key={id}
-                    locationId={id}
-                    addGroupMode={this.state.addGroupMode}
-                    removeGroupMode={this.state.removeGroupMode}
-                    editGroupMode={this.state.editGroupMode}
-                    groupSelectedHandler={this.groupSelected}
-                  />
-            ))}
-          </View>
-          :
-          <View style={styles.container}>
-            <View style={styles.subContainer}>
-              <Roster />
+          {this.state.toggle ? (
+            <View style={styles.groupArea}>
+              {groupIds.map(id => (
+                <Group
+                  key={id}
+                  locationId={id}
+                  addGroupMode={this.state.addGroupMode}
+                  removeGroupMode={this.state.removeGroupMode}
+                  editGroupMode={this.state.editGroupMode}
+                  groupSelectedHandler={this.groupSelected}
+                />
+              ))}
             </View>
-            <View style={styles.subContainer}>
-              <NewPersonnel />
+          ) : (
+            <View style={styles.container}>
+              <View style={styles.subContainer}>
+                <Roster />
+              </View>
+              <View style={styles.subContainer}>
+                <NewPersonnel />
+              </View>
             </View>
-          </View>
-        }
+          )}
         </View>
       </View>
     );
@@ -181,4 +184,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-

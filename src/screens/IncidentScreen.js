@@ -93,21 +93,20 @@ class IncidentScreen extends Component {
     ];
 
     return (
-      <View style={styles.incidentLayout}>
-        <NavBar
-          initialEpoch={activeReport ? activeInitialEpoch : this.initialEpoch}
-          addGroupHandler={this.addGroup}
-          removeGroupHandler={this.removeGroup}
-          editGroupHandler={this.editGroup}
-          toggleHandler={this._toggleArea}
-          addGroupMode={this.state.addGroupMode}
-          removeGroupMode={this.state.removeGroupMode}
-          editGroupMode={this.state.editGroupMode}
-        />
-        <View style={styles.pageLayout}>
-          <View style={styles.stagingArea}>
+      <View style={styles.pageLayout}>
+        <View style={styles.stagingArea}>
             <Staging />
-          </View>
+        </View>
+        <View style={styles.subPageLayout}>
+          <NavBar
+            initialEpoch={activeReport ? activeInitialEpoch : this.initialEpoch}
+            addGroupHandler={this.addGroup}
+            removeGroupHandler={this.removeGroup}
+            editGroupHandler={this.editGroup}
+            addGroupMode={this.state.addGroupMode}
+            removeGroupMode={this.state.removeGroupMode}
+            editGroupMode={this.state.editGroupMode}
+          />
           {this.state.toggle ? (
             <View style={styles.groupArea}>
               {groupIds.map(id => (
@@ -157,13 +156,13 @@ export default connect(
 )(IncidentScreen);
 
 const styles = StyleSheet.create({
-  incidentLayout: {
-    flexDirection: 'column',
-    flex: 2,
-  },
   pageLayout: {
     flexDirection: 'row',
     flex: 10,
+  },
+  subPageLayout: {
+    flexDirection: 'column',
+    flex: 4,
   },
   stagingArea: {
     flexDirection: 'column',

@@ -50,25 +50,29 @@ class NewPersonnel extends Component {
           </Text>
         </View>
         <View style={styles.firstNameStyle}>
+          <Text style={styles.lableStyle}>First Name*</Text>
           <TextInput
             style={styles.buttonContainer}
-            placeholder="First Name"
+            maxLength={36}
             value={this.state.firstName}
             onChangeText={firstName => this.setState({ firstName })}
           />
         </View>
         <View style={styles.lastNameStyle}>
+          <Text style={styles.lableStyle}>Last Name*</Text>
           <TextInput
             style={styles.buttonContainer}
-            placeholder="Last Name"
+            maxLength={36}
             value={this.state.lastName}
             onChangeText={lastName => this.setState({ lastName })}
           />
         </View>
         <View style={styles.badgeNumberStyle}>
+          <Text style={styles.lableStyle}>Badge Number</Text>
           <TextInput
             style={styles.buttonContainer}
-            placeholder="Badge Number"
+            keyboardType={'numeric'}
+            maxLength={10}
             value={this.state.badge}
             onChangeText={badge => this.setState({ badge })}
           />
@@ -109,6 +113,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   badgeNumberStyle: {
+    flex: 1,
+  },
+  buttonContainer: {
+    flex: 1,
+    borderWidth: .5,
+  },
+  lableStyle: {
+    fontSize: scaleFont(6),
     flex: 1,
   },
   groupHeader: {

@@ -1,7 +1,7 @@
 /**
- * NavBar Component
+ * OptionBar Component
  *
- * This component handles the NavBar above the incident screen, including:
+ * This component handles the OptionBar above the incident screen, including:
  *  - the incident timer
  *  - the edit group, remove group, and end incident buttons
  */
@@ -15,13 +15,9 @@ import { scaleFont } from '../../modules/fonts';
 import colors from '../../modules/colors';
 import Timer from './Timer';
 
-class NavBar extends Component {
+class OptionBar extends Component {
   _onEndPressed = () => {
     this.props.navigation.navigate('EndScreen');
-  };
-
-  _onTogglePressed = () => {
-    this.props.toggleHandler();
   };
 
   _onAddGroupPressed = () => {
@@ -45,7 +41,7 @@ class NavBar extends Component {
     } = this.props;
 
     return (
-      <View style={styles.navBar}>
+      <View style={styles.OptionBar}>
         <Timer initialEpoch={initialEpoch} />
         <View style={styles.pageOption}>
           <TouchableOpacity
@@ -101,13 +97,6 @@ class NavBar extends Component {
             </Text>
           </TouchableOpacity>
         </View>
-
-        <View style={styles.pageOption}>
-          <TouchableOpacity onPress={this._onTogglePressed}>
-            <Text style={styles.pageOptionContent}> Toggle Group Area </Text>
-          </TouchableOpacity>
-        </View>
-
         <View style={styles.pageOption}>
           <TouchableOpacity onPress={this._onEndPressed}>
             <Text style={styles.pageOptionContent}> End </Text>
@@ -119,7 +108,7 @@ class NavBar extends Component {
 }
 
 // props validation
-NavBar.propTypes = {
+OptionBar.propTypes = {
   navigation: PropTypes.object,
   initialTime: PropTypes.number,
   report: PropTypes.object,
@@ -131,13 +120,12 @@ NavBar.propTypes = {
   addGroupMode: PropTypes.bool,
   removeGroupMode: PropTypes.bool,
   editGroupMode: PropTypes.bool,
-  toggleHandler: PropTypes.func,
 };
 
-export default withNavigation(NavBar);
+export default withNavigation(OptionBar);
 
 const styles = StyleSheet.create({
-  navBar: {
+  OptionBar: {
     flexDirection: 'row',
     flex: 1,
     backgroundColor: colors.primary.dark,

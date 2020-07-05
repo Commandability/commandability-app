@@ -5,13 +5,13 @@
  */
 
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import auth from '@react-native-firebase/auth';
 
 import {
-  NavBar,
+  OptionBar,
   Group,
   Staging,
   NewPersonnel,
@@ -20,6 +20,7 @@ import {
 import colors from '../modules/colors';
 import { activeReport, getInitialEpoch } from '../reducers';
 import { startIncident } from '../actions';
+import { scaleFont } from '../modules/fonts';
 import {
   GROUP_ONE,
   GROUP_TWO,
@@ -67,9 +68,15 @@ class IncidentScreen extends Component {
     }));
   };
 
-  _toggleArea = () => {
-    this.setState(prevState => ({
-      toggle: !prevState.toggle,
+  _toggleGroupArea = () => {
+    this.setState(() => ({
+      toggle: true,
+    }));
+  };
+
+  _togglePersonnelArea = () => {
+    this.setState(() => ({
+      toggle: false,
     }));
   };
 
@@ -98,27 +105,42 @@ class IncidentScreen extends Component {
             <Staging />
         </View>
         <View style={styles.subPageLayout}>
-          <NavBar
-            initialEpoch={activeReport ? activeInitialEpoch : this.initialEpoch}
-            addGroupHandler={this.addGroup}
-            removeGroupHandler={this.removeGroup}
-            editGroupHandler={this.editGroup}
-            addGroupMode={this.state.addGroupMode}
-            removeGroupMode={this.state.removeGroupMode}
-            editGroupMode={this.state.editGroupMode}
-          />
+          <View style={styles.navBar}>
+            <View style={styles.pageOption}>
+              <TouchableOpacity onPress={this._toggleGroupArea}>
+                <Text style={styles.pageOptionContent}> Toggle Group Area </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.pageOption}>
+              <TouchableOpacity onPress={this._togglePersonnelArea}>
+                <Text style={styles.pageOptionContent}> Toggle Personnel Area </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
           {this.state.toggle ? (
-            <View style={styles.groupArea}>
-              {groupIds.map(id => (
-                <Group
-                  key={id}
-                  locationId={id}
-                  addGroupMode={this.state.addGroupMode}
-                  removeGroupMode={this.state.removeGroupMode}
-                  editGroupMode={this.state.editGroupMode}
-                  groupSelectedHandler={this.groupSelected}
-                />
-              ))}
+            <View style={styles.groupContainer}>
+              <OptionBar
+                initialEpoch={activeReport ? activeInitialEpoch : this.initialEpoch}
+                addGroupHandler={this.addGroup}
+                removeGroupHandler={this.removeGroup}
+                editGroupHandler={this.editGroup}
+                addGroupMode={this.state.addGroupMode}
+                removeGroupMode={this.state.removeGroupMode}
+                editGroupMode={this.state.editGroupMode}
+              />
+              <View style={styles.groupArea}>
+                
+                {groupIds.map(id => (
+                  <Group
+                    key={id}
+                    locationId={id}
+                    addGroupMode={this.state.addGroupMode}
+                    removeGroupMode={this.state.removeGroupMode}
+                    editGroupMode={this.state.editGroupMode}
+                    groupSelectedHandler={this.groupSelected}
+                  />
+                ))}
+              </View>
             </View>
           ) : (
             <View style={styles.container}>
@@ -164,22 +186,44 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     flex: 4,
   },
+  navBar: {
+    flexDirection: 'row',
+    flex: 2,
+    backgroundColor: colors.primary.dark,
+  },
   stagingArea: {
     flexDirection: 'column',
     flex: 1,
   },
   groupArea: {
     flexDirection: 'column',
-    flex: 3,
+    flex: 9,
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     backgroundColor: colors.primary.dark,
   },
   container: {
-    flex: 3,
+    flex: 9,
     flexDirection: 'row',
   },
   subContainer: {
     flex: 1,
+  },
+  groupContainer: {
+    flexDirection: 'column',
+    flex: 9,
+  },
+  pageOption: {
+    flex: 1,
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+  },
+  pageOptionContent: {
+    fontSize: scaleFont(5),
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: colors.primary.text,
   },
 });

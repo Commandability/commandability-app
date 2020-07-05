@@ -1,7 +1,7 @@
 import Group from './Group';
 import ListItem from './ListItem';
 import GroupList from './GroupList';
-import NavBar from './NavBar';
+import OptionBar from './OptionBar';
 import Roster from './Roster';
 import RosterItem from './RosterItem';
 import RosterList from './RosterList';
@@ -12,7 +12,7 @@ export {
   Group,
   ListItem,
   GroupList,
-  NavBar,
+  OptionBar,
   Roster,
   RosterItem,
   RosterList,

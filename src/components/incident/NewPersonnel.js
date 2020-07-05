@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
-    borderWidth: .5,
+    borderWidth: 0.5,
   },
   lableStyle: {
     fontSize: scaleFont(6),

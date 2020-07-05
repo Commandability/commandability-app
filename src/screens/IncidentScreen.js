@@ -102,27 +102,47 @@ class IncidentScreen extends Component {
     return (
       <View style={styles.pageLayout}>
         <View style={styles.stagingArea}>
-            <Staging />
+          <Staging />
         </View>
         <View style={styles.subPageLayout}>
           <View style={styles.navBar}>
             <View style={styles.pageOption}>
               <TouchableOpacity onPress={this._toggleGroupArea}>
-                <Text style={[styles.pageOptionContent, this.state.toggle ? styles.toggleSelected 
-                  : styles.toggleDeselected]}> Toggle Group Area </Text>
+                <Text
+                  style={[
+                    styles.pageOptionContent,
+                    this.state.toggle
+                      ? styles.toggleSelected
+                      : styles.toggleDeselected,
+                  ]}
+                >
+                  {' '}
+                  Toggle Group Area{' '}
+                </Text>
               </TouchableOpacity>
             </View>
             <View style={styles.pageOption}>
               <TouchableOpacity onPress={this._togglePersonnelArea}>
-                <Text style={[styles.pageOptionContent, !this.state.toggle ? styles.toggleSelected 
-                  : styles.toggleDeselected]}> Toggle Personnel Area </Text>
+                <Text
+                  style={[
+                    styles.pageOptionContent,
+                    !this.state.toggle
+                      ? styles.toggleSelected
+                      : styles.toggleDeselected,
+                  ]}
+                >
+                  {' '}
+                  Toggle Personnel Area{' '}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
           {this.state.toggle ? (
             <View style={styles.groupContainer}>
               <OptionBar
-                initialEpoch={activeReport ? activeInitialEpoch : this.initialEpoch}
+                initialEpoch={
+                  activeReport ? activeInitialEpoch : this.initialEpoch
+                }
                 addGroupHandler={this.addGroup}
                 removeGroupHandler={this.removeGroup}
                 editGroupHandler={this.editGroup}
@@ -131,7 +151,6 @@ class IncidentScreen extends Component {
                 editGroupMode={this.state.editGroupMode}
               />
               <View style={styles.groupArea}>
-                
                 {groupIds.map(id => (
                   <Group
                     key={id}

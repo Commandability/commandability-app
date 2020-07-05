@@ -108,12 +108,14 @@ class IncidentScreen extends Component {
           <View style={styles.navBar}>
             <View style={styles.pageOption}>
               <TouchableOpacity onPress={this._toggleGroupArea}>
-                <Text style={styles.pageOptionContent}> Toggle Group Area </Text>
+                <Text style={[styles.pageOptionContent, this.state.toggle ? styles.toggleSelected 
+                  : styles.toggleDeselected]}> Toggle Group Area </Text>
               </TouchableOpacity>
             </View>
             <View style={styles.pageOption}>
               <TouchableOpacity onPress={this._togglePersonnelArea}>
-                <Text style={styles.pageOptionContent}> Toggle Personnel Area </Text>
+                <Text style={[styles.pageOptionContent, !this.state.toggle ? styles.toggleSelected 
+                  : styles.toggleDeselected]}> Toggle Personnel Area </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -194,6 +196,10 @@ const styles = StyleSheet.create({
   stagingArea: {
     flexDirection: 'column',
     flex: 1,
+  },
+  toggleSelected: {
+    color: colors.secondary.dark,
+    fontWeight: 'bold',
   },
   groupArea: {
     flexDirection: 'column',

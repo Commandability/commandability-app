@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary.dark,
   },
   container: {
-    flex: 9,
+    flex: 13,
     flexDirection: 'row',
   },
   subContainer: {
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   },
   groupContainer: {
     flexDirection: 'column',
-    flex: 9,
+    flex: 13,
   },
   pageOption: {
     flex: 1,

@@ -19,10 +19,6 @@ import RosterItem from './RosterItem';
 import { ROSTER, STAGING } from '../../modules/locationIds';
 
 class RosterList extends React.PureComponent {
-  constructor() {
-    super();
-  }
-
   _onPress = () => {
     const {
       selectedPersonnelGroups,
@@ -64,7 +60,7 @@ class RosterList extends React.PureComponent {
   _keyExtractor = item => item.id;
 
   render() {
-    const { personnel, selectedGroup } = this.props;
+    const { personnel, selectedGroup, query } = this.props;
     return (
       <TouchableOpacity
         onPress={this._onPress}
@@ -72,7 +68,18 @@ class RosterList extends React.PureComponent {
         disabled={selectedGroup === '' || selectedGroup === ROSTER}
       >
         <FlatList
-          data={personnel}
+          data={
+            query
+              ? personnel.filter(person => {
+                  const { firstName, lastName, badge } = person || undefined;
+                  return (
+                    firstName.toLowerCase().includes(query) ||
+                    lastName.toLowerCase().includes(query) ||
+                    (badge ? badge.includes(query) : false)
+                  );
+                })
+              : personnel
+          }
           renderItem={this._renderItem}
           keyExtractor={this._keyExtractor}
           extraData={this.props}
@@ -90,6 +97,7 @@ RosterList.propTypes = {
   setPersonLocationId: PropTypes.func,
   personnel: PropTypes.array,
   selectedGroup: PropTypes.string,
+  query: PropTypes.string,
 };
 
 const mapStateToProps = state => {

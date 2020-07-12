@@ -17,8 +17,9 @@ import styles from './styles';
 class GroupPrompt extends Component {
   constructor(props) {
     super(props);
+    const { group: { name }} = props;
     this.state = {
-      newName: '',
+      newName: name,
     };
   }
 

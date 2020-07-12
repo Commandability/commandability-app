@@ -49,7 +49,7 @@ class NewPersonnel extends Component {
           </Text>
         </View>
         <View style={styles.firstNameStyle}>
-          <Text style={styles.lableStyle}>First Name*</Text>
+          <Text style={styles.labelStyle}>First Name*</Text>
           <TextInput
             style={styles.buttonContainer}
             maxLength={36}
@@ -58,7 +58,7 @@ class NewPersonnel extends Component {
           />
         </View>
         <View style={styles.lastNameStyle}>
-          <Text style={styles.lableStyle}>Last Name*</Text>
+          <Text style={styles.labelStyle}>Last Name*</Text>
           <TextInput
             style={styles.buttonContainer}
             maxLength={36}
@@ -67,7 +67,7 @@ class NewPersonnel extends Component {
           />
         </View>
         <View style={styles.badgeNumberStyle}>
-          <Text style={styles.lableStyle}>Badge Number</Text>
+          <Text style={styles.labelStyle}>Badge Number</Text>
           <TextInput
             style={styles.buttonContainer}
             keyboardType={'numeric'}

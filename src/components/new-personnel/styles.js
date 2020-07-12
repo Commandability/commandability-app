@@ -21,7 +21,7 @@ export default StyleSheet.create({
     flex: 1,
     borderWidth: 0.5,
   },
-  lableStyle: {
+  labelStyle: {
     fontSize: scaleFont(6),
     flex: 1,
   },

@@ -1,3 +1,9 @@
+/**
+ * Roster Component
+ *
+ * Manages displaying the roster and search bar.
+ */
+
 import React, { Component } from 'react';
 import { Text, TextInput, View } from 'react-native';
 

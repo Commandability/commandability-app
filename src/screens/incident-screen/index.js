@@ -13,7 +13,7 @@ import auth from '@react-native-firebase/auth';
 import {
   OptionBar,
   Group,
-  Staging,
+  StagingList,
   NewPersonnel,
   Roster,
 } from '../../components';
@@ -101,7 +101,7 @@ class IncidentScreen extends Component {
     return (
       <View style={styles.pageLayout}>
         <View style={styles.stagingArea}>
-          <Staging />
+          <StagingList />
         </View>
         <View style={styles.subPageLayout}>
           <View style={styles.navBar}>

@@ -1,3 +1,9 @@
+/**
+ * NewPersonnel Component
+ *
+ * Manages adding a new person to the roster.
+ */
+
 import React, { Component } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';

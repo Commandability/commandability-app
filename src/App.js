@@ -11,7 +11,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import configureStore from './modules/configureStore';
+import configureStore from './modules/configure-store';
 import {
   LoadingScreen,
   LoginScreen,

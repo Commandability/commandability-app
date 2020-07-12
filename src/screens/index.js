@@ -4,22 +4,20 @@
  * Export all app screens and prompts.
  */
 
-import LoadingScreen from './LoadingScreen';
-import LoginScreen from './LoginScreen';
-import HomeScreen from './HomeScreen';
-import IncidentScreen from './IncidentScreen';
-import GroupPrompt from './GroupPrompt';
-import PersonPrompt from './PersonPrompt';
-import EndScreen from './EndScreen';
-import ExitIncidentPrompt from './ExitIncidentPrompt';
+import EndScreen from './end-screen';
+import ExitIncidentPrompt from './exit-incident-prompt';
+import GroupPrompt from './group-prompt';
+import HomeScreen from './home-screen';
+import IncidentScreen from './incident-screen';
+import LoadingScreen from './loading-screen';
+import LoginScreen from './login-screen';
 
 export {
-  LoadingScreen,
-  LoginScreen,
-  HomeScreen,
-  IncidentScreen,
-  GroupPrompt,
-  PersonPrompt,
   EndScreen,
   ExitIncidentPrompt,
+  GroupPrompt,
+  HomeScreen,
+  IncidentScreen,
+  LoadingScreen,
+  LoginScreen,
 };

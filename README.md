@@ -18,6 +18,12 @@ Download or clone this repository, then run `npm install` inside the directory.
 - `/src/App.js`: contains base parent component
 - `/src/modules`: contains all custom modules
 
+screen storyboard
+redux files
+firebase
+suggest finding remote dev for maintenance
+take video once done for portfolio so its your work not some other idiots
+
 ## Modules
 
 - [React Native](https://facebook.github.io/react-native/)

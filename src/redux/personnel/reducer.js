@@ -46,7 +46,7 @@ const addPerson = (state, action) => {
       lastName,
       shift,
       locationId,
-      groupUpdateEpochTime,
+      locationUpdateTime,
     },
   } = payload;
   return {
@@ -58,7 +58,7 @@ const addPerson = (state, action) => {
       lastName,
       shift,
       locationId,
-      groupUpdateEpochTime,
+      locationUpdateTime,
       log,
     },
   };
@@ -104,7 +104,7 @@ const setPersonLocationId = (state, action) => {
     [id]: {
       ...person,
       locationId,
-      groupUpdateEpochTime: locationId === ROSTER ? 0 : currTime,
+      locationUpdateTime: locationId === ROSTER ? 0 : currTime,
     },
   };
 };
@@ -147,7 +147,7 @@ const removePersonId = (state, action) => {
   }
 };
 
-// set all groupIds in a group to roster if the group is deleted
+// set all locationIds in a group to staging if the group is deleted
 const returnToStaging = (state, action) => {
   const {
     payload: {
@@ -163,7 +163,7 @@ const returnToStaging = (state, action) => {
       byId[id] = {
         ...person,
         locationId: STAGING,
-        groupUpdateEpochTime: currTime,
+        locationUpdateTime: currTime,
       };
     } else {
       byId[id] = {
@@ -177,7 +177,7 @@ const returnToStaging = (state, action) => {
   };
 };
 
-// set all groupIds to default and groupUpdateEpochTime to 0 at end of incident
+// set all groupIds to default and locationUpdateTime to 0 at end of incident
 const resetIncident = state => {
   const byId = {};
   const allIds = [];
@@ -189,7 +189,7 @@ const resetIncident = state => {
       byId[id] = {
         ...person,
         locationId: ROSTER,
-        groupUpdateEpochTime: 0,
+        locationUpdateTime: 0,
       };
       allIds.push(id);
     }
@@ -209,9 +209,9 @@ export const getPersonnelByLocationId = (state, locationId) => {
 
 export const getPersonById = (state, id) => state.byId[id];
 
-export const getPersonGroupUpdateTime = (state, person) => {
+export const getLocationUpdateTime = (state, person) => {
   const { id } = person;
-  return state.byId[id].groupUpdateEpochTime;
+  return state.byId[id].locationUpdateTime;
 };
 
 export const configurationLoaded = state =>

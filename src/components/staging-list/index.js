@@ -2,7 +2,7 @@
  * StagingList Component
  *
  * Manages displaying personnel in the staging list, as well as  adding selected personnel to
- * the group when it is selected.
+ * the list when it is selected.
  */
 
 import React from 'react';
@@ -41,6 +41,7 @@ class StagingList extends React.PureComponent {
 
       setPersonLocationId(
         person,
+        // To report prev location
         prevGroup || { locationId: ROSTER, name: 'Roster' }, // Set prev group to roster if no prev group in redux
         { locationId: STAGING, name: 'Staging' }
       );
@@ -55,11 +56,11 @@ class StagingList extends React.PureComponent {
   _keyExtractor = item => item.id;
 
   render() {
-    const { personnel, selectedGroup } = this.props;
+    const { personnel, selectedLocation } = this.props;
     return (
       <TouchableOpacity
         onPress={this._onPress}
-        disabled={selectedGroup === '' || selectedGroup === STAGING}
+        disabled={selectedLocation === '' || selectedLocation === STAGING}
         style={styles.listContainer}
       >
         <FlatList
@@ -79,13 +80,13 @@ StagingList.propTypes = {
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocationId: PropTypes.func,
   personnel: PropTypes.array,
-  selectedGroup: PropTypes.string,
+  selectedLocation: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
     personnel: getPersonnelByLocationId(state, STAGING),
-    selectedGroup: getSelectedLocationId(state),
+    selectedLocation: getSelectedLocationId(state),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };

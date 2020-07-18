@@ -21,9 +21,9 @@ export default class Roster extends Component {
 
   render() {
     return (
-      <View style={styles.groupLayout}>
-        <View style={styles.groupHeader}>
-          <Text style={styles.groupHeaderContent}> Roster </Text>
+      <View style={styles.layout}>
+        <View style={styles.header}>
+          <Text style={styles.headerContent}> Roster </Text>
         </View>
         <TextInput
           style={styles.queryInput}

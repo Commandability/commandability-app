@@ -16,7 +16,7 @@ import {
 export const addPerson = (person, log = true, locationId) => {
   const id = uuidv4();
   const entryId = uuidv4(); // for storage in the report reducer
-  const groupUpdateEpochTime = log ? Date.now() : 0;
+  const locationUpdateTime = log ? Date.now() : 0;
   const dateTime = new Date().toLocaleString();
   return {
     type: ADD_PERSON,
@@ -24,7 +24,7 @@ export const addPerson = (person, log = true, locationId) => {
       entryId,
       dateTime,
       log,
-      person: { id, ...person, locationId, groupUpdateEpochTime },
+      person: { id, ...person, locationId, locationUpdateTime },
     },
   };
 };

@@ -38,6 +38,7 @@ class GroupList extends React.PureComponent {
       const { person, group: prevGroup } = personGroup;
       setPersonLocationId(
         person,
+        // To report prev location
         prevGroup || { locationId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
         group
       );
@@ -53,11 +54,11 @@ class GroupList extends React.PureComponent {
   keyExtractor = item => item.id;
 
   render() {
-    const { locationId, personnel, selectedGroup } = this.props;
+    const { locationId, personnel, selectedLocation } = this.props;
     return (
       <TouchableOpacity
         onPress={this.onPress}
-        disabled={selectedGroup === '' || selectedGroup === locationId}
+        disabled={selectedLocation === '' || selectedLocation === locationId}
         style={styles.listContainer}
       >
         <FlatList
@@ -79,7 +80,7 @@ GroupList.propTypes = {
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocationId: PropTypes.func,
   personnel: PropTypes.array,
-  selectedGroup: PropTypes.string,
+  selectedLocation: PropTypes.string,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -87,7 +88,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     group: getGroupByLocationId(state, locationId),
     personnel: getPersonnelByLocationId(state, locationId),
-    selectedGroup: getSelectedLocationId(state),
+    selectedLocation: getSelectedLocationId(state),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };

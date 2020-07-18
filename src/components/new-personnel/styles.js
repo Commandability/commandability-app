@@ -25,13 +25,13 @@ export default StyleSheet.create({
     fontSize: scaleFont(6),
     flex: 1,
   },
-  groupHeader: {
+  header: {
     flexDirection: 'row',
     flex: 1,
     padding: 5,
     backgroundColor: colors.secondary.dark,
   },
-  groupHeaderContent: {
+  headerContent: {
     flex: 5,
     fontSize: scaleFont(6),
     textAlign: 'center',

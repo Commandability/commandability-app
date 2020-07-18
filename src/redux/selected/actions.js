@@ -11,9 +11,9 @@ import {
   CLEAR_SELECTED_PERSONNEL,
 } from '../actions';
 
-export const toggleSelectedPersonById = (id, locationId) => ({
+export const togglePerson = (person, locationId) => ({
   type: TOGGLE_SELECTED_PERSON,
-  payload: { id, locationId },
+  payload: { person, locationId },
 });
 
 export const selectPerson = (person, locationId) => ({

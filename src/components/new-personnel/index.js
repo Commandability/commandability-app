@@ -42,8 +42,8 @@ class NewPersonnel extends Component {
   render() {
     return (
       <View style={styles.layout}>
-        <View style={styles.groupHeader}>
-          <Text style={styles.groupHeaderContent}>
+        <View style={styles.header}>
+          <Text style={styles.headerContent}>
             {' '}
             Add Temporary Personnel{' '}
           </Text>

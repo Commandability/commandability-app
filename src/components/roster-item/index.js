@@ -31,14 +31,14 @@ class RosterItem extends PureComponent {
   render() {
     const {
       item: { badge, firstName, lastName },
-      selectedGroup,
+      selectedLocation,
     } = this.props;
     return (
       // disable item if a list other than the parent list is selected,
       // so items can be moved to the items parent list
       <TouchableOpacity
         onPress={this._onPress}
-        disabled={selectedGroup == '' ? false : true}
+        disabled={selectedLocation == '' ? false : true}
       >
         <View>
           <Text>{`${badge ? badge + ' - ' : ''}${firstName} ${lastName}`}</Text>
@@ -54,12 +54,12 @@ RosterItem.propTypes = {
   groupName: PropTypes.string,
   item: PropTypes.object, // the current person
   locationId: PropTypes.string,
-  selectedGroup: PropTypes.string,
+  selectedLocation: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
-    selectedGroup: getSelectedLocationId(state),
+    selectedLocation: getSelectedLocationId(state),
   };
 };
 

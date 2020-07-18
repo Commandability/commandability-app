@@ -91,28 +91,29 @@ class Group extends Component {
       editGroupMode,
     } = this.props;
 
+    const renderSelectOverlay = visibility
+      ? removeGroupMode || editGroupMode
+        ? true
+        : false
+      : addGroupMode
+      ? true
+      : false;
+
     return (
-      <View style={styles.groupLayout}>
-        {((visibility && (removeGroupMode || editGroupMode)) ||
-          (!visibility && addGroupMode)) && (
+      <View style={styles.layout}>
+        {renderSelectOverlay && (
           <TouchableOpacity
-            style={
-              (addGroupMode || removeGroupMode || editGroupMode) &&
-              styles.groupSelect
-            }
+            style={styles.selectOverlay}
             onPress={this._onGroupSelected}
-            disabled={
-              addGroupMode || removeGroupMode || editGroupMode ? false : true
-            }
           />
         )}
         {visibility && (
           <>
             <TouchableOpacity
               onPress={this._onSelectAllPressed}
-              style={styles.groupHeader}
+              style={styles.header}
             >
-              <Text style={styles.groupHeaderContent}> {name} </Text>
+              <Text style={styles.headerContent}> {name} </Text>
             </TouchableOpacity>
             <GroupList locationId={locationId} />
           </>

@@ -4,7 +4,7 @@ import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
 
 export default StyleSheet.create({
-  groupSelect: {
+  selectOverlay: {
     backgroundColor: `rgb(12, 12, 12)`,
     position: 'absolute',
     top: 4,
@@ -14,13 +14,13 @@ export default StyleSheet.create({
     height: '100%',
     opacity: 0.6,
   },
-  groupLayout: {
+  layout: {
     height: '50%',
     width: '33%',
     flexDirection: 'column',
     padding: 4,
   },
-  groupHeader: {
+  header: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -28,7 +28,7 @@ export default StyleSheet.create({
     width: '100%',
     backgroundColor: colors.secondary.dark,
   },
-  groupHeaderContent: {
+  headerContent: {
     fontSize: scaleFont(6),
     color: colors.primary.text,
   },

@@ -67,7 +67,7 @@ class ListItem extends PureComponent {
     const {
       item: { badge, firstName, lastName },
       locationId,
-      selectedLocation,
+      selectedLocationId,
       personIsSelected,
     } = this.props;
     return (
@@ -76,7 +76,7 @@ class ListItem extends PureComponent {
       <TouchableOpacity
         onPress={this._onPress}
         disabled={
-          selectedLocation === locationId || selectedLocation === '' ? false : true
+          selectedLocationId === locationId || selectedLocationId === '' ? false : true
         }
       >
         <View>
@@ -103,14 +103,14 @@ ListItem.propTypes = {
   item: PropTypes.object, // the current person
   locationId: PropTypes.string, // the parent groupName
   togglePerson: PropTypes.func,
-  selectedLocation: PropTypes.string,
+  selectedLocationId: PropTypes.string,
   personIsSelected: PropTypes.bool,
 };
 
 const mapStateToProps = (state, ownProps) => {
   const { item } = ownProps;
   return {
-    selectedLocation: getSelectedLocationId(state),
+    selectedLocationId: getSelectedLocationId(state),
     locationUpdateTime: getLocationUpdateTime(state, item),
     personIsSelected: personIsSelected(state, item),
   };

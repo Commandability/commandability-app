@@ -15,6 +15,7 @@ import GroupList from '../group-list';
 import {
   getGroupByLocationId,
   getPersonnelByLocationId,
+  getSelectedLocationId,
   personIsSelected,
 } from '../../redux/selectors';
 import {
@@ -86,13 +87,15 @@ class Group extends Component {
   render() {
     const {
       group: { name, visibility, locationId },
+      selectedLocationId,
       addGroupMode,
       removeGroupMode,
       editGroupMode,
     } = this.props;
 
     const renderSelectOverlay = visibility
-      ? removeGroupMode || editGroupMode
+      ? removeGroupMode || editGroupMode ||
+      (selectedLocationId && selectedLocationId !== locationId)
         ? true
         : false
       : addGroupMode
@@ -129,6 +132,7 @@ Group.propTypes = {
   navigation: PropTypes.object,
   group: PropTypes.object,
   personnel: PropTypes.array,
+  selectedLocationId: PropTypes.string,
   selectPerson: PropTypes.func,
   deselectPerson: PropTypes.func,
   locationId: PropTypes.string,
@@ -147,6 +151,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     group: getGroupByLocationId(state, locationId),
     personnel,
+    selectedLocationId: getSelectedLocationId(state),
     allPersonnelSelected: personnel.every(person =>
       personIsSelected(state, person)
     ),

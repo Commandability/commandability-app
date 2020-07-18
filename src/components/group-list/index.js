@@ -54,11 +54,11 @@ class GroupList extends React.PureComponent {
   keyExtractor = item => item.id;
 
   render() {
-    const { locationId, personnel, selectedLocation } = this.props;
+    const { locationId, personnel, selectedLocationId } = this.props;
     return (
       <TouchableOpacity
         onPress={this.onPress}
-        disabled={selectedLocation === '' || selectedLocation === locationId}
+        disabled={selectedLocationId === '' || selectedLocationId === locationId}
         style={styles.listContainer}
       >
         <FlatList
@@ -80,7 +80,7 @@ GroupList.propTypes = {
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocationId: PropTypes.func,
   personnel: PropTypes.array,
-  selectedLocation: PropTypes.string,
+  selectedLocationId: PropTypes.string,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -88,7 +88,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     group: getGroupByLocationId(state, locationId),
     personnel: getPersonnelByLocationId(state, locationId),
-    selectedLocation: getSelectedLocationId(state),
+    selectedLocationId: getSelectedLocationId(state),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };

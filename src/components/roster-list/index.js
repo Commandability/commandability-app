@@ -65,12 +65,12 @@ class RosterList extends React.PureComponent {
   _keyExtractor = item => item.id;
 
   render() {
-    const { personnel, selectedLocation, query } = this.props;
+    const { personnel, selectedLocationId, query } = this.props;
     return (
       <TouchableOpacity
         onPress={this._onPress}
         style={styles.listContainer}
-        disabled={selectedLocation === '' || selectedLocation === ROSTER}
+        disabled={selectedLocationId === '' || selectedLocationId === ROSTER}
       >
         <FlatList
           data={
@@ -101,14 +101,14 @@ RosterList.propTypes = {
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocationId: PropTypes.func,
   personnel: PropTypes.array,
-  selectedLocation: PropTypes.string,
+  selectedLocationId: PropTypes.string,
   query: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
     personnel: getPersonnelByLocationId(state, ROSTER),
-    selectedLocation: getSelectedLocationId(state),
+    selectedLocationId: getSelectedLocationId(state),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };

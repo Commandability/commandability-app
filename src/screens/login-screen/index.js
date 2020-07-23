@@ -86,7 +86,7 @@ export default class LoginScreen extends Component {
           style={styles.textInput}
           autoCapitalize="none"
           placeholder="Email"
-          placeholderTextColor={colors.primary.light}
+          placeholderTextColor={colors.text.light}
           keyboardType="email-address"
           onChangeText={email => this.setState({ email })}
           value={this.state.email}
@@ -95,7 +95,7 @@ export default class LoginScreen extends Component {
           style={styles.textInput}
           autoCapitalize="none"
           placeholder="Password"
-          placeholderTextColor={colors.primary.light}
+          placeholderTextColor={colors.text.light}
           secureTextEntry
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
@@ -109,7 +109,7 @@ export default class LoginScreen extends Component {
         {this.state.loading && (
           <ActivityIndicator
             style={styles.activityIndicator}
-            color={colors.secondary.light}
+            color={colors.primary.light}
             size={'large'}
           />
         )}

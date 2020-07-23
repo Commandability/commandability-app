@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import { getSelectedLocationId } from '../../redux/selectors';
 import { setPersonLocationId } from '../../redux/actions';
 import { ROSTER, STAGING } from '../../modules/location-ids';
+import styles from './styles';
 
 class RosterItem extends PureComponent {
   constructor() {
@@ -41,7 +42,9 @@ class RosterItem extends PureComponent {
         disabled={selectedLocationId == '' ? false : true}
       >
         <View>
-          <Text>{`${badge ? badge + ' - ' : ''}${firstName} ${lastName}`}</Text>
+          <Text style={styles.item}>{`${
+            badge ? badge + ' - ' : ''
+          }${firstName} ${lastName}`}</Text>
         </View>
       </TouchableOpacity>
     );

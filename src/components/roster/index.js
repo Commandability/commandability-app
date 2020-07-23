@@ -29,7 +29,7 @@ export default class Roster extends Component {
           style={styles.queryInput}
           autoCapitalize="none"
           placeholder="Search"
-          placeholderTextColor={colors.primary.light}
+          placeholderTextColor={colors.text.light}
           onChangeText={query => this.setState({ query })}
           value={this.state.query}
         />

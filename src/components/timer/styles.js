@@ -16,6 +16,6 @@ export default StyleSheet.create({
     fontSize: scaleFont(5),
     textAlignVertical: 'center',
     textAlign: 'center',
-    color: colors.primary.text,
+    color: colors.text.light,
   },
 });

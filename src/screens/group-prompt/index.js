@@ -17,7 +17,9 @@ import styles from './styles';
 class GroupPrompt extends Component {
   constructor(props) {
     super(props);
-    const { group: { name }} = props;
+    const {
+      group: { name },
+    } = props;
     this.state = {
       newName: name,
     };
@@ -56,7 +58,7 @@ class GroupPrompt extends Component {
           style={styles.nameInput}
           autoCapitalize="none"
           placeholder="New group name"
-          placeholderTextColor={colors.primary.light}
+          placeholderTextColor={colors.text.light}
           value={this.state.newName}
           onChangeText={newName => this.setState({ newName })}
         />

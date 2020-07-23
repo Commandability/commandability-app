@@ -6,22 +6,22 @@
 
 const colors = {
   primary: {
-    main: '#757575',
-    light: '#909090',
+    light: '#e53935',
     dark: '#494949',
-    text: '#ffffff',
   },
   secondary: {
-    main: '#c62828',
-    light: '#9b2828',
+    light: '#ff5252',
     dark: '#5a0000',
-    text: '#ffffff',
+  },
+  background: {
+    dark: {
+      main: '#121212',
+      highlight: '#1f1f1f',
+    },
   },
   text: {
-    primaryLight: '#909090',
-    primaryDark: '#494949',
-    secondaryLight: '#9b2828',
-    secondaryDark: '#5a0000',
+    light: '#e2e2e2',
+    dark: '#121212',
   },
 };
 

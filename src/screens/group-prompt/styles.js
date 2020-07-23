@@ -9,7 +9,7 @@ export default StyleSheet.create({
   },
   nameInput: {
     height: 40,
-    color: colors.text.primaryLight,
+    color: colors.text.light,
     borderColor: colors.primary.light,
     borderWidth: 1,
     marginBottom: 8,

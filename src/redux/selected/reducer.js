@@ -38,7 +38,9 @@ const personnelIds = (state = initialState.personnelIds, action) => {
 };
 
 const togglePerson = (state, action) => {
-  const { payload: { person } } = action;
+  const {
+    payload: { person },
+  } = action;
   const { id } = person;
 
   if (state.includes(id)) {
@@ -98,7 +100,10 @@ const locationId = (state = initialState.locationId, action) => {
 
 const setLocationId = (state, action) => {
   const { payload } = action;
-  const { locationId, person: { id } } = payload;
+  const {
+    locationId,
+    person: { id },
+  } = payload;
 
   // check if current id is the only id in selected to determine if locationId should be reset
   // and all locations should be enabled

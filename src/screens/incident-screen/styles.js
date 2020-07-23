@@ -15,14 +15,10 @@ export default StyleSheet.create({
   navBar: {
     flexDirection: 'row',
     flex: 2,
-    backgroundColor: colors.primary.dark,
-  },
-  stagingArea: {
-    flexDirection: 'column',
-    flex: 1,
+    backgroundColor: colors.background.dark.highlight,
   },
   toggleSelected: {
-    color: colors.secondary.dark,
+    color: colors.primary.light,
     fontWeight: 'bold',
   },
   groupArea: {
@@ -30,7 +26,12 @@ export default StyleSheet.create({
     flex: 9,
     flexWrap: 'wrap',
     alignItems: 'flex-start',
-    backgroundColor: colors.primary.dark,
+    backgroundColor: colors.background.dark.main,
+  },
+  stagingArea: {
+    flexDirection: 'column',
+    flex: 1,
+    backgroundColor: colors.background.dark.main,
   },
   container: {
     flex: 13,
@@ -54,6 +55,6 @@ export default StyleSheet.create({
     fontSize: scaleFont(5),
     justifyContent: 'center',
     alignItems: 'center',
-    color: colors.primary.text,
+    color: colors.text.light,
   },
 });

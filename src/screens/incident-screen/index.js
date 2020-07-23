@@ -13,7 +13,7 @@ import auth from '@react-native-firebase/auth';
 import {
   OptionBar,
   Group,
-  StagingList,
+  Staging,
   NewPersonnel,
   Roster,
 } from '../../components';
@@ -81,6 +81,8 @@ class IncidentScreen extends Component {
 
   groupSelected = () => {
     this.setState(() => ({
+      addGroupMode: false,
+      removeGroupMode: false,
       editGroupMode: false,
     }));
   };
@@ -101,7 +103,7 @@ class IncidentScreen extends Component {
     return (
       <View style={styles.pageLayout}>
         <View style={styles.stagingArea}>
-          <StagingList />
+          <Staging />
         </View>
         <View style={styles.subPageLayout}>
           <View style={styles.navBar}>

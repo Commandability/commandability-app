@@ -155,7 +155,7 @@ class HomeScreen extends Component {
         {this.state.loading && (
           <ActivityIndicator
             style={styles.activityIndicator}
-            color={colors.secondary.dark}
+            color={colors.primary.light}
             size={'large'}
           />
         )}

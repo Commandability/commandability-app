@@ -6,49 +6,16 @@
  */
 
 import React from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {
-  getPersonnelByLocationId,
-  getSelectedLocationId,
-  getSelectedPersonnelGroups,
-} from '../../redux/selectors';
-import {
-  clearSelectedPersonnel,
-  setPersonLocationId,
-} from '../../redux/actions';
+import { getPersonnelByLocationId } from '../../redux/selectors';
 import ListItem from '../list-item';
-import { STAGING, ROSTER } from '../../modules/location-ids';
+import { STAGING } from '../../modules/location-ids';
 import styles from './styles';
 
 class StagingList extends React.PureComponent {
-  constructor() {
-    super();
-  }
-
-  _onPress = () => {
-    const {
-      selectedPersonnelGroups,
-      clearSelectedPersonnel,
-      setPersonLocationId,
-    } = this.props;
-
-    // set each selected id's new locationId to the current group
-    selectedPersonnelGroups.forEach(personGroup => {
-      const { person, group: prevGroup } = personGroup;
-
-      setPersonLocationId(
-        person,
-        // To report prev location
-        prevGroup || { locationId: ROSTER, name: 'Roster' }, // Set prev group to roster if no prev group in redux
-        { locationId: STAGING, name: 'Staging' }
-      );
-    });
-    clearSelectedPersonnel();
-  };
-
   _renderItem = ({ item }) => {
     return <ListItem locationId={STAGING} item={item} />;
   };
@@ -56,45 +23,32 @@ class StagingList extends React.PureComponent {
   _keyExtractor = item => item.id;
 
   render() {
-    const { personnel, selectedLocationId } = this.props;
+    const { personnel } = this.props;
     return (
-      <TouchableOpacity
-        onPress={this._onPress}
-        disabled={selectedLocationId === '' || selectedLocationId === STAGING}
-        style={styles.listContainer}
-      >
+      <View style={styles.container}>
         <FlatList
           data={personnel}
           renderItem={this._renderItem}
           keyExtractor={this._keyExtractor}
           extraData={this.props}
         />
-      </TouchableOpacity>
+      </View>
     );
   }
 }
 
 StagingList.propTypes = {
   locationId: PropTypes.string,
-  selectedPersonnelGroups: PropTypes.array,
-  clearSelectedPersonnel: PropTypes.func,
-  setPersonLocationId: PropTypes.func,
   personnel: PropTypes.array,
-  selectedLocationId: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
     personnel: getPersonnelByLocationId(state, STAGING),
-    selectedLocationId: getSelectedLocationId(state),
-    selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };
 
 export default connect(
   mapStateToProps,
-  {
-    clearSelectedPersonnel,
-    setPersonLocationId,
-  }
+  null
 )(StagingList);

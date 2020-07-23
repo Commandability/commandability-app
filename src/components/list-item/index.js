@@ -6,14 +6,10 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
-import {
-  getSelectedLocationId,
-  getLocationUpdateTime,
-  personIsSelected,
-} from '../../redux/selectors';
+import { getLocationUpdateTime, personIsSelected } from '../../redux/selectors';
 import { togglePerson } from '../../redux/actions';
 import styles from './styles';
 
@@ -66,32 +62,19 @@ class ListItem extends PureComponent {
   render() {
     const {
       item: { badge, firstName, lastName },
-      locationId,
-      selectedLocationId,
       personIsSelected,
     } = this.props;
     return (
-      // disable item if a list other than the parent list is selected,
-      // so items can be moved to the items parent list
-      <TouchableOpacity
-        onPress={this._onPress}
-        disabled={
-          selectedLocationId === locationId || selectedLocationId === '' ? false : true
-        }
-      >
-        <View>
-          <Text
-            style={
-              personIsSelected ? styles.selectedItem : styles.unselectedItem
-            }
-          >
-            {`${
-              badge ? badge + ' - ' : ''
-            }${firstName} ${lastName} - ${Math.floor(
-              this.state.time / MS_IN_MINUTE
-            )}`}
-          </Text>
-        </View>
+      <TouchableOpacity onPress={this._onPress}>
+        <Text
+          style={personIsSelected ? styles.selectedItem : styles.unselectedItem}
+        >
+          {`${
+            badge ? badge + ' - ' : ''
+          }${firstName} ${lastName} - ${Math.floor(
+            this.state.time / MS_IN_MINUTE
+          )}`}
+        </Text>
       </TouchableOpacity>
     );
   }
@@ -103,14 +86,12 @@ ListItem.propTypes = {
   item: PropTypes.object, // the current person
   locationId: PropTypes.string, // the parent groupName
   togglePerson: PropTypes.func,
-  selectedLocationId: PropTypes.string,
   personIsSelected: PropTypes.bool,
 };
 
 const mapStateToProps = (state, ownProps) => {
   const { item } = ownProps;
   return {
-    selectedLocationId: getSelectedLocationId(state),
     locationUpdateTime: getLocationUpdateTime(state, item),
     personIsSelected: personIsSelected(state, item),
   };

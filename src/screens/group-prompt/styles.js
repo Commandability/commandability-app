@@ -5,7 +5,7 @@ import colors from '../../modules/colors';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.primary.dark,
+    backgroundColor: colors.background.dark.main,
   },
   nameInput: {
     height: 40,

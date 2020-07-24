@@ -29,6 +29,9 @@ import {
 } from '../../modules/location-ids.js';
 import styles from './styles';
 
+const GROUP_AREA = 'GROUP_AREA';
+const PERSONNEL_AREA = 'PERSONNEL_AREA';
+
 class IncidentScreen extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +39,7 @@ class IncidentScreen extends Component {
       removeGroupMode: false,
       editGroupMode: false,
       addGroupMode: false,
-      toggle: true,
+      tab: GROUP_AREA,
     };
   }
 
@@ -69,13 +72,13 @@ class IncidentScreen extends Component {
 
   _toggleGroupArea = () => {
     this.setState(() => ({
-      toggle: true,
+      tab: GROUP_AREA,
     }));
   };
 
   _togglePersonnelArea = () => {
     this.setState(() => ({
-      toggle: false,
+      tab: PERSONNEL_AREA,
     }));
   };
 
@@ -101,45 +104,50 @@ class IncidentScreen extends Component {
     ];
 
     return (
-      <View style={styles.pageLayout}>
+      <View style={styles.container}>
         <View style={styles.stagingArea}>
           <Staging />
         </View>
-        <View style={styles.subPageLayout}>
-          <View style={styles.navBar}>
-            <View style={styles.pageOption}>
-              <TouchableOpacity onPress={this._toggleGroupArea}>
-                <Text
-                  style={[
-                    styles.pageOptionContent,
-                    this.state.toggle
-                      ? styles.toggleSelected
-                      : styles.toggleDeselected,
-                  ]}
-                >
-                  {' '}
-                  Toggle Group Area{' '}
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.pageOption}>
-              <TouchableOpacity onPress={this._togglePersonnelArea}>
-                <Text
-                  style={[
-                    styles.pageOptionContent,
-                    !this.state.toggle
-                      ? styles.toggleSelected
-                      : styles.toggleDeselected,
-                  ]}
-                >
-                  {' '}
-                  Toggle Personnel Area{' '}
-                </Text>
-              </TouchableOpacity>
-            </View>
+        <View style={styles.mainArea}>
+          <View style={styles.mainAreaTabs}>
+            <TouchableOpacity
+              style={[
+                styles.tab,
+                this.state.tab === GROUP_AREA && styles.selectedTab,
+              ]}
+              onPress={this._toggleGroupArea}
+            >
+              <Text
+                style={[
+                  styles.tabContent,
+                  this.state.tab === GROUP_AREA && styles.selectedTabContent,
+                ]}
+              >
+                {' '}
+                Group Area{' '}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.tab,
+                this.state.tab === PERSONNEL_AREA && styles.selectedTab,
+              ]}
+              onPress={this._togglePersonnelArea}
+            >
+              <Text
+                style={[
+                  styles.tabContent,
+                  this.state.tab === PERSONNEL_AREA &&
+                    styles.selectedTabContent,
+                ]}
+              >
+                {' '}
+                Personnel Area{' '}
+              </Text>
+            </TouchableOpacity>
           </View>
-          {this.state.toggle ? (
-            <View style={styles.groupContainer}>
+          {this.state.tab === GROUP_AREA ? (
+            <View style={styles.incidentArea}>
               <OptionBar
                 initialEpoch={
                   activeReport ? activeInitialEpoch : this.initialEpoch
@@ -165,11 +173,11 @@ class IncidentScreen extends Component {
               </View>
             </View>
           ) : (
-            <View style={styles.container}>
-              <View style={styles.subContainer}>
+            <View style={styles.personnelArea}>
+              <View style={styles.personnelAreaContainer}>
                 <Roster />
               </View>
-              <View style={styles.subContainer}>
+              <View style={styles.personnelAreaContainer}>
                 <NewPersonnel />
               </View>
             </View>

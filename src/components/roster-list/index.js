@@ -69,7 +69,7 @@ class RosterList extends React.PureComponent {
     return (
       <TouchableOpacity
         onPress={this._onPress}
-        style={styles.listContainer}
+        style={styles.container}
         disabled={selectedLocationId === '' || selectedLocationId === ROSTER}
       >
         <FlatList

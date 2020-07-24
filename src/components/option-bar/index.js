@@ -8,17 +8,11 @@
 
 import React, { Component } from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
-import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 
-import Timer from '../timer';
 import styles from './styles';
 
 class OptionBar extends Component {
-  _onEndPressed = () => {
-    this.props.navigation.navigate('EndScreen');
-  };
-
   _onAddGroupPressed = () => {
     this.props.addGroupHandler();
   };
@@ -32,75 +26,61 @@ class OptionBar extends Component {
   };
 
   render() {
-    const {
-      initialEpoch,
-      addGroupMode,
-      removeGroupMode,
-      editGroupMode,
-    } = this.props;
+    const { addGroupMode, removeGroupMode, editGroupMode } = this.props;
 
     return (
-      <View style={styles.OptionBar}>
-        <Timer initialEpoch={initialEpoch} />
-        <View style={styles.pageOption}>
-          <TouchableOpacity
-            onPress={this._onAddGroupPressed}
-            disabled={editGroupMode || removeGroupMode}
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.option}
+          onPress={this._onAddGroupPressed}
+          disabled={editGroupMode || removeGroupMode}
+        >
+          <Text
+            style={[
+              styles.optionContent,
+              addGroupMode
+                ? styles.selected
+                : (editGroupMode || removeGroupMode) && styles.deselected,
+            ]}
           >
-            <Text
-              style={[
-                styles.pageOptionContent,
-                addGroupMode
-                  ? styles.selected
-                  : (editGroupMode || removeGroupMode) && styles.deselected,
-              ]}
-            >
-              {' '}
-              Add Group{' '}
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.pageOption}>
-          <TouchableOpacity
-            onPress={this._onRemoveGroupPressed}
-            disabled={editGroupMode || addGroupMode}
+            {' '}
+            ADD GROUP{' '}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.option}
+          onPress={this._onRemoveGroupPressed}
+          disabled={editGroupMode || addGroupMode}
+        >
+          <Text
+            style={[
+              styles.optionContent,
+              removeGroupMode
+                ? styles.selected
+                : (editGroupMode || addGroupMode) && styles.deselected,
+            ]}
           >
-            <Text
-              style={[
-                styles.pageOptionContent,
-                removeGroupMode
-                  ? styles.selected
-                  : (editGroupMode || addGroupMode) && styles.deselected,
-              ]}
-            >
-              {' '}
-              Remove Group{' '}
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.pageOption}>
-          <TouchableOpacity
-            onPress={this._onEditGroupPressed}
-            disabled={removeGroupMode || addGroupMode}
+            {' '}
+            REMOVE GROUP{' '}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.option}
+          onPress={this._onEditGroupPressed}
+          disabled={removeGroupMode || addGroupMode}
+        >
+          <Text
+            style={[
+              styles.optionContent,
+              editGroupMode
+                ? styles.selected
+                : (removeGroupMode || addGroupMode) && styles.deselected,
+            ]}
           >
-            <Text
-              style={[
-                styles.pageOptionContent,
-                editGroupMode
-                  ? styles.selected
-                  : (removeGroupMode || addGroupMode) && styles.deselected,
-              ]}
-            >
-              {' '}
-              Edit Group{' '}
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.pageOption}>
-          <TouchableOpacity onPress={this._onEndPressed}>
-            <Text style={styles.pageOptionContent}> End </Text>
-          </TouchableOpacity>
-        </View>
+            {' '}
+            EDIT GROUP{' '}
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -108,11 +88,6 @@ class OptionBar extends Component {
 
 // props validation
 OptionBar.propTypes = {
-  navigation: PropTypes.object,
-  initialTime: PropTypes.number,
-  report: PropTypes.object,
-  toggle: PropTypes.bool,
-  initialEpoch: PropTypes.number,
   addGroupHandler: PropTypes.func,
   removeGroupHandler: PropTypes.func,
   editGroupHandler: PropTypes.func,
@@ -121,4 +96,4 @@ OptionBar.propTypes = {
   editGroupMode: PropTypes.bool,
 };
 
-export default withNavigation(OptionBar);
+export default OptionBar;

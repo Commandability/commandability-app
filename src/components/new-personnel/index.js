@@ -41,9 +41,9 @@ class NewPersonnel extends Component {
 
   render() {
     return (
-      <View style={styles.layout}>
+      <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.headerContent}> Add Temporary Personnel </Text>
+          <Text style={styles.headerContent}> Add Personnel </Text>
         </View>
         <View style={styles.firstNameStyle}>
           <Text style={styles.labelStyle}>First Name*</Text>

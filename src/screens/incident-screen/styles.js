@@ -4,57 +4,57 @@ import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
 
 export default StyleSheet.create({
-  pageLayout: {
+  container: {
     flexDirection: 'row',
-    flex: 10,
-  },
-  subPageLayout: {
-    flexDirection: 'column',
-    flex: 4,
-  },
-  navBar: {
-    flexDirection: 'row',
-    flex: 2,
-    backgroundColor: colors.background.dark.highlight,
-  },
-  toggleSelected: {
-    color: colors.primary.light,
-    fontWeight: 'bold',
-  },
-  groupArea: {
-    flexDirection: 'column',
-    flex: 9,
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
     backgroundColor: colors.background.dark.main,
   },
   stagingArea: {
-    flexDirection: 'column',
     flex: 1,
-    backgroundColor: colors.background.dark.main,
   },
-  container: {
-    flex: 13,
+  mainArea: {
+    flexDirection: 'column',
+    flex: 3,
+  },
+  mainAreaTabs: {
     flexDirection: 'row',
-  },
-  subContainer: {
-    flex: 1,
-  },
-  groupContainer: {
-    flexDirection: 'column',
-    flex: 13,
-  },
-  pageOption: {
-    flex: 1,
-    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
   },
-  pageOptionContent: {
+  tab: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 14,
+  },
+  tabContent: {
     fontSize: scaleFont(5),
+    fontWeight: 'bold',
     justifyContent: 'center',
     alignItems: 'center',
     color: colors.text.light,
+  },
+  selectedTab: {
+    borderBottomWidth: 2,
+    borderBottomColor: colors.primary.light,
+  },
+  selectedTabContent: {
+    color: colors.primary.light,
+  },
+  incidentArea: {
+    flexDirection: 'column',
+    flex: 1,
+  },
+  groupArea: {
+    flexDirection: 'column',
+    flex: 1,
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+  },
+  personnelArea: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  personnelAreaContainer: {
+    flex: 1
   },
 });

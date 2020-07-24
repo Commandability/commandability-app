@@ -21,7 +21,7 @@ export default class Roster extends Component {
 
   render() {
     return (
-      <View style={styles.layout}>
+      <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerContent}> Roster </Text>
         </View>

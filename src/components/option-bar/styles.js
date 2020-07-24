@@ -4,22 +4,20 @@ import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
 
 export default StyleSheet.create({
-  OptionBar: {
+  container: {
     flexDirection: 'row',
-    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  option: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '20%',
+    paddingVertical: 4,
+    margin: 12,
     backgroundColor: colors.background.dark.highlight,
-    borderWidth: 0.5,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
-  pageOption: {
-    flex: 1,
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-  },
-  pageOptionContent: {
+  optionContent: {
     fontSize: scaleFont(5),
     justifyContent: 'center',
     alignItems: 'center',

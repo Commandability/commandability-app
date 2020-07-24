@@ -4,10 +4,11 @@ import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
 
 export default StyleSheet.create({
-  layout: {
+  container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: colors.background.dark.highlight,
+    padding: 16,
+    color: colors.text.light,
   },
   firstNameStyle: {
     flex: 1,
@@ -32,9 +33,8 @@ export default StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    flex: 1,
-    padding: 5,
-    backgroundColor: colors.background.dark.highlight,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   headerContent: {
     flex: 5,

@@ -23,6 +23,10 @@ const colors = {
     secondaryLight: '#9b2828',
     secondaryDark: '#5a0000',
   },
+  design: {
+    disabled: '#303030',
+    disabledFont: '#828282'
+  }
 };
 
 export default colors;

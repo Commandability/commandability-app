@@ -20,6 +20,18 @@ export default StyleSheet.create({
   buttonContainer: {
     flex: 1,
     borderWidth: 0.5,
+    backgroundColor: colors.primary.dark,
+  },
+  buttonContainerDisabled: {
+    tintColor: colors.design.disabled,
+  },
+  buttonContent: {
+    textAlign: 'center',
+    alignItems: 'center',
+    color: colors.primary.text,
+  },
+  buttonContentDisabled: {
+    color: colors.design.disabledFont,
   },
   labelStyle: {
     fontSize: scaleFont(6),

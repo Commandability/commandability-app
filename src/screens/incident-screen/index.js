@@ -124,7 +124,7 @@ class IncidentScreen extends Component {
                 ]}
               >
                 {' '}
-                Group Area{' '}
+                Group{' '}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -142,7 +142,7 @@ class IncidentScreen extends Component {
                 ]}
               >
                 {' '}
-                Personnel Area{' '}
+                Personnel{' '}
               </Text>
             </TouchableOpacity>
           </View>

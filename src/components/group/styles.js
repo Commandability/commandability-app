@@ -14,7 +14,7 @@ export default StyleSheet.create({
     height: '100%',
     opacity: 0.6,
   },
-  layout: {
+  container: {
     height: '50%',
     width: '33%',
     flexDirection: 'column',

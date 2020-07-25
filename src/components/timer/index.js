@@ -53,7 +53,7 @@ class Timer extends Component {
     ).slice(-2);
 
     return (
-      <View style={styles.timerLayout}>
+      <View style={styles.container}>
         <View style={styles.timer}>
           <Text
             style={styles.timerContent}

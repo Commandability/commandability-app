@@ -52,9 +52,9 @@ export default StyleSheet.create({
   },
   personnelArea: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   personnelAreaContainer: {
-    flex: 1
+    flex: 1,
   },
 });

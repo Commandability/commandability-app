@@ -125,7 +125,7 @@ class Group extends Component {
       : false;
 
     return (
-      <View style={styles.layout}>
+      <View style={styles.container}>
         {renderOverlay && (
           <TouchableOpacity
             style={styles.overlay}

@@ -70,7 +70,7 @@ class Group extends Component {
       selectedLocationId && selectedLocationId !== STAGING ? true : false;
 
     return (
-      <View style={styles.layout}>
+      <View style={styles.container}>
         {renderOverlay && (
           <TouchableOpacity
             style={styles.overlay}

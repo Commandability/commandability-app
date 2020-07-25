@@ -4,7 +4,7 @@ import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
 
 export default StyleSheet.create({
-  timerLayout: {
+  container: {
     flexDirection: 'column',
     flex: 1,
   },

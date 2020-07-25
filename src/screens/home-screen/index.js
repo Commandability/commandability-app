@@ -107,7 +107,23 @@ class HomeScreen extends Component {
   };
 
   _backupReports = async () => {
-    backupReports();
+    this.setState(prevState => ({
+      currentUser: prevState.currentUser,
+      loading: true,
+    }));
+    try {
+      await backupReports();
+    } catch (error) {
+      Alert.alert('Error', error, [
+        {
+          text: 'OK',
+        },
+      ]);
+    }
+    this.setState(prevState => ({
+      currentUser: prevState.currentUser,
+      loading: false,
+    }));
   };
 
   _signOut = async () => {

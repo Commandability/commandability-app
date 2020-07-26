@@ -6,6 +6,7 @@ import OptionBar from './option-bar';
 import Roster from './roster';
 import RosterItem from './roster-item';
 import RosterList from './roster-list';
+import Staging from './staging';
 import StagingList from './staging-list';
 import Timer from './timer';
 
@@ -18,6 +19,7 @@ export {
   Roster,
   RosterItem,
   RosterList,
+  Staging,
   StagingList,
   Timer,
 };

@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import { getSelectedLocationId } from '../../redux/selectors';
 import { setPersonLocationId } from '../../redux/actions';
 import { ROSTER, STAGING } from '../../modules/location-ids';
+import styles from './styles';
 
 class RosterItem extends PureComponent {
   constructor() {
@@ -31,17 +32,19 @@ class RosterItem extends PureComponent {
   render() {
     const {
       item: { badge, firstName, lastName },
-      selectedGroup,
+      selectedLocationId,
     } = this.props;
     return (
       // disable item if a list other than the parent list is selected,
       // so items can be moved to the items parent list
       <TouchableOpacity
         onPress={this._onPress}
-        disabled={selectedGroup == '' ? false : true}
+        disabled={selectedLocationId == '' ? false : true}
       >
         <View>
-          <Text>{`${badge ? badge + ' - ' : ''}${firstName} ${lastName}`}</Text>
+          <Text style={styles.item}>{`${
+            badge ? badge + ' - ' : ''
+          }${firstName} ${lastName}`}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -54,12 +57,12 @@ RosterItem.propTypes = {
   groupName: PropTypes.string,
   item: PropTypes.object, // the current person
   locationId: PropTypes.string,
-  selectedGroup: PropTypes.string,
+  selectedLocationId: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
-    selectedGroup: getSelectedLocationId(state),
+    selectedLocationId: getSelectedLocationId(state),
   };
 };
 

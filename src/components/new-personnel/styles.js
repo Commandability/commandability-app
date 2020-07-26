@@ -4,9 +4,11 @@ import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
 
 export default StyleSheet.create({
-  layout: {
+  container: {
     flex: 1,
     flexDirection: 'column',
+    padding: 16,
+    color: colors.text.light,
   },
   firstNameStyle: {
     flex: 1,
@@ -33,20 +35,23 @@ export default StyleSheet.create({
   buttonContentDisabled: {
     color: colors.design.disabledFont,
   },
+  buttonContent: {
+    color: colors.text.light,
+  },
   labelStyle: {
     fontSize: scaleFont(6),
     flex: 1,
+    color: colors.text.light,
   },
-  groupHeader: {
+  header: {
     flexDirection: 'row',
-    flex: 1,
-    padding: 5,
-    backgroundColor: colors.secondary.dark,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  groupHeaderContent: {
+  headerContent: {
     flex: 5,
     fontSize: scaleFont(6),
     textAlign: 'center',
-    color: colors.primary.text,
+    color: colors.text.light,
   },
 });

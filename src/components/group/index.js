@@ -15,13 +15,18 @@ import GroupList from '../group-list';
 import {
   getGroupByLocationId,
   getPersonnelByLocationId,
+  getSelectedLocationId,
   personIsSelected,
+  getSelectedPersonnelGroups,
 } from '../../redux/selectors';
 import {
   setVisibility,
   selectPerson,
   deselectPerson,
+  clearSelectedPersonnel,
+  setPersonLocationId,
 } from '../../redux/actions';
+import { STAGING } from '../../modules/location-ids';
 import styles from './styles';
 
 class Group extends Component {
@@ -45,7 +50,7 @@ class Group extends Component {
     });
   };
 
-  _onGroupSelected = () => {
+  _onGroupPressed = () => {
     const {
       groupSelectedHandler,
       addGroupMode,
@@ -58,8 +63,7 @@ class Group extends Component {
 
     if (addGroupMode) {
       setVisibility(group, true);
-    }
-    if (removeGroupMode) {
+    } else if (removeGroupMode) {
       Alert.alert(
         'Remove group?',
         'All personnel will be returned to staging',
@@ -76,9 +80,27 @@ class Group extends Component {
           },
         ]
       );
-    }
-    if (editGroupMode) {
+    } else if (editGroupMode) {
       navigate('GroupPrompt', group);
+    } else {
+      const {
+        selectedPersonnelGroups,
+        clearSelectedPersonnel,
+        setPersonLocationId,
+        group,
+      } = this.props;
+
+      // set each selected id's new locationId to the current group
+      selectedPersonnelGroups.forEach(personGroup => {
+        const { person, group: prevGroup } = personGroup;
+        setPersonLocationId(
+          person,
+          // To report prev location
+          prevGroup || { locationId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
+          group
+        );
+      });
+      clearSelectedPersonnel();
     }
     groupSelectedHandler();
   };
@@ -86,33 +108,37 @@ class Group extends Component {
   render() {
     const {
       group: { name, visibility, locationId },
+      selectedLocationId,
       addGroupMode,
       removeGroupMode,
       editGroupMode,
     } = this.props;
 
+    const renderOverlay = visibility
+      ? removeGroupMode ||
+        editGroupMode ||
+        (selectedLocationId && selectedLocationId !== locationId)
+        ? true
+        : false
+      : addGroupMode
+      ? true
+      : false;
+
     return (
-      <View style={styles.groupLayout}>
-        {((visibility && (removeGroupMode || editGroupMode)) ||
-          (!visibility && addGroupMode)) && (
+      <View style={styles.container}>
+        {renderOverlay && (
           <TouchableOpacity
-            style={
-              (addGroupMode || removeGroupMode || editGroupMode) &&
-              styles.groupSelect
-            }
-            onPress={this._onGroupSelected}
-            disabled={
-              addGroupMode || removeGroupMode || editGroupMode ? false : true
-            }
+            style={styles.overlay}
+            onPress={this._onGroupPressed}
           />
         )}
         {visibility && (
           <>
             <TouchableOpacity
               onPress={this._onSelectAllPressed}
-              style={styles.groupHeader}
+              style={styles.header}
             >
-              <Text style={styles.groupHeaderContent}> {name} </Text>
+              <Text style={styles.headerContent}> {name} </Text>
             </TouchableOpacity>
             <GroupList locationId={locationId} />
           </>
@@ -128,6 +154,7 @@ Group.propTypes = {
   navigation: PropTypes.object,
   group: PropTypes.object,
   personnel: PropTypes.array,
+  selectedLocationId: PropTypes.string,
   selectPerson: PropTypes.func,
   deselectPerson: PropTypes.func,
   locationId: PropTypes.string,
@@ -136,6 +163,9 @@ Group.propTypes = {
   removeGroupMode: PropTypes.bool,
   editGroupMode: PropTypes.bool,
   groupSelectedHandler: PropTypes.func,
+  selectedPersonnelGroups: PropTypes.array,
+  clearSelectedPersonnel: PropTypes.func,
+  setPersonLocationId: PropTypes.func,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -146,9 +176,11 @@ const mapStateToProps = (state, ownProps) => {
   return {
     group: getGroupByLocationId(state, locationId),
     personnel,
+    selectedLocationId: getSelectedLocationId(state),
     allPersonnelSelected: personnel.every(person =>
       personIsSelected(state, person)
     ),
+    selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };
 
@@ -159,6 +191,8 @@ export default withNavigation(
       setVisibility,
       selectPerson,
       deselectPerson,
+      clearSelectedPersonnel,
+      setPersonLocationId,
     }
   )(Group)
 );

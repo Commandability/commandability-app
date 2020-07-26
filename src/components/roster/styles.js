@@ -6,26 +6,25 @@ import { scaleFont } from '../../modules/fonts';
 export default StyleSheet.create({
   queryInput: {
     height: 40,
-    color: colors.text.primaryLight,
+    color: colors.text.light,
     borderColor: colors.primary.light,
-    borderWidth: 1,
+    borderBottomWidth: 1,
     marginBottom: 8,
     marginTop: 8,
   },
-  groupLayout: {
+  container: {
     flex: 1,
     flexDirection: 'column',
+    padding: 16,
+    color: colors.text.light,
   },
-  groupHeader: {
+  header: {
     flexDirection: 'row',
-    flex: 1,
-    padding: 5,
-    backgroundColor: colors.secondary.dark,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  groupHeaderContent: {
-    flex: 5,
+  headerContent: {
     fontSize: scaleFont(6),
-    textAlign: 'center',
-    color: colors.primary.text,
+    color: colors.text.light,
   },
 });

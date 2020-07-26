@@ -92,7 +92,7 @@ class EndScreen extends Component {
           style={styles.locationInput}
           autoCapitalize="none"
           placeholder="Incident Location"
-          placeholderTextColor={colors.primary.light}
+          placeholderTextColor={colors.text.light}
           onChangeText={location => this.setState({ location })}
           value={this.state.location}
         />
@@ -100,7 +100,7 @@ class EndScreen extends Component {
           style={styles.notesInput}
           autoCapitalize="none"
           placeholder="Notes"
-          placeholderTextColor={colors.primary.light}
+          placeholderTextColor={colors.text.light}
           multiline={true}
           onChangeText={notes => this.setState({ notes })}
           value={this.state.notes}
@@ -118,7 +118,7 @@ class EndScreen extends Component {
         {this.state.loading && (
           <ActivityIndicator
             style={styles.activityIndicator}
-            color={colors.secondary.dark}
+            color={colors.primary.dark}
             size={'large'}
           />
         )}

@@ -4,7 +4,7 @@ import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
 
 export default StyleSheet.create({
-  timerLayout: {
+  container: {
     flexDirection: 'column',
     flex: 1,
   },
@@ -16,6 +16,6 @@ export default StyleSheet.create({
     fontSize: scaleFont(5),
     textAlignVertical: 'center',
     textAlign: 'center',
-    color: colors.primary.text,
+    color: colors.text.light,
   },
 });

@@ -47,8 +47,10 @@ class ExitIncidentPrompt extends Component {
 
     return (
       <View style={styles.container}>
-        <Text>{`Are you absolutely sure you want to exit without saving?`}</Text>
-        <Text>{`Please type ${email} to confirm.`}</Text>
+        <Text
+          style={styles.prompt}
+        >{`Are you absolutely sure you want to exit without saving?`}</Text>
+        <Text style={styles.prompt}>{`Please type ${email} to confirm.`}</Text>
         <TextInput
           style={styles.emailInput}
           autoCapitalize="none"

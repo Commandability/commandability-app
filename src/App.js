@@ -29,7 +29,7 @@ export const { persistor, store } = configureStore();
 
 const defaultNavigationOptions = {
   headerStyle: {
-    backgroundColor: colors.secondary.dark,
+    backgroundColor: colors.background.dark.main,
     height: SCREEN_HEIGHT / 10,
   },
 };

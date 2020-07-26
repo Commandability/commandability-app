@@ -46,6 +46,7 @@ class RosterList extends React.PureComponent {
               const { person, group: prevGroup } = personGroup;
               return setPersonLocationId(
                 person,
+                // To report prev location
                 prevGroup || { locationId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
                 { locationId: ROSTER, name: 'Roster' }
               );
@@ -64,12 +65,12 @@ class RosterList extends React.PureComponent {
   _keyExtractor = item => item.id;
 
   render() {
-    const { personnel, selectedGroup, query } = this.props;
+    const { personnel, selectedLocationId, query } = this.props;
     return (
       <TouchableOpacity
         onPress={this._onPress}
-        style={styles.listContainer}
-        disabled={selectedGroup === '' || selectedGroup === ROSTER}
+        style={styles.container}
+        disabled={selectedLocationId === '' || selectedLocationId === ROSTER}
       >
         <FlatList
           data={
@@ -100,14 +101,14 @@ RosterList.propTypes = {
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocationId: PropTypes.func,
   personnel: PropTypes.array,
-  selectedGroup: PropTypes.string,
+  selectedLocationId: PropTypes.string,
   query: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
     personnel: getPersonnelByLocationId(state, ROSTER),
-    selectedGroup: getSelectedLocationId(state),
+    selectedLocationId: getSelectedLocationId(state),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };

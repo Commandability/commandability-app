@@ -4,56 +4,57 @@ import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
 
 export default StyleSheet.create({
-  pageLayout: {
+  container: {
     flexDirection: 'row',
-    flex: 10,
-  },
-  subPageLayout: {
-    flexDirection: 'column',
-    flex: 4,
-  },
-  navBar: {
-    flexDirection: 'row',
-    flex: 2,
-    backgroundColor: colors.primary.dark,
+    backgroundColor: colors.background.dark.main,
   },
   stagingArea: {
-    flexDirection: 'column',
     flex: 1,
   },
-  toggleSelected: {
-    color: colors.secondary.dark,
+  mainArea: {
+    flexDirection: 'column',
+    flex: 3,
+  },
+  mainAreaTabs: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tab: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 14,
+  },
+  tabContent: {
+    fontSize: scaleFont(5),
     fontWeight: 'bold',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: colors.text.light,
+  },
+  selectedTab: {
+    borderBottomWidth: 2,
+    borderBottomColor: colors.primary.light,
+  },
+  selectedTabContent: {
+    color: colors.primary.light,
+  },
+  incidentArea: {
+    flexDirection: 'column',
+    flex: 1,
   },
   groupArea: {
     flexDirection: 'column',
-    flex: 9,
+    flex: 1,
     flexWrap: 'wrap',
     alignItems: 'flex-start',
-    backgroundColor: colors.primary.dark,
   },
-  container: {
-    flex: 13,
+  personnelArea: {
+    flex: 1,
     flexDirection: 'row',
   },
-  subContainer: {
+  personnelAreaContainer: {
     flex: 1,
-  },
-  groupContainer: {
-    flexDirection: 'column',
-    flex: 13,
-  },
-  pageOption: {
-    flex: 1,
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-  },
-  pageOptionContent: {
-    fontSize: scaleFont(5),
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: colors.primary.text,
   },
 });

@@ -12,7 +12,7 @@ export default StyleSheet.create({
   },
   locationInput: {
     height: 40,
-    color: colors.text.primaryLight,
+    color: colors.text.light,
     borderColor: colors.primary.light,
     borderWidth: 1,
     marginBottom: 8,
@@ -21,7 +21,7 @@ export default StyleSheet.create({
   notesInput: {
     height: 120,
     textAlignVertical: 'top',
-    color: colors.text.primaryLight,
+    color: colors.text.light,
     borderColor: colors.primary.light,
     borderWidth: 1,
     marginBottom: 8,
@@ -29,6 +29,6 @@ export default StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: colors.primary.dark,
+    backgroundColor: colors.background.dark.main,
   },
 });

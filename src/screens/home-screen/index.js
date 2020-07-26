@@ -18,7 +18,7 @@ import {
 } from '../../redux/selectors';
 import { resetApp } from '../../redux/actions';
 import { updateUserData } from '../../modules/config-manager';
-import { backupReports } from '../../modules/report-manager';
+import { uploadReports, deleteAllReports } from '../../modules/report-manager';
 import colors from '../../modules/colors';
 import { scaleFont } from '../../modules/fonts';
 import styles from './styles';
@@ -75,13 +75,21 @@ class HomeScreen extends Component {
   _updateConfiguration = async () => {
     const { isConnected } = await NetInfo.fetch();
     if (isConnected) {
+      this.setState(prevState => ({
+        currentUser: prevState.currentUser,
+        loading: true,
+      }));
       try {
-        this.setState(prevState => ({
-          currentUser: prevState.currentUser,
-          loading: true,
-        }));
         await updateUserData();
-        Alert.alert('Configuration updated');
+        Alert.alert(
+          'Configuration updated.',
+          'The latest personnel and incident configuration data has been loaded from your organization\'s account.',
+          [
+            {
+              text: 'OK',
+            },
+          ]
+        );
       } catch (error) {
         Alert.alert('Error', error, [
           {
@@ -106,43 +114,85 @@ class HomeScreen extends Component {
     }
   };
 
-  _backupReports = async () => {
-    this.setState(prevState => ({
-      currentUser: prevState.currentUser,
-      loading: true,
-    }));
-    try {
-      await backupReports();
-    } catch (error) {
-      Alert.alert('Error', error, [
+  _uploadReports = async () => {
+    const { isConnected } = await NetInfo.fetch();
+    if (isConnected) {
+      this.setState(prevState => ({
+        currentUser: prevState.currentUser,
+        loading: true,
+      }));
+      try {
+        await uploadReports();
+        await deleteAllReports();
+        Alert.alert(
+          'All reports uploaded. ',
+          'All reports were successfully uploaded and removed from local storage.',
+          [
+            {
+              text: 'OK',
+            },
+          ]
+        );
+      } catch (error) {
+        Alert.alert('Error', error, [
+          {
+            text: 'OK',
+          },
+        ]);
+      }
+      this.setState(prevState => ({
+        currentUser: prevState.currentUser,
+        loading: false,
+      }));
+    } else {
+      Alert.alert(
+        'Failed to connect to the network. ',
+        'Please check your network connection status. ',
+        [
+          {
+            text: 'OK',
+          },
+        ]
+      );
+    }    
+  };
+
+  _signOut = async () => {
+    Alert.alert(
+      'Are you sure you want to sign out?',
+      'All personnel and incident data will be removed, but any reports will still be available on next sign in.',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+        },
         {
           text: 'OK',
+          onPress: async () => {
+            this.setState(prevState => ({
+              currentUser: prevState.currentUser,
+              loading: true,
+            }));
+            const { resetApp } = this.props;
+            resetApp();
+            try {
+              await auth().signOut();
+              this.props.navigation.navigate('AuthStack');
+            } catch (error) {
+              Alert.alert('Error', error, [
+                {
+                  text: 'OK',
+                },
+              ]);
+            }
+          },
         },
-      ]);
-    }
+      ]
+    );
     this.setState(prevState => ({
       currentUser: prevState.currentUser,
       loading: false,
     }));
-  };
-
-  _signOut = async () => {
-    const { resetApp } = this.props;
-    resetApp();
-    this.setState(prevState => ({
-      currentUser: prevState.currentUser,
-      loading: true,
-    }));
-    try {
-      await auth().signOut();
-      this.props.navigation.navigate('AuthStack');
-    } catch (error) {
-      Alert.alert('Error', error, [
-        {
-          text: 'OK',
-        },
-      ]);
-    }
   };
 
   render() {
@@ -159,8 +209,8 @@ class HomeScreen extends Component {
           color={colors.primary.light}
         />
         <Button
-          onPress={this._backupReports}
-          title="Backup Reports"
+          onPress={this._uploadReports}
+          title="Upload Reports"
           color={colors.primary.light}
         />
         <Button

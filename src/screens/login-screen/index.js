@@ -30,16 +30,15 @@ export default class LoginScreen extends Component {
   }
 
   _signIn = async () => {
-    this.setState({ loading: true });
-    const { email, password } = this.state;
-    try {
-      await auth().signInWithEmailAndPassword(email, password);
-      const { navigate } = this.props.navigation;
-      navigate('AppStack');
-    } catch (error) {
-      // handle network connection errors
-      const { isConnected } = await NetInfo.fetch();
-      if (isConnected) {
+    const { isConnected } = await NetInfo.fetch();
+    if (isConnected) {
+      this.setState({ loading: true });
+      const { email, password } = this.state;
+      try {
+        await auth().signInWithEmailAndPassword(email, password);
+        const { navigate } = this.props.navigation;
+        navigate('AppStack');
+      } catch (error) {
         let message = '';
         switch (error.code) {
           case 'auth/invalid-email':
@@ -53,29 +52,27 @@ export default class LoginScreen extends Component {
           default:
             message = 'Unknown error. ';
         }
-
         Alert.alert('Error', message, [
           {
             text: 'OK',
           },
         ]);
-      } else {
-        Alert.alert(
-          'Failed to connect to the network. ',
-          'Please check your network connection status. ',
-          [
-            {
-              text: 'OK',
-            },
-          ]
-        );
+        this.setState(prevState => ({
+          loading: false,
+          email: prevState.email,
+          password: '',
+        }));
       }
-
-      this.setState(prevState => ({
-        loading: false,
-        email: prevState.email,
-        password: '',
-      }));
+    } else {
+      Alert.alert(
+        'Failed to connect to the network. ',
+        'Please check your network connection status. ',
+        [
+          {
+            text: 'OK',
+          },
+        ]
+      );
     }
   };
 

@@ -14,7 +14,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import configureStore from './modules/configure-store';
 import {
   LoadingScreen,
-  LoginScreen,
+  AuthScreen,
   HomeScreen,
   IncidentScreen,
   GroupPrompt,
@@ -39,7 +39,7 @@ const AppStack = createStackNavigator(
   { defaultNavigationOptions }
 );
 const AuthStack = createStackNavigator(
-  { LoginScreen },
+  { AuthScreen },
   { defaultNavigationOptions }
 );
 const IncidentStack = createStackNavigator(

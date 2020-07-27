@@ -25,8 +25,8 @@ const colors = {
   },
   design: {
     disabled: '#303030',
-    disabledFont: '#828282'
-  }
+    disabledFont: '#828282',
+  },
 };
 
 export default colors;

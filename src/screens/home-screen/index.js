@@ -6,7 +6,13 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ActivityIndicator, Alert, TouchableOpacity, View, Text } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  TouchableOpacity,
+  View,
+  Text,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 import auth from '@react-native-firebase/auth';
@@ -84,7 +90,7 @@ class HomeScreen extends Component {
         await updateUserData();
         Alert.alert(
           'Configuration updated.',
-          'The latest personnel and incident configuration data has been loaded from your organization\'s account.',
+          "The latest configuration data has been loaded from your organization's account.",
           [
             {
               text: 'OK',
@@ -155,7 +161,7 @@ class HomeScreen extends Component {
           },
         ]
       );
-    }    
+    }
   };
 
   _signOut = async () => {
@@ -203,7 +209,6 @@ class HomeScreen extends Component {
           style={styles.opacity}
           onPress={this._startIncident}
           color={colors.primary.light}
-          title={'Start Incident'}
         >
           <Icon name="launch" style={styles.icon} />
           <Text style={styles.iconText}>Start Incident</Text>
@@ -212,7 +217,6 @@ class HomeScreen extends Component {
           <TouchableOpacity
             style={styles.opacity}
             onPress={this._updateConfiguration}
-            title="Update Configuration"
             color={colors.primary.light}
           >
             <Icon name="update" style={styles.icon} />
@@ -221,7 +225,6 @@ class HomeScreen extends Component {
           <TouchableOpacity
             style={styles.opacity}
             onPress={this._uploadReports}
-            title="Upload Reports"
             color={colors.primary.light}
           >
             <Icon name="upload" style={styles.icon} />
@@ -231,11 +234,10 @@ class HomeScreen extends Component {
         <TouchableOpacity
           style={styles.opacity}
           onPress={this._signOut}
-          title="Sign out"
           color={colors.primary.light}
         >
           <Icon name="logout" style={styles.icon} />
-          <Text style={styles.iconText}>Log out</Text>
+          <Text style={styles.iconText}>Sign out</Text>
         </TouchableOpacity>
         {this.state.loading && (
           <ActivityIndicator

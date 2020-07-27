@@ -78,16 +78,24 @@ class NewPersonnel extends Component {
             //style={styles.container}
             style={[
               styles.buttonContainer,
-                this.state.firstName === '' || this.state.lastName === ''
+              this.state.firstName === '' || this.state.lastName === ''
                 ? styles.buttonContainerDisabled
                 : styles.buttonContainer,
             ]}
             onPress={this._onAddPressed}
             disabled={this.state.firstName === '' || this.state.lastName === ''}
           >
-            <Text style={[styles.buttonContent, 
-              this.state.firstName === '' || this.state.lastName === '' ? 
-               styles.buttonContentDisabled : styles.buttonContent ]}> Add New Entry </Text>
+            <Text
+              style={[
+                styles.buttonContent,
+                this.state.firstName === '' || this.state.lastName === ''
+                  ? styles.buttonContentDisabled
+                  : styles.buttonContent,
+              ]}
+            >
+              {' '}
+              Add New Entry{' '}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

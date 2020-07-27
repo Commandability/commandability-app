@@ -1,5 +1,5 @@
 /**
- * LoginScreen component
+ * AuthScreen component
  *
  * Manages displaying the login page.
  */
@@ -8,18 +8,20 @@ import React, { Component } from 'react';
 import {
   ActivityIndicator,
   Alert,
-  Button,
+  TouchableOpacity,
   TextInput,
   View,
+  Text,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import auth from '@react-native-firebase/auth';
 import NetInfo from '@react-native-community/netinfo';
 import PropTypes from 'prop-types';
-import auth from '@react-native-firebase/auth';
 
 import colors from '../../modules/colors';
 import styles from './styles';
 
-export default class LoginScreen extends Component {
+export default class AuthScreen extends Component {
   constructor() {
     super();
     this.state = {
@@ -79,6 +81,7 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.label}>Email</Text>
         <TextInput
           style={styles.textInput}
           autoCapitalize="none"
@@ -88,6 +91,7 @@ export default class LoginScreen extends Component {
           onChangeText={email => this.setState({ email })}
           value={this.state.email}
         />
+        <Text style={styles.label}>Password</Text>
         <TextInput
           style={styles.textInput}
           autoCapitalize="none"
@@ -97,12 +101,14 @@ export default class LoginScreen extends Component {
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
-        <Button
+        <TouchableOpacity
+          style={styles.opacity}
           onPress={this._signIn}
-          title="Sign in"
-          color={colors.primary.light}
           disabled={this.state.email && this.state.password ? false : true}
-        />
+        >
+          <Icon name="login" style={styles.icon} />
+          <Text style={styles.iconText}>Sign in</Text>
+        </TouchableOpacity>
         {this.state.loading && (
           <ActivityIndicator
             style={styles.activityIndicator}
@@ -116,7 +122,7 @@ export default class LoginScreen extends Component {
 }
 
 // props validation
-LoginScreen.propTypes = {
+AuthScreen.propTypes = {
   navigation: PropTypes.object,
   navigate: PropTypes.func,
 };

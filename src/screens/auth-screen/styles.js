@@ -13,19 +13,26 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    justifyContent: 'center',
     backgroundColor: colors.background.dark.main,
     padding: 24,
   },
-  row: {
-    flexDirection: 'row',
-    flex: 1,
+  label: {
+    color: colors.primary.light,
+    marginLeft: 24,
+  },
+  textInput: {
+    height: 48,
+    color: colors.text.light,
+    backgroundColor: colors.background.dark.highlight,
+    margin: 24,
   },
   opacity: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.background.dark.highlight,
+    padding: 48,
     margin: 24,
   },
   icon: {

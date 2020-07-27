@@ -76,11 +76,12 @@ class RosterList extends React.PureComponent {
           data={
             query
               ? personnel.filter(person => {
-                  const { firstName, lastName, badge } = person || undefined;
+                  const { firstName, lastName, badge, shift } = person || undefined;
                   return (
                     firstName.toLowerCase().includes(query) ||
                     lastName.toLowerCase().includes(query) ||
-                    (badge ? badge.includes(query) : false)
+                    (badge ? badge.includes(query) : false) ||
+                    (shift ? shift.includes(query) : false)
                   );
                 })
               : personnel

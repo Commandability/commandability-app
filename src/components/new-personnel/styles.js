@@ -35,9 +35,6 @@ export default StyleSheet.create({
   buttonContentDisabled: {
     color: colors.design.disabledFont,
   },
-  buttonContent: {
-    color: colors.text.light,
-  },
   labelStyle: {
     fontSize: scaleFont(6),
     flex: 1,

@@ -12,6 +12,28 @@ export default StyleSheet.create({
   },
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: colors.background.dark.main,
   },
+  row: {
+    flexDirection: 'row',
+    flex: 1
+  },
+  opacity: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.background.dark.highlight,
+    margin: 24
+  },
+  icon: {
+    fontSize: 50,
+    color: colors.primary.light,
+    marginRight: 30
+  },
+  iconText: {
+    fontSize: 50,
+    color: colors.text.light
+  }
 });

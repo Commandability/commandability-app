@@ -57,7 +57,7 @@ class Timer extends Component {
         <View style={styles.timer}>
           <Text
             style={styles.timerContent}
-          >{`Elapsed: ${hour}:${minute}:${second}`}</Text>
+          >{`${hour}:${minute}:${second}`}</Text>
         </View>
       </View>
     );

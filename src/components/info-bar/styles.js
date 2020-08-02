@@ -14,8 +14,16 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: '20%',
     paddingVertical: 4,
-    margin: 12,
+    margin: 2,
     backgroundColor: colors.background.dark.highlight,
+    borderWidth: 2,
+    flex: 1,
+    flexDirection: 'row',
+  },
+  icon: {
+    fontSize: scaleFont(7),
+    padding: 5,
+    color: colors.text.light,
   },
   optionContent: {
     fontSize: scaleFont(5),

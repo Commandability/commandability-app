@@ -24,9 +24,10 @@ class InfoBar extends Component {
   };
 
   render() {
+    const { initialEpoch} = this.props;
     return (
       <View style={styles.container}>
-        <Timer />
+        <Timer initialEpoch={initialEpoch}/>
         <TouchableOpacity
           style={styles.option}
           onPress={this._onToggleThemePressed}
@@ -48,6 +49,7 @@ class InfoBar extends Component {
 InfoBar.propTypes = {
   endHandler: PropTypes.func,
   navigation: PropTypes.object,
+  initialEpoch: PropTypes.number
 };
 
 export default withNavigation(InfoBar);

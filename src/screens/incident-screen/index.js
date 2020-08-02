@@ -112,7 +112,8 @@ class IncidentScreen extends Component {
       <View style={styles.container}>
         <View style={styles.sideBar}>
           <Staging />
-          <InfoBar endHandler={this._onEndIncident} />
+          <InfoBar endHandler={this._onEndIncident} 
+          initialEpoch={activeReport ? activeInitialEpoch : this.initialEpoch}/>
         </View>
         <View style={styles.mainArea}>
           <View style={styles.mainAreaTabs}>

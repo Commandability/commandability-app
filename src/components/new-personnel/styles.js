@@ -10,13 +10,7 @@ export default StyleSheet.create({
     padding: 16,
     color: colors.text.light,
   },
-  firstNameStyle: {
-    flex: 1,
-  },
-  lastNameStyle: {
-    flex: 1,
-  },
-  badgeNumberStyle: {
+  labelStyle: {
     flex: 1,
   },
   buttonContainer: {
@@ -35,9 +29,9 @@ export default StyleSheet.create({
   buttonContentDisabled: {
     color: colors.design.disabledFont,
   },
-  labelStyle: {
+  labelContentStyle: {
     fontSize: scaleFont(6),
-    flex: 1,
+    flex: 2,
     color: colors.text.light,
   },
   header: {

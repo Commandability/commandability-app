@@ -16,9 +16,10 @@ import {
   Staging,
   NewPersonnel,
   Roster,
+  InfoBar
 } from '../../components';
 import { activeReport, getInitialEpoch } from '../../redux/selectors';
-import { startIncident } from '../../redux/actions';
+import { startIncident, endIncident } from '../../redux/actions';
 import {
   GROUP_ONE,
   GROUP_TWO,
@@ -64,6 +65,10 @@ class IncidentScreen extends Component {
     }));
   };
 
+  _onEndIncident = () => {
+    endIncident();
+  }
+
   editGroup = () => {
     this.setState(prevState => ({
       editGroupMode: !prevState.editGroupMode,
@@ -107,6 +112,7 @@ class IncidentScreen extends Component {
       <View style={styles.container}>
         <View style={styles.stagingArea}>
           <Staging />
+          <InfoBar endHandler={this._onEndIncident} />
         </View>
         <View style={styles.mainArea}>
           <View style={styles.mainAreaTabs}>

@@ -21,17 +21,11 @@ import {
   EndScreen,
   ExitIncidentPrompt,
 } from './screens';
-import colors from './modules/colors';
-
-const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 export const { persistor, store } = configureStore();
 
 const defaultNavigationOptions = {
-  headerStyle: {
-    backgroundColor: colors.background.dark.main,
-    height: SCREEN_HEIGHT / 10,
-  },
+  header: null,
 };
 
 const AppStack = createStackNavigator(

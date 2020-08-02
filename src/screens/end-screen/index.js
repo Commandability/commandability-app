@@ -8,8 +8,9 @@ import React, { Component } from 'react';
 import {
   ActivityIndicator,
   Alert,
-  Button,
+  TouchableOpacity,
   View,
+  Text,
   TextInput,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -83,38 +84,41 @@ class EndScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Button
-          onPress={this._resumeIncident}
-          title="Resume Incident"
-          color={colors.primary.light}
-        />
+        <Text style={styles.label}>Incident Location</Text>
         <TextInput
           style={styles.locationInput}
           autoCapitalize="none"
-          placeholder="Incident Location"
-          placeholderTextColor={colors.text.light}
           onChangeText={location => this.setState({ location })}
           value={this.state.location}
         />
+        <Text style={styles.label}>Notes</Text>
         <TextInput
           style={styles.notesInput}
           autoCapitalize="none"
-          placeholder="Notes"
-          placeholderTextColor={colors.text.light}
           multiline={true}
           onChangeText={notes => this.setState({ notes })}
           value={this.state.notes}
         />
-        <Button
-          onPress={this._saveAndExit}
-          title="Save and Exit"
-          color={colors.primary.light}
-        />
-        <Button
-          onPress={this._exitWithoutSaving}
-          title="Exit without saving"
-          color={colors.primary.light}
-        />
+        <View style={styles.row}>
+          <TouchableOpacity
+            style={styles.opacity}
+            onPress={this._resumeIncident}
+          >
+            <Text style={styles.opacityText}>Resume Incident</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.opacity}
+            onPress={this._saveAndExit}
+          >
+            <Text style={styles.opacityText}>Save and Exit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.opacity}
+            onPress={this._exitWithoutSaving}
+          >
+            <Text style={styles.opacityText}>Exit without saving</Text>
+          </TouchableOpacity>
+        </View>
         {this.state.loading && (
           <ActivityIndicator
             style={styles.activityIndicator}

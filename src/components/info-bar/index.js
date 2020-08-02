@@ -9,13 +9,14 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
+import { withNavigation } from 'react-navigation';
 
 import styles from './styles';
 import Timer from '../timer';
 
 class InfoBar extends Component {
   _onEndPressed = () => {
-    this.props.endHandler();
+    this.props.navigation.navigate('EndScreen');
   };
 
   _onToggleThemePressed = () => {
@@ -46,6 +47,7 @@ class InfoBar extends Component {
 // props validation
 InfoBar.propTypes = {
   endHandler: PropTypes.func,
+  navigation: PropTypes.object,
 };
 
-export default InfoBar;
+export default withNavigation(InfoBar);

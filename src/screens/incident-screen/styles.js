@@ -7,13 +7,15 @@ export default StyleSheet.create({
   container: {
     flexDirection: 'row',
     backgroundColor: colors.background.dark.main,
+    flex: 1
   },
-  stagingArea: {
+  sideBar: {
     flex: 1,
+    flexDirection: 'column'
   },
   mainArea: {
-    flexDirection: 'column',
     flex: 3,
+    flexDirection: 'column',
   },
   mainAreaTabs: {
     flexDirection: 'row',

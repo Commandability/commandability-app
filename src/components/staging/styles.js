@@ -15,8 +15,9 @@ export default StyleSheet.create({
     opacity: 0.6,
   },
   container: {
-    height: '100%',
-    padding: 4,
+    flex: 1,
+    flexDirection: 'column',
+    padding: 4
   },
   header: {
     flexDirection: 'row',

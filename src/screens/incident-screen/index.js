@@ -110,7 +110,7 @@ class IncidentScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.stagingArea}>
+        <View style={styles.sideBar}>
           <Staging />
           <InfoBar endHandler={this._onEndIncident} />
         </View>

@@ -31,6 +31,7 @@ Download or clone this repository, then run `npm install` inside the directory.
 - [React Native Firebase Firestore](https://invertase.io/oss/react-native-firebase/v6/firestore)
 - [AsyncStorage](https://github.com/react-native-community/async-storage)
 - [React Native Splash Screen](https://github.com/crazycodeboy/react-native-splash-screen)
+- [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)
 - [NetInfo](https://github.com/react-native-community/react-native-netinfo)
 - [uuid](https://github.com/kelektiv/node-uuid)
 

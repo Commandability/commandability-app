@@ -231,14 +231,24 @@ class HomeScreen extends Component {
             <Text style={styles.opacityText}>Upload Reports</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.opacity}
-          onPress={this._signOut}
-          color={colors.primary.light}
-        >
+        <View style={styles.row}>
+          <TouchableOpacity
+            style={styles.opacity}
+            onPress={this._setTheme}
+            color={colors.primary.light}
+          >
+            <Icon name="theme-light-dark" style={styles.icon} />
+            <Text style={styles.opacityText}>Light Theme</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.opacity}
+            onPress={this._signOut}
+            color={colors.primary.light}
+          >
           <Icon name="logout" style={styles.icon} />
           <Text style={styles.opacityText}>Sign out</Text>
         </TouchableOpacity>
+        </View>
         {this.state.loading && (
           <ActivityIndicator
             style={styles.activityIndicator}

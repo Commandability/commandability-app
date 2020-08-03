@@ -5,14 +5,13 @@
  */
 
 import React, { Component } from 'react';
-import { Alert, Button, View, TextInput, Text } from 'react-native';
+import { Alert, TouchableOpacity, View, TextInput, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import auth from '@react-native-firebase/auth';
 
 import { resetIncident } from '../../redux/actions';
-import colors from '../../modules/colors';
 import styles from './styles';
 
 class ExitIncidentPrompt extends Component {
@@ -47,21 +46,29 @@ class ExitIncidentPrompt extends Component {
 
     return (
       <View style={styles.container}>
-        <Text
-          style={styles.prompt}
-        >{`Are you absolutely sure you want to exit without saving?`}</Text>
-        <Text style={styles.prompt}>{`Please type ${email} to confirm.`}</Text>
+        <View style={styles.prompt}>
+          <Text
+            style={styles.promptText}
+          >
+            {`Are you absolutely sure you want to exit without saving?`}
+          </Text>
+          <Text style={styles.promptText}>
+            Please type <Text style={styles.email}>{email}</Text> to confirm.
+          </Text>
+        </View>
+        <Text style={styles.label}>Organization email *</Text>
         <TextInput
           style={styles.emailInput}
           autoCapitalize="none"
           onChangeText={email => this.setState({ email })}
           value={this.state.email}
         />
-        <Button
+        <TouchableOpacity
+          style={styles.opacity}
           onPress={this._exit}
-          title="Exit without saving"
-          color={colors.primary.light}
-        />
+        >
+          <Text style={styles.opacityText}>Exit Without Saving</Text>
+        </TouchableOpacity>
       </View>
     );
   }

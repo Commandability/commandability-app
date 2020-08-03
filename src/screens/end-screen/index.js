@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
 import {
@@ -84,7 +85,7 @@ class EndScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.label}>Incident Location</Text>
+        <Text style={styles.label}>Location *</Text>
         <TextInput
           style={styles.locationInput}
           autoCapitalize="none"
@@ -99,25 +100,29 @@ class EndScreen extends Component {
           onChangeText={notes => this.setState({ notes })}
           value={this.state.notes}
         />
-        <View style={styles.row}>
-          <TouchableOpacity
+        <TouchableOpacity
             style={styles.opacity}
             onPress={this._resumeIncident}
           >
+            <Icon name="restart" style={styles.icon} />
             <Text style={styles.opacityText}>Resume Incident</Text>
-          </TouchableOpacity>
+        </TouchableOpacity>
+        <View style={styles.row}>
           <TouchableOpacity
-            style={styles.opacity}
-            onPress={this._saveAndExit}
-          >
-            <Text style={styles.opacityText}>Save and Exit</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.opacity}
+            style={[styles.opacity, styles.rowOpacity]}
             onPress={this._exitWithoutSaving}
           >
-            <Text style={styles.opacityText}>Exit without saving</Text>
+            <Icon name="cancel" style={styles.icon} />
+            <Text style={styles.opacityText}>Exit Without Saving</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.opacity, styles.rowOpacity]}
+            onPress={this._saveAndExit}
+          >
+            <Icon name="check" style={styles.icon} />
+            <Text style={styles.opacityText}>Save and Exit</Text>
+          </TouchableOpacity>
+          
         </View>
         {this.state.loading && (
           <ActivityIndicator

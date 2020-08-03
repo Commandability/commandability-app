@@ -58,5 +58,6 @@ export default StyleSheet.create({
   },
   personnelAreaContainer: {
     flex: 1,
+    padding: 24
   },
 });

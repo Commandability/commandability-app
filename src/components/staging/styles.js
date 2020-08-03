@@ -7,8 +7,8 @@ export default StyleSheet.create({
   overlay: {
     backgroundColor: `rgb(12, 12, 12)`,
     position: 'absolute',
-    top: 4,
-    left: 4,
+    top: 8,
+    left: 8,
     zIndex: 1,
     width: '100%',
     height: '100%',
@@ -17,7 +17,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    padding: 4
+    padding: 8
   },
   header: {
     flexDirection: 'row',
@@ -25,7 +25,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     padding: 4,
     width: '100%',
-    backgroundColor: colors.primary.light,
+    backgroundColor: colors.background.dark.highlight
   },
   headerContent: {
     fontSize: scaleFont(6),

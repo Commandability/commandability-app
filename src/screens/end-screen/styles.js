@@ -39,7 +39,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   opacity: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -47,8 +46,16 @@ export default StyleSheet.create({
     padding: 48,
     margin: 24,
   },
+  rowOpacity: {
+    flex: 1,
+  },
   opacityText: {
     fontSize: 42,
     color: colors.text.light,
+  },
+  icon: {
+    fontSize: 42,
+    color: colors.primary.light,
+    marginRight: 30,
   },
 });

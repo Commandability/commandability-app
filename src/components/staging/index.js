@@ -15,13 +15,10 @@ import StagingList from '../staging-list';
 import {
   getPersonnelByLocationId,
   getSelectedLocationId,
-  personIsSelected,
   getSelectedPersonnelGroups,
 } from '../../redux/selectors';
 import {
   setVisibility,
-  selectPerson,
-  deselectPerson,
   clearSelectedPersonnel,
   setPersonLocationId,
 } from '../../redux/actions';
@@ -29,20 +26,6 @@ import { STAGING, ROSTER } from '../../modules/location-ids';
 import styles from './styles';
 
 class Group extends Component {
-  _onSelectAllPressed = () => {
-    const {
-      personnel,
-      allPersonnelSelected,
-      selectPerson,
-      deselectPerson,
-    } = this.props;
-    personnel.forEach(item => {
-      allPersonnelSelected
-        ? deselectPerson(item, STAGING)
-        : selectPerson(item, STAGING);
-    });
-  };
-
   _onStagingPressed = () => {
     const {
       selectedPersonnelGroups,
@@ -77,12 +60,11 @@ class Group extends Component {
             onPress={this._onStagingPressed}
           />
         )}
-        <TouchableOpacity
-          onPress={this._onSelectAllPressed}
+        <View
           style={styles.header}
         >
           <Text style={styles.headerContent}> Staging </Text>
-        </TouchableOpacity>
+        </View>
         <StagingList />
       </View>
     );
@@ -93,10 +75,7 @@ class Group extends Component {
 Group.propTypes = {
   personnel: PropTypes.array,
   selectedLocationId: PropTypes.string,
-  selectPerson: PropTypes.func,
-  deselectPerson: PropTypes.func,
   locationId: PropTypes.string,
-  allPersonnelSelected: PropTypes.bool,
   selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocationId: PropTypes.func,
@@ -108,9 +87,6 @@ const mapStateToProps = state => {
   return {
     personnel,
     selectedLocationId: getSelectedLocationId(state),
-    allPersonnelSelected: personnel.every(person =>
-      personIsSelected(state, person)
-    ),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };
@@ -120,8 +96,6 @@ export default withNavigation(
     mapStateToProps,
     {
       setVisibility,
-      selectPerson,
-      deselectPerson,
       clearSelectedPersonnel,
       setPersonLocationId,
     }

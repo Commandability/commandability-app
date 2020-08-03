@@ -9,7 +9,7 @@ export default StyleSheet.create({
     color: colors.text.light,
     borderColor: colors.primary.light,
     borderBottomWidth: 1,
-    marginBottom: 8,
+    marginBottom: 16,
     marginTop: 8,
   },
   container: {
@@ -17,6 +17,7 @@ export default StyleSheet.create({
     flexDirection: 'column',
     padding: 16,
     color: colors.text.light,
+    backgroundColor: colors.background.dark.highlight,
   },
   header: {
     flexDirection: 'row',

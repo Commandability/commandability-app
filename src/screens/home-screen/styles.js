@@ -33,7 +33,7 @@ export default StyleSheet.create({
     color: colors.primary.light,
     marginRight: 30,
   },
-  iconText: {
+  opacityText: {
     fontSize: 42,
     color: colors.text.light,
   },

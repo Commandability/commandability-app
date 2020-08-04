@@ -19,6 +19,9 @@ const colors = {
       highlight: '#1f1f1f',
     },
   },
+  overlay: {
+    dark: '#ffffff'
+  },
   text: {
     light: '#e2e2e2',
     dark: '#121212',

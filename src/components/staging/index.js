@@ -1,5 +1,5 @@
 /**
- * Group Component
+ * Staging Component
  *
  * This component displays each of the six main groups, each group's relevant data
  * list and handles visibility control of groups
@@ -25,7 +25,7 @@ import {
 import { STAGING, ROSTER } from '../../modules/location-ids';
 import styles from './styles';
 
-class Group extends Component {
+class Staging extends Component {
   _onStagingPressed = () => {
     const {
       selectedPersonnelGroups,
@@ -72,7 +72,7 @@ class Group extends Component {
 }
 
 // props validation
-Group.propTypes = {
+Staging.propTypes = {
   personnel: PropTypes.array,
   selectedLocationId: PropTypes.string,
   locationId: PropTypes.string,
@@ -99,5 +99,5 @@ export default withNavigation(
       clearSelectedPersonnel,
       setPersonLocationId,
     }
-  )(Group)
+  )(Staging)
 );

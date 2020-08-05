@@ -10,7 +10,6 @@ import React, { Component } from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { withNavigation } from 'react-navigation';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './styles';
 import Timer from '../timer';
@@ -34,14 +33,12 @@ class InfoBar extends Component {
           onPress={this._onToggleThemePressed}
         >
           <Text style={styles.optionContent}>{' '}LIGHT{' '}</Text>
-          <Icon name="theme-light-dark" style={styles.icon} />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.option}
           onPress={this._onEndPressed}
         >
           <Text style={styles.optionContent}>{' '}END{' '}</Text>
-          <Icon name= "arrow-right-bold-hexagon-outline" style={styles.icon} />
         </TouchableOpacity>
       </View>
     );

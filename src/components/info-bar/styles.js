@@ -13,16 +13,11 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '20%',
-    paddingVertical: 4,
-    margin: 2,
+    paddingVertical: 2,
+    margin: 8,
     backgroundColor: colors.background.dark.highlight,
     flex: 1,
     flexDirection: 'row',
-  },
-  icon: {
-    fontSize: scaleFont(7),
-    padding: 5,
-    color: colors.text.light,
   },
   optionContent: {
     fontSize: scaleFont(5),

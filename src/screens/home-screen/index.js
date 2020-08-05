@@ -211,7 +211,7 @@ class HomeScreen extends Component {
           color={colors.primary.light}
         >
           <Icon name="launch" style={styles.icon} />
-          <Text style={styles.iconText}>Start Incident</Text>
+          <Text style={styles.opacityText}>Start Incident</Text>
         </TouchableOpacity>
         <View style={styles.row}>
           <TouchableOpacity
@@ -220,7 +220,7 @@ class HomeScreen extends Component {
             color={colors.primary.light}
           >
             <Icon name="update" style={styles.icon} />
-            <Text style={styles.iconText}>Update Configuration</Text>
+            <Text style={styles.opacityText}>Update Configuration</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.opacity}
@@ -228,17 +228,27 @@ class HomeScreen extends Component {
             color={colors.primary.light}
           >
             <Icon name="upload" style={styles.icon} />
-            <Text style={styles.iconText}>Upload Reports</Text>
+            <Text style={styles.opacityText}>Upload Reports</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.opacity}
-          onPress={this._signOut}
-          color={colors.primary.light}
-        >
+        <View style={styles.row}>
+          <TouchableOpacity
+            style={styles.opacity}
+            onPress={this._setTheme}
+            color={colors.primary.light}
+          >
+            <Icon name="theme-light-dark" style={styles.icon} />
+            <Text style={styles.opacityText}>Light Theme</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.opacity}
+            onPress={this._signOut}
+            color={colors.primary.light}
+          >
           <Icon name="logout" style={styles.icon} />
-          <Text style={styles.iconText}>Sign out</Text>
+          <Text style={styles.opacityText}>Sign out</Text>
         </TouchableOpacity>
+        </View>
         {this.state.loading && (
           <ActivityIndicator
             style={styles.activityIndicator}

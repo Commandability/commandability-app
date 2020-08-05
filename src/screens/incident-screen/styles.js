@@ -29,11 +29,11 @@ export default StyleSheet.create({
     padding: 14,
   },
   tabContent: {
-    fontSize: scaleFont(5),
+    fontSize: scaleFont(6),
     fontWeight: 'bold',
     justifyContent: 'center',
     alignItems: 'center',
-    color: colors.text.light,
+    color: colors.text.gray,
   },
   selectedTab: {
     borderBottomWidth: 2,
@@ -58,5 +58,6 @@ export default StyleSheet.create({
   },
   personnelAreaContainer: {
     flex: 1,
+    padding: 24
   },
 });

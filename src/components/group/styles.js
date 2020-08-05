@@ -5,20 +5,20 @@ import { scaleFont } from '../../modules/fonts';
 
 export default StyleSheet.create({
   overlay: {
-    backgroundColor: `rgb(12, 12, 12)`,
+    backgroundColor: colors.overlay.dark,
     position: 'absolute',
-    top: 4,
-    left: 4,
+    top: 8,
+    left: 8,
     zIndex: 1,
     width: '100%',
     height: '100%',
-    opacity: 0.6,
+    opacity: 0.2,
   },
   container: {
     height: '50%',
     width: '33%',
     flexDirection: 'column',
-    padding: 4,
+    padding: 8,
   },
   header: {
     flexDirection: 'row',

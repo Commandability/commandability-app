@@ -9,7 +9,6 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getSelectedLocationId } from '../../redux/selectors';
 import { setPersonLocationId } from '../../redux/actions';
 import { ROSTER, STAGING } from '../../modules/location-ids';
 import styles from './styles';
@@ -31,20 +30,18 @@ class RosterItem extends PureComponent {
 
   render() {
     const {
-      item: { badge, firstName, lastName },
-      selectedLocationId,
+      item: { firstName, lastName, badge, shift },
     } = this.props;
     return (
-      // disable item if a list other than the parent list is selected,
-      // so items can be moved to the items parent list
-      <TouchableOpacity
-        onPress={this._onPress}
-        disabled={selectedLocationId == '' ? false : true}
-      >
-        <View>
-          <Text style={styles.item}>{`${
-            badge ? badge + ' - ' : ''
-          }${firstName} ${lastName}`}</Text>
+      <TouchableOpacity onPress={this._onPress} style={styles.container}>
+        <View style={styles.content}>
+          <View style={styles.mainLine}>
+            <Text style={styles.name}>{`${firstName} ${lastName}`}</Text>
+          </View>
+          <View style={styles.line}>
+            <Text style={styles.badge}>{`${badge ? badge + ' ' : ''}`}</Text>
+            <Text style={styles.shift}>{`${shift ? shift : ''}`}</Text>
+          </View>
         </View>
       </TouchableOpacity>
     );
@@ -57,16 +54,9 @@ RosterItem.propTypes = {
   groupName: PropTypes.string,
   item: PropTypes.object, // the current person
   locationId: PropTypes.string,
-  selectedLocationId: PropTypes.string,
-};
-
-const mapStateToProps = state => {
-  return {
-    selectedLocationId: getSelectedLocationId(state),
-  };
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   { setPersonLocationId }
 )(RosterItem);

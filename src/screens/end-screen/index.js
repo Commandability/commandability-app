@@ -8,12 +8,14 @@ import React, { Component } from 'react';
 import {
   ActivityIndicator,
   Alert,
-  Button,
+  TouchableOpacity,
   View,
+  Text,
   TextInput,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
 import {
@@ -83,38 +85,45 @@ class EndScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Button
-          onPress={this._resumeIncident}
-          title="Resume Incident"
-          color={colors.primary.light}
-        />
+        <Text style={styles.label}>Location *</Text>
         <TextInput
           style={styles.locationInput}
           autoCapitalize="none"
-          placeholder="Incident Location"
-          placeholderTextColor={colors.text.light}
           onChangeText={location => this.setState({ location })}
           value={this.state.location}
         />
+        <Text style={styles.label}>Notes</Text>
         <TextInput
           style={styles.notesInput}
           autoCapitalize="none"
-          placeholder="Notes"
-          placeholderTextColor={colors.text.light}
           multiline={true}
           onChangeText={notes => this.setState({ notes })}
           value={this.state.notes}
         />
-        <Button
-          onPress={this._saveAndExit}
-          title="Save and Exit"
-          color={colors.primary.light}
-        />
-        <Button
-          onPress={this._exitWithoutSaving}
-          title="Exit without saving"
-          color={colors.primary.light}
-        />
+        <TouchableOpacity
+            style={styles.opacity}
+            onPress={this._resumeIncident}
+          >
+            <Icon name="restart" style={styles.icon} />
+            <Text style={styles.opacityText}>Resume Incident</Text>
+        </TouchableOpacity>
+        <View style={styles.row}>
+          <TouchableOpacity
+            style={[styles.opacity, styles.rowOpacity]}
+            onPress={this._exitWithoutSaving}
+          >
+            <Icon name="cancel" style={styles.icon} />
+            <Text style={styles.opacityText}>Exit Without Saving</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.opacity, styles.rowOpacity]}
+            onPress={this._saveAndExit}
+          >
+            <Icon name="check" style={styles.icon} />
+            <Text style={styles.opacityText}>Save and Exit</Text>
+          </TouchableOpacity>
+          
+        </View>
         {this.state.loading && (
           <ActivityIndicator
             style={styles.activityIndicator}

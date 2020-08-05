@@ -1,5 +1,5 @@
 /**
- * Group Component
+ * Staging Component
  *
  * This component displays each of the six main groups, each group's relevant data
  * list and handles visibility control of groups
@@ -15,34 +15,17 @@ import StagingList from '../staging-list';
 import {
   getPersonnelByLocationId,
   getSelectedLocationId,
-  personIsSelected,
   getSelectedPersonnelGroups,
 } from '../../redux/selectors';
 import {
   setVisibility,
-  selectPerson,
-  deselectPerson,
   clearSelectedPersonnel,
   setPersonLocationId,
 } from '../../redux/actions';
 import { STAGING, ROSTER } from '../../modules/location-ids';
 import styles from './styles';
 
-class Group extends Component {
-  _onSelectAllPressed = () => {
-    const {
-      personnel,
-      allPersonnelSelected,
-      selectPerson,
-      deselectPerson,
-    } = this.props;
-    personnel.forEach(item => {
-      allPersonnelSelected
-        ? deselectPerson(item, STAGING)
-        : selectPerson(item, STAGING);
-    });
-  };
-
+class Staging extends Component {
   _onStagingPressed = () => {
     const {
       selectedPersonnelGroups,
@@ -77,12 +60,11 @@ class Group extends Component {
             onPress={this._onStagingPressed}
           />
         )}
-        <TouchableOpacity
-          onPress={this._onSelectAllPressed}
+        <View
           style={styles.header}
         >
           <Text style={styles.headerContent}> Staging </Text>
-        </TouchableOpacity>
+        </View>
         <StagingList />
       </View>
     );
@@ -90,13 +72,10 @@ class Group extends Component {
 }
 
 // props validation
-Group.propTypes = {
+Staging.propTypes = {
   personnel: PropTypes.array,
   selectedLocationId: PropTypes.string,
-  selectPerson: PropTypes.func,
-  deselectPerson: PropTypes.func,
   locationId: PropTypes.string,
-  allPersonnelSelected: PropTypes.bool,
   selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocationId: PropTypes.func,
@@ -108,9 +87,6 @@ const mapStateToProps = state => {
   return {
     personnel,
     selectedLocationId: getSelectedLocationId(state),
-    allPersonnelSelected: personnel.every(person =>
-      personIsSelected(state, person)
-    ),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
   };
 };
@@ -120,10 +96,8 @@ export default withNavigation(
     mapStateToProps,
     {
       setVisibility,
-      selectPerson,
-      deselectPerson,
       clearSelectedPersonnel,
       setPersonLocationId,
     }
-  )(Group)
+  )(Staging)
 );

@@ -5,13 +5,13 @@
  */
 
 import React, { Component } from 'react';
-import { Alert, TextInput, Button, View } from 'react-native';
+import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getGroupByLocationId } from '../../redux/selectors';
 import { setVisibility, setName } from '../../redux/actions';
-import colors from '../../modules/colors';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './styles';
 
 class GroupPrompt extends Component {
@@ -54,19 +54,20 @@ class GroupPrompt extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.label}>Group name *</Text>
         <TextInput
           style={styles.nameInput}
           autoCapitalize="none"
-          placeholder="New group name"
-          placeholderTextColor={colors.text.light}
           value={this.state.newName}
           onChangeText={newName => this.setState({ newName })}
         />
-        <Button
-          onPress={this._onSave}
-          title="Save"
-          color={colors.primary.light}
-        />
+        <TouchableOpacity
+            style={styles.opacity}
+            onPress={this._onSave}
+          >
+            <Icon name="check" style={styles.icon} />
+            <Text style={styles.opacityText}>Save</Text>
+        </TouchableOpacity>
       </View>
     );
   }

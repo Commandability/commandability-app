@@ -6,7 +6,7 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 import { getLocationUpdateTime, personIsSelected } from '../../redux/selectors';
@@ -61,20 +61,22 @@ class ListItem extends PureComponent {
 
   render() {
     const {
-      item: { badge, firstName, lastName },
+      item: { firstName, lastName, badge, shift },
       personIsSelected,
     } = this.props;
+    const time = Math.floor(this.state.time / MS_IN_MINUTE);
     return (
-      <TouchableOpacity onPress={this._onPress}>
-        <Text
-          style={personIsSelected ? styles.selectedItem : styles.unselectedItem}
-        >
-          {`${
-            badge ? badge + ' - ' : ''
-          }${firstName} ${lastName} - ${Math.floor(
-            this.state.time / MS_IN_MINUTE
-          )}`}
-        </Text>
+      <TouchableOpacity onPress={this._onPress} style={[personIsSelected && styles.selected, styles.container]}>
+        <View style={styles.content}>
+          <View style={styles.mainLine}>
+            <Text style={styles.name}>{`${firstName} ${lastName}`}</Text>
+            <Text style={styles.time}>{`${time}`}</Text>
+          </View>
+          <View style={styles.line}>
+            <Text style={styles.badge}>{`${badge ? badge + ' ' : ''}`}</Text>
+            <Text style={styles.shift}>{`${shift ? shift : ''}`}</Text>
+          </View>
+        </View>
       </TouchableOpacity>
     );
   }

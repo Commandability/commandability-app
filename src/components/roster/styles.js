@@ -21,7 +21,7 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     marginBottom: 16,
     marginTop: 8,
-    marginHorizontal: 4
+    marginHorizontal: 8
   },
   container: {
     flex: 1,
@@ -32,7 +32,7 @@ export default StyleSheet.create({
   header: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 4,
+    padding: 8,
   },
   headerContent: {
     fontSize: scaleFont(6),

@@ -22,7 +22,7 @@ export default StyleSheet.create({
   header: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 4,
+    padding: 8,
   },
   headerContent: {
     fontSize: scaleFont(6),

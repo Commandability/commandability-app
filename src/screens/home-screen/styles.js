@@ -35,7 +35,7 @@ export default StyleSheet.create({
     marginRight: 30,
   },
   iconText: {
-    fontSize: 42,
+    fontSize: scaleFont(42),
     color: colors.text.light,
   },
 });

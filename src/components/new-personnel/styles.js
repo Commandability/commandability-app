@@ -5,16 +5,16 @@ import { scaleFont } from '../../modules/fonts';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
+    height: '100%',
     flexDirection: 'column',
     padding: 16,
     color: colors.text.light,
   },
   labelStyle: {
-    flex: 1,
+    padding: 4,
   },
   buttonContainer: {
-    flex: 1,
+    padding: 4,
     borderWidth: 0.5,
     backgroundColor: colors.primary.dark,
   },
@@ -25,13 +25,15 @@ export default StyleSheet.create({
     textAlign: 'center',
     alignItems: 'center',
     color: colors.primary.text,
+    fontSize: scaleFont(6),
+    padding: 4,
   },
   buttonContentDisabled: {
     color: colors.design.disabledFont,
   },
   labelContentStyle: {
+    padding: 4,
     fontSize: scaleFont(6),
-    flex: 2,
     color: colors.text.light,
   },
   header: {
@@ -40,8 +42,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   headerContent: {
-    flex: 5,
-    fontSize: scaleFont(6),
+    fontSize: scaleFont(8),
     textAlign: 'center',
     color: colors.text.light,
   },

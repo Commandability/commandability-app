@@ -41,7 +41,7 @@ class InfoBar extends Component {
           onPress={this._onEndPressed}
         >
           <Text style={styles.optionContent}>{' '}END{' '}</Text>
-          <Icon name="exit-to-app" style={styles.icon} />
+          <Icon name= "arrow-right-bold-hexagon-outline" style={styles.icon} />
         </TouchableOpacity>
       </View>
     );

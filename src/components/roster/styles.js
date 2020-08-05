@@ -24,7 +24,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   headerContent: {
-    fontSize: scaleFont(6),
+    fontSize: scaleFont(8),
     color: colors.text.light,
   },
 });

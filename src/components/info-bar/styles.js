@@ -16,7 +16,6 @@ export default StyleSheet.create({
     paddingVertical: 4,
     margin: 2,
     backgroundColor: colors.background.dark.highlight,
-    borderWidth: 2,
     flex: 1,
     flexDirection: 'row',
   },

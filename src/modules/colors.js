@@ -17,16 +17,16 @@ const colors = {
     dark: {
       main: '#121212',
       highlight: '#1f1f1f',
-      highlightLight: '#353535'
+      highlightLight: '#353535',
     },
   },
   overlay: {
-    dark: '#ffffff'
+    dark: '#ffffff',
   },
   text: {
     light: '#e2e2e2',
     dark: '#121212',
-    gray: '#878787'
+    gray: '#878787',
   },
   design: {
     disabled: '#303030',

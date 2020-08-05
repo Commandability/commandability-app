@@ -60,9 +60,7 @@ class Staging extends Component {
             onPress={this._onStagingPressed}
           />
         )}
-        <View
-          style={styles.header}
-        >
+        <View style={styles.header}>
           <Text style={styles.headerContent}> Staging </Text>
         </View>
         <StagingList />

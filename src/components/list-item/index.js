@@ -66,7 +66,10 @@ class ListItem extends PureComponent {
     } = this.props;
     const time = Math.floor(this.state.time / MS_IN_MINUTE);
     return (
-      <TouchableOpacity onPress={this._onPress} style={[personIsSelected && styles.selected, styles.container]}>
+      <TouchableOpacity
+        onPress={this._onPress}
+        style={[personIsSelected && styles.selected, styles.container]}
+      >
         <View style={styles.content}>
           <View style={styles.mainLine}>
             <Text style={styles.name}>{`${firstName} ${lastName}`}</Text>

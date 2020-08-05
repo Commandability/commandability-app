@@ -72,7 +72,7 @@ class Roster extends Component {
 
     const renderOverlay =
       selectedLocationId && selectedLocationId !== ROSTER ? true : false;
-    
+
     return (
       <View style={styles.container}>
         {renderOverlay && (

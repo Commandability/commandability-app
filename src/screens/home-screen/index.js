@@ -245,9 +245,9 @@ class HomeScreen extends Component {
             onPress={this._signOut}
             color={colors.primary.light}
           >
-          <Icon name="logout" style={styles.icon} />
-          <Text style={styles.opacityText}>Sign out</Text>
-        </TouchableOpacity>
+            <Icon name="logout" style={styles.icon} />
+            <Text style={styles.opacityText}>Sign out</Text>
+          </TouchableOpacity>
         </View>
         {this.state.loading && (
           <ActivityIndicator

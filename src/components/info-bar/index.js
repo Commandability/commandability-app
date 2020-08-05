@@ -1,8 +1,8 @@
 /**
  * InfoBar Component
  *
- * 
- * This component handles the Infobar under the staging area, 
+ *
+ * This component handles the Infobar under the staging area,
  * includes the timer, brightness and end incident
  */
 
@@ -24,21 +24,18 @@ class InfoBar extends Component {
   };
 
   render() {
-    const { initialEpoch} = this.props;
+    const { initialEpoch } = this.props;
     return (
       <View style={styles.container}>
-        <Timer initialEpoch={initialEpoch}/>
+        <Timer initialEpoch={initialEpoch} />
         <TouchableOpacity
           style={styles.option}
           onPress={this._onToggleThemePressed}
         >
-          <Text style={styles.optionContent}>{' '}LIGHT{' '}</Text>
+          <Text style={styles.optionContent}> LIGHT </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.option}
-          onPress={this._onEndPressed}
-        >
-          <Text style={styles.optionContent}>{' '}END{' '}</Text>
+        <TouchableOpacity style={styles.option} onPress={this._onEndPressed}>
+          <Text style={styles.optionContent}> END </Text>
         </TouchableOpacity>
       </View>
     );
@@ -49,7 +46,7 @@ class InfoBar extends Component {
 InfoBar.propTypes = {
   endHandler: PropTypes.func,
   navigation: PropTypes.object,
-  initialEpoch: PropTypes.number
+  initialEpoch: PropTypes.number,
 };
 
 export default withNavigation(InfoBar);

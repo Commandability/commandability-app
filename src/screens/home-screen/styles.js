@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 import colors from '../../modules/colors';
-import { scaleFont } from '../../modules/fonts';
 
 export default StyleSheet.create({
   activityIndicator: {
@@ -30,11 +29,12 @@ export default StyleSheet.create({
     margin: 24,
   },
   icon: {
-    fontSize: scaleFont(42),
+    fontSize: 42,
     color: colors.primary.light,
     marginRight: 30,
   },
   opacityText: {
     fontSize: 42,
+    color: colors.text.light,
   },
 });

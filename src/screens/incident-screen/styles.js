@@ -7,11 +7,11 @@ export default StyleSheet.create({
   container: {
     flexDirection: 'row',
     backgroundColor: colors.background.dark.main,
-    flex: 1
+    flex: 1,
   },
   sideBar: {
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   mainArea: {
     flex: 3,
@@ -58,6 +58,6 @@ export default StyleSheet.create({
   },
   personnelAreaContainer: {
     flex: 1,
-    padding: 24
+    padding: 24,
   },
 });

@@ -21,7 +21,7 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     marginBottom: 16,
     marginTop: 8,
-    marginHorizontal: 8
+    marginHorizontal: 8,
   },
   container: {
     flex: 1,

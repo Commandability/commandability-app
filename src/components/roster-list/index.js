@@ -9,9 +9,7 @@ import { FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {
-  getPersonnelByLocationId,
-} from '../../redux/selectors';
+import { getPersonnelByLocationId } from '../../redux/selectors';
 import RosterItem from '../roster-item';
 import { ROSTER } from '../../modules/location-ids';
 import styles from './styles';
@@ -31,7 +29,8 @@ class RosterList extends React.PureComponent {
         data={
           query
             ? personnel.filter(person => {
-                const { firstName, lastName, badge, shift } = person || undefined;
+                const { firstName, lastName, badge, shift } =
+                  person || undefined;
                 return (
                   firstName.toLowerCase().includes(query) ||
                   lastName.toLowerCase().includes(query) ||

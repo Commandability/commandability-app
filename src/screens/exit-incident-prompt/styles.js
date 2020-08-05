@@ -12,7 +12,7 @@ export default StyleSheet.create({
     padding: 24,
   },
   prompt: {
-    margin: 24
+    margin: 24,
   },
   promptText: {
     fontSize: scaleFont(8),

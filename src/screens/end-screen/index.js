@@ -100,12 +100,9 @@ class EndScreen extends Component {
           onChangeText={notes => this.setState({ notes })}
           value={this.state.notes}
         />
-        <TouchableOpacity
-            style={styles.opacity}
-            onPress={this._resumeIncident}
-          >
-            <Icon name="restart" style={styles.icon} />
-            <Text style={styles.opacityText}>Resume Incident</Text>
+        <TouchableOpacity style={styles.opacity} onPress={this._resumeIncident}>
+          <Icon name="restart" style={styles.icon} />
+          <Text style={styles.opacityText}>Resume Incident</Text>
         </TouchableOpacity>
         <View style={styles.row}>
           <TouchableOpacity
@@ -122,7 +119,6 @@ class EndScreen extends Component {
             <Icon name="check" style={styles.icon} />
             <Text style={styles.opacityText}>Save and Exit</Text>
           </TouchableOpacity>
-          
         </View>
         {this.state.loading && (
           <ActivityIndicator

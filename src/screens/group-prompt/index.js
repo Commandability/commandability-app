@@ -61,12 +61,9 @@ class GroupPrompt extends Component {
           value={this.state.newName}
           onChangeText={newName => this.setState({ newName })}
         />
-        <TouchableOpacity
-            style={styles.opacity}
-            onPress={this._onSave}
-          >
-            <Icon name="check" style={styles.icon} />
-            <Text style={styles.opacityText}>Save</Text>
+        <TouchableOpacity style={styles.opacity} onPress={this._onSave}>
+          <Icon name="check" style={styles.icon} />
+          <Text style={styles.opacityText}>Save</Text>
         </TouchableOpacity>
       </View>
     );

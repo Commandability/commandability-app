@@ -47,9 +47,7 @@ class ExitIncidentPrompt extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.prompt}>
-          <Text
-            style={styles.promptText}
-          >
+          <Text style={styles.promptText}>
             {`Are you absolutely sure you want to exit without saving?`}
           </Text>
           <Text style={styles.promptText}>
@@ -63,10 +61,7 @@ class ExitIncidentPrompt extends Component {
           onChangeText={email => this.setState({ email })}
           value={this.state.email}
         />
-        <TouchableOpacity
-          style={styles.opacity}
-          onPress={this._exit}
-        >
+        <TouchableOpacity style={styles.opacity} onPress={this._exit}>
           <Text style={styles.opacityText}>Exit Without Saving</Text>
         </TouchableOpacity>
       </View>

@@ -17,7 +17,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: colors.background.dark.highlight
+    backgroundColor: colors.background.dark.highlight,
   },
   header: {
     justifyContent: 'center',

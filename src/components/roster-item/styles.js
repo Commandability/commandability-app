@@ -8,10 +8,10 @@ export default StyleSheet.create({
     flex: 1,
   },
   content: {
-    borderBottomWidth: .5,
+    borderBottomWidth: 0.5,
     borderBottomColor: colors.text.gray,
     marginHorizontal: 8,
-    paddingVertical: 4
+    paddingVertical: 4,
   },
   mainLine: {
     flex: 1,

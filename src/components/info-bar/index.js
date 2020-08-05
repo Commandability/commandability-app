@@ -32,13 +32,13 @@ class InfoBar extends Component {
           style={styles.option}
           onPress={this._onToggleThemePressed}
         >
-          <Text style={styles.optionContent}>{' '}DARK/LIGHT{' '}</Text>
+          <Text style={styles.optionContent}>{' '}LIGHT{' '}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.option}
           onPress={this._onEndPressed}
         >
-          <Text style={styles.optionContent}>{' '}END INCIDENT{' '}</Text>
+          <Text style={styles.optionContent}>{' '}END{' '}</Text>
         </TouchableOpacity>
       </View>
     );

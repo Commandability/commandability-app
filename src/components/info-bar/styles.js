@@ -13,9 +13,11 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '20%',
-    paddingVertical: 4,
-    margin: 12,
+    paddingVertical: 2,
+    margin: 8,
     backgroundColor: colors.background.dark.highlight,
+    flex: 1,
+    flexDirection: 'row',
   },
   optionContent: {
     fontSize: scaleFont(5),

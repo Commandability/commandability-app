@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { addPerson, setPersonLocationId } from '../../redux/actions';
 import { STAGING } from '../../modules/location-ids';
@@ -45,59 +46,39 @@ class NewPersonnel extends Component {
         <View style={styles.header}>
           <Text style={styles.headerContent}> Add Personnel </Text>
         </View>
-        <View style={styles.labelStyle}>
-          <Text style={styles.labelContentStyle}>First Name*</Text>
-          <TextInput
-            style={styles.buttonContainer}
-            maxLength={36}
-            value={this.state.firstName}
-            onChangeText={firstName => this.setState({ firstName })}
-          />
-        </View>
-        <View style={styles.labelStyle}>
-          <Text style={styles.labelContentStyle}>Last Name*</Text>
-          <TextInput
-            style={styles.buttonContainer}
-            maxLength={36}
-            value={this.state.lastName}
-            onChangeText={lastName => this.setState({ lastName })}
-          />
-        </View>
-        <View style={styles.labelStyle}>
-          <Text style={styles.labelContentStyle}>Badge Number</Text>
-          <TextInput
-            style={styles.buttonContainer}
-            keyboardType={'numeric'}
-            maxLength={10}
-            value={this.state.badge}
-            onChangeText={badge => this.setState({ badge })}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            //style={styles.container}
-            style={[
-              styles.buttonContainer,
-              this.state.firstName === '' || this.state.lastName === ''
-                ? styles.buttonContainerDisabled
-                : styles.buttonContainer,
-            ]}
-            onPress={this._onAddPressed}
-            disabled={this.state.firstName === '' || this.state.lastName === ''}
-          >
-            <Text
-              style={[
-                styles.buttonContent,
-                this.state.firstName === '' || this.state.lastName === ''
-                  ? styles.buttonContentDisabled
-                  : styles.buttonContent,
-              ]}
-            >
-              {' '}
-              Add New Entry{' '}
-            </Text>
-          </TouchableOpacity>
-        </View>
+        <Text style={styles.label}>First Name*</Text>
+        <TextInput
+          style={styles.locationInput}
+          maxLength={36}
+          value={this.state.firstName}
+          onChangeText={firstName => this.setState({ firstName })}
+        />
+        <Text style={styles.label}>Last Name*</Text>
+        <TextInput
+          style={styles.locationInput}
+          maxLength={36}
+          value={this.state.lastName}
+          onChangeText={lastName => this.setState({ lastName })}
+        />
+        <Text style={styles.label}>Badge Number</Text>
+        <TextInput
+          style={styles.locationInput}
+          keyboardType={'numeric'}
+          maxLength={10}
+          value={this.state.badge}
+          onChangeText={badge => this.setState({ badge })}
+        />
+        <TouchableOpacity
+           style={styles.opacity}
+           onPress={this._onAddPressed}
+           disabled={this.state.firstName === '' || this.state.lastName === ''}
+        >
+          <Icon name="account-plus" style={styles.icon}></Icon>
+          <Text style={styles.opacityText}>
+            {' '}
+            Add New Entry{' '}
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }

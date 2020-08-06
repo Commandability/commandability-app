@@ -16,7 +16,7 @@ export default StyleSheet.create({
   },
   container: {
     height: '50%',
-    width: '33%',
+    width: `${100 / 3}%`,
     flexDirection: 'column',
     padding: 8,
   },

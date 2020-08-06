@@ -7,8 +7,9 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import PropTypes from 'prop-types';
 
 import { addPerson, setPersonLocationId } from '../../redux/actions';
 import { STAGING } from '../../modules/location-ids';
@@ -43,6 +44,7 @@ class NewPersonnel extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <KeyboardAwareScrollView>
         <View style={styles.header}>
           <Text style={styles.headerContent}> Add Personnel </Text>
         </View>
@@ -79,6 +81,7 @@ class NewPersonnel extends Component {
             Add New Entry{' '}
           </Text>
         </TouchableOpacity>
+        </KeyboardAwareScrollView>
       </View>
     );
   }

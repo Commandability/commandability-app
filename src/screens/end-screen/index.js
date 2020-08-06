@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
@@ -84,7 +85,9 @@ class EndScreen extends Component {
 
   render() {
     return (
+      
       <View style={styles.container}>
+        <KeyboardAwareScrollView>
         <Text style={styles.label}>Location *</Text>
         <TextInput
           style={styles.locationInput}
@@ -127,6 +130,7 @@ class EndScreen extends Component {
             size={'large'}
           />
         )}
+        </KeyboardAwareScrollView>
       </View>
     );
   }

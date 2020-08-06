@@ -133,7 +133,7 @@ class IncidentScreen extends Component {
                 ]}
               >
                 {' '}
-                GROUP{' '}
+                GROUPS{' '}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity

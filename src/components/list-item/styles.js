@@ -33,7 +33,10 @@ export default StyleSheet.create({
   time: {
     flex: 1,
     textAlign: 'right',
-    color: colors.primary.light,
+    color: colors.text.gray,
+  },
+  timeWarning: {
+    color: colors.primary.light
   },
   badge: {
     textAlign: 'left',

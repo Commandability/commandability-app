@@ -45,42 +45,39 @@ class NewPersonnel extends Component {
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView>
-        <View style={styles.header}>
-          <Text style={styles.headerContent}> Add Personnel </Text>
-        </View>
-        <Text style={styles.label}>First Name*</Text>
-        <TextInput
-          style={styles.locationInput}
-          maxLength={36}
-          value={this.state.firstName}
-          onChangeText={firstName => this.setState({ firstName })}
-        />
-        <Text style={styles.label}>Last Name*</Text>
-        <TextInput
-          style={styles.locationInput}
-          maxLength={36}
-          value={this.state.lastName}
-          onChangeText={lastName => this.setState({ lastName })}
-        />
-        <Text style={styles.label}>Badge Number</Text>
-        <TextInput
-          style={styles.locationInput}
-          keyboardType={'numeric'}
-          maxLength={10}
-          value={this.state.badge}
-          onChangeText={badge => this.setState({ badge })}
-        />
-        <TouchableOpacity
-           style={styles.opacity}
-           onPress={this._onAddPressed}
-           disabled={this.state.firstName === '' || this.state.lastName === ''}
-        >
-          <Icon name="account-plus" style={styles.icon}></Icon>
-          <Text style={styles.opacityText}>
-            {' '}
-            Add New Entry{' '}
-          </Text>
-        </TouchableOpacity>
+          <View style={styles.header}>
+            <Text style={styles.headerContent}> Add Personnel </Text>
+          </View>
+          <Text style={styles.label}>First Name*</Text>
+          <TextInput
+            style={styles.locationInput}
+            maxLength={36}
+            value={this.state.firstName}
+            onChangeText={firstName => this.setState({ firstName })}
+          />
+          <Text style={styles.label}>Last Name*</Text>
+          <TextInput
+            style={styles.locationInput}
+            maxLength={36}
+            value={this.state.lastName}
+            onChangeText={lastName => this.setState({ lastName })}
+          />
+          <Text style={styles.label}>Badge Number</Text>
+          <TextInput
+            style={styles.locationInput}
+            keyboardType={'numeric'}
+            maxLength={10}
+            value={this.state.badge}
+            onChangeText={badge => this.setState({ badge })}
+          />
+          <TouchableOpacity
+            style={styles.opacity}
+            onPress={this._onAddPressed}
+            disabled={this.state.firstName === '' || this.state.lastName === ''}
+          >
+            <Icon name="account-plus" style={styles.icon} />
+            <Text style={styles.opacityText}> Add New Entry </Text>
+          </TouchableOpacity>
         </KeyboardAwareScrollView>
       </View>
     );

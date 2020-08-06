@@ -73,7 +73,11 @@ class ListItem extends PureComponent {
         <View style={styles.content}>
           <View style={styles.mainLine}>
             <Text style={styles.name}>{`${firstName} ${lastName}`}</Text>
-            <Text style={time >= 20 ? [styles.time, styles.timeWarning] : styles.time}>{`${time}`}</Text>
+            <Text
+              style={
+                time >= 20 ? [styles.time, styles.timeWarning] : styles.time
+              }
+            >{`${time}`}</Text>
           </View>
           <View style={styles.line}>
             <Text style={styles.badge}>{`${badge ? badge + ' ' : ''}`}</Text>

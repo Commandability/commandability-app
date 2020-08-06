@@ -85,51 +85,53 @@ class EndScreen extends Component {
 
   render() {
     return (
-      
       <View style={styles.container}>
         <KeyboardAwareScrollView>
-        <Text style={styles.label}>Location *</Text>
-        <TextInput
-          style={styles.locationInput}
-          autoCapitalize="none"
-          onChangeText={location => this.setState({ location })}
-          value={this.state.location}
-        />
-        <Text style={styles.label}>Notes</Text>
-        <TextInput
-          style={styles.notesInput}
-          autoCapitalize="none"
-          multiline={true}
-          onChangeText={notes => this.setState({ notes })}
-          value={this.state.notes}
-        />
-        <TouchableOpacity style={styles.opacity} onPress={this._resumeIncident}>
-          <Icon name="restart" style={styles.icon} />
-          <Text style={styles.opacityText}>Resume Incident</Text>
-        </TouchableOpacity>
-        <View style={styles.row}>
-          <TouchableOpacity
-            style={[styles.opacity, styles.rowOpacity]}
-            onPress={this._exitWithoutSaving}
-          >
-            <Icon name="cancel" style={styles.icon} />
-            <Text style={styles.opacityText}>Exit Without Saving</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.opacity, styles.rowOpacity]}
-            onPress={this._saveAndExit}
-          >
-            <Icon name="check" style={styles.icon} />
-            <Text style={styles.opacityText}>Save and Exit</Text>
-          </TouchableOpacity>
-        </View>
-        {this.state.loading && (
-          <ActivityIndicator
-            style={styles.activityIndicator}
-            color={colors.primary.dark}
-            size={'large'}
+          <Text style={styles.label}>Location *</Text>
+          <TextInput
+            style={styles.locationInput}
+            autoCapitalize="none"
+            onChangeText={location => this.setState({ location })}
+            value={this.state.location}
           />
-        )}
+          <Text style={styles.label}>Notes</Text>
+          <TextInput
+            style={styles.notesInput}
+            autoCapitalize="none"
+            multiline={true}
+            onChangeText={notes => this.setState({ notes })}
+            value={this.state.notes}
+          />
+          <TouchableOpacity
+            style={styles.opacity}
+            onPress={this._resumeIncident}
+          >
+            <Icon name="restart" style={styles.icon} />
+            <Text style={styles.opacityText}>Resume Incident</Text>
+          </TouchableOpacity>
+          <View style={styles.row}>
+            <TouchableOpacity
+              style={[styles.opacity, styles.rowOpacity]}
+              onPress={this._exitWithoutSaving}
+            >
+              <Icon name="cancel" style={styles.icon} />
+              <Text style={styles.opacityText}>Exit Without Saving</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.opacity, styles.rowOpacity]}
+              onPress={this._saveAndExit}
+            >
+              <Icon name="check" style={styles.icon} />
+              <Text style={styles.opacityText}>Save and Exit</Text>
+            </TouchableOpacity>
+          </View>
+          {this.state.loading && (
+            <ActivityIndicator
+              style={styles.activityIndicator}
+              color={colors.primary.dark}
+              size={'large'}
+            />
+          )}
         </KeyboardAwareScrollView>
       </View>
     );

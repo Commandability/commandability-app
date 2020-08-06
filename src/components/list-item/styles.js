@@ -36,7 +36,7 @@ export default StyleSheet.create({
     color: colors.text.gray,
   },
   timeWarning: {
-    color: colors.primary.light
+    color: colors.primary.light,
   },
   badge: {
     textAlign: 'left',

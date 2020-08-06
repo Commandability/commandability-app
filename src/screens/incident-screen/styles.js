@@ -51,6 +51,7 @@ export default StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap',
     alignItems: 'flex-start',
+    paddingHorizontal: 8
   },
   personnelArea: {
     flex: 1,

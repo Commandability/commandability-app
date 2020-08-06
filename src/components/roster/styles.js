@@ -35,7 +35,7 @@ export default StyleSheet.create({
     padding: 8,
   },
   headerContent: {
-    fontSize: scaleFont(8),
+    fontSize: scaleFont(6),
     color: colors.text.light,
   },
 });

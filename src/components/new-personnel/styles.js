@@ -8,38 +8,37 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 8
   },
   headerContent: {
-    fontSize: scaleFont(8),
+    fontSize: scaleFont(6),
     textAlign: 'center',
     color: colors.text.light,
   },
   label: {
     color: colors.primary.light,
-    marginLeft: 24,
   },
   container: {
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: colors.background.dark.main,
-    padding: 24,
   },
-  locationInput: {
-    height: 24,
+  input: {
+    height: 48,
     color: colors.text.light,
     backgroundColor: colors.background.dark.highlight,
-    margin: 8,
+    marginVertical: 8,
   },
   opacity: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.background.dark.highlight,
-    padding: 48,
-    margin: 24,
+    paddingVertical: 22,
+    marginVertical: 22,
   },
   opacityText: {
-    fontSize: 18,
+    fontSize: 16,
     color: colors.text.light,
   },
   icon: {

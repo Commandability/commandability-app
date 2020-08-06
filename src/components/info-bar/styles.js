@@ -14,7 +14,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: '20%',
     paddingVertical: 2,
-    margin: 8,
+    margin: 12,
     backgroundColor: colors.background.dark.highlight,
     flex: 1,
     flexDirection: 'row',

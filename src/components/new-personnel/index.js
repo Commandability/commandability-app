@@ -50,21 +50,21 @@ class NewPersonnel extends Component {
           </View>
           <Text style={styles.label}>First Name*</Text>
           <TextInput
-            style={styles.locationInput}
+            style={styles.input}
             maxLength={36}
             value={this.state.firstName}
             onChangeText={firstName => this.setState({ firstName })}
           />
           <Text style={styles.label}>Last Name*</Text>
           <TextInput
-            style={styles.locationInput}
+            style={styles.input}
             maxLength={36}
             value={this.state.lastName}
             onChangeText={lastName => this.setState({ lastName })}
           />
           <Text style={styles.label}>Badge Number</Text>
           <TextInput
-            style={styles.locationInput}
+            style={styles.input}
             keyboardType={'numeric'}
             maxLength={10}
             value={this.state.badge}

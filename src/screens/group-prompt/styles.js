@@ -43,6 +43,7 @@ export default StyleSheet.create({
   },
   backBar: {
     marginBottom: 14,
+    marginLeft: 12,
   },
   buttonContainer: {
     width: "3%",

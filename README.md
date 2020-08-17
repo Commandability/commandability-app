@@ -32,6 +32,7 @@ Download or clone this repository, then run `npm install` inside the directory.
 - [AsyncStorage](https://github.com/react-native-community/async-storage)
 - [React Native Splash Screen](https://github.com/crazycodeboy/react-native-splash-screen)
 - [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)
+- [React Native Keyboard Aware Scroll View](https://github.com/APSL/react-native-keyboard-aware-scroll-view)
 - [NetInfo](https://github.com/react-native-community/react-native-netinfo)
 - [uuid](https://github.com/kelektiv/node-uuid)
 

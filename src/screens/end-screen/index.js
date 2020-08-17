@@ -86,7 +86,7 @@ class EndScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <KeyboardAwareScrollView>
+        <KeyboardAwareScrollView contentContainerStyle={styles.content}>
           <Text style={styles.label}>Location *</Text>
           <TextInput
             style={styles.locationInput}

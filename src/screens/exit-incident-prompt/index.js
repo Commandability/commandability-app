@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import { Alert, TouchableOpacity, View, TextInput, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import PropTypes from 'prop-types';
 import auth from '@react-native-firebase/auth';
 
@@ -46,24 +47,26 @@ class ExitIncidentPrompt extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.prompt}>
-          <Text style={styles.promptText}>
-            {`Are you absolutely sure you want to exit without saving?`}
-          </Text>
-          <Text style={styles.promptText}>
-            Please type <Text style={styles.email}>{email}</Text> to confirm.
-          </Text>
-        </View>
-        <Text style={styles.label}>Organization email *</Text>
-        <TextInput
-          style={styles.emailInput}
-          autoCapitalize="none"
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-        />
-        <TouchableOpacity style={styles.opacity} onPress={this._exit}>
-          <Text style={styles.opacityText}>Exit Without Saving</Text>
-        </TouchableOpacity>
+        <KeyboardAwareScrollView contentContainerStyle={styles.content}>
+          <View style={styles.prompt}>
+            <Text style={styles.promptText}>
+              {`Are you absolutely sure you want to exit without saving?`}
+            </Text>
+            <Text style={styles.promptText}>
+              Please type <Text style={styles.email}>{email}</Text> to confirm.
+            </Text>
+          </View>
+          <Text style={styles.label}>Organization email *</Text>
+          <TextInput
+            style={styles.emailInput}
+            autoCapitalize="none"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+          />
+          <TouchableOpacity style={styles.opacity} onPress={this._exit}>
+            <Text style={styles.opacityText}>Exit Without Saving</Text>
+          </TouchableOpacity>
+        </KeyboardAwareScrollView>
       </View>
     );
   }

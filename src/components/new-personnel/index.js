@@ -22,21 +22,23 @@ class NewPersonnel extends Component {
       firstName: '',
       lastName: '',
       badge: '',
+      organization: '',
     };
   }
 
-  _onAddPressed = () => {
+  _onAddPersonPressed = () => {
     const { addPerson, setPersonLocationId } = this.props;
     const person = {
       badge: this.state.badge,
       firstName: this.state.firstName,
       lastName: this.state.lastName,
+      organization: this.state.organization,
     };
-    this.setState({ firstName: '', lastName: '', badge: '' });
+    this.setState({ firstName: '', lastName: '', badge: '', organization: '' });
     addPerson(person, true, STAGING);
     setPersonLocationId(
       person,
-      { locationId: '', name: 'New Entry' },
+      {},
       { locationId: STAGING, name: 'Staging' }
     );
   };
@@ -70,13 +72,20 @@ class NewPersonnel extends Component {
             value={this.state.badge}
             onChangeText={badge => this.setState({ badge })}
           />
+          <Text style={styles.label}>Organization</Text>
+          <TextInput
+            style={styles.input}
+            maxLength={36}
+            value={this.state.organization}
+            onChangeText={organization => this.setState({ organization })}
+          />
           <TouchableOpacity
             style={styles.opacity}
-            onPress={this._onAddPressed}
+            onPress={this._onAddPersonPressed}
             disabled={this.state.firstName === '' || this.state.lastName === ''}
           >
             <Icon name="account-plus" style={styles.icon} />
-            <Text style={styles.opacityText}> Add New Entry </Text>
+            <Text style={styles.opacityText}> Add Person </Text>
           </TouchableOpacity>
         </KeyboardAwareScrollView>
       </View>

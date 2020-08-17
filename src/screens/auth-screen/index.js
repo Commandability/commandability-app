@@ -13,6 +13,7 @@ import {
   View,
   Text,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import auth from '@react-native-firebase/auth';
 import NetInfo from '@react-native-community/netinfo';
@@ -81,41 +82,39 @@ export default class AuthScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.label}>Email</Text>
-        <TextInput
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Email"
-          placeholderTextColor={colors.text.light}
-          keyboardType="email-address"
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-        />
-        <Text style={styles.label}>Password</Text>
-        <TextInput
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Password"
-          placeholderTextColor={colors.text.light}
-          secureTextEntry
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-        />
-        <TouchableOpacity
-          style={styles.opacity}
-          onPress={this._signIn}
-          disabled={this.state.email && this.state.password ? false : true}
-        >
-          <Icon name="login" style={styles.icon} />
-          <Text style={styles.iconText}>Sign in</Text>
-        </TouchableOpacity>
-        {this.state.loading && (
-          <ActivityIndicator
-            style={styles.activityIndicator}
-            color={colors.primary.light}
-            size={'large'}
+        <KeyboardAwareScrollView contentContainerStyle={styles.content}>
+          <Text style={styles.label}>Email</Text>
+          <TextInput
+            style={styles.textInput}
+            autoCapitalize="none"
+            keyboardType="email-address"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
           />
-        )}
+          <Text style={styles.label}>Password</Text>
+          <TextInput
+            style={styles.textInput}
+            autoCapitalize="none"
+            secureTextEntry
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+          />
+          <TouchableOpacity
+            style={styles.opacity}
+            onPress={this._signIn}
+            disabled={this.state.email && this.state.password ? false : true}
+          >
+            <Icon name="login" style={styles.icon} />
+            <Text style={styles.iconText}>Sign in</Text>
+          </TouchableOpacity>
+          {this.state.loading && (
+            <ActivityIndicator
+              style={styles.activityIndicator}
+              color={colors.primary.light}
+              size={'large'}
+            />
+          )}
+        </KeyboardAwareScrollView>
       </View>
     );
   }

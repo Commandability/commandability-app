@@ -78,9 +78,24 @@ class EndScreen extends Component {
   };
 
   _resumeIncident = () => {
-    const { resumeIncident } = this.props;
-    resumeIncident();
-    this.props.navigation.navigate('IncidentScreen');
+    Alert.alert(
+      'Are you sure you want to resume the incident?',
+      '',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+        },
+        {
+          text: 'OK',
+          onPress: async () => {
+            const { resumeIncident } = this.props;
+            resumeIncident();
+            this.props.navigation.navigate('IncidentScreen');
+          },
+        },
+      ]
+    );
   };
 
   render() {

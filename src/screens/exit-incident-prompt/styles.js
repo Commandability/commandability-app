@@ -11,6 +11,11 @@ export default StyleSheet.create({
     backgroundColor: colors.background.dark.main,
     padding: 24,
   },
+  content: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
   prompt: {
     margin: 24,
   },

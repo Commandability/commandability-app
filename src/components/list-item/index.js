@@ -61,7 +61,7 @@ class ListItem extends PureComponent {
 
   render() {
     const {
-      item: { firstName, lastName, badge, shift },
+      item: { firstName, lastName, badge, shift, organization },
       personIsSelected,
     } = this.props;
     const time = Math.floor(this.state.time / MS_IN_MINUTE);
@@ -80,8 +80,9 @@ class ListItem extends PureComponent {
             >{`${time}`}</Text>
           </View>
           <View style={styles.line}>
-            <Text style={styles.badge}>{`${badge ? badge + ' ' : ''}`}</Text>
-            <Text style={styles.shift}>{`${shift ? shift : ''}`}</Text>
+            <Text style={styles.label}>{`${badge ? badge + ' ' : ''}`}</Text>
+            <Text style={styles.label}>{`${shift ? shift : ''}`}</Text>
+            <Text style={styles.label}>{`${organization ? organization : ''}`}</Text>
           </View>
         </View>
       </TouchableOpacity>

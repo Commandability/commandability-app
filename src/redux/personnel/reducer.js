@@ -41,9 +41,10 @@ const addPerson = (state, action) => {
     log, // record if the person was added in an active incident
     person: {
       id,
-      badge,
       firstName,
       lastName,
+      badge,
+      organization,
       shift,
       locationId,
       locationUpdateTime,
@@ -53,9 +54,10 @@ const addPerson = (state, action) => {
     ...state,
     [id]: {
       id,
-      badge,
       firstName,
       lastName,
+      badge,
+      organization,
       shift,
       locationId,
       locationUpdateTime,

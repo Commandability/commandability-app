@@ -56,7 +56,7 @@ class ExitIncidentPrompt extends Component {
       <View style={styles.container}>
         <View style={styles.backBar}>
           <TouchableOpacity style={styles.buttonContainer} onPress={this._onCancelPressed}>
-            <Icon name="arrow-left-bold" style={styles.backButton} />
+            <Icon name="chevron-left" style={styles.backButton} />
           </TouchableOpacity>
         </View>
         <View style={ styles.promptContainer}>

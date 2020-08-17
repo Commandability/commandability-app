@@ -38,8 +38,8 @@ export default StyleSheet.create({
     marginRight: 30,
   },
   backButton: {
-    color: colors.text.light,
-    fontSize: 26,
+    color: colors.primary.light,
+    fontSize: 38,
   },
   buttonContainer: {
     width: "3%",

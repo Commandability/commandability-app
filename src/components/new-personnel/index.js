@@ -25,7 +25,7 @@ class NewPersonnel extends Component {
     };
   }
 
-  _onAddPressed = () => {
+  _onAddPersonPressed = () => {
     const { addPerson, setPersonLocationId } = this.props;
     const person = {
       badge: this.state.badge,
@@ -36,7 +36,7 @@ class NewPersonnel extends Component {
     addPerson(person, true, STAGING);
     setPersonLocationId(
       person,
-      { locationId: '', name: 'New Entry' },
+      {},
       { locationId: STAGING, name: 'Staging' }
     );
   };
@@ -72,11 +72,11 @@ class NewPersonnel extends Component {
           />
           <TouchableOpacity
             style={styles.opacity}
-            onPress={this._onAddPressed}
+            onPress={this._onAddPersonPressed}
             disabled={this.state.firstName === '' || this.state.lastName === ''}
           >
             <Icon name="account-plus" style={styles.icon} />
-            <Text style={styles.opacityText}> Add New Entry </Text>
+            <Text style={styles.opacityText}> Add Person </Text>
           </TouchableOpacity>
         </KeyboardAwareScrollView>
       </View>

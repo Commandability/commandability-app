@@ -114,18 +114,21 @@ const logSetLocationId = (state, action) => {
   } = payload;
 
   let log = '';
-  if (prevLocationId === ROSTER) {
-    log = `${
-      badge ? badge + ' - ' : ''
-    }${firstName} ${lastName} added to incident`;
-  } else if (nextLocationId === ROSTER) {
-    log = `${
-      badge ? badge + ' - ' : ''
-    }${firstName} ${lastName} removed from incident`;
-  } else {
-    log = `${
-      badge ? badge + ' - ' : ''
-    }${firstName} ${lastName} moved from ${prevName} to ${nextName}`;
+  // Don't log adding and removing personnel here
+  if (prevLocationId && nextLocationId){
+    if (prevLocationId === ROSTER) {
+      log = `${
+        badge ? badge + ' - ' : ''
+      }${firstName} ${lastName} added to incident`;
+    } else if (nextLocationId === ROSTER) {
+      log = `${
+        badge ? badge + ' - ' : ''
+      }${firstName} ${lastName} removed from incident`;
+    } else {
+      log = `${
+        badge ? badge + ' - ' : ''
+      }${firstName} ${lastName} moved from ${prevName} to ${nextName}`;
+    }
   }
 
   return {

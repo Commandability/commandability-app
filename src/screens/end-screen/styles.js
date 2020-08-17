@@ -17,11 +17,6 @@ export default StyleSheet.create({
     backgroundColor: colors.background.dark.main,
     padding: 24,
   },
-  content: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
   label: {
     color: colors.primary.light,
     marginLeft: 24,

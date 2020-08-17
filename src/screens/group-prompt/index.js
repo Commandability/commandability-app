@@ -54,17 +54,24 @@ class GroupPrompt extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.label}>Group name *</Text>
-        <TextInput
-          style={styles.nameInput}
-          autoCapitalize="none"
-          value={this.state.newName}
-          onChangeText={newName => this.setState({ newName })}
-        />
-        <TouchableOpacity style={styles.opacity} onPress={this._onSave}>
-          <Icon name="check" style={styles.icon} />
-          <Text style={styles.opacityText}>Save</Text>
-        </TouchableOpacity>
+        <View style={styles.backBar}>
+          <TouchableOpacity style={styles.buttonContainer} onPress={this._onCancelPressed}>
+            <Icon name="arrow-left-bold" style={styles.backButton} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.promptContainer}>
+          <Text style={styles.label}>Group name *</Text>
+          <TextInput
+            style={styles.nameInput}
+            autoCapitalize="none"
+            value={this.state.newName}
+            onChangeText={newName => this.setState({ newName })}
+          />
+          <TouchableOpacity style={styles.opacity} onPress={this._onSave}>
+            <Icon name="check" style={styles.icon} />
+            <Text style={styles.opacityText}>Save</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }

@@ -22,6 +22,7 @@ class NewPersonnel extends Component {
       firstName: '',
       lastName: '',
       badge: '',
+      organization: '',
     };
   }
 
@@ -31,8 +32,9 @@ class NewPersonnel extends Component {
       badge: this.state.badge,
       firstName: this.state.firstName,
       lastName: this.state.lastName,
+      organization: this.state.organization,
     };
-    this.setState({ firstName: '', lastName: '', badge: '' });
+    this.setState({ firstName: '', lastName: '', badge: '', organization: '' });
     addPerson(person, true, STAGING);
     setPersonLocationId(
       person,
@@ -69,6 +71,13 @@ class NewPersonnel extends Component {
             maxLength={10}
             value={this.state.badge}
             onChangeText={badge => this.setState({ badge })}
+          />
+          <Text style={styles.label}>Organization</Text>
+          <TextInput
+            style={styles.input}
+            maxLength={36}
+            value={this.state.organization}
+            onChangeText={organization => this.setState({ organization })}
           />
           <TouchableOpacity
             style={styles.opacity}

@@ -8,7 +8,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 8
+    padding: 8,
+    marginBottom: 10
   },
   headerContent: {
     fontSize: scaleFont(6),

@@ -38,12 +38,7 @@ export default StyleSheet.create({
   timeWarning: {
     color: colors.primary.light,
   },
-  badge: {
-    textAlign: 'left',
-    fontSize: scaleFont(4),
-    color: colors.text.gray,
-  },
-  shift: {
+  label: {
     textAlign: 'left',
     fontSize: scaleFont(4),
     color: colors.text.gray,

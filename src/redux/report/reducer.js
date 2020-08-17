@@ -64,7 +64,7 @@ const logAddPerson = (state, action) => {
   const {
     entryId,
     dateTime,
-    person: { badge, firstName, lastName },
+    person: { firstName, lastName, badge, organization },
     log,
   } = payload;
 
@@ -75,7 +75,7 @@ const logAddPerson = (state, action) => {
           dateTime,
           log: `${
             badge ? badge + ' - ' : ''
-          }${firstName} ${lastName} added to incident`,
+          }${firstName} ${lastName} ${organization ? `(${organization}) ` : ''}added to incident`,
         },
       }
     : state; // return state if log is false
@@ -86,7 +86,7 @@ const logRemovePerson = (state, action) => {
   const {
     entryId,
     dateTime,
-    person: { badge, firstName, lastName },
+    person: { firstName, lastName, badge, organization },
     log,
   } = payload;
 
@@ -97,7 +97,7 @@ const logRemovePerson = (state, action) => {
           dateTime,
           log: `${
             badge ? badge + ' - ' : ''
-          }${firstName} ${lastName} removed from incident`,
+          }${firstName} ${lastName} ${organization ? `(${organization}) ` : ''}removed from incident`,
         },
       }
     : state; // return state if log is false
@@ -108,7 +108,7 @@ const logSetLocationId = (state, action) => {
   const {
     entryId,
     dateTime,
-    person: { badge, firstName, lastName },
+    person: { firstName, lastName, badge, organization },
     prevLocationData: { name: prevName, locationId: prevLocationId },
     nextLocationData: { name: nextName, locationId: nextLocationId },
   } = payload;
@@ -127,7 +127,7 @@ const logSetLocationId = (state, action) => {
     } else {
       log = `${
         badge ? badge + ' - ' : ''
-      }${firstName} ${lastName} moved from ${prevName} to ${nextName}`;
+      }${firstName} ${lastName} ${organization ? `(${organization}) ` : ''}moved from ${prevName} to ${nextName}`;
     }
   }
 

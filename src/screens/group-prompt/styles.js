@@ -39,7 +39,10 @@ export default StyleSheet.create({
   },
   backButton: {
     color: colors.primary.light,
-    fontSize: 38,
+    fontSize: 44,
+  },
+  backBar: {
+    marginBottom: 14,
   },
   buttonContainer: {
     width: "3%",

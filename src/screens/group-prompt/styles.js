@@ -6,7 +6,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: colors.background.dark.main,
     padding: 24,
   },
@@ -37,4 +37,19 @@ export default StyleSheet.create({
     color: colors.primary.light,
     marginRight: 30,
   },
+  backButton: {
+    color: colors.primary.light,
+    fontSize: 44,
+  },
+  backBar: {
+    marginBottom: 14,
+    marginLeft: 12,
+  },
+  buttonContainer: {
+    width: "3%",
+  },
+  promptContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  }
 });

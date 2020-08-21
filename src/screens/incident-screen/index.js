@@ -32,6 +32,9 @@ import styles from './styles';
 
 const GROUP_AREA = 'GROUP_AREA';
 const PERSONNEL_AREA = 'PERSONNEL_AREA';
+const PAGE_ONE = 'PAGE_ONE';
+const PAGE_TWO = 'PAGE_TWO';
+const PAGE_THREE = 'PAGE_THREE';
 
 class IncidentScreen extends Component {
   constructor(props) {
@@ -41,6 +44,7 @@ class IncidentScreen extends Component {
       editGroupMode: false,
       addGroupMode: false,
       tab: GROUP_AREA,
+      page: PAGE_ONE,
     };
   }
 
@@ -99,7 +103,7 @@ class IncidentScreen extends Component {
     const { activeReport, activeInitialEpoch } = this.props;
     this.initialEpoch = Date.now();
 
-    const groupIds = [
+    const pageOneIds = [
       GROUP_ONE,
       GROUP_TWO,
       GROUP_THREE,
@@ -107,6 +111,36 @@ class IncidentScreen extends Component {
       GROUP_FIVE,
       GROUP_SIX,
     ];
+
+    const pageTwoIds = [
+      GROUP_ONE,
+      GROUP_TWO,
+      GROUP_THREE,
+      GROUP_FOUR,
+      GROUP_FIVE,
+      GROUP_SIX,
+    ];
+
+    const pageThreeIds = [
+      GROUP_ONE,
+      GROUP_TWO,
+      GROUP_THREE,
+      GROUP_FOUR,
+      GROUP_FIVE,
+      GROUP_SIX,
+    ];
+
+    let groupIds = [];
+
+    if (this.state.page == PAGE_ONE) {
+      groupIds = pageOneIds;
+    }
+    if (this.state.page == PAGE_TWO) {
+      groupIds = pageTwoIds;
+    }
+    if (this.state.page == PAGE_THREE) {
+      groupIds = pageThreeIds;
+    }
 
     return (
       <View style={styles.container}>
@@ -169,7 +203,7 @@ class IncidentScreen extends Component {
                 editGroupMode={this.state.editGroupMode}
               />
               <View style={styles.groupArea}>
-                {groupIds.map(id => (
+                {[groupIds].map(id => (
                   <Group
                     key={id}
                     locationId={id}

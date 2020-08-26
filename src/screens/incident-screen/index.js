@@ -35,7 +35,7 @@ import {
   GROUP_TWELVE,
   GROUP_THIRTEEN,
   GROUP_FOURTEEN,
-  GROUP_FIFTHTEEN,
+  GROUP_FIFTEEN,
   GROUP_SIXTEEN,
   GROUP_SEVENTEEN,
   GROUP_EIGHTEEN,
@@ -160,7 +160,7 @@ class IncidentScreen extends Component {
     const pageThreeIds = [
       GROUP_THIRTEEN,
       GROUP_FOURTEEN,
-      GROUP_FIFTHTEEN,
+      GROUP_FIFTEEN,
       GROUP_SIXTEEN,
       GROUP_SEVENTEEN,
       GROUP_EIGHTEEN,

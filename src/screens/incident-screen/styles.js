@@ -48,7 +48,7 @@ export default StyleSheet.create({
   },
   groupArea: {
     flexDirection: 'column',
-    flex: 1,
+    flex: 7,
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     paddingHorizontal: 8
@@ -60,5 +60,14 @@ export default StyleSheet.create({
   personnelAreaContainer: {
     flex: 1,
     padding: 24,
+  },
+  pageTabContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  buttonContainer: {
+    flex: 1,
+    margin: 2,
   },
 });

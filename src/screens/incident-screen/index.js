@@ -27,8 +27,21 @@ import {
   GROUP_FOUR,
   GROUP_FIVE,
   GROUP_SIX,
+  GROUP_SEVEN,
+  GROUP_EIGHT,
+  GROUP_NINE,
+  GROUP_TEN,
+  GROUP_ELEVEN,
+  GROUP_TWELVE,
+  GROUP_THIRTEEN,
+  GROUP_FOURTEEN,
+  GROUP_FIFTHTEEN,
+  GROUP_SIXTEEN,
+  GROUP_SEVENTEEN,
+  GROUP_EIGHTEEN,
 } from '../../modules/location-ids.js';
 import styles from './styles';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const GROUP_AREA = 'GROUP_AREA';
 const PERSONNEL_AREA = 'PERSONNEL_AREA';
@@ -99,6 +112,29 @@ class IncidentScreen extends Component {
     }));
   };
 
+  onPagePressed = (pageNumber) => {
+    this.setState.page = pageNumber;
+  }
+
+  onNavigatePagePressed = (direction) => {
+    if (direction == 'right'){
+      if (this.state.page === PAGE_ONE){
+        this.setState.page = PAGE_TWO;
+      }
+      else {
+        this.setState.page = PAGE_THREE;
+      }
+    }
+    else {
+      if (this.state.page === PAGE_TWO) {
+        this.setState.page = PAGE_ONE;
+      }
+      else {
+        this.setState.page = PAGE_TWO;
+      }
+    }
+  }
+
   render() {
     const { activeReport, activeInitialEpoch } = this.props;
     this.initialEpoch = Date.now();
@@ -113,21 +149,21 @@ class IncidentScreen extends Component {
     ];
 
     const pageTwoIds = [
-      GROUP_ONE,
-      GROUP_TWO,
-      GROUP_THREE,
-      GROUP_FOUR,
-      GROUP_FIVE,
-      GROUP_SIX,
+      GROUP_SEVEN,
+      GROUP_EIGHT,
+      GROUP_NINE,
+      GROUP_TEN,
+      GROUP_ELEVEN,
+      GROUP_TWELVE,
     ];
 
     const pageThreeIds = [
-      GROUP_ONE,
-      GROUP_TWO,
-      GROUP_THREE,
-      GROUP_FOUR,
-      GROUP_FIVE,
-      GROUP_SIX,
+      GROUP_THIRTEEN,
+      GROUP_FOURTEEN,
+      GROUP_FIFTHTEEN,
+      GROUP_SIXTEEN,
+      GROUP_SEVENTEEN,
+      GROUP_EIGHTEEN,
     ];
 
     let groupIds = [];
@@ -202,8 +238,8 @@ class IncidentScreen extends Component {
                 removeGroupMode={this.state.removeGroupMode}
                 editGroupMode={this.state.editGroupMode}
               />
-              <View style={styles.groupArea}>
-                {[groupIds].map(id => (
+              <View style={styles.groupArea}>                
+                {groupIds.map(id => (
                   <Group
                     key={id}
                     locationId={id}
@@ -225,6 +261,24 @@ class IncidentScreen extends Component {
               </View>
             </View>
           )}
+          <View style={styles.pageTabContainer}>
+            <TouchableOpacity style={styles.buttonContainer} disabled={this.state.page === PAGE_ONE} onPress={() => this.onNavigatePagePressed('left')}>
+              <Icon name="arrow-left-thick"></Icon>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} disabled={this.state.page === PAGE_ONE} onPress={() => this.onPagePressed(PAGE_ONE)}>
+              <Icon name="numeric-1"></Icon>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} disabled={this.state.page === PAGE_TWO} onPress={() => this.onPagePressed(PAGE_TWO)}>
+              <Icon name="numeric-2"></Icon>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} disabled={this.state.page === PAGE_THREE} onPress={() => this.onPagePressed(PAGE_THREE)}>
+              <Icon name="numeric-3"></Icon>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} disabled={this.state.page === PAGE_THREE} onPress={() => this.onNavigatePagePressed('right')}>
+              <Icon name="arrow-right-thick"></Icon>
+            </TouchableOpacity>
+
+          </View>
         </View>
       </View>
     );

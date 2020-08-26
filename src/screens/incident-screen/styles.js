@@ -48,7 +48,7 @@ export default StyleSheet.create({
   },
   groupArea: {
     flexDirection: 'column',
-    flex: 7,
+    flex: 1,
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     paddingHorizontal: 8
@@ -62,12 +62,28 @@ export default StyleSheet.create({
     padding: 24,
   },
   pageTabContainer: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
   },
   buttonContainer: {
-    flex: 1,
-    margin: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '5%',
+    paddingVertical: 2,
+    margin: 12,
+    marginHorizontal: 15,
   },
+  icon: {
+    fontSize: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: colors.text.light,
+  },
+  iconSelected: {
+    fontSize: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: colors.secondary.light,
+  }
 });
+

@@ -49,6 +49,33 @@ const PAGE_ONE = 'PAGE_ONE';
 const PAGE_TWO = 'PAGE_TWO';
 const PAGE_THREE = 'PAGE_THREE';
 
+const pages = {
+  PAGE_ONE: [
+    GROUP_ONE,
+    GROUP_TWO,
+    GROUP_THREE,
+    GROUP_FOUR,
+    GROUP_FIVE,
+    GROUP_SIX,
+  ],
+  PAGE_TWO: [
+    GROUP_SEVEN,
+    GROUP_EIGHT,
+    GROUP_NINE,
+    GROUP_TEN,
+    GROUP_ELEVEN,
+    GROUP_TWELVE,
+  ],
+  PAGE_THREE: [
+    GROUP_THIRTEEN,
+    GROUP_FOURTEEN,
+    GROUP_FIFTEEN,
+    GROUP_SIXTEEN,
+    GROUP_SEVENTEEN,
+    GROUP_EIGHTEEN,
+  ]
+};
+
 class IncidentScreen extends Component {
   constructor(props) {
     super(props);
@@ -58,6 +85,7 @@ class IncidentScreen extends Component {
       addGroupMode: false,
       tab: GROUP_AREA,
       page: PAGE_ONE,
+      groupIds: [],
     };
   }
 
@@ -113,24 +141,24 @@ class IncidentScreen extends Component {
   };
 
   onPagePressed = (pageNumber) => {
-    this.setState.page = pageNumber;
+    this.setState({page: pageNumber});
   }
 
   onNavigatePagePressed = (direction) => {
     if (direction == 'right'){
       if (this.state.page === PAGE_ONE){
-        this.setState.page = PAGE_TWO;
+        this.setState({page: PAGE_TWO});
       }
       else {
-        this.setState.page = PAGE_THREE;
+        this.setState({page: PAGE_THREE});
       }
     }
     else {
       if (this.state.page === PAGE_TWO) {
-        this.setState.page = PAGE_ONE;
+        this.setState({page: PAGE_ONE});
       }
       else {
-        this.setState.page = PAGE_TWO;
+        this.setState({page: PAGE_TWO});
       }
     }
   }
@@ -139,44 +167,7 @@ class IncidentScreen extends Component {
     const { activeReport, activeInitialEpoch } = this.props;
     this.initialEpoch = Date.now();
 
-    const pageOneIds = [
-      GROUP_ONE,
-      GROUP_TWO,
-      GROUP_THREE,
-      GROUP_FOUR,
-      GROUP_FIVE,
-      GROUP_SIX,
-    ];
-
-    const pageTwoIds = [
-      GROUP_SEVEN,
-      GROUP_EIGHT,
-      GROUP_NINE,
-      GROUP_TEN,
-      GROUP_ELEVEN,
-      GROUP_TWELVE,
-    ];
-
-    const pageThreeIds = [
-      GROUP_THIRTEEN,
-      GROUP_FOURTEEN,
-      GROUP_FIFTEEN,
-      GROUP_SIXTEEN,
-      GROUP_SEVENTEEN,
-      GROUP_EIGHTEEN,
-    ];
-
-    let groupIds = [];
-
-    if (this.state.page == PAGE_ONE) {
-      groupIds = pageOneIds;
-    }
-    if (this.state.page == PAGE_TWO) {
-      groupIds = pageTwoIds;
-    }
-    if (this.state.page == PAGE_THREE) {
-      groupIds = pageThreeIds;
-    }
+    
 
     return (
       <View style={styles.container}>
@@ -239,7 +230,7 @@ class IncidentScreen extends Component {
                 editGroupMode={this.state.editGroupMode}
               />
               <View style={styles.groupArea}>                
-                {groupIds.map(id => (
+                {pages[this.state.page].map(id => (
                   <Group
                     key={id}
                     locationId={id}
@@ -263,19 +254,19 @@ class IncidentScreen extends Component {
           )}
           <View style={styles.pageTabContainer}>
             <TouchableOpacity style={styles.buttonContainer} disabled={this.state.page === PAGE_ONE} onPress={() => this.onNavigatePagePressed('left')}>
-              <Icon name="arrow-left-thick"></Icon>
+              <Icon name="arrow-left-thick" style={this.state.page === PAGE_ONE ? styles.icon : styles.iconSelected}></Icon>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer} disabled={this.state.page === PAGE_ONE} onPress={() => this.onPagePressed(PAGE_ONE)}>
-              <Icon name="numeric-1"></Icon>
+              <Text style={this.state.page === PAGE_ONE ? styles.icon : styles.iconSelected}>1</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer} disabled={this.state.page === PAGE_TWO} onPress={() => this.onPagePressed(PAGE_TWO)}>
-              <Icon name="numeric-2"></Icon>
+            <Text style={this.state.page === PAGE_TWO ? styles.icon : styles.iconSelected}>2</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer} disabled={this.state.page === PAGE_THREE} onPress={() => this.onPagePressed(PAGE_THREE)}>
-              <Icon name="numeric-3"></Icon>
+            <Text style={this.state.page === PAGE_THREE ? styles.icon : styles.iconSelected}>3</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer} disabled={this.state.page === PAGE_THREE} onPress={() => this.onNavigatePagePressed('right')}>
-              <Icon name="arrow-right-thick"></Icon>
+              <Icon name="arrow-right-thick" style={this.state.page === PAGE_THREE ? styles.icon : styles.iconSelected}></Icon>
             </TouchableOpacity>
 
           </View>

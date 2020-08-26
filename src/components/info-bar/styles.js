@@ -17,10 +17,9 @@ export default StyleSheet.create({
     margin: 12,
     backgroundColor: colors.background.dark.highlight,
     flex: 1,
-    flexDirection: 'row',
   },
   optionContent: {
-    fontSize: scaleFont(5),
+    fontSize: 16,
     justifyContent: 'center',
     alignItems: 'center',
     color: colors.text.light,

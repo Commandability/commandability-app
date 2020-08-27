@@ -14,7 +14,7 @@ export default class LoadingScreen extends Component {
   componentDidMount() {
     const { navigate } = this.props.navigation;
     this.authSubscription = auth().onAuthStateChanged(user => {
-      navigate(user ? 'AppStack' : 'AuthStack');
+      navigate(user ? 'HomeScreen' : 'AuthScreen');
     });
   }
 

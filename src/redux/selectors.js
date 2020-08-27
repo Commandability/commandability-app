@@ -9,6 +9,7 @@ import * as groups from './groups/reducer';
 import * as selected from './selected/reducer';
 
 export * from './groups/selectors';
+export * from './navigation/selectors';
 export * from './personnel/selectors';
 export * from './report/selectors';
 export * from './timer/selectors';

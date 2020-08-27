@@ -15,7 +15,6 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
-import auth from '@react-native-firebase/auth';
 import PropTypes from 'prop-types';
 
 import {
@@ -23,49 +22,34 @@ import {
   completedReport,
   configurationLoaded,
 } from '../../redux/selectors';
-import { resetApp } from '../../redux/actions';
+import { signOut, resetApp } from '../../redux/actions';
 import { updateUserData } from '../../modules/config-manager';
 import { uploadReports, deleteAllReports } from '../../modules/report-manager';
 import colors from '../../modules/colors';
-import { scaleFont } from '../../modules/fonts';
 import styles from './styles';
 
 class HomeScreen extends Component {
   constructor() {
     super();
-    this.state = { currentUser: null, loading: false };
+    this.state = { loading: false };
   }
 
   componentDidMount() {
-    const { currentUser } = auth();
-    this.setState({ currentUser, loading: false });
-    this.props.navigation.setParams({ userEmail: auth().currentUser.email });
-
+    this.setState({ loading: false });
     const { activeReport, completedReport } = this.props;
     if (activeReport) {
-      this.props.navigation.navigate('IncidentStack');
+      // this.props.navigation.navigate('IncidentStack');
     }
     if (completedReport) {
-      this.props.navigation.navigate('EndStack');
+      // this.props.navigation.navigate('EndStack');
     }
   }
-
-  static navigationOptions = ({ navigation }) => {
-    return {
-      headerTitle: navigation.getParam('userEmail'),
-      headerTitleStyle: {
-        color: 'white',
-        textAlign: 'right',
-        fontSize: scaleFont(6),
-      },
-    };
-  };
 
   _startIncident = () => {
     const { configurationLoaded } = this.props;
 
     if (configurationLoaded) {
-      this.props.navigation.navigate('IncidentScreen');
+      // this.props.navigation.navigate('IncidentScreen');
     } else {
       Alert.alert(
         'No configuration data found.',
@@ -82,10 +66,9 @@ class HomeScreen extends Component {
   _updateConfiguration = async () => {
     const { isConnected } = await NetInfo.fetch();
     if (isConnected) {
-      this.setState(prevState => ({
-        currentUser: prevState.currentUser,
+      this.setState({
         loading: true,
-      }));
+      });
       try {
         await updateUserData();
         Alert.alert(
@@ -104,10 +87,9 @@ class HomeScreen extends Component {
           },
         ]);
       }
-      this.setState(prevState => ({
-        currentUser: prevState.currentUser,
+      this.setState({
         loading: false,
-      }));
+      });
     } else {
       Alert.alert(
         'Failed to connect to the network. ',
@@ -124,10 +106,9 @@ class HomeScreen extends Component {
   _uploadReports = async () => {
     const { isConnected } = await NetInfo.fetch();
     if (isConnected) {
-      this.setState(prevState => ({
-        currentUser: prevState.currentUser,
+      this.setState({
         loading: true,
-      }));
+      });
       try {
         await uploadReports();
         await deleteAllReports();
@@ -147,10 +128,9 @@ class HomeScreen extends Component {
           },
         ]);
       }
-      this.setState(prevState => ({
-        currentUser: prevState.currentUser,
+      this.setState({
         loading: false,
-      }));
+      });
     } else {
       Alert.alert(
         'Failed to connect to the network. ',
@@ -176,15 +156,13 @@ class HomeScreen extends Component {
         {
           text: 'OK',
           onPress: async () => {
-            this.setState(prevState => ({
-              currentUser: prevState.currentUser,
+            this.setState({
               loading: true,
-            }));
+            });
             const { resetApp } = this.props;
             resetApp();
             try {
-              await auth().signOut();
-              this.props.navigation.navigate('AuthStack');
+              await signOut();
             } catch (error) {
               Alert.alert('Error', error, [
                 {
@@ -196,10 +174,9 @@ class HomeScreen extends Component {
         },
       ]
     );
-    this.setState(prevState => ({
-      currentUser: prevState.currentUser,
+    this.setState({
       loading: false,
-    }));
+    });
   };
 
   render() {
@@ -263,14 +240,13 @@ class HomeScreen extends Component {
 
 // props validation
 HomeScreen.propTypes = {
-  navigation: PropTypes.object,
   activeReport: PropTypes.bool,
   completedReport: PropTypes.bool,
   configurationLoaded: PropTypes.bool,
-  navigate: PropTypes.func,
   reportData: PropTypes.object,
   email: PropTypes.string,
   resetApp: PropTypes.func,
+  signOut: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -281,5 +257,8 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { resetApp }
+  { 
+    resetApp,
+    signOut
+  }
 )(HomeScreen);

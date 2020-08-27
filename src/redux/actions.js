@@ -5,6 +5,9 @@
 export const RESET_APP = 'RESET_APP';
 export const RESET_INCIDENT = 'RESET_INCIDENT';
 
+export const SIGN_IN = 'SIGN_IN';
+export const SIGN_OUT = 'SIGN_OUT';
+
 export const ADD_PERSON = 'ADD_PERSON';
 export const REMOVE_PERSON = 'REMOVE_PERSON';
 export const SET_PERSON_LOCATION_ID = 'SET_PERSON_LOCATION_ID';
@@ -25,6 +28,7 @@ export const RESUME_INCIDENT = 'RESUME_INCIDENT';
 export const LOG_INCIDENT_DATA = 'LOG_INCIDENT_DATA';
 
 export * from './groups/actions';
+export * from './navigation/actions';
 export * from './personnel/actions';
 export * from './selected/actions';
 

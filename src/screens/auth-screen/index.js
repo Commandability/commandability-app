@@ -13,15 +13,16 @@ import {
   View,
   Text,
 } from 'react-native';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import auth from '@react-native-firebase/auth';
 import NetInfo from '@react-native-community/netinfo';
 import PropTypes from 'prop-types';
 
+import { signIn } from '../../redux/actions';
 import colors from '../../modules/colors';
 import styles from './styles';
 
-export default class AuthScreen extends Component {
+class AuthScreen extends Component {
   constructor() {
     super();
     this.state = {
@@ -32,15 +33,15 @@ export default class AuthScreen extends Component {
   }
 
   _signIn = async () => {
+    const { signIn } = this.props;
     const { isConnected } = await NetInfo.fetch();
     if (isConnected) {
       this.setState({ loading: true });
       const { email, password } = this.state;
       try {
-        await auth().signInWithEmailAndPassword(email, password);
-        const { navigate } = this.props.navigation;
-        navigate('AppStack');
+        await signIn(email, password);
       } catch (error) {
+        console.log(error);
         let message = '';
         switch (error.code) {
           case 'auth/invalid-email':
@@ -123,6 +124,10 @@ export default class AuthScreen extends Component {
 
 // props validation
 AuthScreen.propTypes = {
-  navigation: PropTypes.object,
-  navigate: PropTypes.func,
+  signIn: PropTypes.func
 };
+
+export default connect(null, {
+    signIn
+  }
+)(AuthScreen);

@@ -41,7 +41,6 @@ import {
   GROUP_EIGHTEEN,
 } from '../../modules/location-ids.js';
 import styles from './styles';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const GROUP_AREA = 'GROUP_AREA';
 const PERSONNEL_AREA = 'PERSONNEL_AREA';
@@ -253,9 +252,6 @@ class IncidentScreen extends Component {
             </View>
           )}
           <View style={styles.pageTabContainer}>
-            <TouchableOpacity style={styles.buttonContainer} disabled={this.state.page === PAGE_ONE} onPress={() => this.onNavigatePagePressed('left')}>
-              <Icon name="arrow-left-thick" style={this.state.page === PAGE_ONE ? styles.icon : styles.iconSelected}></Icon>
-            </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer} disabled={this.state.page === PAGE_ONE} onPress={() => this.onPagePressed(PAGE_ONE)}>
               <Text style={this.state.page === PAGE_ONE ? styles.icon : styles.iconSelected}>1</Text>
             </TouchableOpacity>
@@ -265,10 +261,6 @@ class IncidentScreen extends Component {
             <TouchableOpacity style={styles.buttonContainer} disabled={this.state.page === PAGE_THREE} onPress={() => this.onPagePressed(PAGE_THREE)}>
             <Text style={this.state.page === PAGE_THREE ? styles.icon : styles.iconSelected}>3</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonContainer} disabled={this.state.page === PAGE_THREE} onPress={() => this.onNavigatePagePressed('right')}>
-              <Icon name="arrow-right-thick" style={this.state.page === PAGE_THREE ? styles.icon : styles.iconSelected}></Icon>
-            </TouchableOpacity>
-
           </View>
         </View>
       </View>

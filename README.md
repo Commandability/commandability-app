@@ -10,12 +10,10 @@ Download or clone this repository, then run `npm install` inside the directory.
 
 ## Code Structure
 
-- `/src/actions`: contains all redux actions
-- `/src/components`: contains all unattributed components
-- `/src/components/incident`: contains all incident screen components
+- `/src/App.js`: contains base parent component with redux and navigation
+- `/src/redux`: contains redux store configuration, all redux actions, reducers, and selectors
+- `/src/components`: contains switch navigator and all UI components
 - `/src/screens`: contains all screens
-- `/src/reducers`: contains all redux reducers
-- `/src/App.js`: contains base parent component
 - `/src/modules`: contains all custom modules
 
 ## Modules
@@ -24,6 +22,7 @@ Download or clone this repository, then run `npm install` inside the directory.
 - [Redux](https://redux.js.org/)
 - [React Redux](https://react-redux.js.org/)
 - [Redux-Persist](https://github.com/rt2zz/redux-persist)
+- [Redux-Thunk](https://github.com/reduxjs/redux-thunk)
 - [React Navigation](https://reactnavigation.org/)
 - [Firebase](https://firebase.google.com/)
 - [React Native Firebase](https://invertase.io/oss/react-native-firebase/)

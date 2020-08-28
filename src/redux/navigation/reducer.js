@@ -8,7 +8,7 @@ import {
   SIGN_IN,
   SIGN_OUT
 } from '../actions';
-import { AUTH_STACK, HOME_STACK } from './stacks';
+import { AUTH_STACK } from './stacks';
 
 const initialState = {
   currentStack: AUTH_STACK
@@ -30,9 +30,9 @@ export const getAuthStatus = state => {
 export default (state = initialState, action) => {
   switch (action.type) {
     case SIGN_IN:
-      return setStack(HOME_STACK);
+      return setStack(state, action);
     case SIGN_OUT:
-      return setStack(AUTH_STACK);
+      return setStack(state, action);
     default:
       return state;
   }

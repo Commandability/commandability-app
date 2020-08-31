@@ -11,50 +11,78 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import {
-    AuthScreen,
-    HomeScreen,
-    // IncidentScreen,
-    // GroupPrompt,
-    // EndScreen,
-    // ExitIncidentPrompt,
-  } from '../../screens';
+  HomeScreen,
+  IncidentScreen,
+  GroupPrompt,
+  EndScreen,
+  ExitIncidentPrompt,
+  AuthScreen,
+} from '../../screens';
+import {
+  AUTH_STACK,
+  HOME_STACK,
+  INCIDENT_STACK,
+  END_STACK,
+} from '../../modules/stack-ids';
 import PropTypes from 'prop-types';
 
-import { getAuthStatus } from '../../redux/selectors';
+import { getStack } from '../../redux/selectors';
 
 const Auth = createStackNavigator();
 const Home = createStackNavigator();
+const Incident = createStackNavigator();
+const End = createStackNavigator();
 
 class SwitchNavigator extends React.Component {
-  
-  render() {
-    const { authStatus } = this.props;
-    return (
-      <NavigationContainer>
-        {authStatus ? (
+  setStack(stack) {
+    switch (stack) {
+      case HOME_STACK:
+        return (
           <Home.Navigator>
             <Home.Screen name="HomeScreen" component={HomeScreen} />
           </Home.Navigator>
-        ) :
-        (
+        );
+      case INCIDENT_STACK:
+        return (
+          <Incident.Navigator>
+            <Incident.Screen name="IncidentScreen" component={IncidentScreen} />
+            <Incident.Screen name="GroupPrompt" component={GroupPrompt} />
+          </Incident.Navigator>
+        );
+      case END_STACK:
+        return (
+          <End.Navigator>
+            <End.Screen name="EndScreen" component={EndScreen} />
+            <End.Screen
+              name="ExitIncidentPrompt"
+              component={ExitIncidentPrompt}
+            />
+          </End.Navigator>
+        );
+      case AUTH_STACK:
+      default:
+        return (
           <Auth.Navigator>
             <Auth.Screen name="AuthScreen" component={AuthScreen} />
           </Auth.Navigator>
-        )
-      }
-      </NavigationContainer>
-    );
+        );
+    }
+  }
+
+  render() {
+    const { stack } = this.props;
+    return <NavigationContainer>{this.setStack(stack)}</NavigationContainer>;
   }
 }
 
 // props validation
 SwitchNavigator.propTypes = {
-  authStatus: PropTypes.bool
+  stack: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
-    authStatus: getAuthStatus(state),
+    stack: getStack(state),
   };
 };
 

@@ -2,11 +2,16 @@
  * All redux actions and types
  */
 
+import { INCIDENT_STACK, END_STACK } from '../modules/stack-ids';
+
 export const RESET_APP = 'RESET_APP';
 export const RESET_INCIDENT = 'RESET_INCIDENT';
 
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
+export const TO_HOME_STACK = 'TO_HOME_STACK';
+export const TO_INCIDENT_STACK = 'TO_INCIDENT_STACK';
+export const TO_END_STACK = 'TO_END_STACK';
 
 export const ADD_PERSON = 'ADD_PERSON';
 export const REMOVE_PERSON = 'REMOVE_PERSON';
@@ -45,7 +50,7 @@ export const startIncident = initialEpoch => {
   const dateTime = new Date().toLocaleString();
   return {
     type: START_INCIDENT,
-    payload: { entryId, dateTime, initialEpoch },
+    payload: { entryId, dateTime, stack: INCIDENT_STACK, initialEpoch },
   };
 };
 
@@ -54,12 +59,13 @@ export const endIncident = () => {
   const dateTime = new Date().toLocaleString();
   return {
     type: END_INCIDENT,
-    payload: { entryId, dateTime },
+    payload: { entryId, dateTime, stack: END_STACK },
   };
 };
 
 export const resumeIncident = () => ({
   type: RESUME_INCIDENT,
+  payload: { stack: INCIDENT_STACK },
 });
 
 export const logIncidentData = (entryId, data) => {

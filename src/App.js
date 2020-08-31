@@ -42,7 +42,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <SwitchNavigator/>
+          <SwitchNavigator />
         </PersistGate>
       </Provider>
     );

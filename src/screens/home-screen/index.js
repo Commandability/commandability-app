@@ -22,7 +22,12 @@ import {
   completedReport,
   configurationLoaded,
 } from '../../redux/selectors';
-import { signOut, resetApp } from '../../redux/actions';
+import {
+  signOut,
+  toIncidentStack,
+  toEndStack,
+  resetApp,
+} from '../../redux/actions';
 import { updateUserData } from '../../modules/config-manager';
 import { uploadReports, deleteAllReports } from '../../modules/report-manager';
 import colors from '../../modules/colors';
@@ -36,20 +41,25 @@ class HomeScreen extends Component {
 
   componentDidMount() {
     this.setState({ loading: false });
-    const { activeReport, completedReport } = this.props;
+    const {
+      activeReport,
+      completedReport,
+      toIncidentStack,
+      toEndStack,
+    } = this.props;
     if (activeReport) {
-      // this.props.navigation.navigate('IncidentStack');
+      toIncidentStack();
     }
     if (completedReport) {
-      // this.props.navigation.navigate('EndStack');
+      toEndStack();
     }
   }
 
   _startIncident = () => {
-    const { configurationLoaded } = this.props;
+    const { configurationLoaded, toIncidentStack } = this.props;
 
     if (configurationLoaded) {
-      // this.props.navigation.navigate('IncidentScreen');
+      toIncidentStack();
     } else {
       Alert.alert(
         'No configuration data found.',
@@ -245,8 +255,10 @@ HomeScreen.propTypes = {
   configurationLoaded: PropTypes.bool,
   reportData: PropTypes.object,
   email: PropTypes.string,
+  signOut: PropTypes.func,
+  toIncidentStack: PropTypes.func,
+  toEndStack: PropTypes.func,
   resetApp: PropTypes.func,
-  signOut: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -257,8 +269,10 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { 
+  {
+    signOut,
+    toIncidentStack,
+    toEndStack,
     resetApp,
-    signOut
   }
 )(HomeScreen);

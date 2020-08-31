@@ -8,7 +8,6 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import auth from '@react-native-firebase/auth';
 
 import {
   OptionBar,
@@ -46,7 +45,6 @@ class IncidentScreen extends Component {
 
   componentDidMount() {
     const { startIncident, activeReport } = this.props;
-    this.props.navigation.setParams({ userEmail: auth().currentUser.email });
     // prevent start incident from wiping report when IncidentScreen is re-mounted after a crash
     if (!activeReport) {
       startIncident(this.initialEpoch);
@@ -201,7 +199,6 @@ IncidentScreen.propTypes = {
   activeReport: PropTypes.bool,
   startIncident: PropTypes.func,
   activeInitialEpoch: PropTypes.number,
-  navigation: PropTypes.object,
 };
 
 const mapStateToProps = state => ({

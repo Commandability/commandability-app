@@ -8,19 +8,24 @@ import auth from '@react-native-firebase/auth';
 
 import {
   SIGN_IN,
-  SIGN_OUT
+  SIGN_OUT,
+  TO_HOME_STACK,
+  TO_INCIDENT_STACK,
+  TO_END_STACK,
 } from '../actions';
 import {
   AUTH_STACK,
-  HOME_STACK
-} from './stacks';
-  
+  HOME_STACK,
+  INCIDENT_STACK,
+  END_STACK,
+} from '../../modules/stack-ids';
+
 export const signIn = (email, password) => {
   return async dispatch => {
     try {
       await auth().signInWithEmailAndPassword(email, password);
       dispatch(signInSuccess());
-    } catch(error){
+    } catch (error) {
       throw new Error(error);
     }
   };
@@ -28,7 +33,7 @@ export const signIn = (email, password) => {
 
 const signInSuccess = () => ({
   type: SIGN_IN,
-  payload: { stack: HOME_STACK }
+  payload: { stack: HOME_STACK },
 });
 
 export const signOut = () => {
@@ -36,7 +41,7 @@ export const signOut = () => {
     try {
       await auth().signOut();
       dispatch(signOutSuccess());
-    } catch(error){
+    } catch (error) {
       throw new Error(error);
     }
   };
@@ -44,5 +49,20 @@ export const signOut = () => {
 
 const signOutSuccess = () => ({
   type: SIGN_OUT,
-  payload: { stack: AUTH_STACK }
+  payload: { stack: AUTH_STACK },
+});
+
+export const toHomeStack = () => ({
+  type: TO_HOME_STACK,
+  payload: { stack: HOME_STACK },
+});
+
+export const toIncidentStack = () => ({
+  type: TO_INCIDENT_STACK,
+  payload: { stack: INCIDENT_STACK },
+});
+
+export const toEndStack = () => ({
+  type: TO_END_STACK,
+  payload: { stack: END_STACK },
 });

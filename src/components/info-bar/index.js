@@ -8,15 +8,17 @@
 
 import React, { Component } from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withNavigation } from 'react-navigation';
 
+import { toEndStack } from '../../redux/actions';
 import styles from './styles';
 import Timer from '../timer';
 
 class InfoBar extends Component {
   _onEndPressed = () => {
-    this.props.navigation.navigate('EndScreen');
+    const { toEndStack } = this.props;
+    toEndStack();
   };
 
   _onToggleThemePressed = () => {
@@ -45,8 +47,13 @@ class InfoBar extends Component {
 // props validation
 InfoBar.propTypes = {
   endHandler: PropTypes.func,
-  navigation: PropTypes.object,
   initialEpoch: PropTypes.number,
+  toEndStack: PropTypes.func,
 };
 
-export default withNavigation(InfoBar);
+export default connect(
+  null,
+  {
+    toEndStack,
+  }
+)(InfoBar);

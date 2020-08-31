@@ -6,12 +6,15 @@
 
 import {
   SIGN_IN,
-  SIGN_OUT
+  SIGN_OUT,
+  TO_HOME_STACK,
+  TO_INCIDENT_STACK,
+  TO_END_STACK,
 } from '../actions';
-import { AUTH_STACK } from './stacks';
+import { AUTH_STACK } from '../../modules/stack-ids';
 
 const initialState = {
-  currentStack: AUTH_STACK
+  currentStack: AUTH_STACK,
 };
 
 const setStack = (state, action) => {
@@ -19,19 +22,21 @@ const setStack = (state, action) => {
   const { stack } = payload;
   return {
     ...state,
-    currentStack: stack
+    currentStack: stack,
   };
 };
 
-export const getAuthStatus = state => {
-  return state.currentStack !== AUTH_STACK;
+export const getStack = state => {
+  return state.currentStack;
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case SIGN_IN:
-      return setStack(state, action);
     case SIGN_OUT:
+    case TO_HOME_STACK:
+    case TO_INCIDENT_STACK:
+    case TO_END_STACK:
       return setStack(state, action);
     default:
       return state;

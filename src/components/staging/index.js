@@ -7,7 +7,6 @@
 
 import React, { Component } from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
-import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -89,13 +88,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default withNavigation(
-  connect(
-    mapStateToProps,
-    {
-      setVisibility,
-      clearSelectedPersonnel,
-      setPersonLocationId,
-    }
-  )(Staging)
-);
+export default connect(
+  mapStateToProps,
+  {
+    setVisibility,
+    clearSelectedPersonnel,
+    setPersonLocationId,
+  }
+)(Staging);

@@ -6,7 +6,6 @@
 
 import React, { Component } from 'react';
 import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -118,12 +117,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default withNavigation(
-  connect(
-    mapStateToProps,
-    {
-      clearSelectedPersonnel,
-      setPersonLocationId,
-    }
-  )(Roster)
-);
+export default connect(
+  mapStateToProps,
+  {
+    clearSelectedPersonnel,
+    setPersonLocationId,
+  }
+)(Roster);

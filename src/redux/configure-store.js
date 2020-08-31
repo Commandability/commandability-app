@@ -17,7 +17,7 @@ export default () => {
   let store = createStore(
     persistedReducers,
     // applyMiddleware(thunk), // For production
-    composeEnhancers(applyMiddleware(thunk)), // For development 
+    composeEnhancers(applyMiddleware(thunk)) // For development
   );
   let persistor = persistStore(store);
   return { store, persistor };

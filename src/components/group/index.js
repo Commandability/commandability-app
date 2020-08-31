@@ -7,8 +7,8 @@
 
 import React, { Component } from 'react';
 import { Alert, TouchableOpacity, Text, View } from 'react-native';
-import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 
 import GroupList from '../group-list';
@@ -29,7 +29,7 @@ import {
 import { STAGING } from '../../modules/location-ids';
 import styles from './styles';
 
-class Group extends Component {
+class _Group extends Component {
   _onAddPressed = () => {
     const { setVisibility, group } = this.props;
     setVisibility(group, true);
@@ -81,7 +81,7 @@ class Group extends Component {
         ]
       );
     } else if (editGroupMode) {
-      navigate('GroupPrompt', group);
+      navigate('GroupPrompt', { group });
     } else {
       const {
         selectedPersonnelGroups,
@@ -149,7 +149,7 @@ class Group extends Component {
 }
 
 // props validation
-Group.propTypes = {
+_Group.propTypes = {
   setVisibility: PropTypes.func,
   navigation: PropTypes.object,
   group: PropTypes.object,
@@ -184,15 +184,20 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default withNavigation(
-  connect(
-    mapStateToProps,
-    {
-      setVisibility,
-      selectPerson,
-      deselectPerson,
-      clearSelectedPersonnel,
-      setPersonLocationId,
-    }
-  )(Group)
-);
+const _ = connect(
+  mapStateToProps,
+  {
+    setVisibility,
+    selectPerson,
+    deselectPerson,
+    clearSelectedPersonnel,
+    setPersonLocationId,
+  }
+)(_Group);
+
+// Wrap and export
+export default function Group(props) {
+  const navigation = useNavigation();
+
+  return <_ {...props} navigation={navigation} />;
+}

@@ -124,10 +124,12 @@ class AuthScreen extends Component {
 
 // props validation
 AuthScreen.propTypes = {
-  signIn: PropTypes.func
+  signIn: PropTypes.func,
 };
 
-export default connect(null, {
-    signIn
+export default connect(
+  null,
+  {
+    signIn,
   }
 )(AuthScreen);

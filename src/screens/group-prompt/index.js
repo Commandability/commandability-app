@@ -9,7 +9,6 @@ import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getGroupByLocationId } from '../../redux/selectors';
 import { setVisibility, setName } from '../../redux/actions';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './styles';
@@ -18,7 +17,11 @@ class GroupPrompt extends Component {
   constructor(props) {
     super(props);
     const {
-      group: { name },
+      route: {
+        params: {
+          group: { name },
+        },
+      },
     } = props;
     this.state = {
       newName: name,
@@ -30,7 +33,9 @@ class GroupPrompt extends Component {
       const {
         navigation: { goBack },
         setName,
-        group,
+        route: {
+          params: { group },
+        },
       } = this.props;
       const { newName } = this.state || {};
       setName(group, newName);
@@ -73,18 +78,14 @@ class GroupPrompt extends Component {
 // props validation
 GroupPrompt.propTypes = {
   navigation: PropTypes.object,
+  route: PropTypes.object,
   setName: PropTypes.func,
   setVisibility: PropTypes.func,
   group: PropTypes.object,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const locationId = ownProps.navigation.getParam('locationId', 'default');
-  return { group: getGroupByLocationId(state, locationId) };
-};
-
 export default connect(
-  mapStateToProps,
+  null,
   {
     setVisibility,
     setName,

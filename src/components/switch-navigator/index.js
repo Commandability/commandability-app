@@ -33,25 +33,29 @@ const Home = createStackNavigator();
 const Incident = createStackNavigator();
 const End = createStackNavigator();
 
-class SwitchNavigator extends React.Component {
+const screenOptions = {
+  headerShown: false
+};
+
+class SwitchNavigator extends React.Component { 
   setStack(stack) {
     switch (stack) {
       case HOME_STACK:
         return (
-          <Home.Navigator>
+          <Home.Navigator screenOptions={screenOptions}>
             <Home.Screen name="HomeScreen" component={HomeScreen} />
           </Home.Navigator>
         );
       case INCIDENT_STACK:
         return (
-          <Incident.Navigator>
+          <Incident.Navigator screenOptions={screenOptions}>
             <Incident.Screen name="IncidentScreen" component={IncidentScreen} />
             <Incident.Screen name="GroupPrompt" component={GroupPrompt} />
           </Incident.Navigator>
         );
       case END_STACK:
         return (
-          <End.Navigator>
+          <End.Navigator screenOptions={screenOptions}>
             <End.Screen name="EndScreen" component={EndScreen} />
             <End.Screen
               name="ExitIncidentPrompt"
@@ -62,7 +66,7 @@ class SwitchNavigator extends React.Component {
       case AUTH_STACK:
       default:
         return (
-          <Auth.Navigator>
+          <Auth.Navigator screenOptions={screenOptions}>
             <Auth.Screen name="AuthScreen" component={AuthScreen} />
           </Auth.Navigator>
         );

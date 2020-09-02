@@ -2,13 +2,14 @@
  * ReduxSwitchNavigator Component
  *
  * Manages re-rendering the navigation container when the navigation stack changes.
+ * Based on https://reactnavigation.org/docs/auth-flow except using redux instead of the Context API.
  */
 
 import React from 'react';
 import { connect } from 'react-redux';
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import PropTypes from 'prop-types';
 
 import {
   HomeScreen,
@@ -24,8 +25,6 @@ import {
   INCIDENT_STACK,
   END_STACK,
 } from './modules/stack-ids';
-import PropTypes from 'prop-types';
-
 import { getStack } from './redux/selectors';
 
 const Auth = createStackNavigator();
@@ -67,7 +66,7 @@ class SwitchNavigator extends React.Component {
       default:
         return (
           <Auth.Navigator screenOptions={screenOptions}>
-            <Auth.Screen name="AuthScreen" component={AuthScreen} />
+            <Auth.Screen name="AuthScreen" component={AuthScreen} options={{ animationTypeForReplace: 'pop' }}/>
           </Auth.Navigator>
         );
     }

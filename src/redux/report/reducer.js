@@ -15,7 +15,7 @@ import {
   SET_PERSON_LOCATION_ID,
   SET_NAME,
   SET_VISIBILITY,
-} from '../actions';
+} from '../types';
 import { ROSTER } from '../../modules/location-ids';
 
 const logStartIncident = action => {

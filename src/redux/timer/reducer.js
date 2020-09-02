@@ -4,7 +4,7 @@
  * Reducers to track certain timers on the App.
  */
 
-import { START_INCIDENT, RESET_INCIDENT } from '../actions';
+import { START_INCIDENT, RESET_INCIDENT } from '../types';
 
 const initialState = { initialEpoch: 0 };
 

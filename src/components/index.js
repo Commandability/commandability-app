@@ -9,7 +9,6 @@ import RosterItem from './roster-item';
 import RosterList from './roster-list';
 import Staging from './staging';
 import StagingList from './staging-list';
-import SwitchNavigator from './switch-navigator';
 import Timer from './timer';
 
 export {
@@ -24,6 +23,5 @@ export {
   RosterList,
   Staging,
   StagingList,
-  SwitchNavigator,
   Timer,
 };

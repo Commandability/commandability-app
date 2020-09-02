@@ -13,7 +13,7 @@ import auth from '@react-native-firebase/auth';
 import SplashScreen from 'react-native-splash-screen';
 
 import configureStore from './redux/configure-store';
-import SwitchNavigator from './components/switch-navigator';
+import SwitchNavigator from './switch-navigator';
 
 export const { persistor, store } = configureStore();
 

@@ -6,7 +6,7 @@
 
 import uuidv4 from 'uuid/v4';
 
-import { SET_NAME, SET_VISIBILITY, SET_GROUP } from '../actions';
+import { SET_NAME, SET_VISIBILITY, SET_GROUP } from '../types';
 
 export const setName = (group, newName) => {
   const entryId = uuidv4(); // for storage in the report reducer

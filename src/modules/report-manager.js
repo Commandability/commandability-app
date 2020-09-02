@@ -9,38 +9,29 @@ import storage from '@react-native-firebase/storage';
 import AsyncStorage from '@react-native-community/async-storage';
 import uuidv4 from 'uuid/v4';
 
-import { store } from '../App.js';
-import { getCurrentReportData } from '../redux/selectors';
-
-export const generateCurrentReport = () => {
-  const report = getCurrentReportData(store.getState());
-  let reportString = '';
-  if (report) {
-    reportString += `Location: ${report['LOCATION']}\n`;
-    if (report['NOTES']) {
-      reportString += `Notes: ${report['NOTES']}\n`;
-    } else {
-      reportString += `Notes: none.\n`;
-    }
-    for (const entry in report) {
-      const { dateTime, log } = report[entry];
-      if (dateTime && log) {
-        reportString += `${dateTime}: ${log}\n`;
-      }
-    }
-  }
-  return reportString.trim();
-};
-
-export const saveCurrentReport = async () => {
+export const saveCurrentReport = async reportData => {
   try {
     const {
       currentUser: { uid },
     } = auth();
     const reportId = uuidv4();
-    const reportString = generateCurrentReport();
-
-    await AsyncStorage.setItem(`@CAA/${uid}/${reportId}`, reportString);
+    // Generate report string from data
+    let reportString = '';
+    if (reportData) {
+      reportString += `Location: ${reportData['LOCATION']}\n`;
+      if (reportData['NOTES']) {
+        reportString += `Notes: ${reportData['NOTES']}\n`;
+      } else {
+        reportString += `Notes: none.\n`;
+      }
+      for (const entry in reportData) {
+        const { dateTime, log } = reportData[entry];
+        if (dateTime && log) {
+          reportString += `${dateTime}: ${log}\n`;
+        }
+      }
+    }
+    await AsyncStorage.setItem(`@CAA/${uid}/${reportId}`, reportString.trim());
   } catch (error) {
     throw new Error(error);
   }

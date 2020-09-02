@@ -9,7 +9,7 @@ import {
   SELECT_PERSON,
   DESELECT_PERSON,
   CLEAR_SELECTED_PERSONNEL,
-} from '../actions';
+} from '../types';
 
 export const togglePerson = (person, locationId) => ({
   type: TOGGLE_SELECTED_PERSON,

@@ -12,7 +12,7 @@ import {
   TO_HOME_STACK,
   TO_INCIDENT_STACK,
   TO_END_STACK,
-} from '../actions';
+} from '../types';
 import {
   AUTH_STACK,
   HOME_STACK,

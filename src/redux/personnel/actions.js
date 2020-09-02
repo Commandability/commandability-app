@@ -11,7 +11,7 @@ import {
   REMOVE_PERSON,
   SET_PERSON_LOCATION_ID,
   CLEAR_PERSONNEL,
-} from '../actions';
+} from '../types';
 
 export const addPerson = (person, log = true, locationId) => {
   const id = uuidv4();

@@ -13,6 +13,8 @@ import {
   View,
   Text,
 } from 'react-native';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 import PropTypes from 'prop-types';
@@ -27,9 +29,20 @@ import {
   toIncidentStack,
   toEndStack,
   resetApp,
+  setGroup,
+  clearPersonnel,
+  addPerson,
 } from '../../redux/actions';
-import { updateUserData } from '../../modules/config-manager';
 import { uploadReports, deleteAllReports } from '../../modules/report-manager';
+import {
+  GROUP_ONE,
+  GROUP_TWO,
+  GROUP_THREE,
+  GROUP_FOUR,
+  GROUP_FIVE,
+  GROUP_SIX,
+  ROSTER,
+} from '../../modules/location-ids.js';
 import colors from '../../modules/colors';
 import styles from './styles';
 
@@ -80,7 +93,38 @@ class HomeScreen extends Component {
         loading: true,
       });
       try {
-        await updateUserData();
+        const { setGroup, clearPersonnel, addPerson } = this.props;
+
+        const { currentUser } = auth();
+        // User is signed in.
+        if (currentUser) {
+          const { uid } = currentUser;
+          const documentSnapshot = await firestore()
+            .collection('users')
+            .doc(uid)
+            .get();
+          const { groups, personnel } = documentSnapshot.data();
+
+          const groupIds = [
+            GROUP_ONE,
+            GROUP_TWO,
+            GROUP_THREE,
+            GROUP_FOUR,
+            GROUP_FIVE,
+            GROUP_SIX,
+          ];
+          // set default group settings
+          groupIds.forEach(id => {
+            const { name, visibility } = groups[id];
+            setGroup(id, name, visibility);
+          });
+          // refresh personnel data
+          clearPersonnel();
+          personnel.forEach(person => {
+            addPerson(person, false, ROSTER); // disable logging
+          });
+        }
+
         Alert.alert(
           'Configuration updated.',
           "The latest configuration data has been loaded from your organization's account.",
@@ -259,6 +303,9 @@ HomeScreen.propTypes = {
   toIncidentStack: PropTypes.func,
   toEndStack: PropTypes.func,
   resetApp: PropTypes.func,
+  setGroup: PropTypes.func,
+  clearPersonnel: PropTypes.func,
+  addPerson: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -274,5 +321,8 @@ export default connect(
     toIncidentStack,
     toEndStack,
     resetApp,
+    setGroup,
+    clearPersonnel,
+    addPerson,
   }
 )(HomeScreen);

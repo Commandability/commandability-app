@@ -12,7 +12,7 @@ import {
   CLEAR_SELECTED_PERSONNEL,
   SET_VISIBILITY,
   RESET_INCIDENT,
-} from '../actions';
+} from '../types';
 
 const initialState = {
   personnelIds: [],

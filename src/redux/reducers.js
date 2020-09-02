@@ -16,7 +16,7 @@ import personnel from './personnel/reducer';
 import report from './report/reducer';
 import timer from './timer/reducer';
 import selected from './selected/reducer';
-import { RESET_APP } from './actions';
+import { RESET_APP } from './types';
 
 const groupsPersistConfig = {
   key: 'groups',

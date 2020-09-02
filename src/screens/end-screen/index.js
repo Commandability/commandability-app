@@ -19,6 +19,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
+import { getCurrentReportData } from '../../redux/selectors';
 import {
   resetIncident,
   endIncident,
@@ -48,14 +49,14 @@ class _EndScreen extends Component {
 
   _saveAndExit = async () => {
     if (this.state.location) {
-      const { resetIncident, logIncidentData } = this.props;
+      const { resetIncident, logIncidentData, reportData } = this.props;
       logIncidentData('LOCATION', this.state.location);
       if (this.state.notes) {
         logIncidentData('NOTES', this.state.notes);
       }
       this.setState({ loading: true });
       try {
-        await saveCurrentReport();
+        await saveCurrentReport(reportData);
       } catch (error) {
         Alert.alert('Error', error, [
           {
@@ -152,10 +153,15 @@ _EndScreen.propTypes = {
   logIncidentData: PropTypes.func,
   toHomeStack: PropTypes.func,
   toIncidentStack: PropTypes.func,
+  reportData: PropTypes.object,
 };
 
+const mapStateToProps = state => ({
+  reportData: getCurrentReportData(state),
+});
+
 const _ = connect(
-  null,
+  mapStateToProps,
   {
     endIncident,
     resetIncident,

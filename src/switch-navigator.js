@@ -17,16 +17,16 @@ import {
   EndScreen,
   ExitIncidentPrompt,
   AuthScreen,
-} from '../../screens';
+} from './screens';
 import {
   AUTH_STACK,
   HOME_STACK,
   INCIDENT_STACK,
   END_STACK,
-} from '../../modules/stack-ids';
+} from './modules/stack-ids';
 import PropTypes from 'prop-types';
 
-import { getStack } from '../../redux/selectors';
+import { getStack } from './redux/selectors';
 
 const Auth = createStackNavigator();
 const Home = createStackNavigator();
@@ -34,10 +34,10 @@ const Incident = createStackNavigator();
 const End = createStackNavigator();
 
 const screenOptions = {
-  headerShown: false
+  headerShown: false,
 };
 
-class SwitchNavigator extends React.Component { 
+class SwitchNavigator extends React.Component {
   setStack(stack) {
     switch (stack) {
       case HOME_STACK:

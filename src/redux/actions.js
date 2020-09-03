@@ -8,7 +8,6 @@ import {
   START_INCIDENT,
   END_INCIDENT,
   RESUME_INCIDENT,
-  LOG_INCIDENT_DATA,
 } from './types';
 
 import { INCIDENT_STACK, END_STACK } from '../modules/stack-ids';
@@ -48,10 +47,3 @@ export const resumeIncident = () => ({
   type: RESUME_INCIDENT,
   payload: { stack: INCIDENT_STACK },
 });
-
-export const logIncidentData = (entryId, data) => {
-  return {
-    type: LOG_INCIDENT_DATA,
-    payload: { entryId, data },
-  };
-};

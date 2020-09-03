@@ -28,4 +28,3 @@ export const SET_GROUP = 'SET_GROUP';
 export const START_INCIDENT = 'START_INCIDENT';
 export const END_INCIDENT = 'END_INCIDENT';
 export const RESUME_INCIDENT = 'RESUME_INCIDENT';
-export const LOG_INCIDENT_DATA = 'LOG_INCIDENT_DATA';

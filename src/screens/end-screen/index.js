@@ -24,7 +24,6 @@ import {
   resetIncident,
   endIncident,
   resumeIncident,
-  logIncidentData,
   toHomeStack,
   toIncidentStack,
 } from '../../redux/actions';
@@ -49,13 +48,14 @@ class _EndScreen extends Component {
 
   _saveAndExit = async () => {
     if (this.state.location) {
-      const { resetIncident, logIncidentData, reportData } = this.props;
-      logIncidentData('LOCATION', this.state.location);
+      const { resetIncident, reportData } = this.props;
+      reportData['LOCATION'] = this.state.location;
       if (this.state.notes) {
-        logIncidentData('NOTES', this.state.notes);
+        reportData['NOTES'] = this.state.notes;
       }
       this.setState({ loading: true });
       try {
+        const { reportData } = this.props;
         await saveCurrentReport(reportData);
       } catch (error) {
         Alert.alert('Error', error, [
@@ -150,7 +150,6 @@ _EndScreen.propTypes = {
   endIncident: PropTypes.func,
   resetIncident: PropTypes.func,
   resumeIncident: PropTypes.func,
-  logIncidentData: PropTypes.func,
   toHomeStack: PropTypes.func,
   toIncidentStack: PropTypes.func,
   reportData: PropTypes.object,
@@ -166,7 +165,6 @@ const _ = connect(
     endIncident,
     resetIncident,
     resumeIncident,
-    logIncidentData,
     toHomeStack,
     toIncidentStack,
   }

@@ -14,8 +14,9 @@ import groups from './groups/reducer';
 import navigation from './navigation/reducer';
 import personnel from './personnel/reducer';
 import report from './report/reducer';
-import timer from './timer/reducer';
 import selected from './selected/reducer';
+import theme from './theme/reducer';
+import timer from './timer/reducer';
 import { RESET_APP } from './types';
 
 const groupsPersistConfig = {
@@ -42,6 +43,11 @@ const reportPersistConfig = {
   storage: AsyncStorage,
 };
 
+const themePersistConfig = {
+  key: 'theme',
+  storage: AsyncStorage,
+};
+
 const timePersistConfig = {
   key: 'timer',
   storage: AsyncStorage,
@@ -51,9 +57,10 @@ const appReducer = combineReducers({
   groups: persistReducer(groupsPersistConfig, groups),
   navigation: persistReducer(navigationPersistConfig, navigation),
   personnel: persistReducer(personnelPersistConfig, personnel),
-  timer: persistReducer(timePersistConfig, timer),
   report: persistReducer(reportPersistConfig, report),
   selected,
+  theme: persistReducer(themePersistConfig, theme),
+  timer: persistReducer(timePersistConfig, timer),
 });
 
 // root reducer config, persisted data defaults to autoMergeLevel1
@@ -72,6 +79,7 @@ const rootReducer = (state, action) => {
     purgeStoredState(personnelPersistConfig);
     purgeStoredState(reportPersistConfig);
     purgeStoredState(rootPersistConfig);
+    purgeStoredState(themePersistConfig);
     purgeStoredState(timePersistConfig);
   }
   return appReducer(state, action);

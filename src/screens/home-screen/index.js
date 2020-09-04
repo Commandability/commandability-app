@@ -23,6 +23,7 @@ import {
   activeReport,
   completedReport,
   configurationLoaded,
+  getTheme,
 } from '../../redux/selectors';
 import {
   signOut,
@@ -32,6 +33,7 @@ import {
   setGroup,
   clearPersonnel,
   addPerson,
+  toggleTheme,
 } from '../../redux/actions';
 import { uploadReports, deleteAllReports } from '../../modules/report-manager';
 import {
@@ -43,17 +45,18 @@ import {
   GROUP_SIX,
   ROSTER,
 } from '../../modules/location-ids.js';
-import colors from '../../modules/colors';
-import styles from './styles';
+import { DARK, LIGHT } from '../../modules/theme-ids';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
 class HomeScreen extends Component {
-  constructor() {
-    super();
-    this.state = { loading: false };
+  constructor(props) {
+    super(props);
+    const { theme } = this.props;
+    this.state = { loading: false, theme };
   }
 
   componentDidMount() {
-    this.setState({ loading: false });
     const {
       activeReport,
       completedReport,
@@ -198,6 +201,14 @@ class HomeScreen extends Component {
     }
   };
 
+  _toggleTheme = () => {
+    this.setState(prevState =>
+      prevState.theme === DARK ? { theme: LIGHT } : { theme: DARK }
+    );
+    const { toggleTheme } = this.props;
+    toggleTheme();
+  };
+
   _signOut = async () => {
     Alert.alert(
       'Are you sure you want to sign out?',
@@ -234,12 +245,15 @@ class HomeScreen extends Component {
   };
 
   render() {
+    const colors = themeSelector(this.state.theme);
+    const styles = createStyleSheet(colors);
+
     return (
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.opacity}
           onPress={this._startIncident}
-          color={colors.primary.light}
+          color={colors.primary}
         >
           <Icon name="launch" style={styles.icon} />
           <Text style={styles.opacityText}>Start Incident</Text>
@@ -248,7 +262,7 @@ class HomeScreen extends Component {
           <TouchableOpacity
             style={styles.opacity}
             onPress={this._updateConfiguration}
-            color={colors.primary.light}
+            color={colors.primary}
           >
             <Icon name="update" style={styles.icon} />
             <Text style={styles.opacityText}>Update Configuration</Text>
@@ -256,7 +270,7 @@ class HomeScreen extends Component {
           <TouchableOpacity
             style={styles.opacity}
             onPress={this._uploadReports}
-            color={colors.primary.light}
+            color={colors.primary}
           >
             <Icon name="upload" style={styles.icon} />
             <Text style={styles.opacityText}>Upload Reports</Text>
@@ -265,16 +279,16 @@ class HomeScreen extends Component {
         <View style={styles.row}>
           <TouchableOpacity
             style={styles.opacity}
-            onPress={this._setTheme}
-            color={colors.primary.light}
+            onPress={this._toggleTheme}
+            color={colors.primary}
           >
             <Icon name="theme-light-dark" style={styles.icon} />
-            <Text style={styles.opacityText}>Light Theme</Text>
+            <Text style={styles.opacityText}>Theme</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.opacity}
             onPress={this._signOut}
-            color={colors.primary.light}
+            color={colors.primary}
           >
             <Icon name="logout" style={styles.icon} />
             <Text style={styles.opacityText}>Sign out</Text>
@@ -283,7 +297,7 @@ class HomeScreen extends Component {
         {this.state.loading && (
           <ActivityIndicator
             style={styles.activityIndicator}
-            color={colors.primary.light}
+            color={colors.primary}
             size={'large'}
           />
         )}
@@ -306,12 +320,15 @@ HomeScreen.propTypes = {
   setGroup: PropTypes.func,
   clearPersonnel: PropTypes.func,
   addPerson: PropTypes.func,
+  toggleTheme: PropTypes.func,
+  theme: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
   activeReport: activeReport(state),
   completedReport: completedReport(state),
   configurationLoaded: configurationLoaded(state),
+  theme: getTheme(state),
 });
 
 export default connect(
@@ -324,5 +341,6 @@ export default connect(
     setGroup,
     clearPersonnel,
     addPerson,
+    toggleTheme,
   }
 )(HomeScreen);

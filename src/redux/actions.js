@@ -16,6 +16,7 @@ export * from './groups/actions';
 export * from './navigation/actions';
 export * from './personnel/actions';
 export * from './selected/actions';
+export * from './theme/actions';
 
 export const resetApp = () => ({
   type: RESET_APP,

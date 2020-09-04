@@ -66,7 +66,11 @@ class SwitchNavigator extends React.Component {
       default:
         return (
           <Auth.Navigator screenOptions={screenOptions}>
-            <Auth.Screen name="AuthScreen" component={AuthScreen} options={{ animationTypeForReplace: 'pop' }}/>
+            <Auth.Screen
+              name="AuthScreen"
+              component={AuthScreen}
+              options={{ animationTypeForReplace: 'pop' }}
+            />
           </Auth.Navigator>
         );
     }

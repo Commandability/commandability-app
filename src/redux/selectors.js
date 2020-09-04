@@ -13,6 +13,7 @@ export * from './navigation/selectors';
 export * from './personnel/selectors';
 export * from './report/selectors';
 export * from './selected/selectors';
+export * from './theme/selectors';
 export * from './timer/selectors';
 
 // Selectors referencing multiple reducers

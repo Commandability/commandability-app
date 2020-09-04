@@ -1,5 +1,5 @@
 /**
- * All navigation stacks
+ * Navigation stack ids
  */
 
 export const AUTH_STACK = 'AUTH_STACK';

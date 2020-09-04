@@ -1,7 +1,7 @@
 /**
  * Navigation Actions
  *
- * Actions to add change the current navigation stack.
+ * Actions to change the current navigation stack.
  */
 
 import auth from '@react-native-firebase/auth';

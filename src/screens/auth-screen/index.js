@@ -42,7 +42,6 @@ class AuthScreen extends Component {
       try {
         await signIn(email, password);
       } catch (error) {
-        console.log(error);
         let message = '';
         switch (error.code) {
           case 'auth/invalid-email':

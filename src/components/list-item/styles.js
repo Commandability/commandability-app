@@ -8,7 +8,7 @@ export default colors =>
       flex: 1,
     },
     selected: {
-      backgroundColor: colors.background.two,
+      backgroundColor: colors.background.three,
     },
     content: {
       borderBottomWidth: 0.5,

@@ -23,15 +23,15 @@ export default theme => {
     };
   } else {
     return {
-      primary: '#e53935',
+      primary: '#b72d2a',
       background: {
-        one: '#121212',
-        two: '#1f1f1f',
-        three: '#353535',
+        one: '#d3d3d3',
+        two: '#e0e0e0',
+        three: '#ffffff',
       },
-      overlay: '#ffffff',
+      overlay: '#000000',
       text: {
-        main: '#e2e2e2',
+        main: '#121212',
         disabled: '#878787',
       },
     };

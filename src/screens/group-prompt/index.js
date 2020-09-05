@@ -9,9 +9,11 @@ import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { getTheme } from '../../redux/selectors';
 import { setVisibility, setName } from '../../redux/actions';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import styles from './styles';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
 class GroupPrompt extends Component {
   constructor(props) {
@@ -57,6 +59,10 @@ class GroupPrompt extends Component {
   };
 
   render() {
+    const { theme } = this.props;
+    const colors = themeSelector(theme);
+    const styles = createStyleSheet(colors);
+
     return (
       <View style={styles.container}>
         <Text style={styles.label}>Group name *</Text>
@@ -82,10 +88,15 @@ GroupPrompt.propTypes = {
   setName: PropTypes.func,
   setVisibility: PropTypes.func,
   group: PropTypes.object,
+  theme: PropTypes.string,
 };
 
+const mapStateToProps = state => ({
+  theme: getTheme(state),
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   {
     setVisibility,
     setName,

@@ -9,9 +9,11 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { getTheme } from '../../redux/selectors';
 import { setPersonLocationId } from '../../redux/actions';
 import { ROSTER, STAGING } from '../../modules/location-ids';
-import styles from './styles';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
 class RosterItem extends PureComponent {
   constructor() {
@@ -31,7 +33,12 @@ class RosterItem extends PureComponent {
   render() {
     const {
       item: { firstName, lastName, badge, shift },
+      theme,
     } = this.props;
+
+    const colors = themeSelector(theme);
+    const styles = createStyleSheet(colors);
+
     return (
       <TouchableOpacity onPress={this._onPress} style={styles.container}>
         <View style={styles.content}>
@@ -54,9 +61,14 @@ RosterItem.propTypes = {
   groupName: PropTypes.string,
   item: PropTypes.object, // the current person
   locationId: PropTypes.string,
+  theme: PropTypes.string,
 };
 
+const mapStateToProps = state => ({
+  theme: getTheme(state),
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { setPersonLocationId }
 )(RosterItem);

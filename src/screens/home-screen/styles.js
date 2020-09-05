@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-export default colors => {
-  return StyleSheet.create({
+export default colors =>
+  StyleSheet.create({
     activityIndicator: {
       position: 'absolute',
       left: 0,
@@ -37,4 +37,3 @@ export default colors => {
       color: colors.text.main,
     },
   });
-};

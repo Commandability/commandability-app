@@ -19,7 +19,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
-import { getCurrentReportData } from '../../redux/selectors';
+import { getCurrentReportData, getTheme } from '../../redux/selectors';
 import {
   resetIncident,
   endIncident,
@@ -28,8 +28,8 @@ import {
   toIncidentStack,
 } from '../../redux/actions';
 import { saveCurrentReport } from '../../modules/report-manager';
-import colors from '../../modules/colors';
-import styles from './styles';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
 class _EndScreen extends Component {
   constructor() {
@@ -91,6 +91,10 @@ class _EndScreen extends Component {
   };
 
   render() {
+    const { theme } = this.props;
+    const colors = themeSelector(theme);
+    const styles = createStyleSheet(colors);
+
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView>
@@ -135,7 +139,7 @@ class _EndScreen extends Component {
           {this.state.loading && (
             <ActivityIndicator
               style={styles.activityIndicator}
-              color={colors.primary.dark}
+              color={colors.primary}
               size={'large'}
             />
           )}
@@ -153,10 +157,12 @@ _EndScreen.propTypes = {
   toHomeStack: PropTypes.func,
   toIncidentStack: PropTypes.func,
   reportData: PropTypes.object,
+  theme: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
   reportData: getCurrentReportData(state),
+  theme: getTheme(state),
 });
 
 const _ = connect(

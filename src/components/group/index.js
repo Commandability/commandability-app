@@ -18,6 +18,7 @@ import {
   getSelectedLocationId,
   personIsSelected,
   getSelectedPersonnelGroups,
+  getTheme,
 } from '../../redux/selectors';
 import {
   setVisibility,
@@ -27,7 +28,8 @@ import {
   setPersonLocationId,
 } from '../../redux/actions';
 import { STAGING } from '../../modules/location-ids';
-import styles from './styles';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
 class _Group extends Component {
   _onAddPressed = () => {
@@ -112,6 +114,7 @@ class _Group extends Component {
       addGroupMode,
       removeGroupMode,
       editGroupMode,
+      theme,
     } = this.props;
 
     const renderOverlay = visibility
@@ -123,6 +126,9 @@ class _Group extends Component {
       : addGroupMode
       ? true
       : false;
+
+    const colors = themeSelector(theme);
+    const styles = createStyleSheet(colors);
 
     return (
       <View style={styles.container}>
@@ -166,6 +172,7 @@ _Group.propTypes = {
   selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocationId: PropTypes.func,
+  theme: PropTypes.string,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -181,6 +188,7 @@ const mapStateToProps = (state, ownProps) => {
       personIsSelected(state, person)
     ),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
+    theme: getTheme(state),
   };
 };
 

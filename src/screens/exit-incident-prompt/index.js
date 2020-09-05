@@ -10,8 +10,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import auth from '@react-native-firebase/auth';
 
+import { getTheme } from '../../redux/selectors';
 import { resetIncident, toHomeStack } from '../../redux/actions';
-import styles from './styles';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
 class ExitIncidentPrompt extends Component {
   constructor() {
@@ -43,6 +45,10 @@ class ExitIncidentPrompt extends Component {
       currentUser: { email },
     } = auth();
 
+    const { theme } = this.props;
+    const colors = themeSelector(theme);
+    const styles = createStyleSheet(colors);
+
     return (
       <View style={styles.container}>
         <View style={styles.prompt}>
@@ -71,10 +77,15 @@ class ExitIncidentPrompt extends Component {
 ExitIncidentPrompt.propTypes = {
   resetIncident: PropTypes.func,
   toHomeStack: PropTypes.func,
+  theme: PropTypes.string,
 };
 
+const mapStateToProps = state => ({
+  theme: getTheme(state),
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   {
     resetIncident,
     toHomeStack,

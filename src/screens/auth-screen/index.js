@@ -18,9 +18,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 import PropTypes from 'prop-types';
 
+import { getTheme } from '../../redux/selectors';
 import { signIn } from '../../redux/actions';
-import colors from '../../modules/colors';
-import styles from './styles';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
 class AuthScreen extends Component {
   constructor() {
@@ -80,6 +81,10 @@ class AuthScreen extends Component {
   };
 
   render() {
+    const { theme } = this.props;
+    const colors = themeSelector(theme);
+    const styles = createStyleSheet(colors);
+
     return (
       <View style={styles.container}>
         <Text style={styles.label}>Email</Text>
@@ -87,7 +92,7 @@ class AuthScreen extends Component {
           style={styles.textInput}
           autoCapitalize="none"
           placeholder="Email"
-          placeholderTextColor={colors.text.light}
+          placeholderTextColor={colors.text.main}
           keyboardType="email-address"
           onChangeText={email => this.setState({ email })}
           value={this.state.email}
@@ -97,7 +102,7 @@ class AuthScreen extends Component {
           style={styles.textInput}
           autoCapitalize="none"
           placeholder="Password"
-          placeholderTextColor={colors.text.light}
+          placeholderTextColor={colors.text.main}
           secureTextEntry
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
@@ -113,7 +118,7 @@ class AuthScreen extends Component {
         {this.state.loading && (
           <ActivityIndicator
             style={styles.activityIndicator}
-            color={colors.primary.light}
+            color={colors.primary}
             size={'large'}
           />
         )}
@@ -125,10 +130,15 @@ class AuthScreen extends Component {
 // props validation
 AuthScreen.propTypes = {
   signIn: PropTypes.func,
+  theme: PropTypes.string,
 };
 
+const mapStateToProps = state => ({
+  theme: getTheme(state),
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   {
     signIn,
   }

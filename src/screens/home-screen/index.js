@@ -283,7 +283,7 @@ class HomeScreen extends Component {
             color={colors.primary}
           >
             <Icon name="theme-light-dark" style={styles.icon} />
-            <Text style={styles.opacityText}>Theme</Text>
+            <Text style={styles.opacityText}>{this.state.theme === DARK ? 'Light' : 'Dark'}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.opacity}

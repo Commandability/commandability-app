@@ -2,7 +2,7 @@
  * InfoBar Component
  *
  *
- * This component handles the Infobar under the staging area,
+ * This component handles the info bar under the staging area,
  * includes the timer, brightness and end incident
  */
 
@@ -51,7 +51,7 @@ class InfoBar extends Component {
           style={styles.option}
           onPress={this._onToggleThemePressed}
         >
-          <Text style={styles.optionContent}> THEME </Text>
+          <Text style={styles.optionContent}>{this.state.theme === DARK ? 'LIGHT' : 'DARK'}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.option} onPress={this._onEndPressed}>
           <Text style={styles.optionContent}> END </Text>

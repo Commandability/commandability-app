@@ -9,13 +9,12 @@ import {
   START_INCIDENT,
   END_INCIDENT,
   RESUME_INCIDENT,
-  LOG_INCIDENT_DATA,
   ADD_PERSON,
   REMOVE_PERSON,
   SET_PERSON_LOCATION_ID,
   SET_NAME,
   SET_VISIBILITY,
-} from '../actions';
+} from '../types';
 import { ROSTER } from '../../modules/location-ids';
 
 const logStartIncident = action => {
@@ -50,15 +49,6 @@ const resumeIncident = state => {
   return updatedReport;
 };
 
-const logIncidentData = (state, action) => {
-  const { payload } = action;
-  const { entryId, data } = payload;
-  return {
-    ...state,
-    [entryId]: data,
-  };
-};
-
 const logAddPerson = (state, action) => {
   const { payload } = action;
   const {
@@ -73,9 +63,9 @@ const logAddPerson = (state, action) => {
         ...state,
         [entryId]: {
           dateTime,
-          log: `${
-            badge ? badge + ' - ' : ''
-          }${firstName} ${lastName} ${organization ? `(${organization}) ` : ''}added to incident`,
+          log: `${badge ? badge + ' - ' : ''}${firstName} ${lastName} ${
+            organization ? `(${organization}) ` : ''
+          }added to incident`,
         },
       }
     : state; // return state if log is false
@@ -95,9 +85,9 @@ const logRemovePerson = (state, action) => {
         ...state,
         [entryId]: {
           dateTime,
-          log: `${
-            badge ? badge + ' - ' : ''
-          }${firstName} ${lastName} ${organization ? `(${organization}) ` : ''}removed from incident`,
+          log: `${badge ? badge + ' - ' : ''}${firstName} ${lastName} ${
+            organization ? `(${organization}) ` : ''
+          }removed from incident`,
         },
       }
     : state; // return state if log is false
@@ -115,7 +105,7 @@ const logSetLocationId = (state, action) => {
 
   let log = '';
   // Don't log adding and removing personnel here
-  if (prevLocationId && nextLocationId){
+  if (prevLocationId && nextLocationId) {
     if (prevLocationId === ROSTER) {
       log = `${
         badge ? badge + ' - ' : ''
@@ -125,9 +115,9 @@ const logSetLocationId = (state, action) => {
         badge ? badge + ' - ' : ''
       }${firstName} ${lastName} removed from incident`;
     } else {
-      log = `${
-        badge ? badge + ' - ' : ''
-      }${firstName} ${lastName} ${organization ? `(${organization}) ` : ''}moved from ${prevName} to ${nextName}`;
+      log = `${badge ? badge + ' - ' : ''}${firstName} ${lastName} ${
+        organization ? `(${organization}) ` : ''
+      }moved from ${prevName} to ${nextName}`;
     }
   }
 
@@ -189,8 +179,6 @@ export default (state = {}, action) => {
       return logEndIncident(state, action);
     case RESUME_INCIDENT:
       return resumeIncident(state);
-    case LOG_INCIDENT_DATA:
-      return logIncidentData(state, action);
     case RESET_INCIDENT:
       return {};
     case ADD_PERSON:

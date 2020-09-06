@@ -12,7 +12,7 @@ import {
   CLEAR_SELECTED_PERSONNEL,
   SET_VISIBILITY,
   RESET_INCIDENT,
-} from '../actions';
+} from '../types';
 
 const initialState = {
   personnelIds: [],
@@ -37,6 +37,7 @@ const personnelIds = (state = initialState.personnelIds, action) => {
   }
 };
 
+// Previously selected persons will be deselected
 const togglePerson = (state, action) => {
   const {
     payload: { person },
@@ -50,6 +51,7 @@ const togglePerson = (state, action) => {
   }
 };
 
+// Previously selected persons will remain selected
 const selectPerson = (state, action) => {
   const { payload } = action;
   const {

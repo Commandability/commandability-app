@@ -10,9 +10,10 @@ import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getPersonnelByLocationId } from '../../redux/selectors';
+import { getPersonnelByLocationId, getTheme } from '../../redux/selectors';
 import ListItem from '../list-item';
-import styles from './styles';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
 class GroupList extends React.PureComponent {
   renderItem = ({ item }) => {
@@ -23,7 +24,11 @@ class GroupList extends React.PureComponent {
   keyExtractor = item => item.id;
 
   render() {
-    const { personnel } = this.props;
+    const { personnel, theme } = this.props;
+
+    const colors = themeSelector(theme);
+    const styles = createStyleSheet(colors);
+
     return (
       <View style={styles.container}>
         <FlatList
@@ -41,12 +46,14 @@ class GroupList extends React.PureComponent {
 GroupList.propTypes = {
   locationId: PropTypes.string,
   personnel: PropTypes.array,
+  theme: PropTypes.string,
 };
 
 const mapStateToProps = (state, ownProps) => {
   const { locationId } = ownProps;
   return {
     personnel: getPersonnelByLocationId(state, locationId),
+    theme: getTheme(state),
   };
 };
 

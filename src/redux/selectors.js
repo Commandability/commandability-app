@@ -9,9 +9,14 @@ import * as groups from './groups/reducer';
 import * as selected from './selected/reducer';
 
 export * from './groups/selectors';
+export * from './navigation/selectors';
 export * from './personnel/selectors';
 export * from './report/selectors';
+export * from './selected/selectors';
+export * from './theme/selectors';
 export * from './timer/selectors';
+
+// Selectors referencing multiple reducers
 
 export const configurationLoaded = state =>
   Boolean(
@@ -19,8 +24,6 @@ export const configurationLoaded = state =>
       groups.configurationLoaded(state.groups)
   );
 
-export const getSelectedLocationId = state =>
-  selected.getSelectedLocationId(state.selected);
 // Selected personnel merged with their group objects
 // If a person is in roster or staging, group is set to undefined
 export const getSelectedPersonnelGroups = state =>
@@ -31,5 +34,3 @@ export const getSelectedPersonnelGroups = state =>
       person,
       group: groups.getGroupByLocationId(state.groups, person.locationId),
     }));
-export const personIsSelected = (state, person) =>
-  selected.personIsSelected(state.selected, person);

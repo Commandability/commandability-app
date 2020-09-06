@@ -1,32 +1,22 @@
 /**
- * All redux actions and types
+ * All redux actions
  */
 
-export const RESET_APP = 'RESET_APP';
-export const RESET_INCIDENT = 'RESET_INCIDENT';
+import {
+  RESET_APP,
+  RESET_INCIDENT,
+  START_INCIDENT,
+  END_INCIDENT,
+  RESUME_INCIDENT,
+} from './types';
 
-export const ADD_PERSON = 'ADD_PERSON';
-export const REMOVE_PERSON = 'REMOVE_PERSON';
-export const SET_PERSON_LOCATION_ID = 'SET_PERSON_LOCATION_ID';
-export const CLEAR_PERSONNEL = 'CLEAR_PERSONNEL';
-
-export const TOGGLE_SELECTED_PERSON = 'TOGGLE_SELECTED_PERSON';
-export const SELECT_PERSON = 'SELECT_PERSON';
-export const DESELECT_PERSON = 'DESELECT_PERSON';
-export const CLEAR_SELECTED_PERSONNEL = 'CLEAR_SELECTED_PERSONNEL';
-
-export const SET_NAME = 'SET_NAME';
-export const SET_VISIBILITY = 'SET_VISIBILITY';
-export const SET_GROUP = 'SET_GROUP';
-
-export const START_INCIDENT = 'START_INCIDENT';
-export const END_INCIDENT = 'END_INCIDENT';
-export const RESUME_INCIDENT = 'RESUME_INCIDENT';
-export const LOG_INCIDENT_DATA = 'LOG_INCIDENT_DATA';
+import { INCIDENT_STACK, END_STACK } from '../modules/stack-ids';
 
 export * from './groups/actions';
+export * from './navigation/actions';
 export * from './personnel/actions';
 export * from './selected/actions';
+export * from './theme/actions';
 
 export const resetApp = () => ({
   type: RESET_APP,
@@ -41,7 +31,7 @@ export const startIncident = initialEpoch => {
   const dateTime = new Date().toLocaleString();
   return {
     type: START_INCIDENT,
-    payload: { entryId, dateTime, initialEpoch },
+    payload: { entryId, dateTime, stack: INCIDENT_STACK, initialEpoch },
   };
 };
 
@@ -50,17 +40,11 @@ export const endIncident = () => {
   const dateTime = new Date().toLocaleString();
   return {
     type: END_INCIDENT,
-    payload: { entryId, dateTime },
+    payload: { entryId, dateTime, stack: END_STACK },
   };
 };
 
 export const resumeIncident = () => ({
   type: RESUME_INCIDENT,
+  payload: { stack: INCIDENT_STACK },
 });
-
-export const logIncidentData = (entryId, data) => {
-  return {
-    type: LOG_INCIDENT_DATA,
-    payload: { entryId, data },
-  };
-};

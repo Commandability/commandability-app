@@ -1,7 +1,7 @@
 /**
  * LocationIds module
  *
- * Store all location id static variables.
+ * Location ids
  */
 
 export const ROSTER = 'ROSTER';

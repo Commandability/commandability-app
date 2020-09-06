@@ -14,22 +14,24 @@ import {
   TextInput,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { withNavigation } from 'react-navigation';
+import { useNavigation } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
+import { getCurrentReportData, getTheme } from '../../redux/selectors';
 import {
   resetIncident,
   endIncident,
   resumeIncident,
-  logIncidentData,
+  toHomeStack,
+  toIncidentStack,
 } from '../../redux/actions';
 import { saveCurrentReport } from '../../modules/report-manager';
-import colors from '../../modules/colors';
-import styles from './styles';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
-class EndScreen extends Component {
+class _EndScreen extends Component {
   constructor() {
     super();
     this.state = {
@@ -46,14 +48,14 @@ class EndScreen extends Component {
 
   _saveAndExit = async () => {
     if (this.state.location) {
-      const { resetIncident, logIncidentData } = this.props;
-      logIncidentData('LOCATION', this.state.location);
+      const { resetIncident, reportData } = this.props;
+      reportData['LOCATION'] = this.state.location;
       if (this.state.notes) {
-        logIncidentData('NOTES', this.state.notes);
+        reportData['NOTES'] = this.state.notes;
       }
       this.setState({ loading: true });
       try {
-        await saveCurrentReport();
+        await saveCurrentReport(reportData);
       } catch (error) {
         Alert.alert('Error', error, [
           {
@@ -63,7 +65,8 @@ class EndScreen extends Component {
       }
       this.setState({ loading: false });
       resetIncident(); // reset personnel locations and group settings, remove all un-logged personnel from state
-      this.props.navigation.navigate('HomeScreen');
+      const { toHomeStack } = this.props;
+      toHomeStack();
     } else {
       Alert.alert('Error:', 'Location is required.', [
         {
@@ -74,31 +77,34 @@ class EndScreen extends Component {
   };
 
   _exitWithoutSaving = () => {
-    this.props.navigation.navigate('ExitIncidentPrompt');
+    const {
+      navigation: { navigate },
+    } = this.props;
+    navigate('ExitIncidentPrompt');
   };
 
   _resumeIncident = () => {
-    Alert.alert(
-      'Are you sure you want to resume the incident?',
-      '',
-      [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
+    Alert.alert('Are you sure you want to resume the incident?', '', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+      },
+      {
+        text: 'OK',
+        onPress: async () => {
+          const { resumeIncident, toIncidentStack } = this.props;
+          resumeIncident();
+          toIncidentStack();
         },
-        {
-          text: 'OK',
-          onPress: async () => {
-            const { resumeIncident } = this.props;
-            resumeIncident();
-            this.props.navigation.navigate('IncidentScreen');
-          },
-        },
-      ]
-    );
+      },
+    ]);
   };
 
   render() {
+    const { theme } = this.props;
+    const colors = themeSelector(theme);
+    const styles = createStyleSheet(colors);
+
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView>
@@ -143,7 +149,7 @@ class EndScreen extends Component {
           {this.state.loading && (
             <ActivityIndicator
               style={styles.activityIndicator}
-              color={colors.primary.dark}
+              color={colors.primary}
               size={'large'}
             />
           )}
@@ -153,22 +159,36 @@ class EndScreen extends Component {
   }
 }
 
-EndScreen.propTypes = {
+_EndScreen.propTypes = {
   navigation: PropTypes.object,
   endIncident: PropTypes.func,
   resetIncident: PropTypes.func,
   resumeIncident: PropTypes.func,
-  logIncidentData: PropTypes.func,
+  toHomeStack: PropTypes.func,
+  toIncidentStack: PropTypes.func,
+  reportData: PropTypes.object,
+  theme: PropTypes.string,
 };
 
-export default withNavigation(
-  connect(
-    null,
-    {
-      endIncident,
-      resetIncident,
-      resumeIncident,
-      logIncidentData,
-    }
-  )(EndScreen)
-);
+const mapStateToProps = state => ({
+  reportData: getCurrentReportData(state),
+  theme: getTheme(state),
+});
+
+const _ = connect(
+  mapStateToProps,
+  {
+    endIncident,
+    resetIncident,
+    resumeIncident,
+    toHomeStack,
+    toIncidentStack,
+  }
+)(_EndScreen);
+
+// Wrap and export
+export default function EndScreen(props) {
+  const navigation = useNavigation();
+
+  return <_ {...props} navigation={navigation} />;
+}

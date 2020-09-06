@@ -4,7 +4,7 @@
  * Reducers to add and remove groups, and change group names.
  */
 
-import { SET_NAME, SET_VISIBILITY, SET_GROUP } from '../actions';
+import { SET_NAME, SET_VISIBILITY, SET_GROUP } from '../types';
 
 const setName = (state, action) => {
   const { payload } = action;

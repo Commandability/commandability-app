@@ -11,9 +11,11 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
+import { getTheme } from '../../redux/selectors';
 import { addPerson, setPersonLocationId } from '../../redux/actions';
 import { STAGING } from '../../modules/location-ids';
-import styles from './styles';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
 class NewPersonnel extends Component {
   constructor(props) {
@@ -36,14 +38,15 @@ class NewPersonnel extends Component {
     };
     this.setState({ firstName: '', lastName: '', badge: '', organization: '' });
     addPerson(person, true, STAGING);
-    setPersonLocationId(
-      person,
-      {},
-      { locationId: STAGING, name: 'Staging' }
-    );
+    setPersonLocationId(person, {}, { locationId: STAGING, name: 'Staging' });
   };
 
   render() {
+    const { theme } = this.props;
+
+    const colors = themeSelector(theme);
+    const styles = createStyleSheet(colors);
+
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView>
@@ -96,9 +99,14 @@ class NewPersonnel extends Component {
 NewPersonnel.propTypes = {
   addPerson: PropTypes.func,
   setPersonLocationId: PropTypes.func,
+  theme: PropTypes.string,
 };
 
+const mapStateToProps = state => ({
+  theme: getTheme(state),
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { setPersonLocationId, addPerson }
 )(NewPersonnel);

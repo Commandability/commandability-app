@@ -12,7 +12,7 @@ import {
   SET_PERSON_LOCATION_ID,
   SET_VISIBILITY,
   RESET_INCIDENT,
-} from '../actions';
+} from '../types';
 import { ROSTER, STAGING } from '../../modules/location-ids';
 
 const initialState = {

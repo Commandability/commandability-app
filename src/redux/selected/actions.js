@@ -9,13 +9,15 @@ import {
   SELECT_PERSON,
   DESELECT_PERSON,
   CLEAR_SELECTED_PERSONNEL,
-} from '../actions';
+} from '../types';
 
+// Previously selected persons will be deselected
 export const togglePerson = (person, locationId) => ({
   type: TOGGLE_SELECTED_PERSON,
   payload: { person, locationId },
 });
 
+// Previously selected persons will remain selected
 export const selectPerson = (person, locationId) => ({
   type: SELECT_PERSON,
   payload: { person, locationId },

@@ -7,10 +7,13 @@
  */
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { TouchableOpacity, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 
-import styles from './styles';
+import { getTheme } from '../../redux/selectors';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
 class OptionBar extends Component {
   _onAddGroupPressed = () => {
@@ -26,7 +29,10 @@ class OptionBar extends Component {
   };
 
   render() {
-    const { addGroupMode, removeGroupMode, editGroupMode } = this.props;
+    const { addGroupMode, removeGroupMode, editGroupMode, theme } = this.props;
+
+    const colors = themeSelector(theme);
+    const styles = createStyleSheet(colors);
 
     return (
       <View style={styles.container}>
@@ -94,6 +100,14 @@ OptionBar.propTypes = {
   addGroupMode: PropTypes.bool,
   removeGroupMode: PropTypes.bool,
   editGroupMode: PropTypes.bool,
+  theme: PropTypes.string,
 };
 
-export default OptionBar;
+const mapStateToProps = state => ({
+  theme: getTheme(state),
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(OptionBar);

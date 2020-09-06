@@ -6,23 +6,23 @@
 
 import React, { Component } from 'react';
 import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import colors from '../../modules/colors';
 import RosterList from '../roster-list';
 import {
   getPersonnelByLocationId,
   getSelectedLocationId,
   getSelectedPersonnelGroups,
+  getTheme,
 } from '../../redux/selectors';
 import {
   clearSelectedPersonnel,
   setPersonLocationId,
 } from '../../redux/actions';
 import { STAGING, ROSTER } from '../../modules/location-ids';
-import styles from './styles';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
 class Roster extends Component {
   constructor() {
@@ -68,10 +68,13 @@ class Roster extends Component {
   };
 
   render() {
-    const { selectedLocationId } = this.props;
+    const { selectedLocationId, theme } = this.props;
 
     const renderOverlay =
       selectedLocationId && selectedLocationId !== ROSTER ? true : false;
+
+    const colors = themeSelector(theme);
+    const styles = createStyleSheet(colors);
 
     return (
       <View style={styles.container}>
@@ -88,7 +91,7 @@ class Roster extends Component {
           style={styles.queryInput}
           autoCapitalize="none"
           placeholder="Search"
-          placeholderTextColor={colors.text.light}
+          placeholderTextColor={colors.text.main}
           onChangeText={query => this.setState({ query })}
           value={this.state.query}
         />
@@ -106,6 +109,7 @@ Roster.propTypes = {
   selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocationId: PropTypes.func,
+  theme: PropTypes.string,
 };
 
 const mapStateToProps = state => {
@@ -115,15 +119,14 @@ const mapStateToProps = state => {
     personnel,
     selectedLocationId: getSelectedLocationId(state),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
+    theme: getTheme(state),
   };
 };
 
-export default withNavigation(
-  connect(
-    mapStateToProps,
-    {
-      clearSelectedPersonnel,
-      setPersonLocationId,
-    }
-  )(Roster)
-);
+export default connect(
+  mapStateToProps,
+  {
+    clearSelectedPersonnel,
+    setPersonLocationId,
+  }
+)(Roster);

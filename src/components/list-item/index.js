@@ -9,9 +9,14 @@ import PropTypes from 'prop-types';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
-import { getLocationUpdateTime, personIsSelected } from '../../redux/selectors';
+import {
+  getLocationUpdateTime,
+  personIsSelected,
+  getTheme,
+} from '../../redux/selectors';
 import { togglePerson } from '../../redux/actions';
-import styles from './styles';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
 const MS_IN_MINUTE = 60000;
 
@@ -63,8 +68,13 @@ class ListItem extends PureComponent {
     const {
       item: { firstName, lastName, badge, shift, organization },
       personIsSelected,
+      theme,
     } = this.props;
     const time = Math.floor(this.state.time / MS_IN_MINUTE);
+
+    const colors = themeSelector(theme);
+    const styles = createStyleSheet(colors);
+
     return (
       <TouchableOpacity
         onPress={this._onPress}
@@ -82,7 +92,9 @@ class ListItem extends PureComponent {
           <View style={styles.line}>
             <Text style={styles.label}>{`${badge ? badge + ' ' : ''}`}</Text>
             <Text style={styles.label}>{`${shift ? shift : ''}`}</Text>
-            <Text style={styles.label}>{`${organization ? organization : ''}`}</Text>
+            <Text style={styles.label}>{`${
+              organization ? organization : ''
+            }`}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -97,6 +109,7 @@ ListItem.propTypes = {
   locationId: PropTypes.string, // the parent groupName
   togglePerson: PropTypes.func,
   personIsSelected: PropTypes.bool,
+  theme: PropTypes.string,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -104,6 +117,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     locationUpdateTime: getLocationUpdateTime(state, item),
     personIsSelected: personIsSelected(state, item),
+    theme: getTheme(state),
   };
 };
 

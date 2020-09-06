@@ -7,7 +7,6 @@
 
 import React, { Component } from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
-import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -16,6 +15,7 @@ import {
   getPersonnelByLocationId,
   getSelectedLocationId,
   getSelectedPersonnelGroups,
+  getTheme,
 } from '../../redux/selectors';
 import {
   setVisibility,
@@ -23,7 +23,8 @@ import {
   setPersonLocationId,
 } from '../../redux/actions';
 import { STAGING, ROSTER } from '../../modules/location-ids';
-import styles from './styles';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
 class Staging extends Component {
   _onStagingPressed = () => {
@@ -47,10 +48,13 @@ class Staging extends Component {
   };
 
   render() {
-    const { selectedLocationId } = this.props;
+    const { selectedLocationId, theme } = this.props;
 
     const renderOverlay =
       selectedLocationId && selectedLocationId !== STAGING ? true : false;
+
+    const colors = themeSelector(theme);
+    const styles = createStyleSheet(colors);
 
     return (
       <View style={styles.container}>
@@ -77,6 +81,7 @@ Staging.propTypes = {
   selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocationId: PropTypes.func,
+  theme: PropTypes.string,
 };
 
 const mapStateToProps = state => {
@@ -86,16 +91,15 @@ const mapStateToProps = state => {
     personnel,
     selectedLocationId: getSelectedLocationId(state),
     selectedPersonnelGroups: getSelectedPersonnelGroups(state),
+    theme: getTheme(state),
   };
 };
 
-export default withNavigation(
-  connect(
-    mapStateToProps,
-    {
-      setVisibility,
-      clearSelectedPersonnel,
-      setPersonLocationId,
-    }
-  )(Staging)
-);
+export default connect(
+  mapStateToProps,
+  {
+    setVisibility,
+    clearSelectedPersonnel,
+    setPersonLocationId,
+  }
+)(Staging);

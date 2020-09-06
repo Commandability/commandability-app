@@ -8,7 +8,6 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import auth from '@react-native-firebase/auth';
 
 import {
   OptionBar,
@@ -18,7 +17,7 @@ import {
   Roster,
   InfoBar,
 } from '../../components';
-import { activeReport, getInitialEpoch } from '../../redux/selectors';
+import { activeReport, getInitialEpoch, getTheme } from '../../redux/selectors';
 import { startIncident, endIncident } from '../../redux/actions';
 import {
   GROUP_ONE,
@@ -28,7 +27,8 @@ import {
   GROUP_FIVE,
   GROUP_SIX,
 } from '../../modules/location-ids.js';
-import styles from './styles';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
 const GROUP_AREA = 'GROUP_AREA';
 const PERSONNEL_AREA = 'PERSONNEL_AREA';
@@ -46,7 +46,6 @@ class IncidentScreen extends Component {
 
   componentDidMount() {
     const { startIncident, activeReport } = this.props;
-    this.props.navigation.setParams({ userEmail: auth().currentUser.email });
     // prevent start incident from wiping report when IncidentScreen is re-mounted after a crash
     if (!activeReport) {
       startIncident(this.initialEpoch);
@@ -96,7 +95,7 @@ class IncidentScreen extends Component {
   };
 
   render() {
-    const { activeReport, activeInitialEpoch } = this.props;
+    const { activeReport, activeInitialEpoch, theme } = this.props;
     this.initialEpoch = Date.now();
 
     const groupIds = [
@@ -107,6 +106,9 @@ class IncidentScreen extends Component {
       GROUP_FIVE,
       GROUP_SIX,
     ];
+
+    const colors = themeSelector(theme);
+    const styles = createStyleSheet(colors);
 
     return (
       <View style={styles.container}>
@@ -201,12 +203,13 @@ IncidentScreen.propTypes = {
   activeReport: PropTypes.bool,
   startIncident: PropTypes.func,
   activeInitialEpoch: PropTypes.number,
-  navigation: PropTypes.object,
+  theme: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
   activeReport: activeReport(state),
   activeInitialEpoch: getInitialEpoch(state),
+  theme: getTheme(state),
 });
 
 export default connect(

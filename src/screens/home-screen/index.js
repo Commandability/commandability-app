@@ -13,59 +13,69 @@ import {
   View,
   Text,
 } from 'react-native';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
-import auth from '@react-native-firebase/auth';
 import PropTypes from 'prop-types';
 
 import {
   activeReport,
   completedReport,
   configurationLoaded,
+  getTheme,
 } from '../../redux/selectors';
-import { resetApp } from '../../redux/actions';
-import { updateUserData } from '../../modules/config-manager';
+import {
+  signOut,
+  toIncidentStack,
+  toEndStack,
+  resetApp,
+  setGroup,
+  clearPersonnel,
+  addPerson,
+  toggleTheme,
+} from '../../redux/actions';
 import { uploadReports, deleteAllReports } from '../../modules/report-manager';
-import colors from '../../modules/colors';
-import { scaleFont } from '../../modules/fonts';
-import styles from './styles';
+import {
+  GROUP_ONE,
+  GROUP_TWO,
+  GROUP_THREE,
+  GROUP_FOUR,
+  GROUP_FIVE,
+  GROUP_SIX,
+  ROSTER,
+} from '../../modules/location-ids.js';
+import { DARK, LIGHT } from '../../modules/theme-ids';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
 class HomeScreen extends Component {
-  constructor() {
-    super();
-    this.state = { currentUser: null, loading: false };
+  constructor(props) {
+    super(props);
+    const { theme } = this.props;
+    this.state = { loading: false, theme };
   }
 
   componentDidMount() {
-    const { currentUser } = auth();
-    this.setState({ currentUser, loading: false });
-    this.props.navigation.setParams({ userEmail: auth().currentUser.email });
-
-    const { activeReport, completedReport } = this.props;
+    const {
+      activeReport,
+      completedReport,
+      toIncidentStack,
+      toEndStack,
+    } = this.props;
     if (activeReport) {
-      this.props.navigation.navigate('IncidentStack');
+      toIncidentStack();
     }
     if (completedReport) {
-      this.props.navigation.navigate('EndStack');
+      toEndStack();
     }
   }
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      headerTitle: navigation.getParam('userEmail'),
-      headerTitleStyle: {
-        color: 'white',
-        textAlign: 'right',
-        fontSize: scaleFont(6),
-      },
-    };
-  };
-
   _startIncident = () => {
-    const { configurationLoaded } = this.props;
+    const { configurationLoaded, toIncidentStack } = this.props;
 
     if (configurationLoaded) {
-      this.props.navigation.navigate('IncidentScreen');
+      toIncidentStack();
     } else {
       Alert.alert(
         'No configuration data found.',
@@ -82,12 +92,42 @@ class HomeScreen extends Component {
   _updateConfiguration = async () => {
     const { isConnected } = await NetInfo.fetch();
     if (isConnected) {
-      this.setState(prevState => ({
-        currentUser: prevState.currentUser,
+      this.setState({
         loading: true,
-      }));
+      });
       try {
-        await updateUserData();
+        const { setGroup, clearPersonnel, addPerson } = this.props;
+
+        const { currentUser } = auth();
+        // User is signed in.
+        if (currentUser) {
+          const { uid } = currentUser;
+          const documentSnapshot = await firestore()
+            .collection('users')
+            .doc(uid)
+            .get();
+          const { groups, personnel } = documentSnapshot.data();
+
+          const groupIds = [
+            GROUP_ONE,
+            GROUP_TWO,
+            GROUP_THREE,
+            GROUP_FOUR,
+            GROUP_FIVE,
+            GROUP_SIX,
+          ];
+          // set default group settings
+          groupIds.forEach(id => {
+            const { name, visibility } = groups[id];
+            setGroup(id, name, visibility);
+          });
+          // refresh personnel data
+          clearPersonnel();
+          personnel.forEach(person => {
+            addPerson(person, false, ROSTER); // disable logging
+          });
+        }
+
         Alert.alert(
           'Configuration updated.',
           "The latest configuration data has been loaded from your organization's account.",
@@ -104,10 +144,9 @@ class HomeScreen extends Component {
           },
         ]);
       }
-      this.setState(prevState => ({
-        currentUser: prevState.currentUser,
+      this.setState({
         loading: false,
-      }));
+      });
     } else {
       Alert.alert(
         'Failed to connect to the network. ',
@@ -124,10 +163,9 @@ class HomeScreen extends Component {
   _uploadReports = async () => {
     const { isConnected } = await NetInfo.fetch();
     if (isConnected) {
-      this.setState(prevState => ({
-        currentUser: prevState.currentUser,
+      this.setState({
         loading: true,
-      }));
+      });
       try {
         await uploadReports();
         await deleteAllReports();
@@ -147,10 +185,9 @@ class HomeScreen extends Component {
           },
         ]);
       }
-      this.setState(prevState => ({
-        currentUser: prevState.currentUser,
+      this.setState({
         loading: false,
-      }));
+      });
     } else {
       Alert.alert(
         'Failed to connect to the network. ',
@@ -162,6 +199,14 @@ class HomeScreen extends Component {
         ]
       );
     }
+  };
+
+  _toggleTheme = () => {
+    this.setState(prevState =>
+      prevState.theme === DARK ? { theme: LIGHT } : { theme: DARK }
+    );
+    const { toggleTheme } = this.props;
+    toggleTheme();
   };
 
   _signOut = async () => {
@@ -176,15 +221,13 @@ class HomeScreen extends Component {
         {
           text: 'OK',
           onPress: async () => {
-            this.setState(prevState => ({
-              currentUser: prevState.currentUser,
+            this.setState({
               loading: true,
-            }));
+            });
             const { resetApp } = this.props;
             resetApp();
             try {
-              await auth().signOut();
-              this.props.navigation.navigate('AuthStack');
+              await signOut();
             } catch (error) {
               Alert.alert('Error', error, [
                 {
@@ -196,19 +239,21 @@ class HomeScreen extends Component {
         },
       ]
     );
-    this.setState(prevState => ({
-      currentUser: prevState.currentUser,
+    this.setState({
       loading: false,
-    }));
+    });
   };
 
   render() {
+    const colors = themeSelector(this.state.theme);
+    const styles = createStyleSheet(colors);
+
     return (
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.opacity}
           onPress={this._startIncident}
-          color={colors.primary.light}
+          color={colors.primary}
         >
           <Icon name="launch" style={styles.icon} />
           <Text style={styles.opacityText}>Start Incident</Text>
@@ -217,7 +262,7 @@ class HomeScreen extends Component {
           <TouchableOpacity
             style={styles.opacity}
             onPress={this._updateConfiguration}
-            color={colors.primary.light}
+            color={colors.primary}
           >
             <Icon name="update" style={styles.icon} />
             <Text style={styles.opacityText}>Update Configuration</Text>
@@ -225,7 +270,7 @@ class HomeScreen extends Component {
           <TouchableOpacity
             style={styles.opacity}
             onPress={this._uploadReports}
-            color={colors.primary.light}
+            color={colors.primary}
           >
             <Icon name="upload" style={styles.icon} />
             <Text style={styles.opacityText}>Upload Reports</Text>
@@ -234,16 +279,16 @@ class HomeScreen extends Component {
         <View style={styles.row}>
           <TouchableOpacity
             style={styles.opacity}
-            onPress={this._setTheme}
-            color={colors.primary.light}
+            onPress={this._toggleTheme}
+            color={colors.primary}
           >
             <Icon name="theme-light-dark" style={styles.icon} />
-            <Text style={styles.opacityText}>Light Theme</Text>
+            <Text style={styles.opacityText}>Theme</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.opacity}
             onPress={this._signOut}
-            color={colors.primary.light}
+            color={colors.primary}
           >
             <Icon name="logout" style={styles.icon} />
             <Text style={styles.opacityText}>Sign out</Text>
@@ -252,7 +297,7 @@ class HomeScreen extends Component {
         {this.state.loading && (
           <ActivityIndicator
             style={styles.activityIndicator}
-            color={colors.primary.light}
+            color={colors.primary}
             size={'large'}
           />
         )}
@@ -263,23 +308,39 @@ class HomeScreen extends Component {
 
 // props validation
 HomeScreen.propTypes = {
-  navigation: PropTypes.object,
   activeReport: PropTypes.bool,
   completedReport: PropTypes.bool,
   configurationLoaded: PropTypes.bool,
-  navigate: PropTypes.func,
   reportData: PropTypes.object,
   email: PropTypes.string,
+  signOut: PropTypes.func,
+  toIncidentStack: PropTypes.func,
+  toEndStack: PropTypes.func,
   resetApp: PropTypes.func,
+  setGroup: PropTypes.func,
+  clearPersonnel: PropTypes.func,
+  addPerson: PropTypes.func,
+  toggleTheme: PropTypes.func,
+  theme: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
   activeReport: activeReport(state),
   completedReport: completedReport(state),
   configurationLoaded: configurationLoaded(state),
+  theme: getTheme(state),
 });
 
 export default connect(
   mapStateToProps,
-  { resetApp }
+  {
+    signOut,
+    toIncidentStack,
+    toEndStack,
+    resetApp,
+    setGroup,
+    clearPersonnel,
+    addPerson,
+    toggleTheme,
+  }
 )(HomeScreen);

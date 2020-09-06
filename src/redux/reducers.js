@@ -10,12 +10,25 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { persistReducer, purgeStoredState } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
-import personnel from './personnel/reducer';
 import groups from './groups/reducer';
+import navigation from './navigation/reducer';
+import personnel from './personnel/reducer';
 import report from './report/reducer';
-import timer from './timer/reducer';
 import selected from './selected/reducer';
-import { RESET_APP } from './actions';
+import theme from './theme/reducer';
+import timer from './timer/reducer';
+import { RESET_APP } from './types';
+
+const groupsPersistConfig = {
+  key: 'groups',
+  storage: AsyncStorage,
+  stateReconciler: autoMergeLevel2,
+};
+
+const navigationPersistConfig = {
+  key: 'navigation',
+  storage: AsyncStorage,
+};
 
 // personnel reducer config, set persisted data to autoMergeLevel2 to track personnel changes
 // https://blog.reactnativecoach.com/the-definitive-guide-to-redux-persist-84738167975
@@ -25,14 +38,13 @@ const personnelPersistConfig = {
   stateReconciler: autoMergeLevel2,
 };
 
-const groupsPersistConfig = {
-  key: 'groups',
-  storage: AsyncStorage,
-  stateReconciler: autoMergeLevel2,
-};
-
 const reportPersistConfig = {
   key: 'report',
+  storage: AsyncStorage,
+};
+
+const themePersistConfig = {
+  key: 'theme',
   storage: AsyncStorage,
 };
 
@@ -42,11 +54,13 @@ const timePersistConfig = {
 };
 
 const appReducer = combineReducers({
-  personnel: persistReducer(personnelPersistConfig, personnel),
   groups: persistReducer(groupsPersistConfig, groups),
-  timer: persistReducer(timePersistConfig, timer),
+  navigation: persistReducer(navigationPersistConfig, navigation),
+  personnel: persistReducer(personnelPersistConfig, personnel),
   report: persistReducer(reportPersistConfig, report),
   selected,
+  theme: persistReducer(themePersistConfig, theme),
+  timer: persistReducer(timePersistConfig, timer),
 });
 
 // root reducer config, persisted data defaults to autoMergeLevel1
@@ -60,10 +74,12 @@ const rootReducer = (state, action) => {
   if (action.type === RESET_APP) {
     // undefined state results in all reducers returning default state because of default parameters
     state = undefined; // does not mutate state
-    purgeStoredState(personnelPersistConfig);
     purgeStoredState(groupsPersistConfig);
+    purgeStoredState(navigationPersistConfig);
+    purgeStoredState(personnelPersistConfig);
     purgeStoredState(reportPersistConfig);
     purgeStoredState(rootPersistConfig);
+    purgeStoredState(themePersistConfig);
     purgeStoredState(timePersistConfig);
   }
   return appReducer(state, action);

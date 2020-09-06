@@ -14,15 +14,17 @@ import {
   Text,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import auth from '@react-native-firebase/auth';
 import NetInfo from '@react-native-community/netinfo';
 import PropTypes from 'prop-types';
 
-import colors from '../../modules/colors';
-import styles from './styles';
+import { getTheme } from '../../redux/selectors';
+import { signIn } from '../../redux/actions';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
 
-export default class AuthScreen extends Component {
+class AuthScreen extends Component {
   constructor() {
     super();
     this.state = {
@@ -33,14 +35,13 @@ export default class AuthScreen extends Component {
   }
 
   _signIn = async () => {
+    const { signIn } = this.props;
     const { isConnected } = await NetInfo.fetch();
     if (isConnected) {
       this.setState({ loading: true });
       const { email, password } = this.state;
       try {
-        await auth().signInWithEmailAndPassword(email, password);
-        const { navigate } = this.props.navigation;
-        navigate('AppStack');
+        await signIn(email, password);
       } catch (error) {
         let message = '';
         switch (error.code) {
@@ -80,6 +81,10 @@ export default class AuthScreen extends Component {
   };
 
   render() {
+    const { theme } = this.props;
+    const colors = themeSelector(theme);
+    const styles = createStyleSheet(colors);
+
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView contentContainerStyle={styles.content}>
@@ -110,7 +115,7 @@ export default class AuthScreen extends Component {
           {this.state.loading && (
             <ActivityIndicator
               style={styles.activityIndicator}
-              color={colors.primary.light}
+              color={colors.primary}
               size={'large'}
             />
           )}
@@ -122,6 +127,17 @@ export default class AuthScreen extends Component {
 
 // props validation
 AuthScreen.propTypes = {
-  navigation: PropTypes.object,
-  navigate: PropTypes.func,
+  signIn: PropTypes.func,
+  theme: PropTypes.string,
 };
+
+const mapStateToProps = state => ({
+  theme: getTheme(state),
+});
+
+export default connect(
+  mapStateToProps,
+  {
+    signIn,
+  }
+)(AuthScreen);

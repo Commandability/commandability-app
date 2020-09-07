@@ -63,7 +63,6 @@ class ExitIncidentPrompt extends Component {
         <KeyboardAwareScrollView contentContainerStyle={styles.content}>
           <View style={styles.backBar}>
             <TouchableOpacity
-              style={styles.buttonContainer}
               onPress={this._onCancelPressed}
             >
               <Icon name="chevron-left" style={styles.backButton} />

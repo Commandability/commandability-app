@@ -37,15 +37,12 @@ export default colors =>
       marginRight: 30,
     },
     backButton: {
-      color: colors.primary.light,
-      fontSize: 44,
+      color: colors.primary,
+      fontSize: 42,
     },
     backBar: {
-      marginBottom: 14,
-      marginLeft: 12,
-    },
-    buttonContainer: {
-      width: '3%',
+      alignSelf: 'flex-start',
+      margin: 24,
     },
     promptContainer: {
       flex: 1,

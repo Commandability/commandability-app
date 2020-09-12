@@ -27,12 +27,7 @@ export default colors =>
       textAlign: 'left',
       color: colors.text.main,
     },
-    badge: {
-      textAlign: 'left',
-      fontSize: scaleFont(4),
-      color: colors.text.disabled,
-    },
-    shift: {
+    label: {
       textAlign: 'left',
       fontSize: scaleFont(4),
       color: colors.text.disabled,

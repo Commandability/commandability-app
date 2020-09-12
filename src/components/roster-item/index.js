@@ -46,8 +46,8 @@ class RosterItem extends PureComponent {
             <Text style={styles.name}>{`${firstName} ${lastName}`}</Text>
           </View>
           <View style={styles.line}>
-            <Text style={styles.badge}>{`${badge ? badge + ' ' : ''}`}</Text>
-            <Text style={styles.shift}>{`${shift ? shift : ''}`}</Text>
+            <Text style={styles.label}>{`${badge ? badge + ' ' : ''}`}</Text>
+            <Text style={styles.label}>{`${shift ? shift : ''}`}</Text>
           </View>
         </View>
       </TouchableOpacity>

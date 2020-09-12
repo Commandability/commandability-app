@@ -38,12 +38,7 @@ export default colors =>
     timeWarning: {
       color: colors.primary,
     },
-    badge: {
-      textAlign: 'left',
-      fontSize: scaleFont(4),
-      color: colors.text.disabled,
-    },
-    shift: {
+    label: {
       textAlign: 'left',
       fontSize: scaleFont(4),
       color: colors.text.disabled,

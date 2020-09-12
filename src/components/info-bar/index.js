@@ -51,7 +51,9 @@ class InfoBar extends Component {
           style={styles.option}
           onPress={this._onToggleThemePressed}
         >
-          <Text style={styles.optionContent}>{this.state.theme === DARK ? 'LIGHT' : 'DARK'}</Text>
+          <Text style={styles.optionContent}>
+            {this.state.theme === DARK ? 'LIGHT' : 'DARK'}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.option} onPress={this._onEndPressed}>
           <Text style={styles.optionContent}> END </Text>

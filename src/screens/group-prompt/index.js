@@ -66,9 +66,7 @@ class GroupPrompt extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.backBar}>
-          <TouchableOpacity
-            onPress={this._onCancelPressed}
-          >
+          <TouchableOpacity onPress={this._onCancelPressed}>
             <Icon name="chevron-left" style={styles.backButton} />
           </TouchableOpacity>
         </View>

@@ -26,12 +26,54 @@ import {
   GROUP_FOUR,
   GROUP_FIVE,
   GROUP_SIX,
+  GROUP_SEVEN,
+  GROUP_EIGHT,
+  GROUP_NINE,
+  GROUP_TEN,
+  GROUP_ELEVEN,
+  GROUP_TWELVE,
+  GROUP_THIRTEEN,
+  GROUP_FOURTEEN,
+  GROUP_FIFTEEN,
+  GROUP_SIXTEEN,
+  GROUP_SEVENTEEN,
+  GROUP_EIGHTEEN,
 } from '../../modules/location-ids.js';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 const GROUP_AREA = 'GROUP_AREA';
 const PERSONNEL_AREA = 'PERSONNEL_AREA';
+const PAGE_ONE = 'PAGE_ONE';
+const PAGE_TWO = 'PAGE_TWO';
+const PAGE_THREE = 'PAGE_THREE';
+
+const pages = {
+  PAGE_ONE: [
+    GROUP_ONE,
+    GROUP_TWO,
+    GROUP_THREE,
+    GROUP_FOUR,
+    GROUP_FIVE,
+    GROUP_SIX,
+  ],
+  PAGE_TWO: [
+    GROUP_SEVEN,
+    GROUP_EIGHT,
+    GROUP_NINE,
+    GROUP_TEN,
+    GROUP_ELEVEN,
+    GROUP_TWELVE,
+  ],
+  PAGE_THREE: [
+    GROUP_THIRTEEN,
+    GROUP_FOURTEEN,
+    GROUP_FIFTEEN,
+    GROUP_SIXTEEN,
+    GROUP_SEVENTEEN,
+    GROUP_EIGHTEEN,
+  ],
+};
 
 class IncidentScreen extends Component {
   constructor(props) {
@@ -41,6 +83,8 @@ class IncidentScreen extends Component {
       editGroupMode: false,
       addGroupMode: false,
       tab: GROUP_AREA,
+      page: PAGE_ONE,
+      groupIds: [],
     };
   }
 
@@ -94,18 +138,17 @@ class IncidentScreen extends Component {
     }));
   };
 
+  onPagePressed = pageNumber => {
+    console.log(this.state.page);
+    console.log(pageNumber);
+    this.setState({ page: pageNumber });
+    console.log(this.state.page);
+  };
+
   render() {
+    console.log(pages[this.state.page]);
     const { activeReport, activeInitialEpoch, theme } = this.props;
     this.initialEpoch = Date.now();
-
-    const groupIds = [
-      GROUP_ONE,
-      GROUP_TWO,
-      GROUP_THREE,
-      GROUP_FOUR,
-      GROUP_FIVE,
-      GROUP_SIX,
-    ];
 
     const colors = themeSelector(theme);
     const styles = createStyleSheet(colors);
@@ -171,7 +214,7 @@ class IncidentScreen extends Component {
                 editGroupMode={this.state.editGroupMode}
               />
               <View style={styles.groupArea}>
-                {groupIds.map(id => (
+                {pages[this.state.page].map(id => (
                   <Group
                     key={id}
                     locationId={id}
@@ -193,6 +236,53 @@ class IncidentScreen extends Component {
               </View>
             </View>
           )}
+          <View style={styles.pageTabContainer}>
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              disabled={this.state.page === PAGE_ONE}
+              onPress={() => this.onPagePressed(PAGE_ONE)}
+            >
+              <Text
+                style={
+                  this.state.page === PAGE_ONE
+                    ? styles.icon
+                    : styles.iconSelected
+                }
+              >
+                1
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              disabled={this.state.page === PAGE_TWO}
+              onPress={() => this.onPagePressed(PAGE_TWO)}
+            >
+              <Text
+                style={
+                  this.state.page === PAGE_TWO
+                    ? styles.icon
+                    : styles.iconSelected
+                }
+              >
+                2
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              disabled={this.state.page === PAGE_THREE}
+              onPress={() => this.onPagePressed(PAGE_THREE)}
+            >
+              <Text
+                style={
+                  this.state.page === PAGE_THREE
+                    ? styles.icon
+                    : styles.iconSelected
+                }
+              >
+                3
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );

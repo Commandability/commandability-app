@@ -43,6 +43,18 @@ import {
   GROUP_FOUR,
   GROUP_FIVE,
   GROUP_SIX,
+  GROUP_SEVEN,
+  GROUP_EIGHT,
+  GROUP_NINE,
+  GROUP_TEN,
+  GROUP_ELEVEN,
+  GROUP_TWELVE,
+  GROUP_THIRTEEN,
+  GROUP_FOURTEEN,
+  GROUP_FIFTEEN,
+  GROUP_SIXTEEN,
+  GROUP_SEVENTEEN,
+  GROUP_EIGHTEEN,
   ROSTER,
 } from '../../modules/location-ids.js';
 import { DARK, LIGHT } from '../../modules/theme-ids';
@@ -115,6 +127,18 @@ class HomeScreen extends Component {
             GROUP_FOUR,
             GROUP_FIVE,
             GROUP_SIX,
+            GROUP_SEVEN,
+            GROUP_EIGHT,
+            GROUP_NINE,
+            GROUP_TEN,
+            GROUP_ELEVEN,
+            GROUP_TWELVE,
+            GROUP_THIRTEEN,
+            GROUP_FOURTEEN,
+            GROUP_FIFTEEN,
+            GROUP_SIXTEEN,
+            GROUP_SEVENTEEN,
+            GROUP_EIGHTEEN,
           ];
           // set default group settings
           groupIds.forEach(id => {
@@ -283,7 +307,9 @@ class HomeScreen extends Component {
             color={colors.primary}
           >
             <Icon name="theme-light-dark" style={styles.icon} />
-            <Text style={styles.opacityText}>{this.state.theme === DARK ? 'Light' : 'Dark'}</Text>
+            <Text style={styles.opacityText}>
+              {this.state.theme === DARK ? 'Light' : 'Dark'}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.opacity}

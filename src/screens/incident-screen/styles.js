@@ -61,4 +61,28 @@ export default colors =>
       flex: 1,
       padding: 24,
     },
+    pageTabContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
+    buttonContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '5%',
+      paddingVertical: 2,
+      margin: 12,
+      marginHorizontal: 15,
+    },
+    icon: {
+      fontSize: 16,
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: colors.text.main,
+    },
+    iconSelected: {
+      fontSize: 16,
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: colors.primary,
+    },
   });

@@ -18,8 +18,8 @@ import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 class NewPersonnel extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       firstName: '',
       lastName: '',

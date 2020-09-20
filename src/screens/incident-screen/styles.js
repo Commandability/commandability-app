@@ -68,10 +68,9 @@ export default colors =>
     buttonContainer: {
       justifyContent: 'center',
       alignItems: 'center',
-      width: '5%',
       paddingVertical: 2,
       margin: 12,
-      marginHorizontal: 15,
+      marginHorizontal: 48,
     },
     icon: {
       fontSize: 16,

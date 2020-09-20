@@ -68,7 +68,7 @@ class _EndScreen extends Component {
       const { toHomeStack } = this.props;
       toHomeStack();
     } else {
-      Alert.alert('Error:', 'Location is required.', [
+      Alert.alert('Error', 'Location is required.', [
         {
           text: 'OK',
         },

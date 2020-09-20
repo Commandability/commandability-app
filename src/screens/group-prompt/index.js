@@ -5,7 +5,14 @@
  */
 
 import React, { Component } from 'react';
-import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  Alert,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Platform,
+} from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -65,11 +72,13 @@ class GroupPrompt extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.backBar}>
-          <TouchableOpacity onPress={this._onCancelPressed}>
-            <Icon name="chevron-left" style={styles.backButton} />
-          </TouchableOpacity>
-        </View>
+        {Platform.OS === 'ios' && (
+          <View style={styles.backBar}>
+            <TouchableOpacity onPress={this._onCancelPressed}>
+              <Icon name="chevron-left" style={styles.backButton} />
+            </TouchableOpacity>
+          </View>
+        )}
         <View style={styles.promptContainer}>
           <Text style={styles.label}>Group name *</Text>
           <TextInput

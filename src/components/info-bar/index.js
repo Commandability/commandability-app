@@ -7,41 +7,57 @@
  */
 
 import React, { Component } from 'react';
-import { TouchableOpacity, Text, View } from 'react-native';
+import { Alert, TouchableOpacity, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getTheme } from '../../redux/selectors';
+import { personnelInGroups, getTheme } from '../../redux/selectors';
 import { toEndStack, toggleTheme } from '../../redux/actions';
 import Timer from '../timer';
-import { DARK, LIGHT } from '../../modules/theme-ids';
+import { DARK } from '../../modules/theme-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 class InfoBar extends Component {
-  constructor(props) {
-    super(props);
-    const { theme } = this.props;
-    this.state = { theme };
-  }
-
   _onEndPressed = () => {
-    const { toEndStack } = this.props;
-    toEndStack();
+    const { personnelInGroups } = this.props;
+
+    if (personnelInGroups) {
+      Alert.alert(
+        'Personnel are still active',
+        'Please move all personnel to staging before ending the incident.',
+        [
+          {
+            text: 'OK',
+          },
+        ]
+      );
+    } else {
+      Alert.alert('Are you sure you want to end the incident?', '', [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            const { toEndStack } = this.props;
+            toEndStack();
+          },
+        },
+      ]);
+    }
   };
 
   _onToggleThemePressed = () => {
-    this.setState(prevState =>
-      prevState.theme === DARK ? { theme: LIGHT } : { theme: DARK }
-    );
     const { toggleTheme } = this.props;
     toggleTheme();
   };
 
   render() {
-    const { initialEpoch } = this.props;
+    const { initialEpoch, theme } = this.props;
 
-    const colors = themeSelector(this.state.theme);
+    const colors = themeSelector(theme);
     const styles = createStyleSheet(colors);
 
     return (
@@ -52,7 +68,7 @@ class InfoBar extends Component {
           onPress={this._onToggleThemePressed}
         >
           <Text style={styles.optionContent}>
-            {this.state.theme === DARK ? 'LIGHT' : 'DARK'}
+            {theme === DARK ? 'LIGHT' : 'DARK'}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.option} onPress={this._onEndPressed}>
@@ -70,10 +86,12 @@ InfoBar.propTypes = {
   toEndStack: PropTypes.func,
   toggleTheme: PropTypes.func,
   theme: PropTypes.string,
+  personnelInGroups: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
   theme: getTheme(state),
+  personnelInGroups: personnelInGroups(state),
 });
 
 export default connect(

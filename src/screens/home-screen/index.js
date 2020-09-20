@@ -62,10 +62,9 @@ import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 class HomeScreen extends Component {
-  constructor(props) {
-    super(props);
-    const { theme } = this.props;
-    this.state = { loading: false, theme };
+  constructor() {
+    super();
+    this.state = { loading: false };
   }
 
   componentDidMount() {
@@ -90,7 +89,7 @@ class HomeScreen extends Component {
       toIncidentStack();
     } else {
       Alert.alert(
-        'No configuration data found.',
+        'No configuration data found',
         "Load your organization's configuration data from the web portal to begin recording incidents.",
         [
           {
@@ -153,7 +152,7 @@ class HomeScreen extends Component {
         }
 
         Alert.alert(
-          'Configuration updated.',
+          'Configuration updated',
           "The latest configuration data has been loaded from your organization's account.",
           [
             {
@@ -173,7 +172,7 @@ class HomeScreen extends Component {
       });
     } else {
       Alert.alert(
-        'Failed to connect to the network. ',
+        'Failed to connect to the network',
         'Please check your network connection status. ',
         [
           {
@@ -194,7 +193,7 @@ class HomeScreen extends Component {
         await uploadReports();
         await deleteAllReports();
         Alert.alert(
-          'All reports uploaded. ',
+          'All reports uploaded',
           'All reports were successfully uploaded and removed from local storage.',
           [
             {
@@ -214,7 +213,7 @@ class HomeScreen extends Component {
       });
     } else {
       Alert.alert(
-        'Failed to connect to the network. ',
+        'Failed to connect to the network',
         'Please check your network connection status. ',
         [
           {
@@ -226,9 +225,6 @@ class HomeScreen extends Component {
   };
 
   _toggleTheme = () => {
-    this.setState(prevState =>
-      prevState.theme === DARK ? { theme: LIGHT } : { theme: DARK }
-    );
     const { toggleTheme } = this.props;
     toggleTheme();
   };
@@ -269,7 +265,9 @@ class HomeScreen extends Component {
   };
 
   render() {
-    const colors = themeSelector(this.state.theme);
+    const { theme } = this.props;
+
+    const colors = themeSelector(theme);
     const styles = createStyleSheet(colors);
 
     return (
@@ -308,7 +306,7 @@ class HomeScreen extends Component {
           >
             <Icon name="theme-light-dark" style={styles.icon} />
             <Text style={styles.opacityText}>
-              {this.state.theme === DARK ? 'Light' : 'Dark'}
+              {theme === DARK ? 'Light' : 'Dark'}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity

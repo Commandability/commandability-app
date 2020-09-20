@@ -69,7 +69,7 @@ class AuthScreen extends Component {
       }
     } else {
       Alert.alert(
-        'Failed to connect to the network. ',
+        'Failed to connect to the network',
         'Please check your network connection status. ',
         [
           {

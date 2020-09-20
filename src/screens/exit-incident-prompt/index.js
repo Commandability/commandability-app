@@ -5,7 +5,14 @@
  */
 
 import React, { Component } from 'react';
-import { Alert, TouchableOpacity, View, TextInput, Text } from 'react-native';
+import {
+  Alert,
+  TouchableOpacity,
+  View,
+  TextInput,
+  Text,
+  Platform,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import PropTypes from 'prop-types';
@@ -61,11 +68,13 @@ class ExitIncidentPrompt extends Component {
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView contentContainerStyle={styles.content}>
-          <View style={styles.backBar}>
-            <TouchableOpacity onPress={this._onCancelPressed}>
-              <Icon name="chevron-left" style={styles.backButton} />
-            </TouchableOpacity>
-          </View>
+          {Platform.OS === 'ios' && (
+            <View style={styles.backBar}>
+              <TouchableOpacity onPress={this._onCancelPressed}>
+                <Icon name="chevron-left" style={styles.backButton} />
+              </TouchableOpacity>
+            </View>
+          )}
           <View style={styles.promptContainer}>
             <View style={styles.prompt}>
               <Text style={styles.promptText}>

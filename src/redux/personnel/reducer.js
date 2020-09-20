@@ -209,6 +209,14 @@ export const getPersonnelByLocationId = (state, locationId) => {
   return personnelIdsByLocation.map(id => state.byId[id]);
 };
 
+export const personnelInGroups = state => {
+  return !state.allIds.every(
+    id =>
+      state.byId[id].locationId === ROSTER ||
+      state.byId[id].locationId === STAGING
+  );
+};
+
 export const getPersonById = (state, id) => state.byId[id];
 
 export const getLocationUpdateTime = (state, person) => {

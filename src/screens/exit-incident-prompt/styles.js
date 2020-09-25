@@ -1,26 +1,22 @@
 import { StyleSheet } from 'react-native';
 
-import { scaleFont } from '../../modules/fonts';
-
 export default colors =>
   StyleSheet.create({
     container: {
       flex: 1,
-      flexDirection: 'column',
       justifyContent: 'center',
       backgroundColor: colors.background.one,
       padding: 24,
     },
     content: {
       flex: 1,
-      flexDirection: 'column',
       justifyContent: 'center',
     },
     prompt: {
       margin: 24,
     },
     promptText: {
-      fontSize: scaleFont(8),
+      fontSize: 24,
       color: colors.text.main,
     },
     label: {

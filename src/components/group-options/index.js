@@ -1,7 +1,7 @@
 /**
- * OptionBar Component
+ * GroupOptions Component
  *
- * This component handles the OptionBar above the incident screen, including:
+ * This component handles the GroupOptions above the incident screen, including:
  *  - the incident timer
  *  - the edit group, remove group, and end incident buttons
  */
@@ -15,7 +15,7 @@ import { getTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-class OptionBar extends Component {
+class GroupOptions extends Component {
   _onAddGroupPressed = () => {
     this.props.addGroupHandler();
   };
@@ -93,7 +93,7 @@ class OptionBar extends Component {
 }
 
 // props validation
-OptionBar.propTypes = {
+GroupOptions.propTypes = {
   addGroupHandler: PropTypes.func,
   removeGroupHandler: PropTypes.func,
   editGroupHandler: PropTypes.func,
@@ -110,4 +110,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   null
-)(OptionBar);
+)(GroupOptions);

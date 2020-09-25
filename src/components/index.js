@@ -1,9 +1,10 @@
 import Group from './group';
+import GroupArea from './group-area';
 import GroupList from './group-list';
-import InfoBar from './info-bar';
+import BottomBar from './bottom-bar';
 import ListItem from './list-item';
 import NewPersonnel from './new-personnel';
-import OptionBar from './option-bar';
+import GroupOptions from './group-options';
 import Roster from './roster';
 import RosterItem from './roster-item';
 import RosterList from './roster-list';
@@ -13,11 +14,12 @@ import Timer from './timer';
 
 export {
   Group,
+  GroupArea,
   GroupList,
-  InfoBar,
+  BottomBar,
   ListItem,
   NewPersonnel,
-  OptionBar,
+  GroupOptions,
   Roster,
   RosterItem,
   RosterList,

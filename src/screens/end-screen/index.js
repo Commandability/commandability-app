@@ -107,7 +107,7 @@ class _EndScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <KeyboardAwareScrollView>
+        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
           <Text style={styles.label}>Location *</Text>
           <TextInput
             style={styles.locationInput}

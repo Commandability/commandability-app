@@ -60,7 +60,6 @@ class _Group extends Component {
       editGroupMode,
       setVisibility,
       group,
-      navigation: { navigate },
     } = this.props;
 
     if (addGroupMode) {
@@ -83,6 +82,9 @@ class _Group extends Component {
         ]
       );
     } else if (editGroupMode) {
+      const {
+        navigation: { navigate },
+      } = this.props;
       navigate('GroupPrompt', { group });
     } else {
       const {
@@ -144,7 +146,7 @@ class _Group extends Component {
               onPress={this._onSelectAllPressed}
               style={styles.header}
             >
-              <Text style={styles.headerContent}> {name} </Text>
+              <Text style={styles.headerContent}> {name.toUpperCase()} </Text>
             </TouchableOpacity>
             <GroupList locationId={locationId} />
           </>

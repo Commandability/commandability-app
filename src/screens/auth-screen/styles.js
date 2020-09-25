@@ -11,14 +11,12 @@ export default colors =>
     },
     container: {
       flex: 1,
-      flexDirection: 'column',
       justifyContent: 'center',
       backgroundColor: colors.background.one,
       padding: 24,
     },
     content: {
       flex: 1,
-      flexDirection: 'column',
       justifyContent: 'center',
     },
     label: {

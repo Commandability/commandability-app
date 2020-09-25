@@ -49,6 +49,7 @@ const resumeIncident = state => {
   return updatedReport;
 };
 
+// For temporary personnel
 const logAddPerson = (state, action) => {
   const { payload } = action;
   const {
@@ -71,6 +72,7 @@ const logAddPerson = (state, action) => {
     : state; // return state if log is false
 };
 
+// For temporary personnel
 const logRemovePerson = (state, action) => {
   const { payload } = action;
   const {
@@ -93,6 +95,7 @@ const logRemovePerson = (state, action) => {
     : state; // return state if log is false
 };
 
+// For roster personnel
 const logSetLocationId = (state, action) => {
   const { payload } = action;
   const {
@@ -104,21 +107,18 @@ const logSetLocationId = (state, action) => {
   } = payload;
 
   let log = '';
-  // Don't log adding and removing personnel here
-  if (prevLocationId && nextLocationId) {
-    if (prevLocationId === ROSTER) {
-      log = `${
-        badge ? badge + ' - ' : ''
-      }${firstName} ${lastName} added to incident`;
-    } else if (nextLocationId === ROSTER) {
-      log = `${
-        badge ? badge + ' - ' : ''
-      }${firstName} ${lastName} removed from incident`;
-    } else {
-      log = `${badge ? badge + ' - ' : ''}${firstName} ${lastName} ${
-        organization ? `(${organization}) ` : ''
-      }moved from ${prevName} to ${nextName}`;
-    }
+  if (prevLocationId === ROSTER) {
+    log = `${
+      badge ? badge + ' - ' : ''
+    }${firstName} ${lastName} added to incident`;
+  } else if (nextLocationId === ROSTER) {
+    log = `${
+      badge ? badge + ' - ' : ''
+    }${firstName} ${lastName} removed from incident`;
+  } else {
+    log = `${badge ? badge + ' - ' : ''}${firstName} ${lastName} ${
+      organization ? `(${organization}) ` : ''
+    }moved from ${prevName} to ${nextName}`;
   }
 
   return {

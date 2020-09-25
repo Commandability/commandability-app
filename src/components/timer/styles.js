@@ -1,11 +1,8 @@
 import { StyleSheet } from 'react-native';
 
-import { scaleFont } from '../../modules/fonts';
-
 export default colors =>
   StyleSheet.create({
     container: {
-      flexDirection: 'column',
       flex: 1,
     },
     timer: {
@@ -13,7 +10,7 @@ export default colors =>
       justifyContent: 'center',
     },
     timerContent: {
-      fontSize: scaleFont(5),
+      fontSize: 14,
       textAlignVertical: 'center',
       textAlign: 'center',
       color: colors.text.main,

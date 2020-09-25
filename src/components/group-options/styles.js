@@ -1,24 +1,23 @@
 import { StyleSheet } from 'react-native';
 
-import { scaleFont } from '../../modules/fonts';
-
 export default colors =>
   StyleSheet.create({
     container: {
       flexDirection: 'row',
       justifyContent: 'center',
-      alignItems: 'center',
     },
     option: {
       justifyContent: 'center',
       alignItems: 'center',
-      width: '20%',
+      width: 200,
       paddingVertical: 4,
-      margin: 12,
+      marginHorizontal: 12,
+      marginTop: 16,
+      marginBottom: 8,
       backgroundColor: colors.background.two,
     },
     optionContent: {
-      fontSize: scaleFont(5),
+      fontSize: 14,
       justifyContent: 'center',
       alignItems: 'center',
       color: colors.text.main,

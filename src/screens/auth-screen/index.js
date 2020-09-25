@@ -87,7 +87,10 @@ class AuthScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <KeyboardAwareScrollView contentContainerStyle={styles.content}>
+        <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={styles.content}
+        >
           <Text style={styles.label}>Email</Text>
           <TextInput
             style={styles.textInput}

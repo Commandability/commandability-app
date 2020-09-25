@@ -6,7 +6,7 @@
 
 import uuidv4 from 'uuid/v4';
 
-import { SET_NAME, SET_VISIBILITY, SET_GROUP } from '../types';
+import { SET_NAME, SET_VISIBILITY, INIT_GROUP } from '../types';
 
 export const setName = (group, newName) => {
   const entryId = uuidv4(); // for storage in the report reducer
@@ -26,7 +26,7 @@ export const setVisibility = (group, newVisibility) => {
   };
 };
 
-export const setGroup = (locationId, name, visibility) => ({
-  type: SET_GROUP,
+export const initGroup = (locationId, name, visibility) => ({
+  type: INIT_GROUP,
   payload: { locationId, name, visibility },
 });

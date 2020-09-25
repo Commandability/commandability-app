@@ -1,5 +1,5 @@
 /**
- * InfoBar Component
+ * BottomBar Component
  *
  *
  * This component handles the info bar under the staging area,
@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import { Alert, TouchableOpacity, Text, View } from 'react-native';
 import { connect } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 
 import { personnelInGroups, getTheme } from '../../redux/selectors';
@@ -18,7 +19,19 @@ import { DARK } from '../../modules/theme-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-class InfoBar extends Component {
+class _BottomBar extends Component {
+  _onToggleThemePressed = () => {
+    const { toggleTheme } = this.props;
+    toggleTheme();
+  };
+
+  _onPersonnelPromptPressed = () => {
+    const {
+      navigation: { navigate },
+    } = this.props;
+    navigate('PersonnelPrompt');
+  };
+
   _onEndPressed = () => {
     const { personnelInGroups } = this.props;
 
@@ -49,11 +62,6 @@ class InfoBar extends Component {
     }
   };
 
-  _onToggleThemePressed = () => {
-    const { toggleTheme } = this.props;
-    toggleTheme();
-  };
-
   render() {
     const { initialEpoch, theme } = this.props;
 
@@ -62,25 +70,36 @@ class InfoBar extends Component {
 
     return (
       <View style={styles.container}>
-        <Timer initialEpoch={initialEpoch} />
-        <TouchableOpacity
-          style={styles.option}
-          onPress={this._onToggleThemePressed}
-        >
-          <Text style={styles.optionContent}>
-            {theme === DARK ? 'LIGHT' : 'DARK'}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.option} onPress={this._onEndPressed}>
-          <Text style={styles.optionContent}> END </Text>
-        </TouchableOpacity>
+        <View style={styles.timer}>
+          <Timer initialEpoch={initialEpoch} />
+        </View>
+        <View style={styles.options}>
+          <TouchableOpacity
+            style={styles.option}
+            onPress={this._onToggleThemePressed}
+          >
+            <Text style={styles.optionContent}>
+              {theme === DARK ? 'LIGHT THEME' : 'DARK THEME'}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.option}
+            onPress={this._onPersonnelPromptPressed}
+          >
+            <Text style={styles.optionContent}> PERSONNEL </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.option} onPress={this._onEndPressed}>
+            <Text style={styles.optionContent}> END </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
 }
 
 // props validation
-InfoBar.propTypes = {
+_BottomBar.propTypes = {
+  navigation: PropTypes.object,
   endHandler: PropTypes.func,
   initialEpoch: PropTypes.number,
   toEndStack: PropTypes.func,
@@ -94,10 +113,17 @@ const mapStateToProps = state => ({
   personnelInGroups: personnelInGroups(state),
 });
 
-export default connect(
+const _ = connect(
   mapStateToProps,
   {
     toEndStack,
     toggleTheme,
   }
-)(InfoBar);
+)(_BottomBar);
+
+// Wrap and export
+export default function BottomBar(props) {
+  const navigation = useNavigation();
+
+  return <_ {...props} navigation={navigation} />;
+}

@@ -30,7 +30,7 @@ import {
   toIncidentStack,
   toEndStack,
   resetApp,
-  setGroup,
+  initGroup,
   clearPersonnel,
   addPerson,
   toggleTheme,
@@ -57,7 +57,7 @@ import {
   GROUP_EIGHTEEN,
   ROSTER,
 } from '../../modules/location-ids.js';
-import { DARK, LIGHT } from '../../modules/theme-ids';
+import { DARK } from '../../modules/theme-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
@@ -107,7 +107,7 @@ class HomeScreen extends Component {
         loading: true,
       });
       try {
-        const { setGroup, clearPersonnel, addPerson } = this.props;
+        const { initGroup, clearPersonnel, addPerson } = this.props;
 
         const { currentUser } = auth();
         // User is signed in.
@@ -142,12 +142,12 @@ class HomeScreen extends Component {
           // set default group settings
           groupIds.forEach(id => {
             const { name, visibility } = groups[id];
-            setGroup(id, name, visibility);
+            initGroup(id, name, visibility);
           });
           // refresh personnel data
           clearPersonnel();
           personnel.forEach(person => {
-            addPerson(person, false, ROSTER); // disable logging
+            addPerson(person, ROSTER, false); // disable logging
           });
         }
 
@@ -341,7 +341,7 @@ HomeScreen.propTypes = {
   toIncidentStack: PropTypes.func,
   toEndStack: PropTypes.func,
   resetApp: PropTypes.func,
-  setGroup: PropTypes.func,
+  initGroup: PropTypes.func,
   clearPersonnel: PropTypes.func,
   addPerson: PropTypes.func,
   toggleTheme: PropTypes.func,
@@ -362,7 +362,7 @@ export default connect(
     toIncidentStack,
     toEndStack,
     resetApp,
-    setGroup,
+    initGroup,
     clearPersonnel,
     addPerson,
     toggleTheme,

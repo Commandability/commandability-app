@@ -16,11 +16,12 @@ import createStyleSheet from './styles';
 const MS_IN_SECOND = 1000;
 
 class Timer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
+    const { initialEpoch } = this.props;
     this.state = {
-      time: 0,
+      time: Date.now() - initialEpoch,
     };
   }
 

@@ -4,7 +4,7 @@
  * Reducers to add and remove groups, and change group names.
  */
 
-import { SET_NAME, SET_VISIBILITY, SET_GROUP } from '../types';
+import { SET_NAME, SET_VISIBILITY, INIT_GROUP } from '../types';
 
 const setName = (state, action) => {
   const { payload } = action;
@@ -39,7 +39,7 @@ const setVisibility = (state, action) => {
   };
 };
 
-const setGroup = (state, action) => {
+const initGroup = (state, action) => {
   const { payload } = action;
   const { locationId, name, visibility } = payload;
   return {
@@ -54,7 +54,8 @@ const setGroup = (state, action) => {
 
 export const getGroupByLocationId = (state, locationId) => state[locationId];
 
-export const configurationLoaded = state => Object.keys(state).length > 1; // When unconfigured, groups will have only the `_persist` property
+// When un-configured, groups will have only the `_persist` property
+export const configurationLoaded = state => Object.keys(state).length > 1;
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -62,8 +63,8 @@ export default (state = {}, action) => {
       return setName(state, action);
     case SET_VISIBILITY:
       return setVisibility(state, action);
-    case SET_GROUP:
-      return setGroup(state, action);
+    case INIT_GROUP:
+      return initGroup(state, action);
     default:
       return state;
   }

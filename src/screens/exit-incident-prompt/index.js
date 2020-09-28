@@ -67,7 +67,10 @@ class ExitIncidentPrompt extends Component {
 
     return (
       <View style={styles.container}>
-        <KeyboardAwareScrollView contentContainerStyle={styles.content}>
+        <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={styles.content}
+        >
           {Platform.OS === 'ios' && (
             <View style={styles.backBar}>
               <TouchableOpacity onPress={this._onCancelPressed}>

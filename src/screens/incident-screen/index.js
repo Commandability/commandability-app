@@ -5,75 +5,17 @@
  */
 
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
+import { TabView, TabBar } from 'react-native-tab-view';
 import PropTypes from 'prop-types';
 
-import {
-  OptionBar,
-  Group,
-  Staging,
-  NewPersonnel,
-  Roster,
-  InfoBar,
-} from '../../components';
+import { GroupOptions, GroupArea, Staging, BottomBar } from '../../components';
 import { activeReport, getInitialEpoch, getTheme } from '../../redux/selectors';
 import { startIncident, endIncident } from '../../redux/actions';
-import {
-  GROUP_ONE,
-  GROUP_TWO,
-  GROUP_THREE,
-  GROUP_FOUR,
-  GROUP_FIVE,
-  GROUP_SIX,
-  GROUP_SEVEN,
-  GROUP_EIGHT,
-  GROUP_NINE,
-  GROUP_TEN,
-  GROUP_ELEVEN,
-  GROUP_TWELVE,
-  GROUP_THIRTEEN,
-  GROUP_FOURTEEN,
-  GROUP_FIFTEEN,
-  GROUP_SIXTEEN,
-  GROUP_SEVENTEEN,
-  GROUP_EIGHTEEN,
-} from '../../modules/location-ids.js';
+
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
-
-const GROUP_AREA = 'GROUP_AREA';
-const PERSONNEL_AREA = 'PERSONNEL_AREA';
-const PAGE_ONE = 'PAGE_ONE';
-const PAGE_TWO = 'PAGE_TWO';
-const PAGE_THREE = 'PAGE_THREE';
-
-const pages = {
-  PAGE_ONE: [
-    GROUP_ONE,
-    GROUP_TWO,
-    GROUP_THREE,
-    GROUP_FOUR,
-    GROUP_FIVE,
-    GROUP_SIX,
-  ],
-  PAGE_TWO: [
-    GROUP_SEVEN,
-    GROUP_EIGHT,
-    GROUP_NINE,
-    GROUP_TEN,
-    GROUP_ELEVEN,
-    GROUP_TWELVE,
-  ],
-  PAGE_THREE: [
-    GROUP_THIRTEEN,
-    GROUP_FOURTEEN,
-    GROUP_FIFTEEN,
-    GROUP_SIXTEEN,
-    GROUP_SEVENTEEN,
-    GROUP_EIGHTEEN,
-  ],
-};
 
 class IncidentScreen extends Component {
   constructor() {
@@ -82,9 +24,12 @@ class IncidentScreen extends Component {
       removeGroupMode: false,
       editGroupMode: false,
       addGroupMode: false,
-      tab: GROUP_AREA,
-      page: PAGE_ONE,
-      groupIds: [],
+      index: 0,
+      routes: [
+        { key: 'ONE', title: 'PAGE ONE' },
+        { key: 'TWO', title: 'PAGE TWO' },
+        { key: 'THREE', title: 'PAGE THREE' },
+      ],
     };
   }
 
@@ -96,41 +41,25 @@ class IncidentScreen extends Component {
     }
   }
 
-  addGroup = () => {
+  _addGroup = () => {
     this.setState(prevState => ({
       addGroupMode: !prevState.addGroupMode,
     }));
   };
 
-  removeGroup = () => {
+  _removeGroup = () => {
     this.setState(prevState => ({
       removeGroupMode: !prevState.removeGroupMode,
     }));
   };
 
-  _onEndIncident = () => {
-    endIncident();
-  };
-
-  editGroup = () => {
+  _editGroup = () => {
     this.setState(prevState => ({
       editGroupMode: !prevState.editGroupMode,
     }));
   };
 
-  _toggleGroupArea = () => {
-    this.setState(() => ({
-      tab: GROUP_AREA,
-    }));
-  };
-
-  _togglePersonnelArea = () => {
-    this.setState(() => ({
-      tab: PERSONNEL_AREA,
-    }));
-  };
-
-  groupSelected = () => {
+  _groupSelected = () => {
     this.setState(() => ({
       addGroupMode: false,
       removeGroupMode: false,
@@ -138,152 +67,74 @@ class IncidentScreen extends Component {
     }));
   };
 
-  onPagePressed = pageNumber => {
-    console.log(this.state.page);
-    console.log(pageNumber);
-    this.setState({ page: pageNumber });
-    console.log(this.state.page);
+  _onEndIncident = () => {
+    endIncident();
   };
 
   render() {
-    console.log(pages[this.state.page]);
     const { activeReport, activeInitialEpoch, theme } = this.props;
     this.initialEpoch = Date.now();
 
     const colors = themeSelector(theme);
     const styles = createStyleSheet(colors);
 
+    const renderScene = ({ route }) => {
+      return (
+        <GroupArea
+          route={route}
+          addGroupMode={this.state.addGroupMode}
+          removeGroupMode={this.state.removeGroupMode}
+          editGroupMode={this.state.editGroupMode}
+          groupSelectedHandler={this._groupSelected}
+        />
+      );
+    };
+
+    const renderTabBar = props => (
+      <TabBar
+        {...props}
+        indicatorStyle={styles.indicator}
+        style={styles.tabBar}
+        renderLabel={({ route }) => (
+          <Text style={styles.tabLabel}>{route.title}</Text>
+        )}
+      />
+    );
+
     return (
       <View style={styles.container}>
-        <View style={styles.sideBar}>
-          <Staging />
-          <InfoBar
-            endHandler={this._onEndIncident}
-            initialEpoch={activeReport ? activeInitialEpoch : this.initialEpoch}
-          />
-        </View>
         <View style={styles.mainArea}>
-          <View style={styles.mainAreaTabs}>
-            <TouchableOpacity
-              style={[
-                styles.tab,
-                this.state.tab === GROUP_AREA && styles.selectedTab,
-              ]}
-              onPress={this._toggleGroupArea}
-            >
-              <Text
-                style={[
-                  styles.tabContent,
-                  this.state.tab === GROUP_AREA && styles.selectedTabContent,
-                ]}
-              >
-                {' '}
-                GROUPS{' '}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.tab,
-                this.state.tab === PERSONNEL_AREA && styles.selectedTab,
-              ]}
-              onPress={this._togglePersonnelArea}
-            >
-              <Text
-                style={[
-                  styles.tabContent,
-                  this.state.tab === PERSONNEL_AREA &&
-                    styles.selectedTabContent,
-                ]}
-              >
-                {' '}
-                PERSONNEL{' '}
-              </Text>
-            </TouchableOpacity>
+          <View style={styles.sideBar}>
+            <Staging />
           </View>
-          {this.state.tab === GROUP_AREA ? (
-            <View style={styles.incidentArea}>
-              <OptionBar
-                initialEpoch={
-                  activeReport ? activeInitialEpoch : this.initialEpoch
-                }
-                addGroupHandler={this.addGroup}
-                removeGroupHandler={this.removeGroup}
-                editGroupHandler={this.editGroup}
-                addGroupMode={this.state.addGroupMode}
-                removeGroupMode={this.state.removeGroupMode}
-                editGroupMode={this.state.editGroupMode}
-              />
-              <View style={styles.groupArea}>
-                {pages[this.state.page].map(id => (
-                  <Group
-                    key={id}
-                    locationId={id}
-                    addGroupMode={this.state.addGroupMode}
-                    removeGroupMode={this.state.removeGroupMode}
-                    editGroupMode={this.state.editGroupMode}
-                    groupSelectedHandler={this.groupSelected}
-                  />
-                ))}
-              </View>
-            </View>
-          ) : (
-            <View style={styles.personnelArea}>
-              <View style={styles.personnelAreaContainer}>
-                <Roster />
-              </View>
-              <View style={styles.personnelAreaContainer}>
-                <NewPersonnel />
-              </View>
-            </View>
-          )}
-          <View style={styles.pageTabContainer}>
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              disabled={this.state.page === PAGE_ONE}
-              onPress={() => this.onPagePressed(PAGE_ONE)}
-            >
-              <Text
-                style={
-                  this.state.page === PAGE_ONE
-                    ? styles.icon
-                    : styles.iconSelected
-                }
-              >
-                1
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              disabled={this.state.page === PAGE_TWO}
-              onPress={() => this.onPagePressed(PAGE_TWO)}
-            >
-              <Text
-                style={
-                  this.state.page === PAGE_TWO
-                    ? styles.icon
-                    : styles.iconSelected
-                }
-              >
-                2
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              disabled={this.state.page === PAGE_THREE}
-              onPress={() => this.onPagePressed(PAGE_THREE)}
-            >
-              <Text
-                style={
-                  this.state.page === PAGE_THREE
-                    ? styles.icon
-                    : styles.iconSelected
-                }
-              >
-                3
-              </Text>
-            </TouchableOpacity>
+          <View style={styles.incidentArea}>
+            <GroupOptions
+              initialEpoch={
+                activeReport ? activeInitialEpoch : this.initialEpoch
+              }
+              addGroupHandler={this._addGroup}
+              removeGroupHandler={this._removeGroup}
+              editGroupHandler={this._editGroup}
+              addGroupMode={this.state.addGroupMode}
+              removeGroupMode={this.state.removeGroupMode}
+              editGroupMode={this.state.editGroupMode}
+            />
+            <TabView
+              navigationState={{
+                index: this.state.index,
+                routes: this.state.routes,
+              }}
+              renderScene={renderScene}
+              onIndexChange={index => this.setState({ index })}
+              tabBarPosition="bottom"
+              renderTabBar={renderTabBar}
+            />
           </View>
         </View>
+        <BottomBar
+          endHandler={this._onEndIncident}
+          initialEpoch={activeReport ? activeInitialEpoch : this.initialEpoch}
+        />
       </View>
     );
   }

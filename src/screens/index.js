@@ -10,6 +10,7 @@ import GroupPrompt from './group-prompt';
 import HomeScreen from './home-screen';
 import IncidentScreen from './incident-screen';
 import AuthScreen from './auth-screen';
+import PersonnelPrompt from './personnel-prompt';
 
 export {
   EndScreen,
@@ -18,4 +19,5 @@ export {
   HomeScreen,
   IncidentScreen,
   AuthScreen,
+  PersonnelPrompt,
 };

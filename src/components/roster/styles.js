@@ -1,7 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-import { scaleFont } from '../../modules/fonts';
-
 export default colors =>
   StyleSheet.create({
     overlay: {
@@ -25,7 +23,6 @@ export default colors =>
     },
     container: {
       flex: 1,
-      flexDirection: 'column',
       color: colors.text.main,
       backgroundColor: colors.background.two,
     },
@@ -35,7 +32,7 @@ export default colors =>
       padding: 8,
     },
     headerContent: {
-      fontSize: scaleFont(6),
+      fontSize: 18,
       color: colors.text.main,
     },
   });

@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
 import { getTheme } from '../../redux/selectors';
-import { addPerson, setPersonLocationId } from '../../redux/actions';
+import { addPerson } from '../../redux/actions';
 import { STAGING } from '../../modules/location-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
@@ -29,7 +29,7 @@ class NewPersonnel extends Component {
   }
 
   _onAddPersonPressed = () => {
-    const { addPerson, setPersonLocationId } = this.props;
+    const { addPerson } = this.props;
     const person = {
       badge: this.state.badge,
       firstName: this.state.firstName,
@@ -37,8 +37,8 @@ class NewPersonnel extends Component {
       organization: this.state.organization,
     };
     this.setState({ firstName: '', lastName: '', badge: '', organization: '' });
-    addPerson(person, true, STAGING);
-    setPersonLocationId(person, {}, { locationId: STAGING, name: 'Staging' });
+
+    addPerson(person, STAGING);
   };
 
   render() {
@@ -49,7 +49,7 @@ class NewPersonnel extends Component {
 
     return (
       <View style={styles.container}>
-        <KeyboardAwareScrollView>
+        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
           <View style={styles.header}>
             <Text style={styles.headerContent}> Add Personnel </Text>
           </View>
@@ -98,7 +98,6 @@ class NewPersonnel extends Component {
 
 NewPersonnel.propTypes = {
   addPerson: PropTypes.func,
-  setPersonLocationId: PropTypes.func,
   theme: PropTypes.string,
 };
 
@@ -108,5 +107,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { setPersonLocationId, addPerson }
+  { addPerson }
 )(NewPersonnel);

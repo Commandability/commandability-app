@@ -11,7 +11,6 @@ export default colors =>
     },
     container: {
       flex: 1,
-      flexDirection: 'column',
       justifyContent: 'center',
       backgroundColor: colors.background.one,
       padding: 24,

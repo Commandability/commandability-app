@@ -21,12 +21,13 @@ import createStyleSheet from './styles';
 const MS_IN_MINUTE = 60000;
 
 class ListItem extends PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this._onPress = this._onPress.bind(this); // use bind to avoid duplicating methods on demanding components
 
+    const { locationUpdateTime } = this.props;
     this.state = {
-      time: 0,
+      time: Date.now() - locationUpdateTime,
     };
   }
 

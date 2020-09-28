@@ -13,7 +13,7 @@ import {
   CLEAR_PERSONNEL,
 } from '../types';
 
-export const addPerson = (person, log = true, locationId) => {
+export const addPerson = (person, locationId, log = true) => {
   const id = uuidv4();
   const entryId = uuidv4(); // for storage in the report reducer
   const locationUpdateTime = log ? Date.now() : 0;

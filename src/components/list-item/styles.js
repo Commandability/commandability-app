@@ -1,7 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-import { scaleFont } from '../../modules/fonts';
-
 export default colors =>
   StyleSheet.create({
     container: {
@@ -11,7 +9,7 @@ export default colors =>
       backgroundColor: colors.background.three,
     },
     content: {
-      borderBottomWidth: 0.5,
+      borderBottomWidth: 1,
       borderBottomColor: colors.text.disabled,
       marginHorizontal: 8,
       paddingVertical: 4,
@@ -40,7 +38,7 @@ export default colors =>
     },
     label: {
       textAlign: 'left',
-      fontSize: scaleFont(4),
+      fontSize: 10,
       color: colors.text.disabled,
     },
   });

@@ -18,6 +18,7 @@ import {
   EndScreen,
   ExitIncidentPrompt,
   AuthScreen,
+  PersonnelPrompt,
 } from './screens';
 import {
   AUTH_STACK,
@@ -50,6 +51,10 @@ class SwitchNavigator extends React.Component {
           <Incident.Navigator screenOptions={screenOptions}>
             <Incident.Screen name="IncidentScreen" component={IncidentScreen} />
             <Incident.Screen name="GroupPrompt" component={GroupPrompt} />
+            <Incident.Screen
+              name="PersonnelPrompt"
+              component={PersonnelPrompt}
+            />
           </Incident.Navigator>
         );
       case END_STACK:

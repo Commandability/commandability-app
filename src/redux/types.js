@@ -22,7 +22,7 @@ export const CLEAR_PERSONNEL = 'CLEAR_PERSONNEL';
 
 export const SET_NAME = 'SET_NAME';
 export const SET_VISIBILITY = 'SET_VISIBILITY';
-export const SET_GROUP = 'SET_GROUP';
+export const INIT_GROUP = 'INIT_GROUP';
 
 export const TOGGLE_SELECTED_PERSON = 'TOGGLE_SELECTED_PERSON';
 export const SELECT_PERSON = 'SELECT_PERSON';

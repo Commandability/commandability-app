@@ -13,7 +13,7 @@ import {
   SET_VISIBILITY,
   RESET_INCIDENT,
 } from '../types';
-import { ROSTER, STAGING } from '../../modules/location-ids';
+import { ROSTER, NEW_PERSONNEL, STAGING } from '../../modules/location-ids';
 
 const initialState = {
   byId: {},
@@ -38,30 +38,13 @@ const byId = (state = initialState.byId, action) => {
 const addPerson = (state, action) => {
   const { payload } = action;
   const {
-    log, // record if the person was added in an active incident
-    person: {
-      id,
-      firstName,
-      lastName,
-      badge,
-      organization,
-      shift,
-      locationId,
-      locationUpdateTime,
-    },
+    person,
+    person: { id },
   } = payload;
   return {
     ...state,
     [id]: {
-      id,
-      firstName,
-      lastName,
-      badge,
-      organization,
-      shift,
-      locationId,
-      locationUpdateTime,
-      log,
+      ...person,
     },
   };
 };
@@ -69,27 +52,12 @@ const addPerson = (state, action) => {
 const removePerson = (state, action) => {
   const { payload } = action;
   const {
-    log,
     person: { id },
   } = payload;
 
-  // if added outside incident, only change location so that the person isn't removed from state
-  if (!log) {
-    const person = state[id];
-    return {
-      ...state,
-      [id]: {
-        ...person,
-        locationId: '',
-      },
-    };
-  }
-  // otherwise remove from state
-  else {
-    // eslint-disable-next-line no-unused-vars
-    const { [id]: removed, ...updatedPersonnel } = state;
-    return updatedPersonnel;
-  }
+  // eslint-disable-next-line no-unused-vars
+  const { [id]: removed, ...updatedPersonnel } = state;
+  return updatedPersonnel;
 };
 
 // set locationId of person by id
@@ -135,18 +103,10 @@ const addPersonId = (state, action) => {
 const removePersonId = (state, action) => {
   const { payload } = action;
   const {
-    log,
     person: { id },
   } = payload;
 
-  // if added outside incident, don't remove id
-  if (!log) {
-    return state;
-  }
-  // otherwise remove id from state
-  else {
-    return state.filter(currId => currId != id);
-  }
+  return state.filter(currId => currId != id);
 };
 
 // set all locationIds in a group to staging if the group is deleted
@@ -185,9 +145,9 @@ const resetIncident = state => {
   const allIds = [];
   state.allIds.forEach(id => {
     const person = state.byId[id];
-    const { log } = person;
+    const { temporary } = person;
     // only add a person to the reset state if they weren't added during the incident
-    if (!log) {
+    if (!temporary) {
       byId[id] = {
         ...person,
         locationId: ROSTER,
@@ -213,6 +173,7 @@ export const personnelInGroups = state => {
   return !state.allIds.every(
     id =>
       state.byId[id].locationId === ROSTER ||
+      state.byId[id].locationId === NEW_PERSONNEL ||
       state.byId[id].locationId === STAGING
   );
 };

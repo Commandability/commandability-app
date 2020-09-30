@@ -19,7 +19,7 @@ import { DARK } from '../../modules/theme-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-class _BottomBar extends Component {
+class BottomBar extends Component {
   _onToggleThemePressed = () => {
     const { toggleTheme } = this.props;
     toggleTheme();
@@ -98,7 +98,7 @@ class _BottomBar extends Component {
 }
 
 // props validation
-_BottomBar.propTypes = {
+BottomBar.propTypes = {
   navigation: PropTypes.object,
   endHandler: PropTypes.func,
   initialEpoch: PropTypes.number,
@@ -113,17 +113,17 @@ const mapStateToProps = state => ({
   personnelInGroups: personnelInGroups(state),
 });
 
-const _ = connect(
+const ConnectWrapper = connect(
   mapStateToProps,
   {
     toEndStack,
     toggleTheme,
   }
-)(_BottomBar);
+)(BottomBar);
 
 // Wrap and export
-export default function BottomBar(props) {
+export default function NavigationWrapper(props) {
   const navigation = useNavigation();
 
-  return <_ {...props} navigation={navigation} />;
+  return <ConnectWrapper {...props} navigation={navigation} />;
 }

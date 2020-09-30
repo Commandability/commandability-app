@@ -7,3 +7,6 @@ export const getSelectedLocationId = state =>
 
 export const personIsSelected = (state, person) =>
   selected.personIsSelected(state.selected, person);
+
+export const allPersonnelSelected = (state, personnel) =>
+  personnel.every(person => personIsSelected(state, person));

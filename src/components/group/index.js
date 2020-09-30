@@ -16,8 +16,8 @@ import {
   getGroupByLocationId,
   getPersonnelByLocationId,
   getSelectedLocationId,
-  personIsSelected,
-  getSelectedPersonnelGroups,
+  getSelectedPersonnel,
+  allPersonnelSelected,
   getTheme,
 } from '../../redux/selectors';
 import {
@@ -31,7 +31,7 @@ import { STAGING } from '../../modules/location-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-class _Group extends Component {
+class Group extends Component {
   _onAddPressed = () => {
     const { setVisibility, group } = this.props;
     setVisibility(group, true);
@@ -88,19 +88,19 @@ class _Group extends Component {
       navigate('GroupPrompt', { group });
     } else {
       const {
-        selectedPersonnelGroups,
         clearSelectedPersonnel,
         setPersonLocationId,
         group,
+        selectedGroup,
+        selectedPersonnel,
       } = this.props;
 
       // set each selected id's new locationId to the current group
-      selectedPersonnelGroups.forEach(personGroup => {
-        const { person, group: prevGroup } = personGroup;
+      selectedPersonnel.forEach(person => {
         setPersonLocationId(
           person,
           // To report prev location
-          prevGroup || { locationId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
+          selectedGroup || { locationId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
           group
         );
       });
@@ -157,12 +157,14 @@ class _Group extends Component {
 }
 
 // props validation
-_Group.propTypes = {
+Group.propTypes = {
   setVisibility: PropTypes.func,
   navigation: PropTypes.object,
   group: PropTypes.object,
+  selectedGroup: PropTypes.object,
   personnel: PropTypes.array,
   selectedLocationId: PropTypes.string,
+  selectedPersonnel: PropTypes.array,
   selectPerson: PropTypes.func,
   deselectPerson: PropTypes.func,
   locationId: PropTypes.string,
@@ -171,7 +173,6 @@ _Group.propTypes = {
   removeGroupMode: PropTypes.bool,
   editGroupMode: PropTypes.bool,
   groupSelectedHandler: PropTypes.func,
-  selectedPersonnelGroups: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocationId: PropTypes.func,
   theme: PropTypes.string,
@@ -179,22 +180,21 @@ _Group.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   const { locationId } = ownProps;
-
   const personnel = getPersonnelByLocationId(state, locationId);
+  const selectedLocationId = getSelectedLocationId(state);
 
   return {
-    group: getGroupByLocationId(state, locationId),
     personnel,
-    selectedLocationId: getSelectedLocationId(state),
-    allPersonnelSelected: personnel.every(person =>
-      personIsSelected(state, person)
-    ),
-    selectedPersonnelGroups: getSelectedPersonnelGroups(state),
+    selectedLocationId,
+    group: getGroupByLocationId(state, locationId),
+    selectedGroup: getGroupByLocationId(state, selectedLocationId),
+    selectedPersonnel: getSelectedPersonnel(state),
+    allPersonnelSelected: allPersonnelSelected(state, personnel),
     theme: getTheme(state),
   };
 };
 
-const _ = connect(
+const ConnectWrapper = connect(
   mapStateToProps,
   {
     setVisibility,
@@ -203,11 +203,11 @@ const _ = connect(
     clearSelectedPersonnel,
     setPersonLocationId,
   }
-)(_Group);
+)(Group);
 
 // Wrap and export
-export default function Group(props) {
+export default function NavigationWrapper(props) {
   const navigation = useNavigation();
 
-  return <_ {...props} navigation={navigation} />;
+  return <ConnectWrapper {...props} navigation={navigation} />;
 }

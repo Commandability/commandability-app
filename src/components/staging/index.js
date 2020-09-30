@@ -12,9 +12,10 @@ import PropTypes from 'prop-types';
 
 import StagingList from '../staging-list';
 import {
+  getGroupByLocationId,
   getPersonnelByLocationId,
   getSelectedLocationId,
-  getSelectedPersonnelGroups,
+  getSelectedPersonnel,
   getTheme,
 } from '../../redux/selectors';
 import {
@@ -22,25 +23,25 @@ import {
   clearSelectedPersonnel,
   setPersonLocationId,
 } from '../../redux/actions';
-import { STAGING, ROSTER } from '../../modules/location-ids';
+import { STAGING } from '../../modules/location-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 class Staging extends Component {
   _onStagingPressed = () => {
     const {
-      selectedPersonnelGroups,
+      selectedPersonnel,
       clearSelectedPersonnel,
       setPersonLocationId,
+      selectedGroup,
     } = this.props;
 
-    // set each selected id's new locationId to the current group
-    selectedPersonnelGroups.forEach(personGroup => {
-      const { person, group: prevGroup } = personGroup;
+    // set each selected id's new locationId to STAGING
+    selectedPersonnel.forEach(person => {
       setPersonLocationId(
         person,
         // To report prev location
-        prevGroup || { locationId: ROSTER, name: 'Roster' }, // Set prev group to staging if no prev group in redux
+        selectedGroup,
         { locationId: STAGING, name: 'Staging' }
       );
     });
@@ -78,7 +79,8 @@ Staging.propTypes = {
   personnel: PropTypes.array,
   selectedLocationId: PropTypes.string,
   locationId: PropTypes.string,
-  selectedPersonnelGroups: PropTypes.array,
+  selectedPersonnel: PropTypes.array,
+  selectedGroup: PropTypes.object,
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocationId: PropTypes.func,
   theme: PropTypes.string,
@@ -86,11 +88,13 @@ Staging.propTypes = {
 
 const mapStateToProps = state => {
   const personnel = getPersonnelByLocationId(state, STAGING);
+  const selectedLocationId = getSelectedLocationId(state);
 
   return {
     personnel,
-    selectedLocationId: getSelectedLocationId(state),
-    selectedPersonnelGroups: getSelectedPersonnelGroups(state),
+    selectedLocationId,
+    selectedGroup: getGroupByLocationId(state, selectedLocationId),
+    selectedPersonnel: getSelectedPersonnel(state),
     theme: getTheme(state),
   };
 };

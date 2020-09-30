@@ -24,13 +24,7 @@ export const configurationLoaded = state =>
       groups.configurationLoaded(state.groups)
   );
 
-// Selected personnel merged with their group objects
-// If a person is in roster or staging, group is set to undefined
-export const getSelectedPersonnelGroups = state =>
+export const getSelectedPersonnel = state =>
   selected
     .getSelectedIds(state.selected)
-    .map(id => personnel.getPersonById(state.personnel, id))
-    .map(person => ({
-      person,
-      group: groups.getGroupByLocationId(state.groups, person.locationId),
-    }));
+    .map(id => personnel.getPersonById(state.personnel, id));

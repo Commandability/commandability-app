@@ -1,33 +1,54 @@
 /**
- * RosterItem Component
+ * NewPersonnelItem Component
  *
- * Manages displaying a person in a the roster and sets a person's locationId in redux to NEW_PERSONNEL when selected.
+ * Manages displaying a person in a the new personnel list and sets a person's locationId in redux to STAGING when selected.
  */
 
 import React, { PureComponent } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getTheme } from '../../redux/selectors';
-import { setPersonLocationId } from '../../redux/actions';
+import { removePerson, setPersonLocationId } from '../../redux/actions';
 import { ROSTER, NEW_PERSONNEL } from '../../modules/location-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-class RosterItem extends PureComponent {
+class NewPersonnelItem extends PureComponent {
   constructor() {
     super();
     this._onPress = this._onPress.bind(this); // use bind to avoid duplicating methods on demanding components
   }
 
   _onPress() {
-    const { item, setPersonLocationId } = this.props;
-    setPersonLocationId(
+    const {
       item,
-      { locationId: ROSTER, name: 'Roster' },
-      { locationId: NEW_PERSONNEL, name: 'New Personnel' }
-    );
+      item: { temporary },
+      removePerson,
+      setPersonLocationId,
+    } = this.props;
+
+    console.log('item', item);
+
+    Alert.alert('Remove person?', '', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+      },
+      {
+        text: 'OK',
+        onPress: () => {
+          temporary
+            ? removePerson(item)
+            : setPersonLocationId(
+                item,
+                { locationId: NEW_PERSONNEL, name: 'New Personnel' },
+                { locationId: ROSTER, name: 'Roster' }
+              );
+        },
+      },
+    ]);
   }
 
   render() {
@@ -56,7 +77,8 @@ class RosterItem extends PureComponent {
 }
 
 // props validation
-RosterItem.propTypes = {
+NewPersonnelItem.propTypes = {
+  removePerson: PropTypes.func,
   setPersonLocationId: PropTypes.func,
   item: PropTypes.object, // the current person
   theme: PropTypes.string,
@@ -68,5 +90,8 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { setPersonLocationId }
-)(RosterItem);
+  {
+    removePerson,
+    setPersonLocationId,
+  }
+)(NewPersonnelItem);

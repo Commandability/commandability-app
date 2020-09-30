@@ -31,7 +31,7 @@ import { saveCurrentReport } from '../../modules/report-manager';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-class _EndScreen extends Component {
+class EndScreen extends Component {
   constructor() {
     super();
     this.state = {
@@ -64,7 +64,7 @@ class _EndScreen extends Component {
         ]);
       }
       this.setState({ loading: false });
-      resetIncident(); // reset personnel locations and group settings, remove all un-logged personnel from state
+      resetIncident(); // reset personnel locations and group settings, remove all temporary personnel from state
       const { toHomeStack } = this.props;
       toHomeStack();
     } else {
@@ -159,7 +159,7 @@ class _EndScreen extends Component {
   }
 }
 
-_EndScreen.propTypes = {
+EndScreen.propTypes = {
   navigation: PropTypes.object,
   endIncident: PropTypes.func,
   resetIncident: PropTypes.func,
@@ -175,7 +175,7 @@ const mapStateToProps = state => ({
   theme: getTheme(state),
 });
 
-const _ = connect(
+const ConnectWrapper = connect(
   mapStateToProps,
   {
     endIncident,
@@ -184,11 +184,11 @@ const _ = connect(
     toHomeStack,
     toIncidentStack,
   }
-)(_EndScreen);
+)(EndScreen);
 
 // Wrap and export
-export default function EndScreen(props) {
+export default function NavigationWrapper(props) {
   const navigation = useNavigation();
 
-  return <_ {...props} navigation={navigation} />;
+  return <ConnectWrapper {...props} navigation={navigation} />;
 }

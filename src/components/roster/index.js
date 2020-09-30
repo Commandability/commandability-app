@@ -11,14 +11,14 @@ import PropTypes from 'prop-types';
 
 import RosterList from '../roster-list';
 import {
-  getPersonnelByLocationId,
   getSelectedLocationId,
-  getSelectedPersonnelGroups,
+  getSelectedPersonnel,
   getTheme,
 } from '../../redux/selectors';
 import {
   clearSelectedPersonnel,
   setPersonLocationId,
+  removePerson,
 } from '../../redux/actions';
 import { STAGING, ROSTER } from '../../modules/location-ids';
 import themeSelector from '../../modules/themes';
@@ -34,9 +34,10 @@ class Roster extends Component {
 
   _onRosterPressed = () => {
     const {
-      selectedPersonnelGroups,
       clearSelectedPersonnel,
       setPersonLocationId,
+      selectedPersonnel,
+      removePerson,
     } = this.props;
 
     Alert.alert(
@@ -50,17 +51,20 @@ class Roster extends Component {
         {
           text: 'OK',
           onPress: () => {
-            // set each selected id's new locationId to the current group
-            selectedPersonnelGroups.forEach(personGroup => {
-              const { person, group: prevGroup } = personGroup;
-              return setPersonLocationId(
-                person,
-                // To report prev location
-                prevGroup || { locationId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
-                { locationId: ROSTER, name: 'Roster' }
-              );
+            selectedPersonnel.forEach(person => {
+              const { temporary } = person;
+
+              // set each selected id's new locationId to ROSTER
+              temporary
+                ? removePerson(person)
+                : setPersonLocationId(
+                    person,
+                    // To report prev location
+                    { locationId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
+                    { locationId: ROSTER, name: 'Roster' }
+                  );
+              clearSelectedPersonnel();
             });
-            clearSelectedPersonnel();
           },
         },
       ]
@@ -103,30 +107,26 @@ class Roster extends Component {
 
 // props validation
 Roster.propTypes = {
-  personnel: PropTypes.array,
   selectedLocationId: PropTypes.string,
   locationId: PropTypes.string,
-  selectedPersonnelGroups: PropTypes.array,
+  selectedPersonnel: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocationId: PropTypes.func,
+  removePerson: PropTypes.func,
   theme: PropTypes.string,
 };
 
-const mapStateToProps = state => {
-  const personnel = getPersonnelByLocationId(state, STAGING);
-
-  return {
-    personnel,
-    selectedLocationId: getSelectedLocationId(state),
-    selectedPersonnelGroups: getSelectedPersonnelGroups(state),
-    theme: getTheme(state),
-  };
-};
+const mapStateToProps = state => ({
+  selectedLocationId: getSelectedLocationId(state),
+  selectedPersonnel: getSelectedPersonnel(state),
+  theme: getTheme(state),
+});
 
 export default connect(
   mapStateToProps,
   {
     clearSelectedPersonnel,
+    removePerson,
     setPersonLocationId,
   }
 )(Roster);

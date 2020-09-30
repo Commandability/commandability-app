@@ -13,28 +13,27 @@ import {
   CLEAR_PERSONNEL,
 } from '../types';
 
-export const addPerson = (person, locationId, log = true) => {
+export const addPerson = (person, locationId, temporary = true) => {
   const id = uuidv4();
   const entryId = uuidv4(); // for storage in the report reducer
-  const locationUpdateTime = log ? Date.now() : 0;
+  const locationUpdateTime = 0;
   const dateTime = new Date().toLocaleString();
   return {
     type: ADD_PERSON,
     payload: {
       entryId,
       dateTime,
-      log,
-      person: { id, ...person, locationId, locationUpdateTime },
+      person: { id, ...person, locationId, locationUpdateTime, temporary },
     },
   };
 };
 
-export const removePerson = (person, log = true) => {
+export const removePerson = person => {
   const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   return {
     type: REMOVE_PERSON,
-    payload: { entryId, dateTime, log, person },
+    payload: { entryId, dateTime, person },
   };
 };
 

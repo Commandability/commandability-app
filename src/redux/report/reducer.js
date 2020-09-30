@@ -9,13 +9,12 @@ import {
   START_INCIDENT,
   END_INCIDENT,
   RESUME_INCIDENT,
-  ADD_PERSON,
   REMOVE_PERSON,
   SET_PERSON_LOCATION_ID,
   SET_NAME,
   SET_VISIBILITY,
 } from '../types';
-import { ROSTER } from '../../modules/location-ids';
+import { ROSTER, NEW_PERSONNEL, STAGING } from '../../modules/location-ids';
 
 const logStartIncident = action => {
   const { payload } = action;
@@ -50,39 +49,15 @@ const resumeIncident = state => {
 };
 
 // For temporary personnel
-const logAddPerson = (state, action) => {
-  const { payload } = action;
-  const {
-    entryId,
-    dateTime,
-    person: { firstName, lastName, badge, organization },
-    log,
-  } = payload;
-
-  return log
-    ? {
-        ...state,
-        [entryId]: {
-          dateTime,
-          log: `${badge ? badge + ' - ' : ''}${firstName} ${lastName} ${
-            organization ? `(${organization}) ` : ''
-          }added to incident`,
-        },
-      }
-    : state; // return state if log is false
-};
-
-// For temporary personnel
 const logRemovePerson = (state, action) => {
   const { payload } = action;
   const {
     entryId,
     dateTime,
-    person: { firstName, lastName, badge, organization },
-    log,
+    person: { locationId, firstName, lastName, badge, organization },
   } = payload;
 
-  return log
+  return locationId === STAGING
     ? {
         ...state,
         [entryId]: {
@@ -92,10 +67,10 @@ const logRemovePerson = (state, action) => {
           }removed from incident`,
         },
       }
-    : state; // return state if log is false
+    : state;
 };
 
-// For roster personnel
+// For incident personnel
 const logSetLocationId = (state, action) => {
   const { payload } = action;
   const {
@@ -107,18 +82,26 @@ const logSetLocationId = (state, action) => {
   } = payload;
 
   let log = '';
-  if (prevLocationId === ROSTER) {
+  if (prevLocationId === NEW_PERSONNEL && nextLocationId === STAGING) {
     log = `${
       badge ? badge + ' - ' : ''
     }${firstName} ${lastName} added to incident`;
-  } else if (nextLocationId === ROSTER) {
+  } else if (prevLocationId === STAGING && nextLocationId === ROSTER) {
     log = `${
       badge ? badge + ' - ' : ''
     }${firstName} ${lastName} removed from incident`;
   } else {
-    log = `${badge ? badge + ' - ' : ''}${firstName} ${lastName} ${
-      organization ? `(${organization}) ` : ''
-    }moved from ${prevName} to ${nextName}`;
+    // Don't log people moving back to ROSTER from NEW_PERSONNEL or moving from ROSTER to NEW_PERSONNEL
+    if (
+      prevLocationId !== NEW_PERSONNEL &&
+      nextLocationId !== ROSTER &&
+      prevLocationId !== ROSTER &&
+      nextLocationId !== NEW_PERSONNEL
+    ) {
+      log = `${badge ? badge + ' - ' : ''}${firstName} ${lastName} ${
+        organization ? `(${organization}) ` : ''
+      }moved from ${prevName} to ${nextName}`;
+    }
   }
 
   return {
@@ -181,8 +164,6 @@ export default (state = {}, action) => {
       return resumeIncident(state);
     case RESET_INCIDENT:
       return {};
-    case ADD_PERSON:
-      return logAddPerson(state, action);
     case REMOVE_PERSON:
       return logRemovePerson(state, action);
     case SET_PERSON_LOCATION_ID:

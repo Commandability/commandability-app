@@ -147,7 +147,7 @@ class HomeScreen extends Component {
           // refresh personnel data
           clearPersonnel();
           personnel.forEach(person => {
-            addPerson(person, ROSTER, false); // disable logging
+            addPerson(person, ROSTER, false); // false for non-temporary personnel
           });
         }
 

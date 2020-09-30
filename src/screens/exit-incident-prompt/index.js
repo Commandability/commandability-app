@@ -38,7 +38,7 @@ class ExitIncidentPrompt extends Component {
     } = auth();
     if (this.state.email === email) {
       const { resetIncident, toHomeStack } = this.props;
-      resetIncident(); // reset personnel locations and group settings, remove all un-logged personnel from state
+      resetIncident(); // reset personnel locations and group settings, remove all temporary personnel from state
       toHomeStack();
     } else {
       Alert.alert('Error', 'Incorrect organization email.', [

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { Dimensions } from 'react-native';
 
 export default colors =>
   StyleSheet.create({
@@ -21,13 +22,15 @@ export default colors =>
     },
     newPersonnel: {
       flex: 1,
-      padding: 24,
-      marginRight: 72
+      padding: 16,
+      width: Dimensions.get('window').width / 4,
+      marginRight: 48
     },
     roster: {
       flex: 1,
-      padding: 24,
-      paddingLeft: 72
+      padding: 16,
+      width: Dimensions.get('window').width / 4,
+      marginLeft: 48
     },
     option: {
       alignSelf: 'center',

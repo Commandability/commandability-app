@@ -5,6 +5,6 @@ export default StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap',
     alignItems: 'flex-start',
-    marginHorizontal: 8,
+    paddingHorizontal: 8
   },
 });

@@ -71,7 +71,7 @@ class ExitIncidentPrompt extends Component {
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={styles.content}
         >
-          {Platform.OS === 'ios' && (
+          {Platform.OS === 'android' && (
             <View style={styles.backBar}>
               <TouchableOpacity onPress={this._onCancelPressed}>
                 <Icon name="chevron-left" style={styles.backButton} />

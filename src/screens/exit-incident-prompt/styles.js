@@ -49,16 +49,15 @@ export default colors =>
       color: colors.primary,
       marginRight: 30,
     },
+    promptContainer: {
+      flex: 1,
+      justifyContent: 'center',
+    },
     backButton: {
       color: colors.primary,
       fontSize: 42,
     },
     backBar: {
       alignSelf: 'flex-start',
-      margin: 24,
-    },
-    promptContainer: {
-      flex: 1,
-      justifyContent: 'center',
     },
   });

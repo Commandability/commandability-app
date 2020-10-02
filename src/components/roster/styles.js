@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { Dimensions } from 'react-native';
 
 export default colors =>
   StyleSheet.create({
@@ -12,6 +13,12 @@ export default colors =>
       height: '100%',
       opacity: 0.2,
     },
+    container: {
+      flex: 1,
+      width: Dimensions.get('window').width / 4,
+      color: colors.text.main,
+      backgroundColor: colors.background.two,
+    },
     queryInput: {
       height: 40,
       color: colors.text.main,
@@ -20,11 +27,6 @@ export default colors =>
       marginBottom: 16,
       marginTop: 8,
       marginHorizontal: 8,
-    },
-    container: {
-      flex: 1,
-      color: colors.text.main,
-      backgroundColor: colors.background.two,
     },
     header: {
       justifyContent: 'center',

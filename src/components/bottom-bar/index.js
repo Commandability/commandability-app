@@ -25,13 +25,6 @@ class BottomBar extends Component {
     toggleTheme();
   };
 
-  _onPersonnelPromptPressed = () => {
-    const {
-      navigation: { navigate },
-    } = this.props;
-    navigate('PersonnelPrompt');
-  };
-
   _onEndPressed = () => {
     const { personnelInGroups } = this.props;
 
@@ -81,12 +74,6 @@ class BottomBar extends Component {
             <Text style={styles.optionContent}>
               {theme === DARK ? 'LIGHT THEME' : 'DARK THEME'}
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.option}
-            onPress={this._onPersonnelPromptPressed}
-          >
-            <Text style={styles.optionContent}> PERSONNEL </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.option} onPress={this._onEndPressed}>
             <Text style={styles.optionContent}> END </Text>

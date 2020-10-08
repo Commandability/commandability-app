@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { TabView, TabBar } from 'react-native-tab-view';
 import PropTypes from 'prop-types';
 
-import { GroupOptions, GroupArea, Staging, BottomBar } from '../../components';
+import { GroupOptions, GroupArea, Staging, BottomBar, PersonnelOptions } from '../../components';
 import { activeReport, getInitialEpoch, getTheme } from '../../redux/selectors';
 import { startIncident, endIncident } from '../../redux/actions';
 
@@ -106,6 +106,7 @@ class IncidentScreen extends Component {
         <View style={styles.mainArea}>
           <View style={styles.sideBar}>
             <Staging />
+            <PersonnelOptions />
           </View>
           <View style={styles.incidentArea}>
             <GroupOptions

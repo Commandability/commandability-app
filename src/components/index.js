@@ -14,6 +14,7 @@ import RosterList from './roster-list';
 import Staging from './staging';
 import StagingList from './staging-list';
 import Timer from './timer';
+import PersonnelOptions from './personnel-options';
 
 export {
   Group,
@@ -32,4 +33,5 @@ export {
   Staging,
   StagingList,
   Timer,
+  PersonnelOptions
 };

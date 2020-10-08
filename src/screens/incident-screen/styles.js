@@ -12,6 +12,7 @@ export default colors =>
     },
     sideBar: {
       flex: 1,
+      flexDirection: 'column',
       marginHorizontal: 16,
       marginTop: 16,
       marginBottom: 16,

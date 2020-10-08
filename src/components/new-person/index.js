@@ -8,12 +8,13 @@ import React, { Component } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
 import { getTheme } from '../../redux/selectors';
 import { addPerson } from '../../redux/actions';
-import { STAGING } from '../../modules/location-ids';
+import { NEW_PERSONNEL } from '../../modules/location-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
@@ -29,7 +30,7 @@ class NewPerson extends Component {
   }
 
   _onAddPersonPressed = () => {
-    const { addPerson } = this.props;
+    const { addPerson, navigation: { navigate } } = this.props;
     const person = {
       badge: this.state.badge,
       firstName: this.state.firstName,
@@ -38,7 +39,9 @@ class NewPerson extends Component {
     };
     this.setState({ firstName: '', lastName: '', badge: '', organization: '' });
 
-    addPerson(person, STAGING);
+    addPerson(person, NEW_PERSONNEL);
+
+    navigate('PersonnelPrompt');
   };
 
   render() {
@@ -99,13 +102,23 @@ class NewPerson extends Component {
 NewPerson.propTypes = {
   addPerson: PropTypes.func,
   theme: PropTypes.string,
+  navigation: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
   theme: getTheme(state),
 });
 
-export default connect(
+const ConnectWrapper = connect(
   mapStateToProps,
-  { addPerson }
+  {
+    addPerson,
+  }
 )(NewPerson);
+
+// Wrap and export
+export default function NavigationWrapper(props) {
+  const navigation = useNavigation();
+
+  return <ConnectWrapper {...props} navigation={navigation} />;
+}

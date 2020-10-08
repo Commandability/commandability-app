@@ -11,6 +11,7 @@ import HomeScreen from './home-screen';
 import IncidentScreen from './incident-screen';
 import AuthScreen from './auth-screen';
 import PersonnelPrompt from './personnel-prompt';
+import AddPersonPrompt from './add-person-prompt';
 
 export {
   EndScreen,
@@ -20,4 +21,5 @@ export {
   IncidentScreen,
   AuthScreen,
   PersonnelPrompt,
+  AddPersonPrompt,
 };

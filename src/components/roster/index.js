@@ -32,45 +32,6 @@ class Roster extends Component {
     };
   }
 
-  _onRosterPressed = () => {
-    const {
-      clearSelectedPersonnel,
-      setPersonLocationId,
-      selectedPersonnel,
-      removePerson,
-    } = this.props;
-
-    Alert.alert(
-      'Remove selected personnel from incident?',
-      'All selected personnel will be returned to the roster list and marked as off-scene in the report. ',
-      [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-        },
-        {
-          text: 'OK',
-          onPress: () => {
-            selectedPersonnel.forEach(person => {
-              const { temporary } = person;
-
-              // set each selected id's new locationId to ROSTER
-              temporary
-                ? removePerson(person)
-                : setPersonLocationId(
-                    person,
-                    // To report prev location
-                    { locationId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
-                    { locationId: ROSTER, name: 'Roster' }
-                  );
-              clearSelectedPersonnel();
-            });
-          },
-        },
-      ]
-    );
-  };
-
   render() {
     const { selectedLocationId, theme } = this.props;
 

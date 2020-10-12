@@ -81,21 +81,21 @@ class PersonnelOptions extends Component {
 
     return (
       <View style={styles.container}>
-        {selected === [] ? (
+        
           <TouchableOpacity
             style={styles.option}
             onPress={this._onAddPersonnelPressed}
           >
             <Text style={styles.optionContent}>Add Personnel</Text>
           </TouchableOpacity>
-        ) : (
+        
           <TouchableOpacity
             style={styles.option}
             onPress={this._onRemovePressed}
           >
             <Text style={styles.optionContent}>Remove Personnel</Text>
           </TouchableOpacity>
-        )}
+        
       </View>
     );
   }

@@ -5,6 +5,7 @@ export default colors =>
     container: {
       flexDirection: 'row',
       justifyContent: 'center',
+      alignItems: 'center',
     },
     option: {
       justifyContent: 'center',

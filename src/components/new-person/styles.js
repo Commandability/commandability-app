@@ -2,12 +2,6 @@ import { StyleSheet } from 'react-native';
 
 export default colors =>
   StyleSheet.create({
-    header: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: 8,
-    },
     headerContent: {
       fontSize: 18,
       textAlign: 'center',
@@ -19,6 +13,7 @@ export default colors =>
     container: {
       justifyContent: 'center',
       backgroundColor: colors.background.one,
+      padding: 24,
     },
     input: {
       height: 48,
@@ -31,15 +26,15 @@ export default colors =>
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: colors.background.two,
-      paddingVertical: 22,
-      marginVertical: 22,
+      paddingVertical: 48,
+      marginVertical: 24,
     },
     opacityText: {
-      fontSize: 16,
+      fontSize: 42,
       color: colors.text.main,
     },
     icon: {
-      fontSize: 20,
+      fontSize: 42,
       color: colors.primary,
       marginRight: 30,
     },

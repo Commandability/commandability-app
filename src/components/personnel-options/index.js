@@ -75,27 +75,34 @@ class PersonnelOptions extends Component {
   };
 
   render() {
-    const { theme, selected } = this.props;
+    const { theme, selectedLocationId } = this.props;
     const colors = themeSelector(theme);
     const styles = createStyleSheet(colors);
 
     return (
       <View style={styles.container}>
-        
-          <TouchableOpacity
-            style={styles.option}
-            onPress={this._onAddPersonnelPressed}
+        <TouchableOpacity
+          style={styles.option}
+          onPress={this._onAddPersonnelPressed}
+        >
+          <Text style={styles.optionContent}>ADD PERSONNEL</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          disabled={selectedLocationId != STAGING}
+          style={styles.option}
+          onPress={this._onRemovePressed}
+        >
+          <Text
+            style={
+              selectedLocationId != STAGING
+                ? styles.disabledOptionContent
+                : styles.optionContent
+            }
           >
-            <Text style={styles.optionContent}>Add Personnel</Text>
-          </TouchableOpacity>
-        
-          <TouchableOpacity
-            style={styles.option}
-            onPress={this._onRemovePressed}
-          >
-            <Text style={styles.optionContent}>Remove Personnel</Text>
-          </TouchableOpacity>
-        
+            REMOVE PERSONNEL
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }

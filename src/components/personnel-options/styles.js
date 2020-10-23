@@ -10,6 +10,16 @@ export default colors =>
     option: {
       justifyContent: 'center',
       alignItems: 'center',
+      width: 200,
+      paddingVertical: 4,
+      marginHorizontal: 12,
+      marginTop: 16,
+      marginBottom: 8,
+      backgroundColor: colors.background.two,
+    },
+    disabledOption: {
+      justifyContent: 'center',
+      alignItems: 'center',
       paddingVertical: 4,
       marginTop: 16,
       backgroundColor: colors.background.two,
@@ -20,6 +30,12 @@ export default colors =>
       justifyContent: 'center',
       alignItems: 'center',
       color: colors.text.main,
+    },
+    disabledOptionContent: {
+      fontSize: 14,
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: colors.text.disabled,
     },
     selected: {
       color: colors.primary,

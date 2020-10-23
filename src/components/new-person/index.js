@@ -53,9 +53,6 @@ class NewPerson extends Component {
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-          <View style={styles.header}>
-            <Text style={styles.headerContent}> Add Personnel </Text>
-          </View>
           <Text style={styles.label}>First Name*</Text>
           <TextInput
             style={styles.input}

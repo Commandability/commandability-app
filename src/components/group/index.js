@@ -85,7 +85,7 @@ class Group extends Component {
       const {
         navigation: { navigate },
       } = this.props;
-      navigate('GroupPrompt', { group });
+      navigate('EditGroupPrompt', { group });
     } else {
       const {
         clearSelectedPersonnel,

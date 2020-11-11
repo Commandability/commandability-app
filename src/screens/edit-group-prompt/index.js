@@ -1,5 +1,5 @@
 /**
- * GroupPrompt Component
+ * EditGroupPrompt Component
  *
  * Displays the options for editing a group. Can take user input for a new group name, or remove the group
  */
@@ -22,7 +22,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-class GroupPrompt extends Component {
+class EditGroupPrompt extends Component {
   constructor(props) {
     super(props);
     const {
@@ -98,7 +98,7 @@ class GroupPrompt extends Component {
 }
 
 // props validation
-GroupPrompt.propTypes = {
+EditGroupPrompt.propTypes = {
   navigation: PropTypes.object,
   route: PropTypes.object,
   setName: PropTypes.func,
@@ -117,4 +117,4 @@ export default connect(
     setVisibility,
     setName,
   }
-)(GroupPrompt);
+)(EditGroupPrompt);

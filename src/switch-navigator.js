@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import {
   HomeScreen,
   IncidentScreen,
-  GroupPrompt,
+  EditGroupPrompt,
   EndScreen,
   ExitIncidentPrompt,
   AuthScreen,
@@ -51,7 +51,7 @@ class SwitchNavigator extends React.Component {
         return (
           <Incident.Navigator screenOptions={screenOptions}>
             <Incident.Screen name="IncidentScreen" component={IncidentScreen} />
-            <Incident.Screen name="GroupPrompt" component={GroupPrompt} />
+            <Incident.Screen name="EditGroupPrompt" component={EditGroupPrompt} />
             <Incident.Screen
               name="PersonnelPrompt"
               component={PersonnelPrompt}

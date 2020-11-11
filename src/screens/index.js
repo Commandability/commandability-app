@@ -6,7 +6,7 @@
 
 import EndScreen from './end-screen';
 import ExitIncidentPrompt from './exit-incident-prompt';
-import GroupPrompt from './group-prompt';
+import EditGroupPrompt from './edit-group-prompt';
 import HomeScreen from './home-screen';
 import IncidentScreen from './incident-screen';
 import AuthScreen from './auth-screen';
@@ -16,7 +16,7 @@ import AddPersonPrompt from './add-person-prompt';
 export {
   EndScreen,
   ExitIncidentPrompt,
-  GroupPrompt,
+  EditGroupPrompt,
   HomeScreen,
   IncidentScreen,
   AuthScreen,

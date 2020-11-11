@@ -5,7 +5,13 @@
  */
 
 import React, { Component } from 'react';
-import { View, TouchableOpacity, TextInput, Text, Platform } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  TextInput,
+  Text,
+  Platform,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -30,7 +36,10 @@ class AddPersonPrompt extends Component {
   }
 
   _onAddPersonPressed = () => {
-    const { addPerson, navigation: { navigate } } = this.props;
+    const {
+      addPerson,
+      navigation: { navigate },
+    } = this.props;
     const person = {
       badge: this.state.badge,
       firstName: this.state.firstName,
@@ -99,14 +108,16 @@ class AddPersonPrompt extends Component {
             <TouchableOpacity
               style={styles.opacity}
               onPress={this._onAddPersonPressed}
-              disabled={this.state.firstName === '' || this.state.lastName === ''}
+              disabled={
+                this.state.firstName === '' || this.state.lastName === ''
+              }
             >
               <Icon name="account-plus" style={styles.icon} />
               <Text style={styles.opacityText}> Add Person </Text>
             </TouchableOpacity>
           </KeyboardAwareScrollView>
         </View>
-    </View>
+      </View>
     );
   }
 }

@@ -11,7 +11,7 @@ export default colors =>
     promptContainer: {
       flex: 1,
       justifyContent: 'center',
-      marginTop: 16
+      marginTop: 16,
     },
     label: {
       color: colors.primary,

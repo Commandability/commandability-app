@@ -12,7 +12,7 @@ export default colors =>
     },
     sideBar: {
       width: '25%',
-      padding: 16
+      padding: 16,
     },
     incidentArea: {
       width: '75%',

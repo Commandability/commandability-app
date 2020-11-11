@@ -44,7 +44,9 @@ class PersonnelPrompt extends Component {
   };
 
   _onAddPersonPressed = () => {
-    const { navigation: { navigate } } = this.props;
+    const {
+      navigation: { navigate },
+    } = this.props;
     navigate('AddPersonPrompt');
   };
 
@@ -56,12 +58,12 @@ class PersonnelPrompt extends Component {
     return (
       <View style={styles.container}>
         {Platform.OS === 'android' && (
-            <View style={styles.backBar}>
-              <TouchableOpacity onPress={this._onCancelPressed}>
-                <Icon name="chevron-left" style={styles.backButton} />
-              </TouchableOpacity>
-            </View>
-          )}
+          <View style={styles.backBar}>
+            <TouchableOpacity onPress={this._onCancelPressed}>
+              <Icon name="chevron-left" style={styles.backButton} />
+            </TouchableOpacity>
+          </View>
+        )}
         <View style={styles.promptContainer}>
           <View style={styles.leftCol}>
             <View style={styles.newPersonnel}>

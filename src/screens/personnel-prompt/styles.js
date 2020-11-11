@@ -11,7 +11,7 @@ export default colors =>
     promptContainer: {
       flex: 1,
       flexDirection: 'row',
-      marginTop: 16
+      marginTop: 16,
     },
     leftCol: {
       flex: 1,
@@ -25,13 +25,13 @@ export default colors =>
       flex: 1,
       padding: 16,
       width: Dimensions.get('window').width / 4,
-      marginRight: 48
+      marginRight: 48,
     },
     roster: {
       flex: 1,
       padding: 16,
       width: Dimensions.get('window').width / 4,
-      marginLeft: 48
+      marginLeft: 48,
     },
     option: {
       alignSelf: 'center',

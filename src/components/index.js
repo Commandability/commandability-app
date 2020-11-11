@@ -31,5 +31,5 @@ export {
   Staging,
   StagingList,
   Timer,
-  PersonnelOptions
+  PersonnelOptions,
 };

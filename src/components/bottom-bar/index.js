@@ -43,7 +43,7 @@ class BottomBar extends Component {
       Alert.alert('Are you sure you want to end the incident?', '', [
         {
           text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
+          onPress: () => {},
         },
         {
           text: 'OK',

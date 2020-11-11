@@ -236,7 +236,7 @@ class HomeScreen extends Component {
       [
         {
           text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
+          onPress: () => {},
         },
         {
           text: 'OK',

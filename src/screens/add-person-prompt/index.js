@@ -75,7 +75,10 @@ class AddPersonPrompt extends Component {
           </View>
         )}
         <View style={styles.promptContainer}>
-          <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+          <KeyboardAwareScrollView
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={styles.content}
+          >
             <Text style={styles.label}>First Name*</Text>
             <TextInput
               style={styles.input}

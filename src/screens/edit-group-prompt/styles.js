@@ -12,6 +12,10 @@ export default colors =>
       flex: 1,
       justifyContent: 'center',
     },
+    content: {
+      flex: 1,
+      justifyContent: 'center',
+    },
     label: {
       color: colors.primary,
       marginLeft: 24,
@@ -45,5 +49,6 @@ export default colors =>
     },
     backBar: {
       alignSelf: 'flex-start',
+      marginBottom: 48,
     },
   });

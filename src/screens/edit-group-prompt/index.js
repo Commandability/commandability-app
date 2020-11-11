@@ -14,6 +14,7 @@ import {
   Platform,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import PropTypes from 'prop-types';
 
 import { getTheme } from '../../redux/selectors';
@@ -80,17 +81,22 @@ class EditGroupPrompt extends Component {
           </View>
         )}
         <View style={styles.promptContainer}>
-          <Text style={styles.label}>Group name *</Text>
-          <TextInput
-            style={styles.nameInput}
-            autoCapitalize="none"
-            value={this.state.newName}
-            onChangeText={newName => this.setState({ newName })}
-          />
-          <TouchableOpacity style={styles.opacity} onPress={this._onSave}>
-            <Icon name="check" style={styles.icon} />
-            <Text style={styles.opacityText}>Save</Text>
-          </TouchableOpacity>
+          <KeyboardAwareScrollView
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={styles.content}
+          >
+            <Text style={styles.label}>Group name *</Text>
+            <TextInput
+              style={styles.nameInput}
+              autoCapitalize="none"
+              value={this.state.newName}
+              onChangeText={newName => this.setState({ newName })}
+            />
+            <TouchableOpacity style={styles.opacity} onPress={this._onSave}>
+              <Icon name="check" style={styles.icon} />
+              <Text style={styles.opacityText}>Save</Text>
+            </TouchableOpacity>
+          </KeyboardAwareScrollView>
         </View>
       </View>
     );

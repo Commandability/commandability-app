@@ -59,5 +59,6 @@ export default colors =>
     },
     backBar: {
       alignSelf: 'flex-start',
+      marginBottom: 48,
     },
   });

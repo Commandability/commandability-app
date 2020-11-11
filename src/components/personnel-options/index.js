@@ -41,16 +41,14 @@ class PersonnelOptions extends Component {
       setPersonLocationId,
       selectedPersonnel,
       removePerson,
-      selected,
     } = this.props;
-    console.log(selected);
     Alert.alert(
       'Remove selected personnel from incident?',
       'All selected personnel will be returned to the roster list and marked as off-scene in the report. ',
       [
         {
           text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
+          onPress: () => {},
         },
         {
           text: 'OK',
@@ -120,13 +118,11 @@ PersonnelOptions.propTypes = {
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocationId: PropTypes.func,
   removePerson: PropTypes.func,
-  selected: PropTypes.array,
 };
 
 const mapStateToProps = state => ({
   selectedLocationId: getSelectedLocationId(state),
   selectedPersonnel: getSelectedPersonnel(state),
-  selected: getSelectedIds(state),
   theme: getTheme(state),
 });
 

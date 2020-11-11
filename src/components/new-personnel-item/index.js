@@ -29,12 +29,10 @@ class NewPersonnelItem extends PureComponent {
       setPersonLocationId,
     } = this.props;
 
-    console.log('item', item);
-
     Alert.alert('Remove person?', '', [
       {
         text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
+        onPress: () => {},
       },
       {
         text: 'OK',

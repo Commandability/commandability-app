@@ -11,7 +11,10 @@ export default colors =>
     promptContainer: {
       flex: 1,
       justifyContent: 'center',
-      marginTop: 16,
+    },
+    content: {
+      flex: 1,
+      justifyContent: 'center',
     },
     label: {
       color: colors.primary,
@@ -46,5 +49,6 @@ export default colors =>
     },
     backBar: {
       alignSelf: 'flex-start',
+      marginBottom: 48,
     },
   });

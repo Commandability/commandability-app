@@ -67,18 +67,18 @@ class ExitIncidentPrompt extends Component {
 
     return (
       <View style={styles.container}>
-        <KeyboardAwareScrollView
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={styles.content}
-        >
-          {Platform.OS === 'android' && (
-            <View style={styles.backBar}>
-              <TouchableOpacity onPress={this._onCancelPressed}>
-                <Icon name="chevron-left" style={styles.backButton} />
-              </TouchableOpacity>
-            </View>
-          )}
-          <View style={styles.promptContainer}>
+        {Platform.OS === 'android' && (
+          <View style={styles.backBar}>
+            <TouchableOpacity onPress={this._onCancelPressed}>
+              <Icon name="chevron-left" style={styles.backButton} />
+            </TouchableOpacity>
+          </View>
+        )}
+        <View style={styles.promptContainer}>
+          <KeyboardAwareScrollView
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={styles.content}
+          >
             <View style={styles.prompt}>
               <Text style={styles.promptText}>
                 {`Are you absolutely sure you want to exit without saving?`}
@@ -98,8 +98,8 @@ class ExitIncidentPrompt extends Component {
             <TouchableOpacity style={styles.opacity} onPress={this._exit}>
               <Text style={styles.opacityText}>Exit Without Saving</Text>
             </TouchableOpacity>
-          </View>
-        </KeyboardAwareScrollView>
+          </KeyboardAwareScrollView>
+        </View>
       </View>
     );
   }

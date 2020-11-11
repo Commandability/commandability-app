@@ -87,7 +87,7 @@ class EndScreen extends Component {
     Alert.alert('Are you sure you want to resume the incident?', '', [
       {
         text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
+        onPress: () => {},
       },
       {
         text: 'OK',

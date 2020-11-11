@@ -5,13 +5,12 @@ export default colors =>
   StyleSheet.create({
     container: {
       flex: 1,
-      padding: 24,
       backgroundColor: colors.background.one,
+      padding: 24,
     },
     promptContainer: {
       flex: 1,
       flexDirection: 'row',
-      marginTop: 16,
     },
     leftCol: {
       flex: 1,
@@ -23,13 +22,13 @@ export default colors =>
     },
     newPersonnel: {
       flex: 1,
-      padding: 16,
+      paddingHorizontal: 16,
       width: Dimensions.get('window').width / 4,
       marginRight: 48,
     },
     roster: {
       flex: 1,
-      padding: 16,
+      paddingHorizontal: 16,
       width: Dimensions.get('window').width / 4,
       marginLeft: 48,
     },
@@ -58,5 +57,6 @@ export default colors =>
     },
     backBar: {
       alignSelf: 'flex-start',
+      marginBottom: 48,
     },
   });

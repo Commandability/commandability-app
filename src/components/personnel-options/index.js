@@ -8,8 +8,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Alert, TouchableOpacity, Text, View } from 'react-native';
-import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import PropTypes from 'prop-types';
 
 import {
   getTheme,
@@ -86,6 +87,7 @@ class PersonnelOptions extends Component {
           onPress={this._onAddPersonnelPressed}
         >
           <Text style={styles.optionContent}>ADD PERSONNEL</Text>
+          <Icon name="arrow-right" style={styles.optionContent} />
         </TouchableOpacity>
 
         <TouchableOpacity

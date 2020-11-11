@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import { Alert, TouchableOpacity, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
 import { personnelInGroups, getTheme } from '../../redux/selectors';
@@ -77,6 +78,7 @@ class BottomBar extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.option} onPress={this._onEndPressed}>
             <Text style={styles.optionContent}> END </Text>
+            <Icon name="arrow-right" style={styles.optionContent} />
           </TouchableOpacity>
         </View>
       </View>

@@ -8,6 +8,7 @@ export default colors =>
       justifyContent: 'center',
     },
     option: {
+      flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
       width: 200,
@@ -26,6 +27,7 @@ export default colors =>
       flex: 1,
     },
     optionContent: {
+      paddingHorizontal: 2,
       fontSize: 14,
       justifyContent: 'center',
       alignItems: 'center',

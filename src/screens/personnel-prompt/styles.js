@@ -34,6 +34,8 @@ export default colors =>
     },
     option: {
       alignSelf: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
       alignItems: 'center',
       width: 200,
       paddingVertical: 4,
@@ -43,6 +45,7 @@ export default colors =>
       backgroundColor: colors.background.two,
     },
     optionContent: {
+      paddingHorizontal: 2,
       fontSize: 14,
       justifyContent: 'center',
       alignItems: 'center',

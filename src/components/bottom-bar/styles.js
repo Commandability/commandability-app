@@ -13,7 +13,9 @@ export default colors =>
       flexDirection: 'row',
     },
     option: {
+      flexDirection: 'row',
       alignItems: 'center',
+      justifyContent: 'center',
       paddingVertical: 4,
       width: 200,
       marginHorizontal: 12,
@@ -21,6 +23,7 @@ export default colors =>
       backgroundColor: colors.background.two,
     },
     optionContent: {
+      paddingHorizontal: 2,
       fontSize: 14,
       color: colors.text.main,
     },

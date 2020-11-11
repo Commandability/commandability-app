@@ -82,6 +82,7 @@ class PersonnelPrompt extends Component {
                 onPress={this._onAddPersonPressed}
               >
                 <Text style={styles.optionContent}>ADD PERSON</Text>
+                <Icon name="arrow-right" style={styles.optionContent} />
               </TouchableOpacity>
             </View>
           </View>

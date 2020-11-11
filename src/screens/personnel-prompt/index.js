@@ -62,7 +62,7 @@ class PersonnelPrompt extends Component {
               </TouchableOpacity>
             </View>
           )}
-        <View style={styles.columns}>
+        <View style={styles.promptContainer}>
           <View style={styles.leftCol}>
             <View style={styles.newPersonnel}>
               <NewPersonnel />

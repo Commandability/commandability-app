@@ -8,9 +8,10 @@ export default colors =>
       padding: 24,
       backgroundColor: colors.background.one,
     },
-    columns: {
+    promptContainer: {
       flex: 1,
       flexDirection: 'row',
+      marginTop: 16
     },
     leftCol: {
       flex: 1,

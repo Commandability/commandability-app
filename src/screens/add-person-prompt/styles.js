@@ -3,8 +3,48 @@ import { StyleSheet } from 'react-native';
 export default colors =>
   StyleSheet.create({
     container: {
-      backgroundColor: colors.background.one,
       flex: 1,
-      padding: 50,
+      justifyContent: 'center',
+      backgroundColor: colors.background.one,
+      padding: 24,
+    },
+    promptContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      marginTop: 16
+    },
+    label: {
+      color: colors.primary,
+      marginLeft: 24,
+    },
+    input: {
+      height: 48,
+      color: colors.text.main,
+      backgroundColor: colors.background.two,
+      margin: 24,
+    },
+    opacity: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: colors.background.two,
+      padding: 48,
+      margin: 24,
+    },
+    opacityText: {
+      fontSize: 42,
+      color: colors.text.main,
+    },
+    icon: {
+      fontSize: 42,
+      color: colors.primary,
+      marginRight: 30,
+    },
+    backButton: {
+      color: colors.primary,
+      fontSize: 42,
+    },
+    backBar: {
+      alignSelf: 'flex-start',
     },
   });

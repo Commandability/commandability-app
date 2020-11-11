@@ -2,6 +2,11 @@ import { StyleSheet } from 'react-native';
 
 export default colors =>
   StyleSheet.create({
+    container: {
+      flex: 1,
+      color: colors.text.main,
+      backgroundColor: colors.background.two,
+    },
     queryInput: {
       height: 40,
       color: colors.text.main,
@@ -10,11 +15,6 @@ export default colors =>
       marginBottom: 16,
       marginTop: 8,
       marginHorizontal: 8,
-    },
-    container: {
-      flex: 1,
-      color: colors.text.main,
-      backgroundColor: colors.background.two,
     },
     header: {
       justifyContent: 'center',

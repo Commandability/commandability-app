@@ -72,7 +72,7 @@ class GroupPrompt extends Component {
 
     return (
       <View style={styles.container}>
-        {Platform.OS === 'ios' && (
+        {Platform.OS === 'android' && (
           <View style={styles.backBar}>
             <TouchableOpacity onPress={this._onCancelPressed}>
               <Icon name="chevron-left" style={styles.backButton} />

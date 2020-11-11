@@ -13,7 +13,6 @@ export default colors =>
       width: 200,
       paddingVertical: 4,
       marginHorizontal: 12,
-      marginTop: 16,
       marginBottom: 8,
       backgroundColor: colors.background.two,
     },

@@ -120,16 +120,18 @@ class IncidentScreen extends Component {
               removeGroupMode={this.state.removeGroupMode}
               editGroupMode={this.state.editGroupMode}
             />
-            <TabView
-              navigationState={{
-                index: this.state.index,
-                routes: this.state.routes,
-              }}
-              renderScene={renderScene}
-              onIndexChange={index => this.setState({ index })}
-              tabBarPosition="bottom"
-              renderTabBar={renderTabBar}
-            />
+            <View style={styles.groupArea}>
+              <TabView
+                navigationState={{
+                  index: this.state.index,
+                  routes: this.state.routes,
+                }}
+                renderScene={renderScene}
+                onIndexChange={index => this.setState({ index })}
+                tabBarPosition="bottom"
+                renderTabBar={renderTabBar}
+              />
+            </View>
           </View>
         </View>
         <BottomBar

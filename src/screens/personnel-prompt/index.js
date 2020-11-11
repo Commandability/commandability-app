@@ -5,9 +5,10 @@
  */
 
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
 import { NewPersonnel, Roster } from '../../components';
@@ -18,6 +19,13 @@ import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 class PersonnelPrompt extends Component {
+  _onCancelPressed = () => {
+    const {
+      navigation: { goBack },
+    } = this.props;
+    goBack();
+  };
+
   _onAddToIncidentPressed = () => {
     const {
       personnel,
@@ -47,23 +55,36 @@ class PersonnelPrompt extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.section}>
-          <NewPersonnel />
-          <TouchableOpacity
-            style={styles.option}
-            onPress={this._onAddToIncidentPressed}
-          >
-            <Text style={styles.optionContent}>ADD TO INCIDENT</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.section}>
-          <Roster />
-          <TouchableOpacity
-            style={styles.option}
-            onPress={this._onAddPersonPressed}
-          >
-            <Text style={styles.optionContent}>ADD PERSON</Text>
-          </TouchableOpacity>
+        {Platform.OS === 'android' && (
+            <View style={styles.backBar}>
+              <TouchableOpacity onPress={this._onCancelPressed}>
+                <Icon name="chevron-left" style={styles.backButton} />
+              </TouchableOpacity>
+            </View>
+          )}
+        <View style={styles.columns}>
+          <View style={styles.leftCol}>
+            <View style={styles.newPersonnel}>
+              <NewPersonnel />
+              <TouchableOpacity
+                style={styles.option}
+                onPress={this._onAddToIncidentPressed}
+              >
+                <Text style={styles.optionContent}>ADD TO INCIDENT</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.rightCol}>
+            <View style={styles.roster}>
+              <Roster />
+              <TouchableOpacity
+                style={styles.option}
+                onPress={this._onAddPersonPressed}
+              >
+                <Text style={styles.optionContent}>ADD PERSON</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
       </View>
     );

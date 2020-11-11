@@ -6,6 +6,7 @@ export default colors =>
       height: '20%',
       flexDirection: 'column',
       justifyContent: 'center',
+      alignItems: 'center'
     },
     option: {
       flexDirection: 'row',

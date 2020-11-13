@@ -13,7 +13,6 @@ import PropTypes from 'prop-types';
 import {
   GroupOptions,
   GroupArea,
-  Staging,
   BottomBar,
   PersonnelOptions,
 } from '../../components';
@@ -111,7 +110,6 @@ class IncidentScreen extends Component {
       <View style={styles.container}>
         <View style={styles.mainArea}>
           <View style={styles.sideBar}>
-            <Staging />
             <PersonnelOptions />
           </View>
           <View style={styles.incidentArea}>

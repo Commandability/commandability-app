@@ -25,6 +25,7 @@ import {
   setPersonLocationId,
   removePerson,
 } from '../../redux/actions';
+import { Staging } from "../../components";
 import { getSelectedIds } from '../../redux/selected/reducer';
 
 class PersonnelOptions extends Component {
@@ -81,12 +82,14 @@ class PersonnelOptions extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity
-          style={styles.option}
+          style={styles.button}
           onPress={this._onAddPersonnelPressed}
         >
-          <Text style={styles.optionContent}>ADD PERSONNEL</Text>
-          <Icon name="arrow-right" style={styles.optionContent} />
+          <Text style={styles.buttonContent}>ADD PERSONNEL</Text>
+          <Icon name="arrow-right" style={styles.buttonContent} />
         </TouchableOpacity>
+
+        <Staging />
 
         <TouchableOpacity
           disabled={selectedLocationId != STAGING}

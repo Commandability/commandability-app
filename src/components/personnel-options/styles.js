@@ -3,10 +3,20 @@ import { StyleSheet } from 'react-native';
 export default colors =>
   StyleSheet.create({
     container: {
-      height: '20%',
+      flex: 1,
       flexDirection: 'column',
+    },
+    button: {
+      flexDirection: 'row',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      width: 200,
+      paddingVertical: 4,
+      marginHorizontal: 12,
+      marginTop: 16,
+      marginBottom: 8,
+      borderRadius: 10,
+      backgroundColor: colors.primary,
     },
     option: {
       flexDirection: 'row',
@@ -26,6 +36,13 @@ export default colors =>
       marginTop: 16,
       backgroundColor: colors.background.two,
       flex: 1,
+    },
+    buttonContent: {
+      paddingHorizontal: 2,
+      fontSize: 14,
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: colors.background.one,
     },
     optionContent: {
       paddingHorizontal: 2,

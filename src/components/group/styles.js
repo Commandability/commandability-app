@@ -23,10 +23,12 @@ export default colors =>
       alignItems: 'center',
       padding: 4,
       width: '100%',
-      backgroundColor: colors.primary,
+      backgroundColor: colors.background.two,
+      borderTopLeftRadius: 10,
+      borderTopRightRadius: 10,
     },
     headerContent: {
       fontSize: 14,
-      color: colors.text.main,
+      color: colors.primary,
     },
   });

@@ -105,6 +105,10 @@ class PersonnelOptions extends Component {
           >
             REMOVE PERSONNEL
           </Text>
+          <Icon name="account-multiple-remove" 
+          style={selectedLocationId != STAGING
+                ? styles.disabledIcon
+                : styles.icon} />
         </TouchableOpacity>
       </View>
     );

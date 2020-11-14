@@ -15,6 +15,7 @@ export default colors =>
     container: {
       flex: 1,
       backgroundColor: colors.background.two,
+      width: '100%'
     },
     header: {
       justifyContent: 'center',

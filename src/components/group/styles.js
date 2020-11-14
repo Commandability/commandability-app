@@ -24,8 +24,8 @@ export default colors =>
       padding: 4,
       width: '100%',
       backgroundColor: colors.background.two,
-      borderTopLeftRadius: 10,
-      borderTopRightRadius: 10,
+      borderTopLeftRadius: 5,
+      borderTopRightRadius: 5,
     },
     headerContent: {
       fontSize: 14,

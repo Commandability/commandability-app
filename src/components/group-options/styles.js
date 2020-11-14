@@ -16,7 +16,7 @@ export default colors =>
       marginHorizontal: 12,
       marginTop: 16,
       marginBottom: 8,
-      borderRadius: 10,
+      borderRadius: 5,
       backgroundColor: colors.primary,
     },
     optionContent: {

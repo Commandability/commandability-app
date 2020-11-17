@@ -5,6 +5,7 @@ export default colors =>
     container: {
       flexDirection: 'row',
       justifyContent: 'space-between',
+      marginBottom: 16,
     },
     timer: {
       width: 100,
@@ -16,11 +17,9 @@ export default colors =>
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      width: 200,
+      width: 250,
       paddingVertical: 4,
       marginHorizontal: 12,
-      marginTop: 16,
-      marginBottom: 8,
       borderRadius: 5,
       backgroundColor: colors.primary,
     },

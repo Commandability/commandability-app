@@ -82,21 +82,21 @@ class PersonnelOptions extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity
-          style={styles.button}
+          style={styles.option}
           onPress={this._onAddPersonnelPressed}
         >
           <Text style={styles.buttonContent}>ADD PERSONNEL</Text>
-          <Icon name="arrow-right" style={styles.buttonContent} />
+          <Icon name="arrow-right" style={styles.optionContent} />
         </TouchableOpacity>
 
         <Staging />
 
         <TouchableOpacity
           disabled={selectedLocationId != STAGING}
-          style={styles.option}
+          style={styles.remove}
           onPress={this._onRemovePressed}
         >
-          <Text style={ styles.optionContent }>
+          <Text style={ styles.removeContent }>
             REMOVE PERSONNEL
           </Text>
           <Icon name="account-multiple-remove" 

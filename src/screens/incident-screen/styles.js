@@ -16,7 +16,7 @@ export default colors =>
     },
     incidentArea: {
       width: '75%',
-      paddingVertical: 16,
+      padding: 16,
       // Horizontal padding handled in GroupArea and Group
     },
     groupArea: {
@@ -24,8 +24,7 @@ export default colors =>
     },
     tabBar: {
       backgroundColor: colors.background.two,
-      marginHorizontal: 16,
-      marginTop: 8,
+      marginTop: 0,
       elevation: 0,
     },
     tabLabel: {

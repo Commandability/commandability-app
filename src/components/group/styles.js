@@ -5,17 +5,18 @@ export default colors =>
     overlay: {
       backgroundColor: colors.overlay,
       position: 'absolute',
-      top: 8,
-      left: 8,
       zIndex: 1,
       width: '100%',
       height: '100%',
       opacity: 0.2,
+      borderRadius: 5,
     },
     container: {
       height: '50%',
       width: `${100 / 3}%`,
-      padding: 8,
+      paddingBottom: 16,
+      paddingRight: 8,
+      paddingLeft: 8,
     },
     header: {
       flexDirection: 'row',

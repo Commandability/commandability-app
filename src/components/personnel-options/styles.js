@@ -7,57 +7,41 @@ export default colors =>
       flexDirection: 'column',
       alignItems: 'center',
     },
-    button: {
+    option: {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      width: 200,
+      width: 250,
       paddingVertical: 4,
       marginHorizontal: 12,
-      marginTop: 8,
-      marginBottom: 8,
+      marginBottom: 16,
       borderRadius: 5,
       backgroundColor: colors.primary,
     },
-    option: {
+    remove: {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
       height: 100,
       width: '100%',
       paddingVertical: 4,
-      marginTop: 8,
-      marginBottom: 8,
-      backgroundColor: colors.background.two,
-      borderRadius: 5,
-    },
-    disabledOption: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingVertical: 4,
       marginTop: 16,
       backgroundColor: colors.background.two,
-      flex: 1,
-    },
-    buttonContent: {
-      paddingHorizontal: 2,
-      fontSize: 14,
-      justifyContent: 'center',
-      alignItems: 'center',
-      color: colors.background.one,
+      borderRadius: 5,
     },
     optionContent: {
       paddingHorizontal: 2,
       fontSize: 14,
       justifyContent: 'center',
       alignItems: 'center',
-      color: colors.primary,
+      color: colors.background.one,
     },
-    disabledOptionContent: {
+    removeContent: {
+      paddingHorizontal: 2,
       fontSize: 14,
       justifyContent: 'center',
       alignItems: 'center',
-      color: colors.text.disabled,
+      color: colors.primary,
     },
     icon: {
       fontSize: 36,
@@ -68,8 +52,5 @@ export default colors =>
     },
     selected: {
       color: colors.primary,
-    },
-    deselected: {
-      color: colors.text.main,
     },
   });

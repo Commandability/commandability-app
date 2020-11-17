@@ -96,19 +96,11 @@ class PersonnelOptions extends Component {
           style={styles.option}
           onPress={this._onRemovePressed}
         >
-          <Text
-            style={
-              selectedLocationId != STAGING
-                ? styles.disabledOptionContent
-                : styles.optionContent
-            }
-          >
+          <Text style={ styles.optionContent }>
             REMOVE PERSONNEL
           </Text>
           <Icon name="account-multiple-remove" 
-          style={selectedLocationId != STAGING
-                ? styles.disabledIcon
-                : styles.icon} />
+          style={styles.icon} />
         </TouchableOpacity>
       </View>
     );

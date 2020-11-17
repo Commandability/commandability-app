@@ -14,7 +14,7 @@ export default colors =>
       width: 200,
       paddingVertical: 4,
       marginHorizontal: 12,
-      marginTop: 16,
+      marginTop: 8,
       marginBottom: 8,
       borderRadius: 5,
       backgroundColor: colors.primary,

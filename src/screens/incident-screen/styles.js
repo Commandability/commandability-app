@@ -19,7 +19,7 @@ export default colors =>
       margin: 16,
       backgroundColor: colors.background.two,
       borderRadius: 5,
-      padding: 8,
+      paddingVertical: 8,
       // Horizontal padding handled in GroupArea and Group
     },
     groupArea: {

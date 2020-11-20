@@ -5,6 +5,7 @@ export default colors =>
     overlay: {
       backgroundColor: colors.overlay,
       position: 'absolute',
+      right: 8,
       zIndex: 1,
       width: '100%',
       height: '100%',

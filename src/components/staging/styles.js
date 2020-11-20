@@ -11,6 +11,7 @@ export default colors =>
       width: '100%',
       height: '100%',
       opacity: 0.2,
+      borderRadius: 5,
     },
     container: {
       flex: 1,

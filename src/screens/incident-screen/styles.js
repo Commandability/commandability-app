@@ -27,6 +27,7 @@ export default colors =>
     },
     tabBar: {
       backgroundColor: colors.background.three,
+      marginHorizontal: 8,
       marginTop: 0,
       elevation: 0,
     },

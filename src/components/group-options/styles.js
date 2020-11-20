@@ -11,7 +11,7 @@ export default colors =>
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      width: 250,
+      width: 225,
       paddingVertical: 4,
       marginHorizontal: 12,
       marginBottom: 16,

@@ -14,7 +14,7 @@ export default colors =>
     },
     container: {
       flex: 1,
-      backgroundColor: colors.background.two,
+      backgroundColor: colors.background.three,
       width: '100%',
       borderRadius: 5,
     },

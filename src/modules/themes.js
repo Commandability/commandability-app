@@ -13,7 +13,7 @@ export default theme => {
       background: {
         one: '#121212',
         two: '#1f1f1f',
-        three: '#353535',
+        three: '#2c2c2c',
       },
       overlay: '#ffffff',
       text: {

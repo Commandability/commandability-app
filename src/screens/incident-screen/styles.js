@@ -15,15 +15,18 @@ export default colors =>
       padding: 16,
     },
     incidentArea: {
-      width: '75%',
-      padding: 16,
+      width: '72%',
+      margin: 16,
+      backgroundColor: colors.background.two,
+      borderRadius: 5,
+      padding: 8,
       // Horizontal padding handled in GroupArea and Group
     },
     groupArea: {
       flex: 1,
     },
     tabBar: {
-      backgroundColor: colors.background.two,
+      backgroundColor: colors.background.three,
       marginTop: 0,
       elevation: 0,
     },

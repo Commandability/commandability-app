@@ -24,7 +24,7 @@ export default colors =>
       alignItems: 'center',
       padding: 4,
       width: '100%',
-      backgroundColor: colors.background.two,
+      backgroundColor: colors.background.three,
       borderTopLeftRadius: 5,
       borderTopRightRadius: 5,
     },

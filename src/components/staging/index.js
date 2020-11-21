@@ -66,7 +66,7 @@ class Staging extends Component {
           />
         )}
         <View style={styles.header}>
-          <Text style={styles.headerContent}> Staging </Text>
+          <Text style={styles.headerContent}> STAGING </Text>
         </View>
         <StagingList />
       </View>

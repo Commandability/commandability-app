@@ -25,7 +25,7 @@ export default colors =>
       padding: 8,
     },
     headerContent: {
-      fontSize: 18,
+      fontSize: 14,
       color: colors.text.main,
     },
   });

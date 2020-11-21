@@ -23,7 +23,7 @@ class NewPersonnel extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.headerContent}> New Personnel </Text>
+          <Text style={styles.headerContent}> NEW PERSONNEL </Text>
         </View>
         <NewPersonnelList />
       </View>

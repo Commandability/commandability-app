@@ -26,6 +26,6 @@ export default colors =>
       fontSize: 14,
       justifyContent: 'center',
       alignItems: 'center',
-      color: colors.background.one,
+      color: colors.text.alternate,
     },
   });

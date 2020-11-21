@@ -18,6 +18,7 @@ export default theme => {
       overlay: '#ffffff',
       text: {
         main: '#e2e2e2',
+        alternate: '#121212',
         disabled: '#878787',
       },
     };

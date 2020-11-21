@@ -11,10 +11,10 @@ export default colors =>
     header: {
       justifyContent: 'center',
       alignItems: 'center',
-      padding: 8,
+      padding: 4,
     },
     headerContent: {
-      fontSize: 18,
+      fontSize: 14,
       color: colors.text.main,
     },
   });

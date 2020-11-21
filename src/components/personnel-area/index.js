@@ -36,7 +36,7 @@ class PersonnelArea extends Component {
           style={styles.option}
           onPress={this._onAddPersonnelPressed}
         >
-          <Text>ADD PERSONNEL</Text>
+          <Text style={styles.optionContent} >ADD PERSONNEL</Text>
           <Icon name="arrow-right" style={styles.optionContent} />
         </TouchableOpacity>
         <Staging />

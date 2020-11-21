@@ -31,7 +31,7 @@ class Roster extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.headerContent}> Roster </Text>
+          <Text style={styles.headerContent}> ROSTER </Text>
         </View>
         <TextInput
           style={styles.queryInput}

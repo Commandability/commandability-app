@@ -14,7 +14,7 @@ import {
   GroupOptions,
   GroupArea,
   BottomBar,
-  PersonnelOptions,
+  PersonnelArea,
 } from '../../components';
 import { activeReport, getInitialEpoch, getTheme } from '../../redux/selectors';
 import { startIncident, endIncident } from '../../redux/actions';
@@ -110,7 +110,7 @@ class IncidentScreen extends Component {
       <View style={styles.container}>
         <View style={styles.mainArea}>
           <View style={styles.sideBar}>
-            <PersonnelOptions />
+            <PersonnelArea />
           </View>
           <View style={styles.incidentArea}>
             <GroupOptions

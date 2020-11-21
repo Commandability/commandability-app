@@ -1,35 +1,37 @@
+import BottomBar from './bottom-bar';
 import Group from './group';
 import GroupArea from './group-area';
 import GroupList from './group-list';
-import BottomBar from './bottom-bar';
+import GroupOptions from './group-options';
 import ListItem from './list-item';
 import NewPersonnel from './new-personnel';
-import NewPersonnelList from './new-personnel-list';
 import NewPersonnelItem from './new-personnel-item';
-import GroupOptions from './group-options';
+import NewPersonnelList from './new-personnel-list';
+import PersonnelArea from './personnel-area';
+import RemovePersonnel from './remove-personnel';
 import Roster from './roster';
 import RosterItem from './roster-item';
 import RosterList from './roster-list';
 import Staging from './staging';
 import StagingList from './staging-list';
 import Timer from './timer';
-import PersonnelOptions from './personnel-options';
 
 export {
+  BottomBar,
   Group,
   GroupArea,
   GroupList,
-  BottomBar,
+  GroupOptions,
   ListItem,
   NewPersonnel,
-  NewPersonnelList,
   NewPersonnelItem,
-  GroupOptions,
+  NewPersonnelList,
+  PersonnelArea,
+  RemovePersonnel,
   Roster,
   RosterItem,
   RosterList,
   Staging,
   StagingList,
   Timer,
-  PersonnelOptions,
 };

@@ -1,7 +1,7 @@
 /**
- * PersonnelOptions Component
+ * RemovePersonnel Component
  *
- * This component handles the personnel options bellow the staging list, including:
+ * This component handles removing personnel from the staging list
  *
  */
 
@@ -9,7 +9,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Alert, TouchableOpacity, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 
 import {
@@ -25,17 +24,8 @@ import {
   setPersonLocationId,
   removePerson,
 } from '../../redux/actions';
-import { Staging } from "../../components";
-import { getSelectedIds } from '../../redux/selected/reducer';
 
-class PersonnelOptions extends Component {
-  _onAddPersonnelPressed = () => {
-    const {
-      navigation: { navigate },
-    } = this.props;
-    navigate('PersonnelPrompt');
-  };
-
+class RemovePersonnel extends Component {
   _onRemovePressed = () => {
     const {
       clearSelectedPersonnel,
@@ -79,40 +69,29 @@ class PersonnelOptions extends Component {
     const colors = themeSelector(theme);
     const styles = createStyleSheet(colors);
 
+    const renderOverlay = selectedLocationId == STAGING;
+
     return (
       <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.option}
-          onPress={this._onAddPersonnelPressed}
-        >
-          <Text style={styles.buttonContent}>ADD PERSONNEL</Text>
-          <Icon name="arrow-right" style={styles.optionContent} />
-        </TouchableOpacity>
-
-        <Staging />
-
-        <TouchableOpacity
-          disabled={selectedLocationId != STAGING}
-          style={styles.remove}
-          onPress={this._onRemovePressed}
-        >
-          <Text style={ styles.removeContent }>
-            REMOVE PERSONNEL
-          </Text>
-          <Icon name="account-multiple-remove" 
-          style={styles.icon} />
-        </TouchableOpacity>
+        {renderOverlay && (
+          <TouchableOpacity
+            style={styles.overlay}
+            onPress={this._onRemovePressed}
+          />
+        )}
+        <View style={styles.remove}>
+          <Text style={styles.header}>REMOVE PERSONNEL</Text>
+          <Icon name="account-multiple-remove" style={styles.icon} />
+        </View>
       </View>
     );
   }
 }
 
 // props validation
-PersonnelOptions.propTypes = {
-  navigation: PropTypes.object,
+RemovePersonnel.propTypes = {
   theme: PropTypes.string,
   selectedLocationId: PropTypes.string,
-  locationId: PropTypes.string,
   selectedPersonnel: PropTypes.array,
   clearSelectedPersonnel: PropTypes.func,
   setPersonLocationId: PropTypes.func,
@@ -125,19 +104,11 @@ const mapStateToProps = state => ({
   theme: getTheme(state),
 });
 
-const ConnectWrapper = connect(
+export default connect(
   mapStateToProps,
   {
-    getSelectedIds,
     clearSelectedPersonnel,
     removePerson,
     setPersonLocationId,
   }
-)(PersonnelOptions);
-
-// Wrap and export
-export default function NavigationWrapper(props) {
-  const navigation = useNavigation();
-
-  return <ConnectWrapper {...props} navigation={navigation} />;
-}
+)(RemovePersonnel);

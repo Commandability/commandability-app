@@ -22,12 +22,8 @@ export default colors =>
     header: {
       flexDirection: 'row',
       justifyContent: 'center',
-      alignItems: 'center',
       padding: 4,
-      width: '100%',
       backgroundColor: colors.background.three,
-      borderTopLeftRadius: 5,
-      borderTopRightRadius: 5,
     },
     headerContent: {
       fontSize: 14,

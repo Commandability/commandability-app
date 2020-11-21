@@ -37,16 +37,20 @@ class GroupOptions extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity
-          style={styles.option}
+          style={[styles.option,
+          addGroupMode 
+            ? styles.selectedOption
+            : styles.option, 
+          ]}
           onPress={this._onAddGroupPressed}
-          disabled={editGroupMode || removeGroupMode}
+          //disabled={editGroupMode || removeGroupMode}
         >
           <Text
             style={[
               styles.optionContent,
               addGroupMode
                 ? styles.selected
-                : (editGroupMode || removeGroupMode) && styles.deselected,
+                : styles.optionContent,
             ]}
           >
             {' '}
@@ -54,16 +58,19 @@ class GroupOptions extends Component {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.option}
+          style={[styles.option,
+            removeGroupMode 
+            ? styles.selectedOption
+            : styles.option, 
+          ]}
           onPress={this._onRemoveGroupPressed}
-          disabled={editGroupMode || addGroupMode}
+          //disabled={editGroupMode || addGroupMode}
         >
           <Text
             style={[
               styles.optionContent,
               removeGroupMode
-                ? styles.selected
-                : (editGroupMode || addGroupMode) && styles.deselected,
+                ? styles.selected: styles.optionContent,
             ]}
           >
             {' '}
@@ -71,16 +78,20 @@ class GroupOptions extends Component {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.option}
+          style={[styles.option,
+            editGroupMode 
+            ? styles.selectedOption
+            : styles.option, 
+          ]}
           onPress={this._onEditGroupPressed}
-          disabled={removeGroupMode || addGroupMode}
+          //disabled={removeGroupMode || addGroupMode}
         >
           <Text
             style={[
               styles.optionContent,
               editGroupMode
                 ? styles.selected
-                : (removeGroupMode || addGroupMode) && styles.deselected,
+                : styles.optionContent,
             ]}
           >
             {' '}

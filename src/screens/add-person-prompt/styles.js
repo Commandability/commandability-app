@@ -27,6 +27,7 @@ export default colors =>
       margin: 24,
       borderTopLeftRadius: 5,
       borderTopRightRadius: 5,
+      paddingLeft: 16,
     },
     opacity: {
       flexDirection: 'row',

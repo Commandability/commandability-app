@@ -25,6 +25,9 @@ export default colors =>
       color: colors.text.main,
       backgroundColor: colors.background.two,
       margin: 24,
+      borderTopRightRadius: 5,
+      borderTopLeftRadius: 5,
+      paddingLeft: 16,
     },
     opacity: {
       flexDirection: 'row',

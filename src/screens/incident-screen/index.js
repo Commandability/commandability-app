@@ -49,18 +49,24 @@ class IncidentScreen extends Component {
   _addGroup = () => {
     this.setState(prevState => ({
       addGroupMode: !prevState.addGroupMode,
+      removeGroupMode: false,
+      editGroupMode: false,
     }));
   };
 
   _removeGroup = () => {
     this.setState(prevState => ({
       removeGroupMode: !prevState.removeGroupMode,
+      addGroupMode: false,
+      editGroupMode: false,
     }));
   };
 
   _editGroup = () => {
     this.setState(prevState => ({
       editGroupMode: !prevState.editGroupMode,
+      addGroupMode: false,
+      removeGroupMode: false,
     }));
   };
 

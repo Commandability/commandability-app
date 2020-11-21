@@ -24,16 +24,17 @@ export default theme => {
     };
   } else {
     return {
-      primary: '#b72d2a',
+      primary: '#9b0000',
       background: {
-        one: '#d3d3d3',
-        two: '#e0e0e0',
-        three: '#ffffff',
+        one: '#B4b4b4',
+        two: '#d7d7d7',
+        three: '#f5f5f5',
       },
       overlay: '#000000',
       text: {
         main: '#121212',
         disabled: '#878787',
+        alternate: '#f5f5f5',
       },
     };
   }

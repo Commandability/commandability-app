@@ -11,8 +11,10 @@ export default colors =>
       flexDirection: 'row',
     },
     sideBar: {
-      width: '25%',
-      padding: 16,
+      width: '25.5%',
+      paddingVertical: 16,
+      paddingLeft: 16,
+      marginRight: 0,
     },
     incidentArea: {
       width: '72%',

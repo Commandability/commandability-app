@@ -28,7 +28,7 @@ export default colors =>
     selected: {
       color: colors.primary,
     },
-    deselected: {
-      color: colors.text.main,
-    },
+    selectedOption: {
+      backgroundColor: colors.background.three,
+    }
   });

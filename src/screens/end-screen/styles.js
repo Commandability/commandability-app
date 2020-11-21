@@ -24,6 +24,9 @@ export default colors =>
       color: colors.text.main,
       backgroundColor: colors.background.two,
       margin: 24,
+      paddingLeft: 16,
+      borderTopLeftRadius: 5,
+      borderTopRightRadius: 5,
     },
     notesInput: {
       height: 144,
@@ -32,6 +35,9 @@ export default colors =>
       borderColor: colors.primary,
       backgroundColor: colors.background.two,
       margin: 24,
+      paddingLeft: 16,
+      borderTopLeftRadius: 5,
+      borderTopRightRadius: 5,
     },
     row: {
       flexDirection: 'row',
@@ -43,6 +49,7 @@ export default colors =>
       backgroundColor: colors.background.two,
       padding: 48,
       margin: 24,
+      borderRadius: 5,
     },
     rowOpacity: {
       flex: 1,

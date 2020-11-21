@@ -25,6 +25,7 @@ export default colors =>
       alignItems: 'center',
       backgroundColor: colors.background.two,
       margin: 24,
+      borderRadius: 5,
     },
     icon: {
       fontSize: 42,

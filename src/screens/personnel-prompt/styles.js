@@ -7,6 +7,7 @@ export default colors =>
       flex: 1,
       backgroundColor: colors.background.one,
       padding: 24,
+      flexDirection: "row",
     },
     promptContainer: {
       flex: 1,
@@ -22,15 +23,19 @@ export default colors =>
     },
     newPersonnel: {
       flex: 1,
-      paddingHorizontal: 16,
+      padding: 8,
       width: Dimensions.get('window').width / 4,
       marginRight: 48,
+      backgroundColor: colors.background.two,
+      borderRadius: 5,
     },
     roster: {
       flex: 1,
-      paddingHorizontal: 16,
+      padding: 8,
       width: Dimensions.get('window').width / 4,
       marginLeft: 48,
+      backgroundColor: colors.background.two,
+      borderRadius: 5,
     },
     option: {
       flexDirection: 'row',
@@ -40,9 +45,9 @@ export default colors =>
       paddingVertical: 4,
       marginHorizontal: 12,
       marginTop: 16,
-      marginBottom: 8,
       borderRadius: 5,
       backgroundColor: colors.primary,
+      alignSelf: 'center',
     },
     optionContent: {
       paddingHorizontal: 2,

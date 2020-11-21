@@ -70,16 +70,18 @@ class ListItem extends PureComponent {
       personIsSelected,
       theme,
     } = this.props;
+    
     const time = Math.floor(this.state.time / MS_IN_MINUTE);
 
     const colors = themeSelector(theme);
     const styles = createStyleSheet(colors);
 
     return (
-      <TouchableOpacity
-        onPress={this._onPress}
-        style={[personIsSelected && styles.selected, styles.container]}
-      >
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={[personIsSelected ? styles.selected : styles.deselected, styles.overlay]}
+          onPress={this._onPress}
+        />
         <View style={styles.content}>
           <View style={styles.mainLine}>
             <Text style={styles.name}>{`${firstName} ${lastName}`}</Text>
@@ -93,7 +95,7 @@ class ListItem extends PureComponent {
             }`}</Text>
           </View>
         </View>
-      </TouchableOpacity>
+      </View>
     );
   }
 }

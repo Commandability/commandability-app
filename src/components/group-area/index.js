@@ -6,7 +6,6 @@
 
 import React from 'react';
 import { View } from 'react-native';
-// import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
@@ -90,14 +89,3 @@ GroupArea.propTypes = {
 };
 
 export default GroupArea;
-
-// const mapStateToProps = (state) => {
-//   return {
-//     theme: getTheme(state),
-//   };
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   null
-// )(GroupArea);

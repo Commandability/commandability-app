@@ -2,11 +2,23 @@ import { StyleSheet } from 'react-native';
 
 export default colors =>
   StyleSheet.create({
-    container: {
-      flex: 1,
+    overlay: {
+      backgroundColor: colors.overlay,
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      zIndex: 1,
+      width: '100%',
+      height: '100%',
     },
     selected: {
-      backgroundColor: colors.background.three,
+      opacity: 1,
+    },
+    deselected: {
+      opacity: 0,
+    },
+    container: {
+      flex: 1,
     },
     content: {
       borderBottomWidth: 1,

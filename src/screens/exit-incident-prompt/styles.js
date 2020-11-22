@@ -31,6 +31,7 @@ export default colors =>
       color: colors.text.main,
       backgroundColor: colors.background.two,
       margin: 24,
+      borderRadius: 5
     },
     opacity: {
       flexDirection: 'row',
@@ -39,6 +40,7 @@ export default colors =>
       backgroundColor: colors.background.two,
       padding: 48,
       margin: 24,
+      borderRadius: 5
     },
     opacityText: {
       fontSize: 42,

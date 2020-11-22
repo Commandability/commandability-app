@@ -24,8 +24,7 @@ export default colors =>
       justifyContent: 'center',
       padding: 4,
       backgroundColor: colors.background.three,
-      borderTopLeftRadius: 5,
-      borderTopRightRadius: 5,
+      borderRadius: 5,
     },
     headerContent: {
       fontSize: 14,

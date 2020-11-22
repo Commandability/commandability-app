@@ -21,8 +21,7 @@ export default colors =>
       color: colors.text.main,
       backgroundColor: colors.background.two,
       margin: 24,
-      borderTopLeftRadius: 5,
-      borderTopRightRadius: 5,
+      borderRadius: 5,
       paddingLeft: 16,
     },
     opacity: {

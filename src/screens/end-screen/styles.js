@@ -6,8 +6,7 @@ export default colors =>
       position: 'absolute',
       left: 0,
       right: 0,
-      bottom: 0,
-      height: 80,
+      bottom: 24,
     },
     container: {
       flex: 1,
@@ -25,8 +24,7 @@ export default colors =>
       backgroundColor: colors.background.two,
       margin: 24,
       paddingLeft: 16,
-      borderTopLeftRadius: 5,
-      borderTopRightRadius: 5,
+      borderRadius: 5,
     },
     notesInput: {
       height: 144,
@@ -36,8 +34,7 @@ export default colors =>
       backgroundColor: colors.background.two,
       margin: 24,
       paddingLeft: 16,
-      borderTopLeftRadius: 5,
-      borderTopRightRadius: 5,
+      borderRadius: 5,
     },
     row: {
       flexDirection: 'row',

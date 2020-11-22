@@ -6,8 +6,7 @@ export default colors =>
       position: 'absolute',
       left: 0,
       right: 0,
-      bottom: 0,
-      height: 80,
+      bottom: 24,
     },
     container: {
       flex: 1,
@@ -27,6 +26,7 @@ export default colors =>
       color: colors.text.main,
       backgroundColor: colors.background.two,
       margin: 24,
+      borderRadius: 5
     },
     opacity: {
       flexDirection: 'row',
@@ -35,6 +35,7 @@ export default colors =>
       backgroundColor: colors.background.two,
       padding: 48,
       margin: 24,
+      borderRadius: 5
     },
     icon: {
       fontSize: 42,

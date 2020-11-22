@@ -146,14 +146,14 @@ class EndScreen extends Component {
               <Text style={styles.opacityText}>Save and Exit</Text>
             </TouchableOpacity>
           </View>
-          {this.state.loading && (
+        </KeyboardAwareScrollView>
+        {this.state.loading && (
             <ActivityIndicator
               style={styles.activityIndicator}
               color={colors.primary}
               size={'large'}
             />
           )}
-        </KeyboardAwareScrollView>
       </View>
     );
   }

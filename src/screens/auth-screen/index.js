@@ -113,15 +113,15 @@ class AuthScreen extends Component {
               <Icon name="login" style={styles.icon} />
               <Text style={styles.iconText}>Sign in</Text>
             </TouchableOpacity>
-            {this.state.loading && (
+          </View>
+        </KeyboardAwareScrollView>
+        {this.state.loading && (
               <ActivityIndicator
                 style={styles.activityIndicator}
                 color={colors.primary}
                 size={'large'}
               />
             )}
-          </View>
-        </KeyboardAwareScrollView>
       </View>
     );
   }

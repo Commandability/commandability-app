@@ -16,8 +16,7 @@ export default colors =>
       padding: 24,
     },
     content: {
-      flex: 1,
-      justifyContent: 'center',
+      marginTop: 24,
     },
     label: {
       color: colors.primary,

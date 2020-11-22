@@ -30,5 +30,5 @@ export default colors =>
     },
     selectedOption: {
       backgroundColor: colors.background.three,
-    }
+    },
   });

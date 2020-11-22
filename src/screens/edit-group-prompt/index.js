@@ -81,10 +81,7 @@ class EditGroupPrompt extends Component {
           </View>
         )}
         <View style={styles.promptContainer}>
-          <KeyboardAwareScrollView
-            keyboardShouldPersistTaps="handled"
-            contentContainerStyle={styles.content}
-          >
+          <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
             <Text style={styles.label}>Group name *</Text>
             <TextInput
               style={styles.nameInput}

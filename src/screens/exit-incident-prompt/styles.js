@@ -12,10 +12,6 @@ export default colors =>
       flex: 1,
       justifyContent: 'center',
     },
-    content: {
-      flex: 1,
-      justifyContent: 'center',
-    },
     prompt: {
       margin: 24,
     },

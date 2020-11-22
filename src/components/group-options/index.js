@@ -37,10 +37,9 @@ class GroupOptions extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity
-          style={[styles.option,
-          addGroupMode 
-            ? styles.selectedOption
-            : styles.option, 
+          style={[
+            styles.option,
+            addGroupMode ? styles.selectedOption : styles.option,
           ]}
           onPress={this._onAddGroupPressed}
           //disabled={editGroupMode || removeGroupMode}
@@ -48,9 +47,7 @@ class GroupOptions extends Component {
           <Text
             style={[
               styles.optionContent,
-              addGroupMode
-                ? styles.selected
-                : styles.optionContent,
+              addGroupMode ? styles.selected : styles.optionContent,
             ]}
           >
             {' '}
@@ -58,10 +55,9 @@ class GroupOptions extends Component {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.option,
-            removeGroupMode 
-            ? styles.selectedOption
-            : styles.option, 
+          style={[
+            styles.option,
+            removeGroupMode ? styles.selectedOption : styles.option,
           ]}
           onPress={this._onRemoveGroupPressed}
           //disabled={editGroupMode || addGroupMode}
@@ -69,8 +65,7 @@ class GroupOptions extends Component {
           <Text
             style={[
               styles.optionContent,
-              removeGroupMode
-                ? styles.selected: styles.optionContent,
+              removeGroupMode ? styles.selected : styles.optionContent,
             ]}
           >
             {' '}
@@ -78,10 +73,9 @@ class GroupOptions extends Component {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.option,
-            editGroupMode 
-            ? styles.selectedOption
-            : styles.option, 
+          style={[
+            styles.option,
+            editGroupMode ? styles.selectedOption : styles.option,
           ]}
           onPress={this._onEditGroupPressed}
           //disabled={removeGroupMode || addGroupMode}
@@ -89,9 +83,7 @@ class GroupOptions extends Component {
           <Text
             style={[
               styles.optionContent,
-              editGroupMode
-                ? styles.selected
-                : styles.optionContent,
+              editGroupMode ? styles.selected : styles.optionContent,
             ]}
           >
             {' '}

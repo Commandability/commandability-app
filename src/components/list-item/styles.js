@@ -10,12 +10,7 @@ export default colors =>
       zIndex: 1,
       width: '100%',
       height: '100%',
-    },
-    selected: {
-      opacity: 1,
-    },
-    deselected: {
-      opacity: 0,
+      opacity: 0.2,
     },
     container: {
       flex: 1,

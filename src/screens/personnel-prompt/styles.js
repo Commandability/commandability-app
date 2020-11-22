@@ -7,7 +7,7 @@ export default colors =>
       flex: 1,
       backgroundColor: colors.background.one,
       padding: 24,
-      flexDirection: "row",
+      flexDirection: 'row',
     },
     promptContainer: {
       flex: 1,

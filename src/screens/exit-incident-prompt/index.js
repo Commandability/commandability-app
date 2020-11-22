@@ -75,10 +75,7 @@ class ExitIncidentPrompt extends Component {
           </View>
         )}
         <View style={styles.promptContainer}>
-          <KeyboardAwareScrollView
-            keyboardShouldPersistTaps="handled"
-            contentContainerStyle={styles.content}
-          >
+          <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
             <View style={styles.prompt}>
               <Text style={styles.promptText}>
                 {`Are you absolutely sure you want to exit without saving?`}

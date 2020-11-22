@@ -70,32 +70,35 @@ class ListItem extends PureComponent {
       personIsSelected,
       theme,
     } = this.props;
-    
+
     const time = Math.floor(this.state.time / MS_IN_MINUTE);
 
     const colors = themeSelector(theme);
     const styles = createStyleSheet(colors);
 
+    const renderOverlay = personIsSelected;
+
     return (
-      <View style={styles.container}>
-        <TouchableOpacity
-          style={[personIsSelected ? styles.selected : styles.deselected, styles.overlay]}
-          onPress={this._onPress}
-        />
-        <View style={styles.content}>
-          <View style={styles.mainLine}>
-            <Text style={styles.name}>{`${firstName} ${lastName}`}</Text>
-            <Text style={styles.time}>{`${time}`}</Text>
+      <>
+        {renderOverlay && (
+          <TouchableOpacity style={styles.overlay} onPress={this._onPress} />
+        )}
+        <TouchableOpacity onPress={this._onPress} style={styles.container}>
+          <View style={styles.content}>
+            <View style={styles.mainLine}>
+              <Text style={styles.name}>{`${firstName} ${lastName}`}</Text>
+              <Text style={styles.time}>{`${time}`}</Text>
+            </View>
+            <View style={styles.line}>
+              <Text style={styles.label}>{`${badge ? badge + ' ' : ''}`}</Text>
+              <Text style={styles.label}>{`${shift ? shift : ''}`}</Text>
+              <Text style={styles.label}>{`${
+                organization ? organization : ''
+              }`}</Text>
+            </View>
           </View>
-          <View style={styles.line}>
-            <Text style={styles.label}>{`${badge ? badge + ' ' : ''}`}</Text>
-            <Text style={styles.label}>{`${shift ? shift : ''}`}</Text>
-            <Text style={styles.label}>{`${
-              organization ? organization : ''
-            }`}</Text>
-          </View>
-        </View>
-      </View>
+        </TouchableOpacity>
+      </>
     );
   }
 }

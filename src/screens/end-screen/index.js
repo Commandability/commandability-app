@@ -4,7 +4,7 @@
  * Manages displaying the end screen after an incident.
  */
 
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -13,8 +13,7 @@ import {
   Text,
   TextInput,
 } from 'react-native';
-import { connect } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
@@ -31,29 +30,26 @@ import { saveCurrentReport } from '../../modules/report-manager';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-class EndScreen extends Component {
-  constructor() {
-    super();
-    this.state = {
-      loading: false,
-      location: '',
-      notes: '',
-    };
-  }
+const EndScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const theme = useSelector(state => getTheme(state));
+  const reportData = useSelector(state => getCurrentReportData(state));
 
-  componentDidMount() {
-    const { endIncident } = this.props;
-    endIncident(); // log incident end
-  }
+  const [loading, setLoading] = useState(false);
+  const [location, setLocation] = useState('');
+  const [notes, setNotes] = useState('');
 
-  _saveAndExit = async () => {
-    if (this.state.location) {
-      const { resetIncident, reportData } = this.props;
-      reportData['LOCATION'] = this.state.location;
-      if (this.state.notes) {
-        reportData['NOTES'] = this.state.notes;
+  useEffect(() => {
+    dispatch(endIncident()); // log incident end
+  }, []);
+
+  const onSaveAndExitPressed = async () => {
+    if (location) {
+      reportData['LOCATION'] = location;
+      if (notes) {
+        reportData['NOTES'] = notes;
       }
-      this.setState({ loading: true });
+      setLoading(true);
       try {
         await saveCurrentReport(reportData);
       } catch (error) {
@@ -63,10 +59,9 @@ class EndScreen extends Component {
           },
         ]);
       }
-      this.setState({ loading: false });
-      resetIncident(); // reset personnel locations and group settings, remove all temporary personnel from state
-      const { toHomeStack } = this.props;
-      toHomeStack();
+      setLoading(false);
+      dispatch(resetIncident()); // reset personnel locations and group settings, remove all temporary personnel from state
+      dispatch(toHomeStack());
     } else {
       Alert.alert('Error', 'Location is required.', [
         {
@@ -76,14 +71,12 @@ class EndScreen extends Component {
     }
   };
 
-  _exitWithoutSaving = () => {
-    const {
-      navigation: { navigate },
-    } = this.props;
+  const onExitWithoutSavingPressed = () => {
+    const { navigate } = navigation;
     navigate('ExitIncidentPrompt');
   };
 
-  _resumeIncident = () => {
+  const onResumeIncidentPressed = () => {
     Alert.alert('Are you sure you want to resume the incident?', '', [
       {
         text: 'Cancel',
@@ -92,103 +85,71 @@ class EndScreen extends Component {
       {
         text: 'OK',
         onPress: async () => {
-          const { resumeIncident, toIncidentStack } = this.props;
-          resumeIncident();
-          toIncidentStack();
+          dispatch(resumeIncident());
+          dispatch(toIncidentStack());
         },
       },
     ]);
   };
 
-  render() {
-    const { theme } = this.props;
-    const colors = themeSelector(theme);
-    const styles = createStyleSheet(colors);
+  const colors = themeSelector(theme);
+  const styles = createStyleSheet(colors);
 
-    return (
-      <View style={styles.container}>
-        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-          <Text style={styles.label}>Location *</Text>
-          <TextInput
-            style={styles.locationInput}
-            autoCapitalize="none"
-            onChangeText={location => this.setState({ location })}
-            value={this.state.location}
-          />
-          <Text style={styles.label}>Notes</Text>
-          <TextInput
-            style={styles.notesInput}
-            autoCapitalize="none"
-            multiline={true}
-            onChangeText={notes => this.setState({ notes })}
-            value={this.state.notes}
-          />
+  return (
+    <View style={styles.container}>
+      <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+        <Text style={styles.label}>Location *</Text>
+        <TextInput
+          style={styles.locationInput}
+          autoCapitalize="none"
+          onChangeText={location => setLocation(location)}
+          value={location}
+        />
+        <Text style={styles.label}>Notes</Text>
+        <TextInput
+          style={styles.notesInput}
+          autoCapitalize="none"
+          multiline={true}
+          onChangeText={notes => setNotes(notes)}
+          value={notes}
+        />
+        <TouchableOpacity
+          style={styles.opacity}
+          onPress={onResumeIncidentPressed}
+        >
+          <Icon name="restart" style={styles.icon} />
+          <Text style={styles.opacityText}>Resume Incident</Text>
+        </TouchableOpacity>
+        <View style={styles.row}>
           <TouchableOpacity
-            style={styles.opacity}
-            onPress={this._resumeIncident}
+            style={[styles.opacity, styles.rowOpacity]}
+            onPress={onExitWithoutSavingPressed}
           >
-            <Icon name="restart" style={styles.icon} />
-            <Text style={styles.opacityText}>Resume Incident</Text>
+            <Icon name="cancel" style={styles.icon} />
+            <Text style={styles.opacityText}>Exit Without Saving</Text>
           </TouchableOpacity>
-          <View style={styles.row}>
-            <TouchableOpacity
-              style={[styles.opacity, styles.rowOpacity]}
-              onPress={this._exitWithoutSaving}
-            >
-              <Icon name="cancel" style={styles.icon} />
-              <Text style={styles.opacityText}>Exit Without Saving</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.opacity, styles.rowOpacity]}
-              onPress={this._saveAndExit}
-            >
-              <Icon name="check" style={styles.icon} />
-              <Text style={styles.opacityText}>Save and Exit</Text>
-            </TouchableOpacity>
-          </View>
-        </KeyboardAwareScrollView>
-        {this.state.loading && (
-            <ActivityIndicator
-              style={styles.activityIndicator}
-              color={colors.primary}
-              size={'large'}
-            />
-          )}
-      </View>
-    );
-  }
-}
+          <TouchableOpacity
+            style={[styles.opacity, styles.rowOpacity]}
+            onPress={onSaveAndExitPressed}
+          >
+            <Icon name="check" style={styles.icon} />
+            <Text style={styles.opacityText}>Save and Exit</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAwareScrollView>
+      {loading && (
+        <ActivityIndicator
+          style={styles.activityIndicator}
+          color={colors.primary}
+          size={'large'}
+        />
+      )}
+    </View>
+  );
+};
 
 EndScreen.propTypes = {
   navigation: PropTypes.object,
-  endIncident: PropTypes.func,
-  resetIncident: PropTypes.func,
-  resumeIncident: PropTypes.func,
-  toHomeStack: PropTypes.func,
-  toIncidentStack: PropTypes.func,
-  reportData: PropTypes.object,
-  theme: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
-  reportData: getCurrentReportData(state),
-  theme: getTheme(state),
-});
-
-const ConnectWrapper = connect(
-  mapStateToProps,
-  {
-    endIncident,
-    resetIncident,
-    resumeIncident,
-    toHomeStack,
-    toIncidentStack,
-  }
-)(EndScreen);
-
-// Wrap and export
-export default function NavigationWrapper(props) {
-  const navigation = useNavigation();
-
-  return <ConnectWrapper {...props} navigation={navigation} />;
-}
+export default EndScreen;

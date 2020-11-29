@@ -4,7 +4,7 @@
  * Manages displaying the login page.
  */
 
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -14,34 +14,29 @@ import {
   Text,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
-import PropTypes from 'prop-types';
 
 import { getTheme } from '../../redux/selectors';
 import { signIn } from '../../redux/actions';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-class AuthScreen extends Component {
-  constructor() {
-    super();
-    this.state = {
-      loading: false,
-      email: 'commandabilityapp@gmail.com', // empty string
-      password: 'dev-password', // empty string
-    };
-  }
+const AuthScreen = () => {
+  const dispatch = useDispatch();
+  const theme = useSelector(state => getTheme(state));
 
-  _signIn = async () => {
-    const { signIn } = this.props;
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('commandabilityapp@gmail.com');
+  const [password, setPassword] = useState('dev-password');
+
+  const onSignInPressed = async () => {
     const { isConnected } = await NetInfo.fetch();
     if (isConnected) {
-      this.setState({ loading: true });
-      const { email, password } = this.state;
+      setLoading(true);
       try {
-        await signIn(email, password);
+        await dispatch(signIn(email, password));
       } catch (error) {
         let message = '';
         switch (error.code) {
@@ -61,11 +56,8 @@ class AuthScreen extends Component {
             text: 'OK',
           },
         ]);
-        this.setState(prevState => ({
-          loading: false,
-          email: prevState.email,
-          password: '',
-        }));
+        setLoading(false);
+        setPassword('');
       }
     } else {
       Alert.alert(
@@ -80,66 +72,48 @@ class AuthScreen extends Component {
     }
   };
 
-  render() {
-    const { theme } = this.props;
-    const colors = themeSelector(theme);
-    const styles = createStyleSheet(colors);
+  const colors = themeSelector(theme);
+  const styles = createStyleSheet(colors);
 
-    return (
-      <View style={styles.container}>
-        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-          <View style={styles.content}>
-            <Text style={styles.label}>Email</Text>
-            <TextInput
-              style={styles.textInput}
-              autoCapitalize="none"
-              keyboardType="email-address"
-              onChangeText={email => this.setState({ email })}
-              value={this.state.email}
-            />
-            <Text style={styles.label}>Password</Text>
-            <TextInput
-              style={styles.textInput}
-              autoCapitalize="none"
-              secureTextEntry
-              onChangeText={password => this.setState({ password })}
-              value={this.state.password}
-            />
-            <TouchableOpacity
-              style={styles.opacity}
-              onPress={this._signIn}
-              disabled={this.state.email && this.state.password ? false : true}
-            >
-              <Icon name="login" style={styles.icon} />
-              <Text style={styles.iconText}>Sign in</Text>
-            </TouchableOpacity>
-          </View>
-        </KeyboardAwareScrollView>
-        {this.state.loading && (
-              <ActivityIndicator
-                style={styles.activityIndicator}
-                color={colors.primary}
-                size={'large'}
-              />
-            )}
-      </View>
-    );
-  }
-}
-
-// props validation
-AuthScreen.propTypes = {
-  signIn: PropTypes.func,
-  theme: PropTypes.string,
+  return (
+    <View style={styles.container}>
+      <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+        <View style={styles.content}>
+          <Text style={styles.label}>Email</Text>
+          <TextInput
+            style={styles.textInput}
+            autoCapitalize="none"
+            keyboardType="email-address"
+            onChangeText={email => setEmail(email)}
+            value={email}
+          />
+          <Text style={styles.label}>Password</Text>
+          <TextInput
+            style={styles.textInput}
+            autoCapitalize="none"
+            secureTextEntry
+            onChangeText={password => setPassword(password)}
+            value={password}
+          />
+          <TouchableOpacity
+            style={styles.opacity}
+            onPress={onSignInPressed}
+            disabled={email && password ? false : true}
+          >
+            <Icon name="login" style={styles.icon} />
+            <Text style={styles.iconText}>Sign in</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAwareScrollView>
+      {loading && (
+        <ActivityIndicator
+          style={styles.activityIndicator}
+          color={colors.primary}
+          size={'large'}
+        />
+      )}
+    </View>
+  );
 };
 
-const mapStateToProps = state => ({
-  theme: getTheme(state),
-});
-
-export default connect(
-  mapStateToProps,
-  {
-    signIn,
-  }
-)(AuthScreen);
+export default AuthScreen;

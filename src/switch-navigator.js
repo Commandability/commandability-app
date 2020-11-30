@@ -6,10 +6,9 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import PropTypes from 'prop-types';
 
 import {
   HomeScreen,
@@ -38,8 +37,10 @@ const screenOptions = {
   headerShown: false,
 };
 
-class SwitchNavigator extends React.Component {
-  setStack(stack) {
+const SwitchNavigator = () => {
+  const stack = useSelector(state => getStack(state));
+
+  const setStack = stack => {
     switch (stack) {
       case HOME_STACK:
         return (
@@ -87,26 +88,9 @@ class SwitchNavigator extends React.Component {
           </Auth.Navigator>
         );
     }
-  }
-
-  render() {
-    const { stack } = this.props;
-    return <NavigationContainer>{this.setStack(stack)}</NavigationContainer>;
-  }
-}
-
-// props validation
-SwitchNavigator.propTypes = {
-  stack: PropTypes.string,
-};
-
-const mapStateToProps = state => {
-  return {
-    stack: getStack(state),
   };
+
+  return <NavigationContainer>{setStack(stack)}</NavigationContainer>;
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(SwitchNavigator);
+export default SwitchNavigator;

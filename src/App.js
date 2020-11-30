@@ -5,7 +5,7 @@
  */
 
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -17,34 +17,26 @@ import SwitchNavigator from './switch-navigator';
 
 export const { persistor, store } = configureStore();
 
-export default class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      initializing: true,
-    };
-  }
+const App = () => {
+  const [initializing, setInitializing] = useState(true);
 
-  componentDidMount() {
-    this.authSubscription = auth().onAuthStateChanged(() => {
-      this.authSubscription(); // stop checking for auth state changes
-      if (this.state.initializing) this.setState({ initializing: false });
+  useEffect(() => {
+    const authSubscription = auth().onAuthStateChanged(() => {
+      authSubscription(); // stop checking for auth state changes
+      if (initializing) setInitializing(false);
     });
-  }
+    return () => authSubscription();
+  }, [initializing]);
 
-  componentWillUnmount() {
-    this.authSubscription(); // stop checking for auth state changes
-  }
+  if (initializing) return <View />;
+  SplashScreen.hide();
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <SwitchNavigator />
+      </PersistGate>
+    </Provider>
+  );
+};
 
-  render() {
-    if (this.state.initializing) return <View />;
-    SplashScreen.hide();
-    return (
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <SwitchNavigator />
-        </PersistGate>
-      </Provider>
-    );
-  }
-}
+export default App;

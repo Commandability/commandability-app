@@ -4,8 +4,7 @@
  * Manages displaying the home screen and activity indicator when signing out.
  */
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -13,11 +12,11 @@ import {
   View,
   Text,
 } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
-import PropTypes from 'prop-types';
 
 import {
   activeReport,
@@ -61,32 +60,27 @@ import { DARK } from '../../modules/theme-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-class HomeScreen extends Component {
-  constructor() {
-    super();
-    this.state = { loading: false };
-  }
+const HomeScreen = () => {
+  const dispatch = useDispatch();
+  const theme = useSelector(state => getTheme(state));
+  const _configurationLoaded = useSelector(state => configurationLoaded(state));
+  const _completedReport = useSelector(state => completedReport(state));
+  const _activeReport = useSelector(state => activeReport(state));
 
-  componentDidMount() {
-    const {
-      activeReport,
-      completedReport,
-      toIncidentStack,
-      toEndStack,
-    } = this.props;
-    if (activeReport) {
-      toIncidentStack();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (_activeReport) {
+      dispatch(toIncidentStack());
     }
-    if (completedReport) {
-      toEndStack();
+    if (_completedReport) {
+      dispatch(toEndStack());
     }
-  }
+  }, [_activeReport, _completedReport]);
 
-  _startIncident = () => {
-    const { configurationLoaded, toIncidentStack } = this.props;
-
-    if (configurationLoaded) {
-      toIncidentStack();
+  const onStartIncidentPressed = () => {
+    if (_configurationLoaded) {
+      dispatch(toIncidentStack());
     } else {
       Alert.alert(
         'No configuration data found',
@@ -100,15 +94,11 @@ class HomeScreen extends Component {
     }
   };
 
-  _updateConfiguration = async () => {
+  const onUpdateConfigurationPressed = async () => {
     const { isConnected } = await NetInfo.fetch();
     if (isConnected) {
-      this.setState({
-        loading: true,
-      });
+      setLoading(true);
       try {
-        const { initGroup, clearPersonnel, addPerson } = this.props;
-
         const { currentUser } = auth();
         // User is signed in.
         if (currentUser) {
@@ -142,12 +132,12 @@ class HomeScreen extends Component {
           // set default group settings
           groupIds.forEach(id => {
             const { name, visibility } = groups[id];
-            initGroup(id, name, visibility);
+            dispatch(initGroup(id, name, visibility));
           });
           // refresh personnel data
-          clearPersonnel();
+          dispatch(clearPersonnel());
           personnel.forEach(person => {
-            addPerson(person, ROSTER, false); // false for non-temporary personnel
+            dispatch(addPerson(person, ROSTER, false)); // false for non-temporary personnel
           });
         }
 
@@ -167,9 +157,7 @@ class HomeScreen extends Component {
           },
         ]);
       }
-      this.setState({
-        loading: false,
-      });
+      setLoading(false);
     } else {
       Alert.alert(
         'Failed to connect to the network',
@@ -183,12 +171,10 @@ class HomeScreen extends Component {
     }
   };
 
-  _uploadReports = async () => {
+  const onUploadReportsPressed = async () => {
     const { isConnected } = await NetInfo.fetch();
     if (isConnected) {
-      this.setState({
-        loading: true,
-      });
+      setLoading(true);
       try {
         await uploadReports();
         await deleteAllReports();
@@ -208,9 +194,7 @@ class HomeScreen extends Component {
           },
         ]);
       }
-      this.setState({
-        loading: false,
-      });
+      setLoading(false);
     } else {
       Alert.alert(
         'Failed to connect to the network',
@@ -224,12 +208,11 @@ class HomeScreen extends Component {
     }
   };
 
-  _toggleTheme = () => {
-    const { toggleTheme } = this.props;
-    toggleTheme();
+  const onToggleThemePressed = () => {
+    dispatch(toggleTheme());
   };
 
-  _signOut = async () => {
+  const onSignOutPressed = async () => {
     Alert.alert(
       'Are you sure you want to sign out?',
       'All personnel and incident data will be removed, but any reports will still be available on next sign in.',
@@ -241,13 +224,10 @@ class HomeScreen extends Component {
         {
           text: 'OK',
           onPress: async () => {
-            this.setState({
-              loading: true,
-            });
-            const { resetApp } = this.props;
-            resetApp();
+            setLoading(true);
+            dispatch(resetApp());
             try {
-              await signOut();
+              await dispatch(signOut());
             } catch (error) {
               Alert.alert('Error', error, [
                 {
@@ -259,112 +239,69 @@ class HomeScreen extends Component {
         },
       ]
     );
-    this.setState({
-      loading: false,
-    });
+    setLoading(false);
   };
 
-  render() {
-    const { theme } = this.props;
+  const colors = themeSelector(theme);
+  const styles = createStyleSheet(colors);
 
-    const colors = themeSelector(theme);
-    const styles = createStyleSheet(colors);
-
-    return (
-      <View style={styles.container}>
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.opacity}
+        onPress={onStartIncidentPressed}
+        color={colors.primary}
+      >
+        <Icon name="launch" style={styles.icon} />
+        <Text style={styles.opacityText}>Start Incident</Text>
+      </TouchableOpacity>
+      <View style={styles.row}>
         <TouchableOpacity
           style={styles.opacity}
-          onPress={this._startIncident}
+          onPress={onUpdateConfigurationPressed}
           color={colors.primary}
         >
-          <Icon name="launch" style={styles.icon} />
-          <Text style={styles.opacityText}>Start Incident</Text>
+          <Icon name="update" style={styles.icon} />
+          <Text style={styles.opacityText}>Update Configuration</Text>
         </TouchableOpacity>
-        <View style={styles.row}>
-          <TouchableOpacity
-            style={styles.opacity}
-            onPress={this._updateConfiguration}
-            color={colors.primary}
-          >
-            <Icon name="update" style={styles.icon} />
-            <Text style={styles.opacityText}>Update Configuration</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.opacity}
-            onPress={this._uploadReports}
-            color={colors.primary}
-          >
-            <Icon name="upload" style={styles.icon} />
-            <Text style={styles.opacityText}>Upload Reports</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.row}>
-          <TouchableOpacity
-            style={styles.opacity}
-            onPress={this._toggleTheme}
-            color={colors.primary}
-          >
-            <Icon name="theme-light-dark" style={styles.icon} />
-            <Text style={styles.opacityText}>
-              {theme === DARK ? 'Light' : 'Dark'}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.opacity}
-            onPress={this._signOut}
-            color={colors.primary}
-          >
-            <Icon name="logout" style={styles.icon} />
-            <Text style={styles.opacityText}>Sign out</Text>
-          </TouchableOpacity>
-        </View>
-        {this.state.loading && (
-          <ActivityIndicator
-            style={styles.activityIndicator}
-            color={colors.primary}
-            size={'large'}
-          />
-        )}
+        <TouchableOpacity
+          style={styles.opacity}
+          onPress={onUploadReportsPressed}
+          color={colors.primary}
+        >
+          <Icon name="upload" style={styles.icon} />
+          <Text style={styles.opacityText}>Upload Reports</Text>
+        </TouchableOpacity>
       </View>
-    );
-  }
-}
-
-// props validation
-HomeScreen.propTypes = {
-  activeReport: PropTypes.bool,
-  completedReport: PropTypes.bool,
-  configurationLoaded: PropTypes.bool,
-  reportData: PropTypes.object,
-  email: PropTypes.string,
-  signOut: PropTypes.func,
-  toIncidentStack: PropTypes.func,
-  toEndStack: PropTypes.func,
-  resetApp: PropTypes.func,
-  initGroup: PropTypes.func,
-  clearPersonnel: PropTypes.func,
-  addPerson: PropTypes.func,
-  toggleTheme: PropTypes.func,
-  theme: PropTypes.string,
+      <View style={styles.row}>
+        <TouchableOpacity
+          style={styles.opacity}
+          onPress={onToggleThemePressed}
+          color={colors.primary}
+        >
+          <Icon name="theme-light-dark" style={styles.icon} />
+          <Text style={styles.opacityText}>
+            {theme === DARK ? 'Light' : 'Dark'}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.opacity}
+          onPress={onSignOutPressed}
+          color={colors.primary}
+        >
+          <Icon name="logout" style={styles.icon} />
+          <Text style={styles.opacityText}>Sign out</Text>
+        </TouchableOpacity>
+      </View>
+      {loading && (
+        <ActivityIndicator
+          style={styles.activityIndicator}
+          color={colors.primary}
+          size={'large'}
+        />
+      )}
+    </View>
+  );
 };
 
-const mapStateToProps = state => ({
-  activeReport: activeReport(state),
-  completedReport: completedReport(state),
-  configurationLoaded: configurationLoaded(state),
-  theme: getTheme(state),
-});
-
-export default connect(
-  mapStateToProps,
-  {
-    signOut,
-    toIncidentStack,
-    toEndStack,
-    resetApp,
-    initGroup,
-    clearPersonnel,
-    addPerson,
-    toggleTheme,
-  }
-)(HomeScreen);
+export default HomeScreen;

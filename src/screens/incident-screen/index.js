@@ -76,7 +76,6 @@ const IncidentScreen = () => {
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
-  // eslint-disable-next-line react/prop-types
   const renderScene = ({ route }) => (
     <GroupArea
       route={route}

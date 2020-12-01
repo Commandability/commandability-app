@@ -70,8 +70,9 @@ const ExitIncidentPrompt = ({ navigation }) => {
               {`Are you absolutely sure you want to exit without saving?`}
             </Text>
             <Text style={styles.promptText}>
-              Please type <Text style={styles.email}>{userEmail}</Text> to
-              confirm.
+              <Text>Please type </Text>
+              <Text style={styles.email}>{userEmail}</Text>
+              <Text> to confirm.</Text>
             </Text>
           </View>
           <Text style={styles.label}>Organization email *</Text>

@@ -10,7 +10,6 @@ import { View } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import auth from '@react-native-firebase/auth';
-import SplashScreen from 'react-native-splash-screen';
 
 import configureStore from './redux/configure-store';
 import SwitchNavigator from './switch-navigator';
@@ -29,7 +28,6 @@ const App = () => {
   }, [initializing]);
 
   if (initializing) return <View />;
-  SplashScreen.hide();
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

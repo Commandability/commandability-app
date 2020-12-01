@@ -5,10 +5,11 @@
  * Based on https://reactnavigation.org/docs/auth-flow except using redux instead of the Context API.
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import SplashScreen from 'react-native-splash-screen';
 
 import {
   HomeScreen,
@@ -39,6 +40,10 @@ const screenOptions = {
 
 const SwitchNavigator = () => {
   const stack = useSelector(state => getStack(state));
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
 
   const setStack = stack => {
     switch (stack) {

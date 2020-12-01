@@ -4,10 +4,10 @@
  * Manages displaying a person in a group and sets a person as selected in redux and in local state on press.
  */
 
-import React, { PureComponent } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   getLocationUpdateTime,
@@ -20,109 +20,70 @@ import createStyleSheet from './styles';
 
 const MS_IN_MINUTE = 60000;
 
-class ListItem extends PureComponent {
-  constructor(props) {
-    super(props);
-    this._onPress = this._onPress.bind(this); // use bind to avoid duplicating methods on demanding components
+const ListItem = ({ item, locationId }) => {
+  const dispatch = useDispatch();
+  const locationUpdateTime = useSelector(state =>
+    getLocationUpdateTime(state, item)
+  );
+  const _personIsSelected = useSelector(state => personIsSelected(state, item));
+  const theme = useSelector(state => getTheme(state));
 
-    const { locationUpdateTime } = this.props;
-    this.state = {
-      time: Date.now() - locationUpdateTime,
+  const [time, setTime] = useState(Date.now() - locationUpdateTime);
+
+  useEffect(() => {
+    let intervalID = '';
+    const timeoutID = setTimeout(() => {
+      setTime(Date.now() - locationUpdateTime);
+      intervalID = setInterval(
+        () => setTime(Date.now() - locationUpdateTime),
+        MS_IN_MINUTE
+      );
+    }, MS_IN_MINUTE - ((Date.now() - locationUpdateTime) % MS_IN_MINUTE));
+
+    return () => {
+      clearInterval(timeoutID);
+      clearInterval(intervalID);
     };
-  }
+  });
 
-  componentDidMount() {
-    const { locationUpdateTime } = this.props;
-    // set first timer manually to reduce interval when remounting component after crash
-    this.timeoutID = setTimeout(
-      () => {
-        this.setState(() => ({
-          time: Date.now() - locationUpdateTime,
-        }));
-        // set recurring timers at constant intervals
-        this.intervalID = setInterval(
-          () =>
-            this.setState(() => ({
-              time: Date.now() - locationUpdateTime,
-            })),
-          MS_IN_MINUTE
-        );
-      },
-      // calculate remaining ms in last count before a new interval should be started
-      MS_IN_MINUTE - ((Date.now() - locationUpdateTime) % MS_IN_MINUTE)
-    );
-  }
+  const onPress = () => {
+    dispatch(togglePerson(item, locationId));
+  };
 
-  componentWillUnmount() {
-    // clear timers to prevent memory leaks
-    clearInterval(this.timeoutID);
-    clearInterval(this.intervalID);
-  }
+  const colors = themeSelector(theme);
+  const styles = createStyleSheet(colors);
+  const { firstName, lastName, badge, shift, organization } = item;
+  const displayTime = Math.floor(time / MS_IN_MINUTE);
+  const renderOverlay = _personIsSelected;
 
-  _onPress() {
-    const { item, locationId, togglePerson } = this.props;
-    togglePerson(item, locationId);
-  }
-
-  render() {
-    const {
-      item: { firstName, lastName, badge, shift, organization },
-      personIsSelected,
-      theme,
-    } = this.props;
-
-    const time = Math.floor(this.state.time / MS_IN_MINUTE);
-
-    const colors = themeSelector(theme);
-    const styles = createStyleSheet(colors);
-
-    const renderOverlay = personIsSelected;
-
-    return (
-      <>
-        {renderOverlay && (
-          <TouchableOpacity style={styles.overlay} onPress={this._onPress} />
-        )}
-        <TouchableOpacity onPress={this._onPress} style={styles.container}>
-          <View style={styles.content}>
-            <View style={styles.mainLine}>
-              <Text style={styles.name}>{`${firstName} ${lastName}`}</Text>
-              <Text style={styles.time}>{`${time}`}</Text>
-            </View>
-            <View style={styles.line}>
-              <Text style={styles.label}>{`${badge ? badge + ' ' : ''}`}</Text>
-              <Text style={styles.label}>{`${shift ? shift : ''}`}</Text>
-              <Text style={styles.label}>{`${
-                organization ? organization : ''
-              }`}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
+  return (
+    <>
+    {renderOverlay && (
+      <TouchableOpacity style={styles.overlay} onPress={onPress} />
+    )}
+    <TouchableOpacity onPress={onPress} style={styles.container}>
+      <View style={styles.content}>
+        <View style={styles.mainLine}>
+          <Text style={styles.name}>{`${firstName} ${lastName}`}</Text>
+          <Text style={styles.time}>{`${displayTime}`}</Text>
+        </View>
+        <View style={styles.line}>
+          <Text style={styles.label}>{`${badge ? badge + ' ' : ''}`}</Text>
+          <Text style={styles.label}>{`${shift ? shift : ''}`}</Text>
+          <Text style={styles.label}>{`${
+            organization ? organization : ''
+          }`}</Text>
+        </View>
+      </View>
+      </TouchableOpacity>
       </>
-    );
-  }
-}
+  );
+};
 
 // props validation
 ListItem.propTypes = {
-  locationUpdateTime: PropTypes.number,
   item: PropTypes.object, // the current person
   locationId: PropTypes.string, // the parent groupName
-  togglePerson: PropTypes.func,
-  personIsSelected: PropTypes.bool,
-  theme: PropTypes.string,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const { item } = ownProps;
-  return {
-    locationUpdateTime: getLocationUpdateTime(state, item),
-    personIsSelected: personIsSelected(state, item),
-    theme: getTheme(state),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  { togglePerson }
-)(ListItem);
+export default ListItem;

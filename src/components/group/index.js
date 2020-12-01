@@ -5,9 +5,9 @@
  * list and handles visibility control of groups
  */
 
-import React, { Component } from 'react';
+import React from 'react';
 import { Alert, TouchableOpacity, Text, View } from 'react-native';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 
@@ -31,39 +31,29 @@ import { STAGING } from '../../modules/location-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-class Group extends Component {
-  _onAddPressed = () => {
-    const { setVisibility, group } = this.props;
-    setVisibility(group, true);
-  };
+const Group = ({ locationId, addGroupMode, removeGroupMode, editGroupMode, groupSelectedHandler }) => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const personnel = useSelector(state => getPersonnelByLocationId(state, locationId));
+  const selectedLocationId = useSelector(state => getSelectedLocationId(state));
+  const group = useSelector(state => getGroupByLocationId(state, locationId));
+  const selectedGroup = useSelector(state => getGroupByLocationId(state, selectedLocationId));
+  const selectedPersonnel = useSelector(state => getSelectedPersonnel(state));
+  const _allPersonnelSelected = useSelector(state => allPersonnelSelected(state, personnel));
+  const theme = useSelector(state => getTheme(state));
 
-  _onSelectAllPressed = () => {
-    const {
-      locationId,
-      personnel,
-      allPersonnelSelected,
-      selectPerson,
-      deselectPerson,
-    } = this.props;
+
+  const onSelectAllPressed = () => {
     personnel.forEach(item => {
-      allPersonnelSelected
-        ? deselectPerson(item, locationId)
-        : selectPerson(item, locationId);
+      _allPersonnelSelected
+        ? dispatch(deselectPerson(item, locationId))
+        : dispatch(selectPerson(item, locationId));
     });
   };
 
-  _onGroupPressed = () => {
-    const {
-      groupSelectedHandler,
-      addGroupMode,
-      removeGroupMode,
-      editGroupMode,
-      setVisibility,
-      group,
-    } = this.props;
-
+  const onGroupPressed = () => {
     if (addGroupMode) {
-      setVisibility(group, true);
+      dispatch(setVisibility(group, true));
     } else if (removeGroupMode) {
       Alert.alert(
         'Remove group?',
@@ -76,138 +66,75 @@ class Group extends Component {
           {
             text: 'OK',
             onPress: () => {
-              setVisibility(group, false);
+              dispatch(setVisibility(group, false));
             },
           },
         ]
       );
     } else if (editGroupMode) {
-      const {
-        navigation: { navigate },
-      } = this.props;
+      const { navigate } = navigation;
       navigate('EditGroupPrompt', { group });
     } else {
-      const {
-        clearSelectedPersonnel,
-        setPersonLocationId,
-        group,
-        selectedGroup,
-        selectedPersonnel,
-      } = this.props;
-
       // set each selected id's new locationId to the current group
       selectedPersonnel.forEach(person => {
-        setPersonLocationId(
+        dispatch(setPersonLocationId(
           person,
           // To report prev location
           selectedGroup || { locationId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
           group
-        );
+        ));
       });
-      clearSelectedPersonnel();
+      dispatch(clearSelectedPersonnel());
     }
     groupSelectedHandler();
   };
 
-  render() {
-    const {
-      group: { name, visibility, locationId },
-      selectedLocationId,
-      addGroupMode,
-      removeGroupMode,
-      editGroupMode,
-      theme,
-    } = this.props;
+  const { name, visibility } = group;
 
-    const renderOverlay = visibility
-      ? removeGroupMode ||
-        editGroupMode ||
-        (selectedLocationId && selectedLocationId !== locationId)
-        ? true
-        : false
-      : addGroupMode
+  const renderOverlay = visibility
+    ? removeGroupMode ||
+      editGroupMode ||
+      (selectedLocationId && selectedLocationId !== locationId)
       ? true
-      : false;
+      : false
+    : addGroupMode
+    ? true
+    : false;
 
-    const colors = themeSelector(theme);
-    const styles = createStyleSheet(colors);
+  const colors = themeSelector(theme);
+  const styles = createStyleSheet(colors);
 
-    return (
-      <View style={styles.container}>
-        {renderOverlay && (
+  return (
+    <View style={styles.container}>
+      {renderOverlay && (
+        <TouchableOpacity
+          style={styles.overlay}
+          onPress={onGroupPressed}
+        />
+      )}
+      {visibility && (
+        <>
           <TouchableOpacity
-            style={styles.overlay}
-            onPress={this._onGroupPressed}
-          />
-        )}
-        {visibility && (
-          <>
-            <TouchableOpacity
-              onPress={this._onSelectAllPressed}
-              style={styles.header}
-            >
-              <Text style={styles.headerContent}> {name.toUpperCase()} </Text>
-            </TouchableOpacity>
-            <GroupList locationId={locationId} />
-          </>
-        )}
-      </View>
-    );
-  }
-}
+            onPress={onSelectAllPressed}
+            style={styles.header}
+          >
+            <Text style={styles.headerContent}> {name.toUpperCase()} </Text>
+          </TouchableOpacity>
+          <GroupList locationId={locationId} />
+        </>
+      )}
+    </View>
+  );
+};
 
 // props validation
 Group.propTypes = {
-  setVisibility: PropTypes.func,
-  navigation: PropTypes.object,
-  group: PropTypes.object,
-  selectedGroup: PropTypes.object,
-  personnel: PropTypes.array,
-  selectedLocationId: PropTypes.string,
-  selectedPersonnel: PropTypes.array,
-  selectPerson: PropTypes.func,
-  deselectPerson: PropTypes.func,
   locationId: PropTypes.string,
-  allPersonnelSelected: PropTypes.bool,
   addGroupMode: PropTypes.bool,
   removeGroupMode: PropTypes.bool,
   editGroupMode: PropTypes.bool,
-  groupSelectedHandler: PropTypes.func,
-  clearSelectedPersonnel: PropTypes.func,
-  setPersonLocationId: PropTypes.func,
-  theme: PropTypes.string,
+  groupSelectedHandler: PropTypes.func
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const { locationId } = ownProps;
-  const personnel = getPersonnelByLocationId(state, locationId);
-  const selectedLocationId = getSelectedLocationId(state);
+export default Group;
 
-  return {
-    personnel,
-    selectedLocationId,
-    group: getGroupByLocationId(state, locationId),
-    selectedGroup: getGroupByLocationId(state, selectedLocationId),
-    selectedPersonnel: getSelectedPersonnel(state),
-    allPersonnelSelected: allPersonnelSelected(state, personnel),
-    theme: getTheme(state),
-  };
-};
-
-const ConnectWrapper = connect(
-  mapStateToProps,
-  {
-    setVisibility,
-    selectPerson,
-    deselectPerson,
-    clearSelectedPersonnel,
-    setPersonLocationId,
-  }
-)(Group);
-
-// Wrap and export
-export default function NavigationWrapper(props) {
-  const navigation = useNavigation();
-
-  return <ConnectWrapper {...props} navigation={navigation} />;
-}

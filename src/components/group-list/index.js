@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { FlatList, View } from 'react-native';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getPersonnelByLocationId, getTheme } from '../../redux/selectors';
@@ -15,49 +15,37 @@ import ListItem from '../list-item';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-class GroupList extends React.PureComponent {
-  renderItem = ({ item }) => {
-    const { locationId } = this.props;
+const GroupList = ({ locationId }) => {
+  const theme = useSelector(state => getTheme(state));
+  const personnel = useSelector(state =>
+    getPersonnelByLocationId(state, locationId)
+  );
+
+  // eslint-disable-next-line react/prop-types
+  const renderItem = ({ item }) => {
     return <ListItem locationId={locationId} item={item} />;
   };
 
-  keyExtractor = item => item.id;
+  // eslint-disable-next-line react/prop-types
+  const keyExtractor = item => item.id;
 
-  render() {
-    const { personnel, theme } = this.props;
+  const colors = themeSelector(theme);
+  const styles = createStyleSheet(colors);
 
-    const colors = themeSelector(theme);
-    const styles = createStyleSheet(colors);
-
-    return (
-      <View style={styles.container}>
-        <FlatList
-          data={personnel}
-          renderItem={this.renderItem}
-          keyExtractor={this.keyExtractor}
-          extraData={this.props}
-        />
-      </View>
-    );
-  }
-}
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={personnel}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+      />
+    </View>
+  );
+};
 
 // props validation
 GroupList.propTypes = {
   locationId: PropTypes.string,
-  personnel: PropTypes.array,
-  theme: PropTypes.string,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const { locationId } = ownProps;
-  return {
-    personnel: getPersonnelByLocationId(state, locationId),
-    theme: getTheme(state),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  null
-)(GroupList);
+export default GroupList;

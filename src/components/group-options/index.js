@@ -6,8 +6,8 @@
  *  - the edit group, remove group, and end incident buttons
  */
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { TouchableOpacity, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -15,85 +15,74 @@ import { getTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-class GroupOptions extends Component {
-  _onAddGroupPressed = () => {
-    this.props.addGroupHandler();
-  };
+const GroupOptions = ({
+  addGroupHandler,
+  removeGroupHandler,
+  editGroupHandler,
+  addGroupMode,
+  removeGroupMode,
+  editGroupMode,
+}) => {
+  const theme = useSelector(state => getTheme(state));
+  const colors = themeSelector(theme);
+  const styles = createStyleSheet(colors);
 
-  _onRemoveGroupPressed = () => {
-    this.props.removeGroupHandler();
-  };
-
-  _onEditGroupPressed = () => {
-    this.props.editGroupHandler();
-  };
-
-  render() {
-    const { addGroupMode, removeGroupMode, editGroupMode, theme } = this.props;
-
-    const colors = themeSelector(theme);
-    const styles = createStyleSheet(colors);
-
-    return (
-      <View style={styles.container}>
-        <TouchableOpacity
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={[
+          styles.option,
+          addGroupMode ? styles.selectedOption : styles.option,
+        ]}
+        onPress={addGroupHandler}
+      >
+        <Text
           style={[
-            styles.option,
-            addGroupMode ? styles.selectedOption : styles.option,
+            styles.optionContent,
+            addGroupMode ? styles.selected : styles.optionContent,
           ]}
-          onPress={this._onAddGroupPressed}
-          //disabled={editGroupMode || removeGroupMode}
         >
-          <Text
-            style={[
-              styles.optionContent,
-              addGroupMode ? styles.selected : styles.optionContent,
-            ]}
-          >
-            {' '}
-            ADD GROUP{' '}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+          {' '}
+          ADD GROUP{' '}
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[
+          styles.option,
+          removeGroupMode ? styles.selectedOption : styles.option,
+        ]}
+        onPress={removeGroupHandler}
+      >
+        <Text
           style={[
-            styles.option,
-            removeGroupMode ? styles.selectedOption : styles.option,
+            styles.optionContent,
+            removeGroupMode ? styles.selected : styles.optionContent,
           ]}
-          onPress={this._onRemoveGroupPressed}
-          //disabled={editGroupMode || addGroupMode}
         >
-          <Text
-            style={[
-              styles.optionContent,
-              removeGroupMode ? styles.selected : styles.optionContent,
-            ]}
-          >
-            {' '}
-            REMOVE GROUP{' '}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+          {' '}
+          REMOVE GROUP{' '}
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[
+          styles.option,
+          editGroupMode ? styles.selectedOption : styles.option,
+        ]}
+        onPress={editGroupHandler}
+      >
+        <Text
           style={[
-            styles.option,
-            editGroupMode ? styles.selectedOption : styles.option,
+            styles.optionContent,
+            editGroupMode ? styles.selected : styles.optionContent,
           ]}
-          onPress={this._onEditGroupPressed}
-          //disabled={removeGroupMode || addGroupMode}
         >
-          <Text
-            style={[
-              styles.optionContent,
-              editGroupMode ? styles.selected : styles.optionContent,
-            ]}
-          >
-            {' '}
-            EDIT GROUP{' '}
-          </Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-}
+          {' '}
+          EDIT GROUP{' '}
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 // props validation
 GroupOptions.propTypes = {
@@ -103,14 +92,6 @@ GroupOptions.propTypes = {
   addGroupMode: PropTypes.bool,
   removeGroupMode: PropTypes.bool,
   editGroupMode: PropTypes.bool,
-  theme: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
-  theme: getTheme(state),
-});
-
-export default connect(
-  mapStateToProps,
-  null
-)(GroupOptions);
+export default GroupOptions;

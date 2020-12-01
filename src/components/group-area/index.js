@@ -51,32 +51,28 @@ const routes = {
   ],
 };
 
-class GroupArea extends React.PureComponent {
-  render() {
-    const {
-      route: { key },
-      addGroupMode,
-      removeGroupMode,
-      editGroupMode,
-      groupSelectedHandler,
-    } = this.props;
-
-    return (
-      <View style={styles.container}>
-        {routes[key].map(id => (
-          <Group
-            key={id}
-            locationId={id}
-            addGroupMode={addGroupMode}
-            removeGroupMode={removeGroupMode}
-            editGroupMode={editGroupMode}
-            groupSelectedHandler={groupSelectedHandler}
-          />
-        ))}
-      </View>
-    );
-  }
-}
+const GroupArea = ({
+  route: { key },
+  addGroupMode,
+  removeGroupMode,
+  editGroupMode,
+  groupSelectedHandler,
+}) => {
+  return (
+    <View style={styles.container}>
+      {routes[key].map(id => (
+        <Group
+          key={id}
+          locationId={id}
+          addGroupMode={addGroupMode}
+          removeGroupMode={removeGroupMode}
+          editGroupMode={editGroupMode}
+          groupSelectedHandler={groupSelectedHandler}
+        />
+      ))}
+    </View>
+  );
+};
 
 // props validation
 GroupArea.propTypes = {
@@ -85,7 +81,6 @@ GroupArea.propTypes = {
   removeGroupMode: PropTypes.bool,
   editGroupMode: PropTypes.bool,
   groupSelectedHandler: PropTypes.func,
-  theme: PropTypes.string,
 };
 
 export default GroupArea;

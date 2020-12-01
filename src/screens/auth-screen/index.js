@@ -32,34 +32,21 @@ const AuthScreen = () => {
   const [password, setPassword] = useState('dev-password');
 
   const onSignInPressed = async () => {
-    const { isConnected } = await NetInfo.fetch();
-    if (isConnected) {
-      setLoading(true);
-      try {
-        await dispatch(signIn(email, password));
-      } catch (error) {
-        let message = '';
-        switch (error.code) {
-          case 'auth/invalid-email':
-            message = 'The email address you entered is invalid. ';
-            break;
-          case 'auth/user-not-found':
-          case 'auth/wrong-password':
-            message =
-              'The username and password you entered do not match our records. ';
-            break;
-          default:
-            message = 'Unknown error. ';
-        }
-        Alert.alert('Error', message, [
+    if(!email || !password){
+      Alert.alert(
+        'Please enter both an email and password',
+        '',
+        [
           {
             text: 'OK',
           },
-        ]);
-        setLoading(false);
-        setPassword('');
-      }
-    } else {
+        ]
+      );
+      return;
+    }
+
+    const { isConnected } = await NetInfo.fetch();
+    if(!isConnected){
       Alert.alert(
         'Failed to connect to the network',
         'Please check your network connection status. ',
@@ -69,6 +56,33 @@ const AuthScreen = () => {
           },
         ]
       );
+      return;
+    }
+    
+    setLoading(true);
+    try {
+      await dispatch(signIn(email, password));
+    } catch (error) {
+      let message = '';
+      switch (error.message) {
+        case 'auth/invalid-email':
+          message = 'The email address you entered is invalid. ';
+          break;
+        case 'auth/user-not-found':
+        case 'auth/wrong-password':
+          message =
+            'Incorrect email or password';
+          break;
+        default:
+          message = 'Unknown error. ';
+      }
+      Alert.alert('Error', message, [
+        {
+          text: 'OK',
+        },
+      ]);
+      setLoading(false);
+      setPassword('');
     }
   };
 
@@ -98,7 +112,6 @@ const AuthScreen = () => {
           <TouchableOpacity
             style={styles.opacity}
             onPress={onSignInPressed}
-            disabled={email && password ? false : true}
           >
             <Icon name="login" style={styles.icon} />
             <Text style={styles.iconText}>Sign in</Text>

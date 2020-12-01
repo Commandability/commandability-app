@@ -26,7 +26,8 @@ export const signIn = (email, password) => {
       await auth().signInWithEmailAndPassword(email, password);
       dispatch(signInSuccess());
     } catch (error) {
-      throw new Error(error);
+      // error.code provided by firebase
+      throw new Error(error.code);
     }
   };
 };

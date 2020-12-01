@@ -1,5 +1,5 @@
 /**
- * ReduxSwitchNavigator Component
+ * Redux SwitchNavigator Component
  *
  * Manages re-rendering the navigation container when the navigation stack changes.
  * Based on https://reactnavigation.org/docs/auth-flow except using redux instead of the Context API.

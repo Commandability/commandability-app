@@ -25,6 +25,7 @@ export default colors =>
       height: 48,
       color: colors.text.main,
       backgroundColor: colors.background.two,
+      paddingLeft: 16,
       margin: 24,
       borderRadius: 5
     },

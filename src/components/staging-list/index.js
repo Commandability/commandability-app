@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { FlatList, View } from 'react-native';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getPersonnelByLocationId } from '../../redux/selectors';
@@ -15,40 +15,29 @@ import ListItem from '../list-item';
 import { STAGING } from '../../modules/location-ids';
 import styles from './styles';
 
-class StagingList extends React.PureComponent {
-  _renderItem = ({ item }) => {
+const StagingList = () => {
+  const personnel = useSelector(state =>
+    getPersonnelByLocationId(state, STAGING)
+  );
+  const renderItem = ({ item }) => {
     return <ListItem locationId={STAGING} item={item} />;
   };
 
-  _keyExtractor = item => item.id;
-
-  render() {
-    const { personnel } = this.props;
-    return (
-      <View style={styles.container}>
-        <FlatList
-          data={personnel}
-          renderItem={this._renderItem}
-          keyExtractor={this._keyExtractor}
-          extraData={this.props}
-        />
-      </View>
-    );
-  }
-}
-
-StagingList.propTypes = {
-  locationId: PropTypes.string,
-  personnel: PropTypes.array,
-};
-
-const mapStateToProps = state => {
-  return {
-    personnel: getPersonnelByLocationId(state, STAGING),
+  renderItem.propTypes = {
+    item: PropTypes.object,
   };
+
+  const keyExtractor = item => item.id;
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={personnel}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+      />
+    </View>
+  );
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(StagingList);
+export default StagingList;

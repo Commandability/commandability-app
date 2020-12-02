@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { FlatList } from 'react-native';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getPersonnelByLocationId } from '../../redux/selectors';
@@ -14,53 +14,49 @@ import RosterItem from '../roster-item';
 import { ROSTER } from '../../modules/location-ids';
 import styles from './styles';
 
-class RosterList extends React.PureComponent {
-  _renderItem = ({ item }) => {
+const RosterList = ({ query }) => {
+  const personnel = useSelector(state =>
+    getPersonnelByLocationId(state, ROSTER)
+  );
+
+  const renderItem = ({ item }) => {
     return <RosterItem item={item} />;
   };
 
-  _keyExtractor = item => item.id;
+  // props validation
+  renderItem.propTypes = {
+    item: PropTypes.object,
+  };
 
-  render() {
-    const { personnel, query } = this.props;
-    return (
-      <FlatList
-        style={styles.container}
-        data={
-          query
-            ? personnel.filter(person => {
-                const { firstName, lastName, badge, shift } =
-                  person || undefined;
-                return (
-                  firstName.toLowerCase().includes(query) ||
-                  lastName.toLowerCase().includes(query) ||
-                  (badge ? badge.includes(query) : false) ||
-                  (shift ? shift.includes(query) : false)
-                );
-              })
-            : personnel
-        }
-        renderItem={this._renderItem}
-        keyExtractor={this._keyExtractor}
-        extraData={this.props}
-      />
-    );
-  }
-}
+  // eslint-disable-next-line react/prop-types
+  const keyExtractor = item => item.id;
+
+  return (
+    <FlatList
+      style={styles.container}
+      keyboardShouldPersistTaps="always"
+      data={
+        query
+          ? personnel.filter(person => {
+              const { firstName, lastName, badge, shift } = person || undefined;
+              return (
+                firstName.toLowerCase().includes(query) ||
+                lastName.toLowerCase().includes(query) ||
+                (badge ? badge.includes(query) : false) ||
+                (shift ? shift.includes(query) : false)
+              );
+            })
+          : personnel
+      }
+      renderItem={renderItem}
+      keyExtractor={keyExtractor}
+    />
+  );
+};
 
 // props validation
 RosterList.propTypes = {
-  personnel: PropTypes.array,
   query: PropTypes.string,
 };
 
-const mapStateToProps = state => {
-  return {
-    personnel: getPersonnelByLocationId(state, ROSTER),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  null
-)(RosterList);
+export default RosterList;

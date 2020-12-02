@@ -4,59 +4,39 @@
  * Manages displaying the roster and search bar.
  */
 
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import RosterList from '../roster-list';
 import { getTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-class Roster extends Component {
-  constructor() {
-    super();
-    this.state = {
-      query: '',
-    };
-  }
+const Roster = () => {
+  const theme = useSelector(state => getTheme(state));
 
-  render() {
-    const { theme } = this.props;
+  const [query, setQuery] = useState('');
 
-    const colors = themeSelector(theme);
-    const styles = createStyleSheet(colors);
+  const colors = themeSelector(theme);
+  const styles = createStyleSheet(colors);
 
-    return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.headerContent}> ROSTER </Text>
-        </View>
-        <TextInput
-          style={styles.queryInput}
-          autoCapitalize="none"
-          placeholder="Search"
-          placeholderTextColor={colors.text.main}
-          onChangeText={query => this.setState({ query })}
-          value={this.state.query}
-        />
-        <RosterList query={this.state.query} />
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerContent}> ROSTER </Text>
       </View>
-    );
-  }
-}
-
-// props validation
-Roster.propTypes = {
-  theme: PropTypes.string,
+      <TextInput
+        style={styles.queryInput}
+        autoCapitalize="none"
+        placeholder="Search"
+        placeholderTextColor={colors.text.main}
+        onChangeText={query => setQuery(query)}
+        value={query}
+      />
+      <RosterList query={query} />
+    </View>
+  );
 };
 
-const mapStateToProps = state => ({
-  theme: getTheme(state),
-});
-
-export default connect(
-  mapStateToProps,
-  null
-)(Roster);
+export default Roster;

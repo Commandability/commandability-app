@@ -4,8 +4,8 @@
  * This component handles the Timer on the IncidentScreen
  */
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -15,74 +15,39 @@ import createStyleSheet from './styles';
 
 const MS_IN_SECOND = 1000;
 
-class Timer extends Component {
-  constructor(props) {
-    super(props);
+const Timer = ({ initialEpoch }) => {
+  const theme = useSelector(state => getTheme(state));
+  const [time, setTime] = useState(Date.now() - initialEpoch);
 
-    const { initialEpoch } = this.props;
-    this.state = {
-      time: Date.now() - initialEpoch,
-    };
-  }
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(Date.now() - initialEpoch);
+    }, MS_IN_SECOND);
 
-  componentWillUnmount() {
-    clearInterval(this.intervalID); // clear timers to prevent memory leaks
-  }
+    return () => clearInterval(interval);
+  });
 
-  componentDidMount() {
-    const { initialEpoch } = this.props;
-    this.intervalID = setInterval(
-      () =>
-        this.setState(() => {
-          return {
-            time: Date.now() - initialEpoch,
-          };
-        }),
-      MS_IN_SECOND
-    );
-  }
+  const hour = ('0' + Math.floor(time / (MS_IN_SECOND * 60 * 60))).slice(-2);
+  const minute = ('0' + (Math.floor(time / (MS_IN_SECOND * 60)) % 60)).slice(
+    -2
+  );
+  const second = ('0' + (Math.floor(time / MS_IN_SECOND) % 60)).slice(-2);
 
-  render() {
-    const hour = (
-      '0' + Math.floor(this.state.time / (MS_IN_SECOND * 60 * 60))
-    ).slice(-2);
-    const minute = (
-      '0' +
-      (Math.floor(this.state.time / (MS_IN_SECOND * 60)) % 60)
-    ).slice(-2);
-    const second = (
-      '0' +
-      (Math.floor(this.state.time / MS_IN_SECOND) % 60)
-    ).slice(-2);
+  const colors = themeSelector(theme);
+  const styles = createStyleSheet(colors);
 
-    const { theme } = this.props;
-
-    const colors = themeSelector(theme);
-    const styles = createStyleSheet(colors);
-
-    return (
-      <View style={styles.container}>
-        <View style={styles.timer}>
-          <Text
-            style={styles.timerContent}
-          >{`${hour}:${minute}:${second}`}</Text>
-        </View>
+  return (
+    <View style={styles.container}>
+      <View style={styles.timer}>
+        <Text style={styles.timerContent}>{`${hour}:${minute}:${second}`}</Text>
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
 
 // props validation
 Timer.propTypes = {
   initialEpoch: PropTypes.number,
-  theme: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
-  theme: getTheme(state),
-});
-
-export default connect(
-  mapStateToProps,
-  null
-)(Timer);
+export default Timer;

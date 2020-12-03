@@ -26,12 +26,13 @@ import createStyleSheet from './styles';
 
 const Staging = () => {
   const dispatch = useDispatch();
+  const selectedLocationId = useSelector(state => getSelectedLocationId(state));
   const selectedGroup = useSelector(state =>
     getGroupByLocationId(state, selectedLocationId)
   );
   const selectedPersonnel = useSelector(state => getSelectedPersonnel(state));
   const theme = useSelector(state => getTheme(state));
-  const selectedLocationId = useSelector(state => getSelectedLocationId(state));
+  
 
   const onStagingPressed = () => {
     // set each selected id's new locationId to STAGING

@@ -32,7 +32,6 @@ const Staging = () => {
   );
   const selectedPersonnel = useSelector(state => getSelectedPersonnel(state));
   const theme = useSelector(state => getTheme(state));
-  
 
   const onStagingPressed = () => {
     // set each selected id's new locationId to STAGING

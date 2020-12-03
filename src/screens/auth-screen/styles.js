@@ -27,7 +27,7 @@ export default colors =>
       backgroundColor: colors.background.two,
       paddingLeft: 16,
       margin: 24,
-      borderRadius: 5
+      borderRadius: 5,
     },
     opacity: {
       flexDirection: 'row',
@@ -36,7 +36,7 @@ export default colors =>
       backgroundColor: colors.background.two,
       padding: 48,
       margin: 24,
-      borderRadius: 5
+      borderRadius: 5,
     },
     icon: {
       fontSize: 42,

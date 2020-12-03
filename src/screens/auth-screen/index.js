@@ -32,21 +32,17 @@ const AuthScreen = () => {
   const [password, setPassword] = useState('dev-password');
 
   const onSignInPressed = async () => {
-    if(!email || !password){
-      Alert.alert(
-        'Please enter both an email and password',
-        '',
-        [
-          {
-            text: 'OK',
-          },
-        ]
-      );
+    if (!email || !password) {
+      Alert.alert('Please enter both an email and password', '', [
+        {
+          text: 'OK',
+        },
+      ]);
       return;
     }
 
     const { isConnected } = await NetInfo.fetch();
-    if(!isConnected){
+    if (!isConnected) {
       Alert.alert(
         'Failed to connect to the network',
         'Please check your network connection status. ',
@@ -58,7 +54,7 @@ const AuthScreen = () => {
       );
       return;
     }
-    
+
     setLoading(true);
     try {
       await dispatch(signIn(email, password));
@@ -70,8 +66,7 @@ const AuthScreen = () => {
           break;
         case 'auth/user-not-found':
         case 'auth/wrong-password':
-          message =
-            'Incorrect email or password';
+          message = 'Incorrect email or password';
           break;
         default:
           message = 'Unknown error. ';
@@ -109,10 +104,7 @@ const AuthScreen = () => {
             onChangeText={password => setPassword(password)}
             value={password}
           />
-          <TouchableOpacity
-            style={styles.opacity}
-            onPress={onSignInPressed}
-          >
+          <TouchableOpacity style={styles.opacity} onPress={onSignInPressed}>
             <Icon name="login" style={styles.icon} />
             <Text style={styles.iconText}>Sign in</Text>
           </TouchableOpacity>

@@ -58,25 +58,25 @@ const ListItem = ({ item, locationId }) => {
 
   return (
     <>
-    {renderOverlay && (
-      <TouchableOpacity style={styles.overlay} onPress={onPress} />
-    )}
-    <TouchableOpacity onPress={onPress} style={styles.container}>
-      <View style={styles.content}>
-        <View style={styles.mainLine}>
-          <Text style={styles.name}>{`${firstName} ${lastName}`}</Text>
-          <Text style={styles.time}>{`${displayTime}`}</Text>
+      {renderOverlay && (
+        <TouchableOpacity style={styles.overlay} onPress={onPress} />
+      )}
+      <TouchableOpacity onPress={onPress} style={styles.container}>
+        <View style={styles.content}>
+          <View style={styles.mainLine}>
+            <Text style={styles.name}>{`${firstName} ${lastName}`}</Text>
+            <Text style={styles.time}>{`${displayTime}`}</Text>
+          </View>
+          <View style={styles.line}>
+            <Text style={styles.label}>{`${badge ? badge + ' ' : ''}`}</Text>
+            <Text style={styles.label}>{`${shift ? shift : ''}`}</Text>
+            <Text style={styles.label}>{`${
+              organization ? organization : ''
+            }`}</Text>
+          </View>
         </View>
-        <View style={styles.line}>
-          <Text style={styles.label}>{`${badge ? badge + ' ' : ''}`}</Text>
-          <Text style={styles.label}>{`${shift ? shift : ''}`}</Text>
-          <Text style={styles.label}>{`${
-            organization ? organization : ''
-          }`}</Text>
-        </View>
-      </View>
       </TouchableOpacity>
-      </>
+    </>
   );
 };
 

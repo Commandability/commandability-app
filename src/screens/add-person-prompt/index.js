@@ -39,7 +39,9 @@ const AddPersonPrompt = ({ navigation }) => {
     setBadge('');
     setOrganization('');
 
-    dispatch(addPerson({ firstName, lastName, badge, organization }, NEW_PERSONNEL));
+    dispatch(
+      addPerson({ firstName, lastName, badge, organization }, NEW_PERSONNEL)
+    );
     navigate('PersonnelPrompt');
   };
 

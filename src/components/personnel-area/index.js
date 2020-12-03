@@ -30,10 +30,7 @@ const PersonnelArea = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.option}
-        onPress={onAddPersonnelPressed}
-      >
+      <TouchableOpacity style={styles.option} onPress={onAddPersonnelPressed}>
         <Text style={styles.optionContent}>ADD PERSONNEL</Text>
         <Icon name="arrow-right" style={styles.optionContent} />
       </TouchableOpacity>

@@ -145,9 +145,9 @@ const resetIncident = state => {
   const allIds = [];
   state.allIds.forEach(id => {
     const person = state.byId[id];
-    const { temporary } = person;
+    const { isTemporary } = person;
     // only add a person to the reset state if they weren't added during the incident
-    if (!temporary) {
+    if (!isTemporary) {
       byId[id] = {
         ...person,
         locationId: ROSTER,

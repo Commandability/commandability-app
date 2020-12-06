@@ -13,7 +13,7 @@ import {
   CLEAR_PERSONNEL,
 } from '../types';
 
-export const addPerson = (person, locationId, temporary = true) => {
+export const addPerson = (person, locationId, isTemporary = true) => {
   const id = uuidv4();
   const entryId = uuidv4(); // for storage in the report reducer
   const locationUpdateTime = 0;
@@ -23,7 +23,7 @@ export const addPerson = (person, locationId, temporary = true) => {
     payload: {
       entryId,
       dateTime,
-      person: { id, ...person, locationId, locationUpdateTime, temporary },
+      person: { id, ...person, locationId, locationUpdateTime, isTemporary },
     },
   };
 };

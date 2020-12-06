@@ -28,12 +28,14 @@ const NewPersonnelItem = ({ item }) => {
       {
         text: 'OK',
         onPress: () => {
-          temporary
+          isTemporary
+            // remove each temporary selected id
             ? dispatch(removePerson(item))
+            // set each selected id's new locationId to ROSTER
             : dispatch(
                 movePerson(
                   item,
-                  { locationId: NEW_PERSONNEL, name: 'New Personnel' },
+                  { locationId: NEW_PERSONNEL, name: 'New Personnel' }, // Set prev group to new personnel if no prev group in redux
                   { locationId: ROSTER, name: 'Roster' }
                 )
               );
@@ -44,7 +46,7 @@ const NewPersonnelItem = ({ item }) => {
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
-  const { temporary, firstName, lastName, badge, shift } = item;
+  const { isTemporary, firstName, lastName, badge, shift } = item;
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>

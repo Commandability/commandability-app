@@ -25,7 +25,7 @@ import {
   removePerson,
 } from '../../redux/actions';
 
-const RemovePersonnel = ({ temporary }) => {
+const RemovePersonnel = ({ isTemporary }) => {
   const dispatch = useDispatch();
   const selectedLocationId = useSelector(state => getSelectedLocationId(state));
   const selectedPersonnel = useSelector(state => getSelectedPersonnel(state));
@@ -44,9 +44,10 @@ const RemovePersonnel = ({ temporary }) => {
           text: 'OK',
           onPress: () => {
             selectedPersonnel.forEach(person => {
-              // set each selected id's new locationId to ROSTER
-              temporary
+              isTemporary
+                // remove each temporary selected id
                 ? dispatch(removePerson(person))
+                // set each selected id's new locationId to ROSTER
                 : dispatch(
                     movePerson(
                       person,
@@ -83,7 +84,7 @@ const RemovePersonnel = ({ temporary }) => {
 
 // props validation
 RemovePersonnel.propTypes = {
-  temporary: PropTypes.bool,
+  isTemporary: PropTypes.bool,
 };
 
 export default RemovePersonnel;

@@ -5,7 +5,7 @@
  */
 
 import {
-  TOGGLE_SELECTED_PERSON,
+  TOGGLE_PERSON,
   SELECT_PERSON,
   DESELECT_PERSON,
   CLEAR_SELECTED_PERSONNEL,
@@ -13,7 +13,7 @@ import {
 
 // Previously selected persons will be deselected
 export const togglePerson = (person, locationId) => ({
-  type: TOGGLE_SELECTED_PERSON,
+  type: TOGGLE_PERSON,
   payload: { person, locationId },
 });
 

@@ -9,8 +9,8 @@ import {
   ADD_PERSON,
   REMOVE_PERSON,
   CLEAR_PERSONNEL,
-  SET_PERSON_LOCATION_ID,
-  SET_VISIBILITY,
+  MOVE_PERSON,
+  TOGGLE_GROUP,
   RESET_INCIDENT,
 } from '../types';
 import { ROSTER, NEW_PERSONNEL, STAGING } from '../../modules/location-ids';
@@ -26,8 +26,8 @@ const byId = (state = initialState.byId, action) => {
       return addPerson(state, action);
     case REMOVE_PERSON:
       return removePerson(state, action);
-    case SET_PERSON_LOCATION_ID:
-      return setPersonLocationId(state, action);
+    case MOVE_PERSON:
+      return movePerson(state, action);
     case CLEAR_PERSONNEL:
       return initialState.byId;
     default:
@@ -61,7 +61,7 @@ const removePerson = (state, action) => {
 };
 
 // set locationId of person by id
-const setPersonLocationId = (state, action) => {
+const movePerson = (state, action) => {
   const { payload } = action;
   const {
     person: { id },
@@ -192,12 +192,12 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case RESET_INCIDENT:
       return resetIncident(state);
-    case SET_VISIBILITY: {
+    case TOGGLE_GROUP: {
       // reset personnel locationId only if the group is being removed
       const {
-        payload: { newVisibility },
+        payload: { visibility },
       } = action;
-      if (newVisibility) {
+      if (visibility) {
         break;
       } else {
         return returnToStaging(state, action);

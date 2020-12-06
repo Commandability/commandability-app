@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getTheme } from '../../redux/selectors';
-import { setPersonLocationId } from '../../redux/actions';
+import { movePerson } from '../../redux/actions';
 import { ROSTER, NEW_PERSONNEL } from '../../modules/location-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
@@ -21,7 +21,7 @@ const RosterItem = ({ item }) => {
 
   const onPress = () => {
     dispatch(
-      setPersonLocationId(
+      movePerson(
         item,
         { locationId: ROSTER, name: 'Roster' },
         { locationId: NEW_PERSONNEL, name: 'New Personnel' }

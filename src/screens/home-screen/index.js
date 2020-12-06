@@ -29,7 +29,7 @@ import {
   toIncidentStack,
   toEndStack,
   resetApp,
-  initGroup,
+  createGroup,
   clearPersonnel,
   addPerson,
   toggleTheme,
@@ -132,7 +132,7 @@ const HomeScreen = () => {
           // set default group settings
           groupIds.forEach(id => {
             const { name, visibility } = groups[id];
-            dispatch(initGroup(id, name, visibility));
+            dispatch(createGroup(id, name, visibility));
           });
           // refresh personnel data
           dispatch(clearPersonnel());

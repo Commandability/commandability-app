@@ -21,7 +21,7 @@ import createStyleSheet from './styles';
 import { STAGING, ROSTER } from '../../modules/location-ids';
 import {
   clearSelectedPersonnel,
-  setPersonLocationId,
+  movePerson,
   removePerson,
 } from '../../redux/actions';
 
@@ -48,7 +48,7 @@ const RemovePersonnel = ({ temporary }) => {
               temporary
                 ? dispatch(removePerson(person))
                 : dispatch(
-                    setPersonLocationId(
+                    movePerson(
                       person,
                       // To report prev location
                       { locationId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux

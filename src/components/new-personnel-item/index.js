@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getTheme } from '../../redux/selectors';
-import { removePerson, setPersonLocationId } from '../../redux/actions';
+import { removePerson, movePerson } from '../../redux/actions';
 import { ROSTER, NEW_PERSONNEL } from '../../modules/location-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
@@ -31,7 +31,7 @@ const NewPersonnelItem = ({ item }) => {
           temporary
             ? dispatch(removePerson(item))
             : dispatch(
-                setPersonLocationId(
+                movePerson(
                   item,
                   { locationId: NEW_PERSONNEL, name: 'New Personnel' },
                   { locationId: ROSTER, name: 'Roster' }

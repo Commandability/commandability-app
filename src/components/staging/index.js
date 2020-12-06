@@ -18,7 +18,7 @@ import {
 } from '../../redux/selectors';
 import {
   clearSelectedPersonnel,
-  setPersonLocationId,
+  movePerson,
 } from '../../redux/actions';
 import { STAGING } from '../../modules/location-ids';
 import themeSelector from '../../modules/themes';
@@ -37,7 +37,7 @@ const Staging = () => {
     // set each selected id's new locationId to STAGING
     selectedPersonnel.forEach(person => {
       dispatch(
-        setPersonLocationId(
+        movePerson(
           person,
           // To report prev location
           selectedGroup,

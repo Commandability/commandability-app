@@ -21,11 +21,11 @@ import {
   getTheme,
 } from '../../redux/selectors';
 import {
-  setVisibility,
+  toggleGroup,
   selectPerson,
   deselectPerson,
   clearSelectedPersonnel,
-  setPersonLocationId,
+  movePerson,
 } from '../../redux/actions';
 import { STAGING } from '../../modules/location-ids';
 import themeSelector from '../../modules/themes';
@@ -64,7 +64,7 @@ const Group = ({
 
   const onGroupPressed = () => {
     if (addGroupMode) {
-      dispatch(setVisibility(group, true));
+      dispatch(toggleGroup(group, true));
     } else if (removeGroupMode) {
       Alert.alert(
         'Remove group?',
@@ -77,7 +77,7 @@ const Group = ({
           {
             text: 'OK',
             onPress: () => {
-              dispatch(setVisibility(group, false));
+              dispatch(toggleGroup(group, false));
             },
           },
         ]
@@ -89,7 +89,7 @@ const Group = ({
       // set each selected id's new locationId to the current group
       selectedPersonnel.forEach(person => {
         dispatch(
-          setPersonLocationId(
+          movePerson(
             person,
             // To report prev location
             selectedGroup || { locationId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux

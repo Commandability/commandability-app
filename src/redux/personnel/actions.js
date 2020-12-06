@@ -9,7 +9,7 @@ import uuidv4 from 'uuid/v4';
 import {
   ADD_PERSON,
   REMOVE_PERSON,
-  SET_PERSON_LOCATION_ID,
+  MOVE_PERSON,
   CLEAR_PERSONNEL,
 } from '../types';
 
@@ -37,7 +37,7 @@ export const removePerson = person => {
   };
 };
 
-export const setPersonLocationId = (
+export const movePerson = (
   person,
   prevLocationData,
   nextLocationData
@@ -46,7 +46,7 @@ export const setPersonLocationId = (
   const dateTime = new Date().toLocaleString();
   const currTime = Date.now();
   return {
-    type: SET_PERSON_LOCATION_ID,
+    type: MOVE_PERSON,
     payload: {
       entryId,
       dateTime,

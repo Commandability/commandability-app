@@ -6,27 +6,32 @@
 
 import uuidv4 from 'uuid/v4';
 
-import { SET_NAME, SET_VISIBILITY, INIT_GROUP } from '../types';
+import { EDIT_GROUP, TOGGLE_GROUP, CREATE_GROUP } from '../types';
 
-export const setName = (group, newName) => {
+export const editGroup = (group, settings) => {
   const entryId = uuidv4(); // for storage in the report reducer
   const dateTime = new Date().toLocaleString();
+  const { 
+    name,
+    // add additional settings here
+  } = settings;
+
   return {
-    type: SET_NAME,
-    payload: { entryId, dateTime, group, newName },
+    type: EDIT_GROUP,
+    payload: { entryId, dateTime, group, name },
   };
 };
 
-export const setVisibility = (group, newVisibility) => {
+export const toggleGroup = (group, visibility) => {
   const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   return {
-    type: SET_VISIBILITY,
-    payload: { entryId, dateTime, currTime: Date.now(), group, newVisibility },
+    type: TOGGLE_GROUP,
+    payload: { entryId, dateTime, currTime: Date.now(), group, visibility },
   };
 };
 
-export const initGroup = (locationId, name, visibility) => ({
-  type: INIT_GROUP,
+export const createGroup = (locationId, name, visibility) => ({
+  type: CREATE_GROUP,
   payload: { locationId, name, visibility },
 });

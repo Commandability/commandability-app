@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 
 import { NewPersonnel, Roster } from '../../components';
 import { NEW_PERSONNEL, STAGING } from '../../modules/location-ids';
-import { setPersonLocationId } from '../../redux/actions';
+import { movePerson } from '../../redux/actions';
 import { getPersonnelByLocationId, getTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
@@ -32,7 +32,7 @@ const PersonnelPrompt = ({ navigation }) => {
   const onAddToIncidentPressed = () => {
     personnel.forEach(person => {
       dispatch(
-        setPersonLocationId(
+        movePerson(
           person,
           // To report prev location
           { locationId: NEW_PERSONNEL, name: 'New Personnel' },

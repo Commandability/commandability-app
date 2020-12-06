@@ -18,7 +18,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import PropTypes from 'prop-types';
 
 import { getTheme } from '../../redux/selectors';
-import { setName } from '../../redux/actions';
+import { editGroup } from '../../redux/actions';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
@@ -41,7 +41,7 @@ const EditGroupPrompt = ({ navigation, route }) => {
         params: { group },
       } = route;
 
-      dispatch(setName(group, newName));
+      dispatch(editGroup(group, { name: newName }));
       goBack();
     } else {
       Alert.alert('Error', 'Please enter a new name.', [

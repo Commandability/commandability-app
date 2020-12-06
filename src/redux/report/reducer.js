@@ -10,9 +10,9 @@ import {
   END_INCIDENT,
   RESUME_INCIDENT,
   REMOVE_PERSON,
-  SET_PERSON_LOCATION_ID,
-  SET_NAME,
-  SET_VISIBILITY,
+  MOVE_PERSON,
+  EDIT_GROUP,
+  TOGGLE_GROUP,
 } from '../types';
 import { ROSTER, NEW_PERSONNEL, STAGING } from '../../modules/location-ids';
 
@@ -130,11 +130,11 @@ const logSetName = (state, action) => {
   };
 };
 
-const logSetVisibility = (state, action) => {
+const logToggleGroup = (state, action) => {
   const { payload } = action;
   const {
     group: { name },
-    newVisibility,
+    visibility,
     entryId,
     dateTime,
   } = payload;
@@ -142,7 +142,7 @@ const logSetVisibility = (state, action) => {
     ...state,
     [entryId]: {
       dateTime,
-      log: newVisibility ? `Added group ${name}` : `Removed group ${name}`,
+      log: visibility ? `Added group ${name}` : `Removed group ${name}`,
     },
   };
 };
@@ -166,12 +166,12 @@ export default (state = {}, action) => {
       return {};
     case REMOVE_PERSON:
       return logRemovePerson(state, action);
-    case SET_PERSON_LOCATION_ID:
+    case MOVE_PERSON:
       return logSetLocationId(state, action);
-    case SET_NAME:
+    case EDIT_GROUP:
       return logSetName(state, action);
-    case SET_VISIBILITY:
-      return logSetVisibility(state, action);
+    case TOGGLE_GROUP:
+      return logToggleGroup(state, action);
     default:
       return state;
   }

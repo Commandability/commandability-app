@@ -4,50 +4,49 @@
  * Reducers to add and remove groups, and change group names.
  */
 
-import { SET_NAME, SET_VISIBILITY, INIT_GROUP } from '../types';
+import { EDIT_GROUP, TOGGLE_GROUP, CREATE_GROUP } from '../types';
 
-const setName = (state, action) => {
+const editGroup = (state, action) => {
   const { payload } = action;
   const {
-    group,
     group: { locationId },
-    newName,
+    name,
   } = payload;
   return {
     ...state,
     [locationId]: {
-      ...group,
-      name: newName,
+      locationId,
       visibility: true,
+      name
     },
   };
 };
 
-const setVisibility = (state, action) => {
+const toggleGroup = (state, action) => {
   const { payload } = action;
   const {
     group,
     group: { locationId },
-    newVisibility,
+    visibility,
   } = payload;
   return {
     ...state,
     [locationId]: {
       ...group,
-      visibility: newVisibility,
+      visibility,
     },
   };
 };
 
-const initGroup = (state, action) => {
+const createGroup = (state, action) => {
   const { payload } = action;
   const { locationId, name, visibility } = payload;
   return {
     ...state,
     [locationId]: {
       locationId,
-      name,
       visibility,
+      name,
     },
   };
 };
@@ -59,12 +58,12 @@ export const configurationLoaded = state => Object.keys(state).length > 1;
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case SET_NAME:
-      return setName(state, action);
-    case SET_VISIBILITY:
-      return setVisibility(state, action);
-    case INIT_GROUP:
-      return initGroup(state, action);
+    case EDIT_GROUP:
+      return editGroup(state, action);
+    case TOGGLE_GROUP:
+      return toggleGroup(state, action);
+    case CREATE_GROUP:
+      return createGroup(state, action);
     default:
       return state;
   }

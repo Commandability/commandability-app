@@ -25,7 +25,7 @@ const toggleTheme = state => {
   }
 };
 
-export const getTheme = state => {
+export const selectTheme = state => {
   return state.currentTheme;
 };
 

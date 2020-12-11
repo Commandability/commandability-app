@@ -11,10 +11,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import StagingList from '../staging-list';
 import {
-  getGroupByLocationId,
-  getSelectedLocationId,
-  getSelectedPersonnel,
-  getTheme,
+  selectGroupByLocationId,
+  selectSelectedLocationId,
+  selectSelectedPersonnel,
+  selectTheme,
 } from '../../redux/selectors';
 import {
   clearSelectedPersonnel,
@@ -26,12 +26,12 @@ import createStyleSheet from './styles';
 
 const Staging = () => {
   const dispatch = useDispatch();
-  const selectedLocationId = useSelector(state => getSelectedLocationId(state));
+  const selectedLocationId = useSelector(state => selectSelectedLocationId(state));
   const selectedGroup = useSelector(state =>
-    getGroupByLocationId(state, selectedLocationId)
+    selectGroupByLocationId(state, selectedLocationId)
   );
-  const selectedPersonnel = useSelector(state => getSelectedPersonnel(state));
-  const theme = useSelector(state => getTheme(state));
+  const selectedPersonnel = useSelector(state => selectSelectedPersonnel(state));
+  const theme = useSelector(state => selectTheme(state));
 
   const onStagingPressed = () => {
     // set each selected id's new locationId to STAGING

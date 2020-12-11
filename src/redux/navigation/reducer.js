@@ -26,7 +26,7 @@ const setStack = (state, action) => {
   };
 };
 
-export const getStack = state => {
+export const selectStack = state => {
   return state.currentStack;
 };
 

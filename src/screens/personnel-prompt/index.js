@@ -4,7 +4,7 @@
  * Provides functionality for moving personnel to the current incident screen.
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, TouchableOpacity, Text, Platform } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -13,15 +13,16 @@ import PropTypes from 'prop-types';
 import { NewPersonnel, Roster } from '../../components';
 import { NEW_PERSONNEL, STAGING } from '../../modules/location-ids';
 import { movePerson } from '../../redux/actions';
-import { getPersonnelByLocationId, getTheme } from '../../redux/selectors';
+import { createSelectPersonnelByStaticLocationId, selectTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 const PersonnelPrompt = ({ navigation }) => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => getTheme(state));
+  const theme = useSelector(state => selectTheme(state));
+  const selectPersonnelByLocationId = useMemo(() => createSelectPersonnelByStaticLocationId(NEW_PERSONNEL), []);
   const personnel = useSelector(state =>
-    getPersonnelByLocationId(state, NEW_PERSONNEL)
+    selectPersonnelByLocationId(state)
   );
 
   const onCancelPressed = () => {

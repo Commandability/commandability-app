@@ -18,7 +18,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
-import { getCurrentReportData, getTheme } from '../../redux/selectors';
+import { selectReportData, selectTheme } from '../../redux/selectors';
 import {
   resetIncident,
   endIncident,
@@ -32,8 +32,8 @@ import createStyleSheet from './styles';
 
 const EndScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => getTheme(state));
-  const reportData = useSelector(state => getCurrentReportData(state));
+  const theme = useSelector(state => selectTheme(state));
+  const reportData = useSelector(state => selectReportData(state));
 
   const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState('');

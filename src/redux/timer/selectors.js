@@ -2,4 +2,4 @@
 
 import * as timer from './reducer';
 
-export const getInitialEpoch = state => timer.getInitialEpoch(state.timer);
+export const selectInitialEpoch = state => timer.selectInitialEpoch(state.timer);

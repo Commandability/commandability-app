@@ -9,14 +9,14 @@ import { useSelector } from 'react-redux';
 import { Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { getTheme } from '../../redux/selectors';
+import { selectTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 const MS_IN_SECOND = 1000;
 
 const Timer = ({ initialEpoch }) => {
-  const theme = useSelector(state => getTheme(state));
+  const theme = useSelector(state => selectTheme(state));
   const [time, setTime] = useState(Date.now() - initialEpoch);
 
   useEffect(() => {

@@ -5,19 +5,20 @@
  * the list when it is selected.
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FlatList, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getPersonnelByLocationId } from '../../redux/selectors';
+import { createSelectPersonnelByStaticLocationId } from '../../redux/selectors';
 import ListItem from '../list-item';
 import { STAGING } from '../../modules/location-ids';
 import styles from './styles';
 
 const StagingList = () => {
+  const selectPersonnelByLocationId = useMemo(() => createSelectPersonnelByStaticLocationId(STAGING), []);
   const personnel = useSelector(state =>
-    getPersonnelByLocationId(state, STAGING)
+    selectPersonnelByLocationId(state)
   );
   const renderItem = ({ item }) => {
     return <ListItem locationId={STAGING} item={item} />;

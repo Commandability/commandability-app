@@ -13,7 +13,7 @@ import {
   TOGGLE_GROUP,
   RESET_INCIDENT,
 } from '../types';
-import { ROSTER, NEW_PERSONNEL, STAGING } from '../../modules/location-ids';
+import { ROSTER, STAGING } from '../../modules/location-ids';
 
 const initialState = {
   byId: {},
@@ -162,31 +162,16 @@ const resetIncident = state => {
   };
 };
 
-export const getPersonnelByLocationId = (state, locationId) => {
+export const selectPersonnelByLocationId = (state, locationId) => {
   const personnelIdsByLocation = state.allIds.filter(
     id => state.byId[id].locationId === locationId
   );
   return personnelIdsByLocation.map(id => state.byId[id]);
 };
 
-export const personnelInGroups = state => {
-  return !state.allIds.every(
-    id =>
-      state.byId[id].locationId === ROSTER ||
-      state.byId[id].locationId === NEW_PERSONNEL ||
-      state.byId[id].locationId === STAGING
-  );
-};
+export const selectPersonnel = state => state.allIds.map(id => state.byId[id]);
 
-export const getPersonById = (state, id) => state.byId[id];
-
-export const getLocationUpdateTime = (state, person) => {
-  const { id } = person;
-  return state.byId[id].locationUpdateTime;
-};
-
-export const configurationLoaded = state =>
-  Object.keys(state.byId).length || state.allIds.length;
+export const selectPersonnelById = state => state.byId;
 
 export default (state = initialState, action) => {
   switch (action.type) {

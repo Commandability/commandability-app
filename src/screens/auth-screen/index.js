@@ -18,14 +18,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 
-import { getTheme } from '../../redux/selectors';
+import { selectTheme } from '../../redux/selectors';
 import { signIn } from '../../redux/actions';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 const AuthScreen = () => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => getTheme(state));
+  const theme = useSelector(state => selectTheme(state));
 
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('commandabilityapp@gmail.com');

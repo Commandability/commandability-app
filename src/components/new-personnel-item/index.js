@@ -9,7 +9,7 @@ import { Text, TouchableOpacity, View, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getTheme } from '../../redux/selectors';
+import { selectTheme } from '../../redux/selectors';
 import { removePerson, movePerson } from '../../redux/actions';
 import { ROSTER, NEW_PERSONNEL } from '../../modules/location-ids';
 import themeSelector from '../../modules/themes';
@@ -17,7 +17,7 @@ import createStyleSheet from './styles';
 
 const NewPersonnelItem = ({ item }) => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => getTheme(state));
+  const theme = useSelector(state => selectTheme(state));
 
   const onPress = () => {
     Alert.alert('Remove person?', '', [

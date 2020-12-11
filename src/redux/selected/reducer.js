@@ -89,7 +89,7 @@ const resetPersonnelIdsOnToggleGroup = (state, action) => {
 const locationId = (state = initialState.locationId, action) => {
   switch (action.type) {
     case TOGGLE_PERSON:
-      return setLocationId(state, action);
+      return selectLocationId(state, action);
     case TOGGLE_GROUP:
       return resetLocationIdOnToggleGroup(state, action);
     case RESET_INCIDENT:
@@ -100,7 +100,7 @@ const locationId = (state = initialState.locationId, action) => {
   }
 };
 
-const setLocationId = (state, action) => {
+const selectLocationId = (state, action) => {
   const { payload } = action;
   const {
     locationId,
@@ -134,17 +134,12 @@ const resetLocationIdOnToggleGroup = (state, action) => {
   }
 };
 
-export const getSelectedIds = state => {
+export const selectSelectedPersonnelIds = state => {
   return state.personnelIds;
 };
 
-export const getSelectedLocationId = state => {
+export const selectSelectedLocationId = state => {
   return state.locationId;
-};
-
-export const personIsSelected = (state, person) => {
-  const { id } = person;
-  return state.personnelIds.includes(id);
 };
 
 export default (state = initialState, action) => {
@@ -152,7 +147,7 @@ export default (state = initialState, action) => {
     case TOGGLE_PERSON:
     case SELECT_PERSON:
     case DESELECT_PERSON:
-      return setLocationId(state, action);
+      return selectLocationId(state, action);
     default:
       return {
         personnelIds: personnelIds(state.personnelIds, action),

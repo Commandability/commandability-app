@@ -17,7 +17,7 @@ const setInitialEpoch = (state, action) => {
   };
 };
 
-export const getInitialEpoch = state => {
+export const selectInitialEpoch = state => {
   return state.initialEpoch;
 };
 

@@ -11,20 +11,27 @@ import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
-import { personnelInGroups, getTheme } from '../../redux/selectors';
+import { selectPersonnel, selectTheme } from '../../redux/selectors';
 import { toggleTheme, toEndStack } from '../../redux/actions';
 import Timer from '../timer';
+import { ROSTER, NEW_PERSONNEL, STAGING } from '../../modules/location-ids';
 import { DARK } from '../../modules/theme-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 const BottomBar = ({ initialEpoch }) => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => getTheme(state));
-  const _personnelInGroups = useSelector(state => personnelInGroups(state));
+  const theme = useSelector(state => selectTheme(state));
+  const personnel = useSelector(state => selectPersonnel(state));
 
   const onEndPressed = () => {
-    if (_personnelInGroups) {
+    const personnelAreInGroups = personnel.every(person =>
+      person.locationId === ROSTER ||
+      person.locationId === NEW_PERSONNEL ||
+      person.locationId === STAGING
+    );
+
+    if (!personnelAreInGroups) {
       Alert.alert(
         'Personnel are still active',
         'Please move all personnel to staging before ending the incident.',

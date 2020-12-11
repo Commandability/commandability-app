@@ -2,4 +2,4 @@
 
 import * as theme from './reducer';
 
-export const getTheme = state => theme.getTheme(state.theme);
+export const selectTheme = state => theme.selectTheme(state.theme);

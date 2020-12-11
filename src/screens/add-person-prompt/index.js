@@ -18,14 +18,14 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
 import { addPerson } from '../../redux/actions';
-import { getTheme } from '../../redux/selectors';
+import { selectTheme } from '../../redux/selectors';
 import { NEW_PERSONNEL } from '../../modules/location-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 const AddPersonPrompt = ({ navigation }) => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => getTheme(state));
+  const theme = useSelector(state => selectTheme(state));
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');

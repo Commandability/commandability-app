@@ -10,9 +10,8 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-  getLocationUpdateTime,
-  personIsSelected,
-  getTheme,
+  selectSelectedPersonnel,
+  selectTheme,
 } from '../../redux/selectors';
 import { togglePerson } from '../../redux/actions';
 import themeSelector from '../../modules/themes';
@@ -22,13 +21,14 @@ const MS_IN_MINUTE = 60000;
 
 const ListItem = ({ item, locationId }) => {
   const dispatch = useDispatch();
-  const locationUpdateTime = useSelector(state =>
-    getLocationUpdateTime(state, item)
-  );
-  const _personIsSelected = useSelector(state => personIsSelected(state, item));
-  const theme = useSelector(state => getTheme(state));
+  const selectedPersonnel = useSelector(state => selectSelectedPersonnel(state));
+  const theme = useSelector(state => selectTheme(state));
 
+  const { locationUpdateTime } = item;
   const [time, setTime] = useState(Date.now() - locationUpdateTime);
+
+  const { id } = item;
+  const personIsSelected = selectedPersonnel.some(person => person.id === id);
 
   useEffect(() => {
     let intervalID = '';
@@ -54,7 +54,7 @@ const ListItem = ({ item, locationId }) => {
   const styles = createStyleSheet(colors);
   const { firstName, lastName, badge, shift, organization } = item;
   const displayTime = Math.floor(time / MS_IN_MINUTE);
-  const renderOverlay = _personIsSelected;
+  const renderOverlay = personIsSelected;
 
   return (
     <>

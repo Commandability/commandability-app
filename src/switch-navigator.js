@@ -27,7 +27,7 @@ import {
   INCIDENT_STACK,
   END_STACK,
 } from './modules/stack-ids';
-import { getStack } from './redux/selectors';
+import { selectStack } from './redux/selectors';
 
 const Auth = createStackNavigator();
 const Home = createStackNavigator();
@@ -39,7 +39,7 @@ const screenOptions = {
 };
 
 const SwitchNavigator = () => {
-  const stack = useSelector(state => getStack(state));
+  const stack = useSelector(state => selectStack(state));
 
   useEffect(() => {
     SplashScreen.hide();

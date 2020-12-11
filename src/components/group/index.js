@@ -5,7 +5,7 @@
  * list and handles visibility control of groups
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Alert, TouchableOpacity, Text, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -13,12 +13,11 @@ import PropTypes from 'prop-types';
 
 import GroupList from '../group-list';
 import {
-  getGroupByLocationId,
-  getPersonnelByLocationId,
-  getSelectedLocationId,
-  getSelectedPersonnel,
-  allPersonnelSelected,
-  getTheme,
+  selectGroupByLocationId,
+  createSelectPersonnelByPropLocationId,
+  selectSelectedLocationId,
+  selectSelectedPersonnel,
+  selectTheme,
 } from '../../redux/selectors';
 import {
   toggleGroup,
@@ -40,23 +39,23 @@ const Group = ({
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const selectPersonnelByLocationId = useMemo(createSelectPersonnelByPropLocationId, []);
   const personnel = useSelector(state =>
-    getPersonnelByLocationId(state, locationId)
+    selectPersonnelByLocationId(state, locationId)
   );
-  const selectedLocationId = useSelector(state => getSelectedLocationId(state));
-  const group = useSelector(state => getGroupByLocationId(state, locationId));
+  const selectedLocationId = useSelector(state => selectSelectedLocationId(state));
+  const group = useSelector(state => selectGroupByLocationId(state, locationId));
   const selectedGroup = useSelector(state =>
-    getGroupByLocationId(state, selectedLocationId)
+    selectGroupByLocationId(state, selectedLocationId)
   );
-  const selectedPersonnel = useSelector(state => getSelectedPersonnel(state));
-  const _allPersonnelSelected = useSelector(state =>
-    allPersonnelSelected(state, personnel)
-  );
-  const theme = useSelector(state => getTheme(state));
+  const selectedPersonnel = useSelector(state => selectSelectedPersonnel(state));
+  const theme = useSelector(state => selectTheme(state));
+
+  const allPersonnelSelected = personnel.every(person => selectedPersonnel.some(selectedPerson => selectedPerson.id  === person.id));
 
   const onSelectAllPressed = () => {
     personnel.forEach(item => {
-      _allPersonnelSelected
+      allPersonnelSelected
         ? dispatch(deselectPerson(item, locationId))
         : dispatch(selectPerson(item, locationId));
     });
@@ -127,7 +126,7 @@ const Group = ({
           <TouchableOpacity onPress={onSelectAllPressed} style={styles.header}>
             <Text style={styles.headerContent}> {name.toUpperCase()} </Text>
           </TouchableOpacity>
-          <GroupList locationId={locationId} />
+          <GroupList locationId={locationId} personnel={personnel} />
         </>
       )}
     </View>

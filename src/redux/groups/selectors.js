@@ -2,5 +2,8 @@
 
 import * as groups from './reducer';
 
-export const getGroupByLocationId = (state, locationId) =>
-  groups.getGroupByLocationId(state.groups, locationId);
+export const selectGroupByLocationId = (state, locationId) =>
+  groups.selectGroupByLocationId(state.groups, locationId);
+
+export const selectGroups = state =>
+  groups.selectGroups(state.groups);

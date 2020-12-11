@@ -12,9 +12,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
 import {
-  getTheme,
-  getSelectedLocationId,
-  getSelectedPersonnel,
+  selectTheme,
+  selectSelectedLocationId,
+  selectSelectedPersonnel,
 } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
@@ -27,9 +27,9 @@ import {
 
 const RemovePersonnel = ({ isTemporary }) => {
   const dispatch = useDispatch();
-  const selectedLocationId = useSelector(state => getSelectedLocationId(state));
-  const selectedPersonnel = useSelector(state => getSelectedPersonnel(state));
-  const theme = useSelector(state => getTheme(state));
+  const selectedLocationId = useSelector(state => selectSelectedLocationId(state));
+  const selectedPersonnel = useSelector(state => selectSelectedPersonnel(state));
+  const theme = useSelector(state => selectTheme(state));
 
   const onRemovePressed = () => {
     Alert.alert(

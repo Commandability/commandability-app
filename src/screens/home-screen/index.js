@@ -19,10 +19,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 
 import {
-  activeReport,
-  completedReport,
-  configurationLoaded,
-  getTheme,
+  selectReportData,
+  selectIsConfigurationLoaded,
+  selectTheme,
 } from '../../redux/selectors';
 import {
   signOut,
@@ -34,6 +33,10 @@ import {
   addPerson,
   toggleTheme,
 } from '../../redux/actions';
+import {
+  START_INCIDENT,
+  END_INCIDENT,
+} from '../../redux/types';
 import { uploadReports, deleteAllReports } from '../../modules/report-manager';
 import {
   GROUP_ONE,
@@ -62,24 +65,26 @@ import createStyleSheet from './styles';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => getTheme(state));
-  const _configurationLoaded = useSelector(state => configurationLoaded(state));
-  const _completedReport = useSelector(state => completedReport(state));
-  const _activeReport = useSelector(state => activeReport(state));
+  const theme = useSelector(state => selectTheme(state));
+  const reportData = useSelector(state => selectReportData(state));
+  const isConfigurationLoaded = useSelector(state => selectIsConfigurationLoaded(state));
 
   const [loading, setLoading] = useState(false);
 
+  const reportIsActive = reportData[START_INCIDENT] && !reportData[END_INCIDENT];
+  const reportIsComplete = reportData[END_INCIDENT];
+
   useEffect(() => {
-    if (_activeReport) {
+    if (reportIsActive) {
       dispatch(toIncidentStack());
     }
-    if (_completedReport) {
+    if (reportIsComplete) {
       dispatch(toEndStack());
     }
-  }, [_activeReport, _completedReport]);
+  }, [reportIsActive, reportIsComplete]);
 
   const onStartIncidentPressed = () => {
-    if (_configurationLoaded) {
+    if (isConfigurationLoaded) {
       dispatch(toIncidentStack());
     } else {
       Alert.alert(

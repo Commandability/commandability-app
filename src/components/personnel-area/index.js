@@ -11,14 +11,14 @@ import { TouchableOpacity, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 
-import { getTheme } from '../../redux/selectors';
+import { selectTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 import { Staging, RemovePersonnel } from '..';
 
 const PersonnelArea = () => {
   const navigation = useNavigation();
-  const theme = useSelector(state => getTheme(state));
+  const theme = useSelector(state => selectTheme(state));
 
   const onAddPersonnelPressed = () => {
     const { navigate } = navigation;

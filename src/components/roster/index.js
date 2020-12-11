@@ -9,12 +9,12 @@ import { Text, TextInput, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import RosterList from '../roster-list';
-import { getTheme } from '../../redux/selectors';
+import { selectTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 const Roster = () => {
-  const theme = useSelector(state => getTheme(state));
+  const theme = useSelector(state => selectTheme(state));
 
   const [query, setQuery] = useState('');
 

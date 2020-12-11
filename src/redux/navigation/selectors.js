@@ -2,4 +2,4 @@
 
 import * as navigation from './reducer';
 
-export const getStack = state => navigation.getStack(state.navigation);
+export const selectStack = state => navigation.selectStack(state.navigation);

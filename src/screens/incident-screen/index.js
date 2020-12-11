@@ -15,17 +15,20 @@ import {
   BottomBar,
   PersonnelArea,
 } from '../../components';
-import { activeReport, getInitialEpoch, getTheme } from '../../redux/selectors';
+import { selectReportData, selectInitialEpoch, selectTheme } from '../../redux/selectors';
 import { startIncident, endIncident } from '../../redux/actions';
-
+import {
+  START_INCIDENT,
+  END_INCIDENT,
+} from '../../redux/types';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 const IncidentScreen = () => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => getTheme(state));
-  const activeInitialEpoch = useSelector(state => getInitialEpoch(state));
-  const _activeReport = useSelector(state => activeReport(state));
+  const theme = useSelector(state => selectTheme(state));
+  const activeInitialEpoch = useSelector(state => selectInitialEpoch(state));
+  const reportData = useSelector(state => selectReportData(state));
 
   const [removeGroupMode, setRemoveGroupMode] = useState(false);
   const [editGroupMode, setEditGroupMode] = useState(false);
@@ -38,9 +41,11 @@ const IncidentScreen = () => {
   ]);
   const [initialEpoch] = useState(Date.now());
 
+  const reportIsActive = reportData[START_INCIDENT] && !reportData[END_INCIDENT];
+
   useEffect(() => {
     // prevent start incident from wiping report when IncidentScreen is re-mounted after a crash
-    if (!_activeReport) {
+    if (!reportIsActive) {
       dispatch(startIncident(initialEpoch));
     }
   }, []);
@@ -105,7 +110,7 @@ const IncidentScreen = () => {
         </View>
         <View style={styles.incidentArea}>
           <GroupOptions
-            initialEpoch={_activeReport ? activeInitialEpoch : initialEpoch}
+            initialEpoch={reportIsActive ? activeInitialEpoch : initialEpoch}
             addGroupHandler={addGroup}
             removeGroupHandler={removeGroup}
             editGroupHandler={editGroup}
@@ -129,7 +134,7 @@ const IncidentScreen = () => {
       </View>
       <BottomBar
         endHandler={onEndIncidentPressed}
-        initialEpoch={_activeReport ? activeInitialEpoch : initialEpoch}
+        initialEpoch={reportIsActive ? activeInitialEpoch : initialEpoch}
       />
     </View>
   );

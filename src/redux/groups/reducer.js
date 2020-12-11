@@ -51,10 +51,10 @@ const createGroup = (state, action) => {
   };
 };
 
-export const getGroupByLocationId = (state, locationId) => state[locationId];
+export const selectGroupByLocationId = (state, locationId) => state[locationId];
 
 // When un-configured, groups will have only the `_persist` property
-export const configurationLoaded = state => Object.keys(state).length > 1;
+export const selectGroups = state => state;
 
 export default (state = {}, action) => {
   switch (action.type) {

@@ -4,19 +4,20 @@
  * Manages displaying personnel in the new personnel list.
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getPersonnelByLocationId } from '../../redux/selectors';
+import { createSelectPersonnelByStaticLocationId } from '../../redux/selectors';
 import NewPersonnelItem from '../new-personnel-item';
 import { NEW_PERSONNEL } from '../../modules/location-ids';
 import styles from './styles';
 
 const NewPersonnelList = () => {
+  const selectPersonnelByLocationId = useMemo(() => createSelectPersonnelByStaticLocationId(NEW_PERSONNEL), []);
   const personnel = useSelector(state =>
-    getPersonnelByLocationId(state, NEW_PERSONNEL)
+    selectPersonnelByLocationId(state)
   );
 
   const renderItem = ({ item }) => {

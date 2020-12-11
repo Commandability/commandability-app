@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { TouchableOpacity, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { getTheme } from '../../redux/selectors';
+import { selectTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
@@ -23,7 +23,7 @@ const GroupOptions = ({
   removeGroupMode,
   editGroupMode,
 }) => {
-  const theme = useSelector(state => getTheme(state));
+  const theme = useSelector(state => selectTheme(state));
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 

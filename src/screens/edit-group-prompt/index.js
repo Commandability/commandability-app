@@ -17,7 +17,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import PropTypes from 'prop-types';
 
-import { getTheme } from '../../redux/selectors';
+import { selectTheme } from '../../redux/selectors';
 import { editGroup } from '../../redux/actions';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import themeSelector from '../../modules/themes';
@@ -25,7 +25,7 @@ import createStyleSheet from './styles';
 
 const EditGroupPrompt = ({ navigation, route }) => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => getTheme(state));
+  const theme = useSelector(state => selectTheme(state));
 
   const {
     params: {

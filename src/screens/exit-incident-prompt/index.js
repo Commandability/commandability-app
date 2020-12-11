@@ -20,13 +20,13 @@ import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { resetIncident, toHomeStack } from '../../redux/actions';
-import { getTheme } from '../../redux/selectors';
+import { selectTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 const ExitIncidentPrompt = ({ navigation }) => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => getTheme(state));
+  const theme = useSelector(state => selectTheme(state));
   const {
     currentUser: { email: userEmail },
   } = auth();

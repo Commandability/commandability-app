@@ -71,7 +71,7 @@ const logRemovePerson = (state, action) => {
 };
 
 // For incident personnel
-const logSetLocationId = (state, action) => {
+const logMovePerson = (state, action) => {
   const { payload } = action;
   const {
     entryId,
@@ -147,12 +147,7 @@ const logToggleGroup = (state, action) => {
   };
 };
 
-export const activeReport = state =>
-  state[START_INCIDENT] && !state[END_INCIDENT];
-
-export const completedReport = state => !!state[END_INCIDENT];
-
-export const getCurrentReportData = state => state;
+export const selectReportData = state => state;
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -167,7 +162,7 @@ export default (state = {}, action) => {
     case REMOVE_PERSON:
       return logRemovePerson(state, action);
     case MOVE_PERSON:
-      return logSetLocationId(state, action);
+      return logMovePerson(state, action);
     case EDIT_GROUP:
       return logSetName(state, action);
     case TOGGLE_GROUP:

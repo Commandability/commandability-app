@@ -9,12 +9,12 @@ import { Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import NewPersonnelList from '../new-personnel-list';
-import { getTheme } from '../../redux/selectors';
+import { selectTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 const NewPersonnel = () => {
-  const theme = useSelector(state => getTheme(state));
+  const theme = useSelector(state => selectTheme(state));
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 

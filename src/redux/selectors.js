@@ -4,9 +4,11 @@
  * This file contains all redux selectors
  */
 
-import * as personnel from './personnel/reducer';
-import * as groups from './groups/reducer';
-import * as selected from './selected/reducer';
+import { createSelector } from 'reselect';
+
+import * as personnel from './personnel/selectors';
+import * as groups from './groups/selectors';
+import * as selected from './selected/selectors';
 
 export * from './groups/selectors';
 export * from './navigation/selectors';
@@ -18,13 +20,14 @@ export * from './timer/selectors';
 
 // Selectors referencing multiple reducers
 
-export const configurationLoaded = state =>
-  Boolean(
-    personnel.configurationLoaded(state.personnel) ||
-      groups.configurationLoaded(state.groups)
-  );
+export const selectSelectedPersonnel = createSelector(
+  selected.selectSelectedPersonnelIds,
+  personnel.selectPersonnelById,
+  (selectedPersonnelIds, personnelById) => selectedPersonnelIds.map(id => personnelById[id])
+);
 
-export const getSelectedPersonnel = state =>
-  selected
-    .getSelectedIds(state.selected)
-    .map(id => personnel.getPersonById(state.personnel, id));
+export const selectIsConfigurationLoaded = createSelector(
+  personnel.selectPersonnel,
+  groups.selectGroups,
+  (personnel, groups) => Object.keys(groups).length > 1 || Object.keys(personnel) > 1,
+);

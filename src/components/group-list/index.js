@@ -10,16 +10,13 @@ import { FlatList, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getPersonnelByLocationId, getTheme } from '../../redux/selectors';
+import { selectTheme } from '../../redux/selectors';
 import ListItem from '../list-item';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-const GroupList = ({ locationId }) => {
-  const theme = useSelector(state => getTheme(state));
-  const personnel = useSelector(state =>
-    getPersonnelByLocationId(state, locationId)
-  );
+const GroupList = ({ locationId, personnel }) => {
+  const theme = useSelector(state => selectTheme(state));
 
   // eslint-disable-next-line react/prop-types
   const renderItem = ({ item }) => {
@@ -46,6 +43,7 @@ const GroupList = ({ locationId }) => {
 // props validation
 GroupList.propTypes = {
   locationId: PropTypes.string,
+  personnel: PropTypes.array
 };
 
 export default GroupList;

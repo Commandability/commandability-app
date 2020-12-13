@@ -32,10 +32,8 @@ import createStyleSheet from './styles';
 
 const Group = ({
   locationId,
-  addGroupMode,
-  removeGroupMode,
-  editGroupMode,
-  groupSelectedHandler,
+  groupMode,
+  setGroupModeHandler,
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -62,9 +60,9 @@ const Group = ({
   };
 
   const onGroupPressed = () => {
-    if (addGroupMode) {
+    if (groupMode === 'add') {
       dispatch(toggleGroup(group, true));
-    } else if (removeGroupMode) {
+    } else if (groupMode === 'remove') {
       Alert.alert(
         'Remove group?',
         'All personnel will be returned to staging',
@@ -81,7 +79,7 @@ const Group = ({
           },
         ]
       );
-    } else if (editGroupMode) {
+    } else if (groupMode === 'edit') {
       const { navigate } = navigation;
       navigate('EditGroupPrompt', { group });
     } else {
@@ -98,18 +96,18 @@ const Group = ({
       });
       dispatch(clearSelectedPersonnel());
     }
-    groupSelectedHandler();
+    setGroupModeHandler('');
   };
 
   const { name, visibility } = group;
 
   const renderOverlay = visibility
-    ? removeGroupMode ||
-      editGroupMode ||
+    ? groupMode === 'remove' ||
+      groupMode === 'edit' ||
       (selectedLocationId && selectedLocationId !== locationId)
       ? true
       : false
-    : addGroupMode
+    : groupMode === 'add'
     ? true
     : false;
 
@@ -136,10 +134,8 @@ const Group = ({
 // props validation
 Group.propTypes = {
   locationId: PropTypes.string,
-  addGroupMode: PropTypes.bool,
-  removeGroupMode: PropTypes.bool,
-  editGroupMode: PropTypes.bool,
-  groupSelectedHandler: PropTypes.func,
+  setGroupModeHandler: PropTypes.func,
+  groupMode: PropTypes.string,
 };
 
 export default Group;

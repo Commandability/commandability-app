@@ -30,9 +30,7 @@ const IncidentScreen = () => {
   const activeInitialEpoch = useSelector(state => selectInitialEpoch(state));
   const reportData = useSelector(state => selectReportData(state));
 
-  const [removeGroupMode, setRemoveGroupMode] = useState(false);
-  const [editGroupMode, setEditGroupMode] = useState(false);
-  const [addGroupMode, setAddGroupMode] = useState(false);
+  const [groupMode, setGroupMode] = useState('');
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     { key: 'ONE', title: 'PAGE ONE' },
@@ -50,29 +48,7 @@ const IncidentScreen = () => {
     }
   }, []);
 
-  const addGroup = () => {
-    setAddGroupMode(prevAddGroupMode => !prevAddGroupMode);
-    setRemoveGroupMode(false);
-    setEditGroupMode(false);
-  };
-
-  const removeGroup = () => {
-    setAddGroupMode(false);
-    setRemoveGroupMode(prevRemoveGroupMode => !prevRemoveGroupMode);
-    setEditGroupMode(false);
-  };
-
-  const editGroup = () => {
-    setAddGroupMode(false);
-    setRemoveGroupMode(false);
-    setEditGroupMode(prevEditGroupMode => !prevEditGroupMode);
-  };
-
-  const groupSelected = () => {
-    setAddGroupMode(false);
-    setRemoveGroupMode(false);
-    setEditGroupMode(false);
-  };
+  const setGroupModeHandler = groupMode => setGroupMode(groupMode);
 
   const onEndIncidentPressed = () => {
     dispatch(endIncident());
@@ -84,10 +60,8 @@ const IncidentScreen = () => {
   const renderScene = ({ route }) => (
     <GroupArea
       route={route}
-      addGroupMode={addGroupMode}
-      removeGroupMode={removeGroupMode}
-      editGroupMode={editGroupMode}
-      groupSelectedHandler={groupSelected}
+      setGroupModeHandler={setGroupModeHandler}
+      groupMode={groupMode}
     />
   );
 
@@ -111,17 +85,13 @@ const IncidentScreen = () => {
         <View style={styles.incidentArea}>
           <GroupOptions
             initialEpoch={reportIsActive ? activeInitialEpoch : initialEpoch}
-            addGroupHandler={addGroup}
-            removeGroupHandler={removeGroup}
-            editGroupHandler={editGroup}
-            addGroupMode={addGroupMode}
-            removeGroupMode={removeGroupMode}
-            editGroupMode={editGroupMode}
+            setGroupModeHandler={setGroupModeHandler}
+            groupMode={groupMode}
           />
           <View style={styles.groupArea}>
             <TabView
               navigationState={{
-                index: index,
+                index,
                 routes,
               }}
               renderScene={renderScene}

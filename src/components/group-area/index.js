@@ -53,10 +53,8 @@ const routes = {
 
 const GroupArea = ({
   route: { key },
-  addGroupMode,
-  removeGroupMode,
-  editGroupMode,
-  groupSelectedHandler,
+  groupMode,
+  setGroupModeHandler,
 }) => {
   return (
     <View style={styles.container}>
@@ -64,10 +62,8 @@ const GroupArea = ({
         <Group
           key={id}
           locationId={id}
-          addGroupMode={addGroupMode}
-          removeGroupMode={removeGroupMode}
-          editGroupMode={editGroupMode}
-          groupSelectedHandler={groupSelectedHandler}
+          groupMode={groupMode}
+          setGroupModeHandler={setGroupModeHandler}
         />
       ))}
     </View>
@@ -77,10 +73,8 @@ const GroupArea = ({
 // props validation
 GroupArea.propTypes = {
   route: PropTypes.object,
-  addGroupMode: PropTypes.bool,
-  removeGroupMode: PropTypes.bool,
-  editGroupMode: PropTypes.bool,
-  groupSelectedHandler: PropTypes.func,
+  setGroupModeHandler: PropTypes.func,
+  groupMode: PropTypes.string,
 };
 
 export default GroupArea;

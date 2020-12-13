@@ -16,12 +16,8 @@ import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 const GroupOptions = ({
-  addGroupHandler,
-  removeGroupHandler,
-  editGroupHandler,
-  addGroupMode,
-  removeGroupMode,
-  editGroupMode,
+  setGroupModeHandler,
+  groupMode
 }) => {
   const theme = useSelector(state => selectTheme(state));
   const colors = themeSelector(theme);
@@ -32,14 +28,14 @@ const GroupOptions = ({
       <TouchableOpacity
         style={[
           styles.option,
-          addGroupMode ? styles.selectedOption : styles.option,
+          groupMode === 'add' ? styles.selectedOption : styles.option,
         ]}
-        onPress={addGroupHandler}
+        onPress={() => setGroupModeHandler('add')}
       >
         <Text
           style={[
             styles.optionContent,
-            addGroupMode ? styles.selected : styles.optionContent,
+            groupMode === 'add' ? styles.selected : styles.optionContent,
           ]}
         >
           {' '}
@@ -49,14 +45,14 @@ const GroupOptions = ({
       <TouchableOpacity
         style={[
           styles.option,
-          removeGroupMode ? styles.selectedOption : styles.option,
+          groupMode === 'remove' ? styles.selectedOption : styles.option,
         ]}
-        onPress={removeGroupHandler}
+        onPress={() => setGroupModeHandler('remove')}
       >
         <Text
           style={[
             styles.optionContent,
-            removeGroupMode ? styles.selected : styles.optionContent,
+            groupMode === 'remove' ? styles.selected : styles.optionContent,
           ]}
         >
           {' '}
@@ -66,14 +62,14 @@ const GroupOptions = ({
       <TouchableOpacity
         style={[
           styles.option,
-          editGroupMode ? styles.selectedOption : styles.option,
+          groupMode === 'edit' ? styles.selectedOption : styles.option,
         ]}
-        onPress={editGroupHandler}
+        onPress={() => setGroupModeHandler('edit')}
       >
         <Text
           style={[
             styles.optionContent,
-            editGroupMode ? styles.selected : styles.optionContent,
+            groupMode === 'edit' ? styles.selected : styles.optionContent,
           ]}
         >
           {' '}
@@ -86,12 +82,8 @@ const GroupOptions = ({
 
 // props validation
 GroupOptions.propTypes = {
-  addGroupHandler: PropTypes.func,
-  removeGroupHandler: PropTypes.func,
-  editGroupHandler: PropTypes.func,
-  addGroupMode: PropTypes.bool,
-  removeGroupMode: PropTypes.bool,
-  editGroupMode: PropTypes.bool,
+  setGroupModeHandler: PropTypes.func,
+  groupMode: PropTypes.string,
 };
 
 export default GroupOptions;

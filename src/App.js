@@ -14,7 +14,7 @@ import auth from '@react-native-firebase/auth';
 import configureStore from './redux/configure-store';
 import SwitchNavigator from './switch-navigator';
 
-export const { persistor, store } = configureStore();
+const { persistor, store } = configureStore();
 
 const App = () => {
   const [initializing, setInitializing] = useState(true);

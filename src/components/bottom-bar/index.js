@@ -57,6 +57,8 @@ const BottomBar = ({ initialEpoch }) => {
     }
   };
 
+  const onThemePressed = () => dispatch(toggleTheme());
+
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
@@ -68,7 +70,7 @@ const BottomBar = ({ initialEpoch }) => {
       <View style={styles.options}>
         <TouchableOpacity
           style={styles.option}
-          onPress={() => dispatch(toggleTheme())}
+          onPress={onThemePressed}
         >
           <Text style={styles.optionContent}>
             {theme === DARK ? 'LIGHT THEME' : 'DARK THEME'}

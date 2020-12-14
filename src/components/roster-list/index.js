@@ -52,4 +52,4 @@ RosterList.propTypes = {
   query: PropTypes.string,
 };
 
-export default RosterList;
+export default React.memo(RosterList);

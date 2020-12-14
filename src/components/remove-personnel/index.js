@@ -9,7 +9,6 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert, TouchableOpacity, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import PropTypes from 'prop-types';
 
 import {
   selectTheme,
@@ -25,7 +24,7 @@ import {
   removePerson,
 } from '../../redux/actions';
 
-const RemovePersonnel = ({ isTemporary }) => {
+const RemovePersonnel = () => {
   const dispatch = useDispatch();
   const selectedLocationId = useSelector(state => selectSelectedLocationId(state));
   const selectedPersonnel = useSelector(state => selectSelectedPersonnel(state));
@@ -44,6 +43,7 @@ const RemovePersonnel = ({ isTemporary }) => {
           text: 'OK',
           onPress: () => {
             selectedPersonnel.forEach(person => {
+              const { isTemporary } = person;
               isTemporary
                 // remove each temporary selected id
                 ? dispatch(removePerson(person))
@@ -80,11 +80,6 @@ const RemovePersonnel = ({ isTemporary }) => {
       </View>
     </View>
   );
-};
-
-// props validation
-RemovePersonnel.propTypes = {
-  isTemporary: PropTypes.bool,
 };
 
 export default RemovePersonnel;

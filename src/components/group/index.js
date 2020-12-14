@@ -138,4 +138,4 @@ Group.propTypes = {
   groupMode: PropTypes.string,
 };
 
-export default Group;
+export default React.memo(Group);

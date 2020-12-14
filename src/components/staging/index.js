@@ -67,4 +67,4 @@ const Staging = () => {
   );
 };
 
-export default Staging;
+export default React.memo(Staging);

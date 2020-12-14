@@ -9,20 +9,21 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { selectTheme } from '../../redux/selectors';
+import { selectTheme, selectPersonById } from '../../redux/selectors';
 import { movePerson } from '../../redux/actions';
 import { ROSTER, NEW_PERSONNEL } from '../../modules/location-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-const RosterItem = ({ item }) => {
+const RosterItem = ({ id }) => {
   const dispatch = useDispatch();
+  const person = useSelector(state => selectPersonById(state, id));
   const theme = useSelector(state => selectTheme(state));
 
   const onPress = () => {
     dispatch(
       movePerson(
-        item,
+        person,
         { locationId: ROSTER, name: 'Roster' },
         { locationId: NEW_PERSONNEL, name: 'New Personnel' }
       )
@@ -31,7 +32,7 @@ const RosterItem = ({ item }) => {
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
-  const { firstName, lastName, badge, shift } = item;
+  const { firstName, lastName, badge, shift } = person;
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
@@ -50,7 +51,7 @@ const RosterItem = ({ item }) => {
 
 // props validation
 RosterItem.propTypes = {
-  item: PropTypes.object, // the current person
+  id: PropTypes.string, // the current person
 };
 
-export default RosterItem;
+export default React.memo(RosterItem);

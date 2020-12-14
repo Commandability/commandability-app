@@ -14,7 +14,8 @@ import { useNavigation } from '@react-navigation/native';
 import { selectTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
-import { Staging, RemovePersonnel } from '..';
+import RemovePersonnel from '../remove-personnel';
+import Staging from '../staging';
 
 const PersonnelArea = () => {
   const navigation = useNavigation();

@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import GroupList from '../group-list';
 import {
   selectGroupByLocationId,
-  createSelectPersonnelByPropLocationId,
+  createSelectPersonnelByLocationId,
   selectSelectedLocationId,
   selectSelectedPersonnel,
   selectTheme,
@@ -37,7 +37,7 @@ const Group = ({
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const selectPersonnelByLocationId = useMemo(createSelectPersonnelByPropLocationId, []);
+  const selectPersonnelByLocationId = useMemo(createSelectPersonnelByLocationId, []);
   const personnel = useSelector(state =>
     selectPersonnelByLocationId(state, locationId)
   );

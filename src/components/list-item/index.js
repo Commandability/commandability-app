@@ -10,6 +10,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
+  selectPersonById,
   selectSelectedPersonnel,
   selectTheme,
 } from '../../redux/selectors';
@@ -19,15 +20,15 @@ import createStyleSheet from './styles';
 
 const MS_IN_MINUTE = 60000;
 
-const ListItem = ({ item, locationId }) => {
+const ListItem = ({ id, locationId }) => {
   const dispatch = useDispatch();
+  const person = useSelector(state => selectPersonById(state, id));
   const selectedPersonnel = useSelector(state => selectSelectedPersonnel(state));
   const theme = useSelector(state => selectTheme(state));
 
-  const { locationUpdateTime } = item;
+  const { locationUpdateTime } = person;
   const [time, setTime] = useState(Date.now() - locationUpdateTime);
 
-  const { id } = item;
   const personIsSelected = selectedPersonnel.some(person => person.id === id);
 
   useEffect(() => {
@@ -47,12 +48,12 @@ const ListItem = ({ item, locationId }) => {
   });
 
   const onPress = () => {
-    dispatch(togglePerson(item, locationId));
+    dispatch(togglePerson(person, locationId));
   };
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
-  const { firstName, lastName, badge, shift, organization } = item;
+  const { firstName, lastName, badge, shift, organization } = person;
   const displayTime = Math.floor(time / MS_IN_MINUTE);
   const renderOverlay = personIsSelected;
 
@@ -82,8 +83,8 @@ const ListItem = ({ item, locationId }) => {
 
 // props validation
 ListItem.propTypes = {
-  item: PropTypes.object, // the current person
+  id: PropTypes.string, // the person's id
   locationId: PropTypes.string, // the parent groupName
 };
 
-export default ListItem;
+export default React.memo(ListItem);

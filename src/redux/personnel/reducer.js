@@ -162,16 +162,11 @@ const resetIncident = state => {
   };
 };
 
-export const selectPersonnelByLocationId = (state, locationId) => {
-  const personnelIdsByLocation = state.allIds.filter(
-    id => state.byId[id].locationId === locationId
-  );
-  return personnelIdsByLocation.map(id => state.byId[id]);
-};
-
-export const selectPersonnel = state => state.allIds.map(id => state.byId[id]);
+export const selectPersonnelAllIds = state => state.allIds;
 
 export const selectPersonnelById = state => state.byId;
+
+export const selectPersonById = (state, id) => state.byId[id];
 
 export default (state = initialState, action) => {
   switch (action.type) {

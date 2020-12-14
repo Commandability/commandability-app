@@ -8,25 +8,19 @@
 import React, { useMemo } from 'react';
 import { FlatList, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 
-import { createSelectPersonnelByStaticLocationId } from '../../redux/selectors';
+import { createSelectPersonnelByLocationId } from '../../redux/selectors';
 import ListItem from '../list-item';
 import { STAGING } from '../../modules/location-ids';
 import styles from './styles';
 
 const StagingList = () => {
-  const selectPersonnelByLocationId = useMemo(() => createSelectPersonnelByStaticLocationId(STAGING), []);
+  const selectPersonnelByLocationId = useMemo(() => createSelectPersonnelByLocationId(STAGING), []);
   const personnel = useSelector(state =>
     selectPersonnelByLocationId(state)
   );
-  const renderItem = ({ item }) => {
-    return <ListItem locationId={STAGING} item={item} />;
-  };
 
-  renderItem.propTypes = {
-    item: PropTypes.object,
-  };
+  const renderItem = ({ item: { id } }) => <ListItem locationId={STAGING} id={id} />;
 
   const keyExtractor = item => item.id;
 
@@ -41,4 +35,4 @@ const StagingList = () => {
   );
 };
 
-export default StagingList;
+export default React.memo(StagingList);

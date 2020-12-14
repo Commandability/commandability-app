@@ -18,12 +18,8 @@ import createStyleSheet from './styles';
 const GroupList = ({ locationId, personnel }) => {
   const theme = useSelector(state => selectTheme(state));
 
-  // eslint-disable-next-line react/prop-types
-  const renderItem = ({ item }) => {
-    return <ListItem locationId={locationId} item={item} />;
-  };
+  const renderItem = ({ item: { id } }) => <ListItem locationId={locationId} id={id} />;
 
-  // eslint-disable-next-line react/prop-types
   const keyExtractor = item => item.id;
 
   const colors = themeSelector(theme);
@@ -46,4 +42,4 @@ GroupList.propTypes = {
   personnel: PropTypes.array
 };
 
-export default GroupList;
+export default React.memo(GroupList);

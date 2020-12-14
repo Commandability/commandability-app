@@ -9,14 +9,15 @@ import { Text, TouchableOpacity, View, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { selectTheme } from '../../redux/selectors';
+import { selectPersonById, selectTheme } from '../../redux/selectors';
 import { removePerson, movePerson } from '../../redux/actions';
 import { ROSTER, NEW_PERSONNEL } from '../../modules/location-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-const NewPersonnelItem = ({ item }) => {
+const NewPersonnelItem = ({ id }) => {
   const dispatch = useDispatch();
+  const person = useSelector(state => selectPersonById(state, id));
   const theme = useSelector(state => selectTheme(state));
 
   const onPress = () => {
@@ -30,11 +31,11 @@ const NewPersonnelItem = ({ item }) => {
         onPress: () => {
           isTemporary
             // remove each temporary selected id
-            ? dispatch(removePerson(item))
+            ? dispatch(removePerson(person))
             // set each selected id's new locationId to ROSTER
             : dispatch(
                 movePerson(
-                  item,
+                  person,
                   { locationId: NEW_PERSONNEL, name: 'New Personnel' }, // Set prev group to new personnel if no prev group in redux
                   { locationId: ROSTER, name: 'Roster' }
                 )
@@ -46,7 +47,7 @@ const NewPersonnelItem = ({ item }) => {
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
-  const { isTemporary, firstName, lastName, badge, shift } = item;
+  const { isTemporary, firstName, lastName, badge, shift } = person;
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
@@ -65,7 +66,7 @@ const NewPersonnelItem = ({ item }) => {
 
 // props validation
 NewPersonnelItem.propTypes = {
-  item: PropTypes.object, // the current person
+  id: PropTypes.string, // the current person
 };
 
-export default NewPersonnelItem;
+export default React.memo(NewPersonnelItem);

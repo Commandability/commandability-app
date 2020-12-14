@@ -9,27 +9,19 @@ import { FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { createSelectPersonnelByStaticLocationId } from '../../redux/selectors';
+import { createSelectPersonnelByLocationId } from '../../redux/selectors';
 import RosterItem from '../roster-item';
 import { ROSTER } from '../../modules/location-ids';
 import styles from './styles';
 
 const RosterList = ({ query }) => {
-  const selectPersonnelByLocationId = useMemo(() => createSelectPersonnelByStaticLocationId(ROSTER), []);
+  const selectPersonnelByLocationId = useMemo(() => createSelectPersonnelByLocationId(ROSTER), []);
   const personnel = useSelector(state =>
     selectPersonnelByLocationId(state)
   );
 
-  const renderItem = ({ item }) => {
-    return <RosterItem item={item} />;
-  };
+  const renderItem = ({ item: { id } }) => <RosterItem id={id} />;
 
-  // props validation
-  renderItem.propTypes = {
-    item: PropTypes.object,
-  };
-
-  // eslint-disable-next-line react/prop-types
   const keyExtractor = item => item.id;
 
   return (

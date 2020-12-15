@@ -45,7 +45,7 @@ const IncidentItem = ({ id, locationId }) => {
       clearInterval(timeoutID);
       clearInterval(intervalID);
     };
-  });
+  }, [locationUpdateTime]);
 
   const onPress = () => {
     dispatch(togglePerson(person, locationId));

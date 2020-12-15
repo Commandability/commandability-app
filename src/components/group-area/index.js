@@ -1,80 +1,82 @@
 /**
  * GroupArea Component
  *
- * Manages displaying all groups in a tab.
+ * This component handles the group area, including groups and group options
  */
 
-import React from 'react';
-import { View } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { useSelector } from 'react-redux';
+import { Text, View } from 'react-native';
+import { TabView, TabBar } from 'react-native-tab-view';
 import PropTypes from 'prop-types';
 
-import {
-  GROUP_ONE,
-  GROUP_TWO,
-  GROUP_THREE,
-  GROUP_FOUR,
-  GROUP_FIVE,
-  GROUP_SIX,
-  GROUP_SEVEN,
-  GROUP_EIGHT,
-  GROUP_NINE,
-  GROUP_TEN,
-  GROUP_ELEVEN,
-  GROUP_TWELVE,
-  GROUP_THIRTEEN,
-  GROUP_FOURTEEN,
-  GROUP_FIFTEEN,
-  GROUP_SIXTEEN,
-  GROUP_SEVENTEEN,
-  GROUP_EIGHTEEN,
-} from '../../modules/location-ids.js';
-import Group from '../group';
-import styles from './styles';
+import { selectTheme } from '../../redux/selectors';
+import themeSelector from '../../modules/themes';
+import createStyleSheet from './styles';
+import GroupOptions from '../group-options';
+import Page from '../page';
 
-const routes = {
-  ONE: [GROUP_ONE, GROUP_TWO, GROUP_THREE, GROUP_FOUR, GROUP_FIVE, GROUP_SIX],
-  TWO: [
-    GROUP_SEVEN,
-    GROUP_EIGHT,
-    GROUP_NINE,
-    GROUP_TEN,
-    GROUP_ELEVEN,
-    GROUP_TWELVE,
-  ],
-  THREE: [
-    GROUP_THIRTEEN,
-    GROUP_FOURTEEN,
-    GROUP_FIFTEEN,
-    GROUP_SIXTEEN,
-    GROUP_SEVENTEEN,
-    GROUP_EIGHTEEN,
-  ],
-};
+const GroupArea = ({ initialEpoch }) => {
+  const theme = useSelector(state => selectTheme(state));
 
-const GroupArea = ({
-  route: { key },
-  groupMode,
-  setGroupModeHandler,
-}) => {
+  const [groupMode, setGroupMode] = useState('');
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    { key: 'ONE', title: 'PAGE ONE' },
+    { key: 'TWO', title: 'PAGE TWO' },
+    { key: 'THREE', title: 'PAGE THREE' },
+  ]);
+
+  const setGroupModeHandler = useCallback(groupMode => setGroupMode(groupMode), [groupMode]);
+
+  const colors = themeSelector(theme);
+  const styles = createStyleSheet(colors);
+
+  const renderScene = ({ route }) => (
+    <Page
+      route={route}
+      setGroupModeHandler={setGroupModeHandler}
+      groupMode={groupMode}
+    />
+  );
+
+  const renderTabBar = props => (
+    <TabBar
+      {...props}
+      indicatorStyle={styles.indicator}
+      style={styles.tabBar}
+      renderLabel={({ route }) => (
+        <Text style={styles.tabLabel}>{route.title}</Text>
+      )}
+    />
+  );
+
   return (
     <View style={styles.container}>
-      {routes[key].map(id => (
-        <Group
-          key={id}
-          locationId={id}
-          groupMode={groupMode}
-          setGroupModeHandler={setGroupModeHandler}
-        />
-      ))}
+      <GroupOptions
+            initialEpoch={initialEpoch}
+            setGroupModeHandler={setGroupModeHandler}
+            groupMode={groupMode}
+          />
+          <View style={styles.page}>
+            <TabView
+              navigationState={{
+                index,
+                routes,
+              }}
+              renderScene={renderScene}
+              onIndexChange={index => setIndex(index)}
+              tabBarPosition="bottom"
+              renderTabBar={renderTabBar}
+            />
+          </View>
     </View>
   );
 };
 
 // props validation
 GroupArea.propTypes = {
-  route: PropTypes.object,
-  setGroupModeHandler: PropTypes.func,
-  groupMode: PropTypes.string,
+  initialEpoch: PropTypes.number,
 };
 
-export default GroupArea;
+export default React.memo(GroupArea);

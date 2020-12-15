@@ -1,12 +1,13 @@
 import BottomBar from './bottom-bar';
-import Group from './group';
 import GroupArea from './group-area';
+import Group from './group';
 import GroupList from './group-list';
 import GroupOptions from './group-options';
 import IncidentItem from './incident-item';
 import NewPersonnel from './new-personnel';
 import NewPersonnelItem from './new-personnel-item';
 import NewPersonnelList from './new-personnel-list';
+import Page from './page';
 import PersonnelArea from './personnel-area';
 import RemovePersonnel from './remove-personnel';
 import Roster from './roster';
@@ -18,14 +19,15 @@ import Timer from './timer';
 
 export {
   BottomBar,
-  Group,
   GroupArea,
+  Group,
   GroupList,
   GroupOptions,
   IncidentItem,
   NewPersonnel,
   NewPersonnelItem,
   NewPersonnelList,
+  Page,
   PersonnelArea,
   RemovePersonnel,
   Roster,

@@ -16,27 +16,12 @@ export default colors =>
       paddingLeft: 16,
       marginRight: 0,
     },
-    incidentArea: {
+    groupArea: {
       width: '72%',
       margin: 16,
       backgroundColor: colors.background.two,
       borderRadius: 5,
       paddingVertical: 8,
-      // Horizontal padding handled in GroupArea and Group
-    },
-    groupArea: {
-      flex: 1,
-    },
-    tabBar: {
-      backgroundColor: colors.background.three,
-      marginHorizontal: 8,
-      marginTop: 0,
-      elevation: 0,
-    },
-    tabLabel: {
-      color: colors.text.main,
-    },
-    indicator: {
-      backgroundColor: colors.primary,
+      // Horizontal padding handled in Page and Group
     },
   });

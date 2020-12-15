@@ -1,9 +1,23 @@
 import { StyleSheet } from 'react-native';
 
-export default StyleSheet.create({
-  container: {
-    flex: 1,
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-  },
-});
+export default colors =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    page: {
+      flex: 1,
+    },
+    tabBar: {
+      backgroundColor: colors.background.three,
+      marginHorizontal: 8,
+      marginTop: 0,
+      elevation: 0,
+    },
+    tabLabel: {
+      color: colors.text.main,
+    },
+    indicator: {
+      backgroundColor: colors.primary,
+    },
+  });

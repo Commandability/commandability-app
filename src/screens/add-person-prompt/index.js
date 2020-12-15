@@ -6,6 +6,7 @@
 
 import React, { useState } from 'react';
 import {
+  Alert,
   View,
   TouchableOpacity,
   TextInput,
@@ -33,11 +34,20 @@ const AddPersonPrompt = ({ navigation }) => {
   const [organization, setOrganization] = useState('');
 
   const onAddPersonPressed = () => {
-    const { navigate } = navigation;
+    if (!firstName || !lastName) {
+      Alert.alert('Please enter both a first and last name', '', [
+        {
+          text: 'OK',
+        },
+      ]);
+      return;
+    }
 
     dispatch(
       addPerson({ firstName, lastName, badge, organization }, NEW_PERSONNEL)
     );
+    
+    const { navigate } = navigation;
     navigate('PersonnelPrompt');
   };
 
@@ -92,7 +102,6 @@ const AddPersonPrompt = ({ navigation }) => {
           <TouchableOpacity
             style={styles.opacity}
             onPress={onAddPersonPressed}
-            disabled={firstName === '' || lastName === ''}
           >
             <Icon name="account-plus" style={styles.icon} />
             <Text style={styles.opacityText}> Add Person </Text>

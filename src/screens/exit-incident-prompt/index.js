@@ -38,7 +38,7 @@ const ExitIncidentPrompt = ({ navigation }) => {
       dispatch(resetIncident()); // reset personnel locations and group settings, remove all temporary personnel from state
       dispatch(toHomeStack());
     } else {
-      Alert.alert('Error', 'Incorrect organization email.', [
+      Alert.alert('Incorrect organization email', '', [
         {
           text: 'OK',
         },

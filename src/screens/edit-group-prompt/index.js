@@ -44,7 +44,7 @@ const EditGroupPrompt = ({ navigation, route }) => {
       dispatch(editGroup(group, { name: newName }));
       goBack();
     } else {
-      Alert.alert('Error', 'Please enter a new name.', [
+      Alert.alert('Please enter a new name', '', [
         {
           text: 'OK',
         },

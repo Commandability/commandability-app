@@ -148,7 +148,7 @@ const HomeScreen = () => {
 
         Alert.alert(
           'Configuration updated',
-          "The latest configuration data has been loaded from your organization's account.",
+          'The latest configuration data has been loaded from your organization\'s account',
           [
             {
               text: 'OK',
@@ -166,7 +166,7 @@ const HomeScreen = () => {
     } else {
       Alert.alert(
         'Failed to connect to the network',
-        'Please check your network connection status. ',
+        'Please check your network connection status',
         [
           {
             text: 'OK',
@@ -185,7 +185,7 @@ const HomeScreen = () => {
         await deleteAllReports();
         Alert.alert(
           'All reports uploaded',
-          'All reports were successfully uploaded and removed from local storage.',
+          'All reports were successfully uploaded and removed from local storage',
           [
             {
               text: 'OK',
@@ -203,7 +203,7 @@ const HomeScreen = () => {
     } else {
       Alert.alert(
         'Failed to connect to the network',
-        'Please check your network connection status. ',
+        'Please check your network connection status',
         [
           {
             text: 'OK',
@@ -220,7 +220,7 @@ const HomeScreen = () => {
   const onSignOutPressed = async () => {
     Alert.alert(
       'Are you sure you want to sign out?',
-      'All personnel and incident data will be removed, but any reports will still be available on next sign in.',
+      'All personnel and incident data will be removed, but any reports will still be available on next sign in',
       [
         {
           text: 'Cancel',

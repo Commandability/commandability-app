@@ -23,11 +23,13 @@ export * from './timer/selectors';
 export const selectSelectedPersonnel = createSelector(
   selected.selectSelectedPersonnelIds,
   personnel.selectPersonnelById,
-  (selectedPersonnelIds, personnelById) => selectedPersonnelIds.map(id => personnelById[id])
+  (selectedPersonnelIds, personnelById) =>
+    selectedPersonnelIds.map(id => personnelById[id])
 );
 
 export const selectIsConfigurationLoaded = createSelector(
   personnel.selectPersonnel,
   groups.selectGroups,
-  (personnel, groups) => Object.keys(groups).length > 1 || Object.keys(personnel) > 1,
+  (personnel, groups) =>
+    Object.keys(groups).length > 1 || Object.keys(personnel) > 1
 );

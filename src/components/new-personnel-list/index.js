@@ -14,10 +14,11 @@ import { NEW_PERSONNEL } from '../../modules/location-ids';
 import styles from './styles';
 
 const NewPersonnelList = () => {
-  const selectPersonnelByLocationId = useMemo(() => createSelectPersonnelByLocationId(NEW_PERSONNEL), []);
-  const personnel = useSelector(state =>
-    selectPersonnelByLocationId(state)
+  const selectPersonnelByLocationId = useMemo(
+    () => createSelectPersonnelByLocationId(NEW_PERSONNEL),
+    []
   );
+  const personnel = useSelector(state => selectPersonnelByLocationId(state));
 
   const renderItem = ({ item: { id } }) => <NewPersonnelItem id={id} />;
 

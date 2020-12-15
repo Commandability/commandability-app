@@ -11,7 +11,7 @@ import { EDIT_GROUP, TOGGLE_GROUP, CREATE_GROUP } from '../types';
 export const editGroup = (group, settings) => {
   const entryId = uuidv4(); // for storage in the report reducer
   const dateTime = new Date().toLocaleString();
-  const { 
+  const {
     name,
     // add additional settings here
   } = settings;

@@ -51,11 +51,7 @@ const routes = {
   ],
 };
 
-const Page = ({
-  route: { key },
-  groupMode,
-  setGroupModeHandler,
-}) => {
+const Page = ({ route: { key }, groupMode, setGroupModeHandler }) => {
   return (
     <View style={styles.container}>
       {routes[key].map(id => (

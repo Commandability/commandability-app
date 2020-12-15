@@ -15,10 +15,11 @@ import { ROSTER } from '../../modules/location-ids';
 import styles from './styles';
 
 const RosterList = ({ query }) => {
-  const selectPersonnelByLocationId = useMemo(() => createSelectPersonnelByLocationId(ROSTER), []);
-  const personnel = useSelector(state =>
-    selectPersonnelByLocationId(state)
+  const selectPersonnelByLocationId = useMemo(
+    () => createSelectPersonnelByLocationId(ROSTER),
+    []
   );
+  const personnel = useSelector(state => selectPersonnelByLocationId(state));
 
   const renderItem = ({ item: { id } }) => <RosterItem id={id} />;
 

@@ -26,8 +26,12 @@ import {
 
 const RemovePersonnel = () => {
   const dispatch = useDispatch();
-  const selectedLocationId = useSelector(state => selectSelectedLocationId(state));
-  const selectedPersonnel = useSelector(state => selectSelectedPersonnel(state));
+  const selectedLocationId = useSelector(state =>
+    selectSelectedLocationId(state)
+  );
+  const selectedPersonnel = useSelector(state =>
+    selectSelectedPersonnel(state)
+  );
   const theme = useSelector(state => selectTheme(state));
 
   const onRemovePressed = () => {
@@ -45,10 +49,10 @@ const RemovePersonnel = () => {
             selectedPersonnel.forEach(person => {
               const { isTemporary } = person;
               isTemporary
-                // remove each temporary selected id
-                ? dispatch(removePerson(person))
-                // set each selected id's new locationId to ROSTER
-                : dispatch(
+                ? // remove each temporary selected id
+                  dispatch(removePerson(person))
+                : // set each selected id's new locationId to ROSTER
+                  dispatch(
                     movePerson(
                       person,
                       // To report prev location

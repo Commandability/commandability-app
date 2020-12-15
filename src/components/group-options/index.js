@@ -15,10 +15,7 @@ import { selectTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-const GroupOptions = ({
-  setGroupModeHandler,
-  groupMode
-}) => {
+const GroupOptions = ({ setGroupModeHandler, groupMode }) => {
   const theme = useSelector(state => selectTheme(state));
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);

@@ -33,10 +33,7 @@ import {
   addPerson,
   toggleTheme,
 } from '../../redux/actions';
-import {
-  START_INCIDENT,
-  END_INCIDENT,
-} from '../../redux/types';
+import { START_INCIDENT, END_INCIDENT } from '../../redux/types';
 import { uploadReports, deleteAllReports } from '../../modules/report-manager';
 import {
   GROUP_ONE,
@@ -67,11 +64,14 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
   const theme = useSelector(state => selectTheme(state));
   const reportData = useSelector(state => selectReportData(state));
-  const isConfigurationLoaded = useSelector(state => selectIsConfigurationLoaded(state));
+  const isConfigurationLoaded = useSelector(state =>
+    selectIsConfigurationLoaded(state)
+  );
 
   const [loading, setLoading] = useState(false);
 
-  const reportIsActive = reportData[START_INCIDENT] && !reportData[END_INCIDENT];
+  const reportIsActive =
+    reportData[START_INCIDENT] && !reportData[END_INCIDENT];
   const reportIsComplete = reportData[END_INCIDENT];
 
   useEffect(() => {
@@ -148,7 +148,7 @@ const HomeScreen = () => {
 
         Alert.alert(
           'Configuration updated',
-          'The latest configuration data has been loaded from your organization\'s account',
+          "The latest configuration data has been loaded from your organization's account",
           [
             {
               text: 'OK',

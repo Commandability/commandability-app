@@ -5,8 +5,6 @@ if (process.env.NODE_ENV === 'development') {
   const ReactRedux = require('react-redux');
   whyDidYouRender(React, {
     trackAllPureComponents: true,
-    trackExtraHooks: [
-      [ReactRedux, 'useSelector']
-    ]
+    trackExtraHooks: [[ReactRedux, 'useSelector']],
   });
 }

@@ -8,17 +8,14 @@ import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { GroupArea, PersonnelArea, BottomBar } from '../../components';
 import {
-  GroupArea,
-  PersonnelArea,
-  BottomBar,
-} from '../../components';
-import { selectReportData, selectInitialEpoch, selectTheme } from '../../redux/selectors';
+  selectReportData,
+  selectInitialEpoch,
+  selectTheme,
+} from '../../redux/selectors';
 import { startIncident, endIncident } from '../../redux/actions';
-import {
-  START_INCIDENT,
-  END_INCIDENT,
-} from '../../redux/types';
+import { START_INCIDENT, END_INCIDENT } from '../../redux/types';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
@@ -30,7 +27,8 @@ const IncidentScreen = () => {
 
   const [initialEpoch] = useState(Date.now());
 
-  const reportIsActive = reportData[START_INCIDENT] && !reportData[END_INCIDENT];
+  const reportIsActive =
+    reportData[START_INCIDENT] && !reportData[END_INCIDENT];
 
   useEffect(() => {
     // prevent start incident from wiping report when IncidentScreen is re-mounted after a crash
@@ -53,7 +51,9 @@ const IncidentScreen = () => {
           <PersonnelArea />
         </View>
         <View style={styles.groupArea}>
-          <GroupArea initialEpoch={reportIsActive ? activeInitialEpoch : initialEpoch} />
+          <GroupArea
+            initialEpoch={reportIsActive ? activeInitialEpoch : initialEpoch}
+          />
         </View>
       </View>
       <BottomBar

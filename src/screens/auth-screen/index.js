@@ -31,7 +31,7 @@ const AuthScreen = () => {
   const [email, setEmail] = useState('commandabilityapp@gmail.com'); // For Development
   const [password, setPassword] = useState('dev-password'); // For Development
   // const [email, setEmail] = useState(''); // For Production
-  // const [password, setPassword] = useState(''); // For Production 
+  // const [password, setPassword] = useState(''); // For Production
 
   const onSignInPressed = async () => {
     if (!email || !password) {

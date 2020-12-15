@@ -30,10 +30,10 @@ const NewPersonnelItem = ({ id }) => {
         text: 'OK',
         onPress: () => {
           isTemporary
-            // remove each temporary selected id
-            ? dispatch(removePerson(person))
-            // set each selected id's new locationId to ROSTER
-            : dispatch(
+            ? // remove each temporary selected id
+              dispatch(removePerson(person))
+            : // set each selected id's new locationId to ROSTER
+              dispatch(
                 movePerson(
                   person,
                   { locationId: NEW_PERSONNEL, name: 'New Personnel' }, // Set prev group to new personnel if no prev group in redux

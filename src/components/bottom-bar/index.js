@@ -25,10 +25,11 @@ const BottomBar = ({ initialEpoch }) => {
   const personnel = useSelector(state => selectPersonnel(state));
 
   const onEndPressed = () => {
-    const personnelAreInGroups = personnel.every(person =>
-      person.locationId === ROSTER ||
-      person.locationId === NEW_PERSONNEL ||
-      person.locationId === STAGING
+    const personnelAreInGroups = personnel.every(
+      person =>
+        person.locationId === ROSTER ||
+        person.locationId === NEW_PERSONNEL ||
+        person.locationId === STAGING
     );
 
     if (!personnelAreInGroups) {
@@ -68,10 +69,7 @@ const BottomBar = ({ initialEpoch }) => {
         <Timer initialEpoch={initialEpoch} />
       </View>
       <View style={styles.options}>
-        <TouchableOpacity
-          style={styles.option}
-          onPress={onThemePressed}
-        >
+        <TouchableOpacity style={styles.option} onPress={onThemePressed}>
           <Text style={styles.optionContent}>
             {theme === DARK ? 'LIGHT THEME' : 'DARK THEME'}
           </Text>

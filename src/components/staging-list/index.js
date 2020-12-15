@@ -15,12 +15,15 @@ import { STAGING } from '../../modules/location-ids';
 import styles from './styles';
 
 const StagingList = () => {
-  const selectPersonnelByLocationId = useMemo(() => createSelectPersonnelByLocationId(STAGING), []);
-  const personnel = useSelector(state =>
-    selectPersonnelByLocationId(state)
+  const selectPersonnelByLocationId = useMemo(
+    () => createSelectPersonnelByLocationId(STAGING),
+    []
   );
+  const personnel = useSelector(state => selectPersonnelByLocationId(state));
 
-  const renderItem = ({ item: { id } }) => <IncidentItem locationId={STAGING} id={id} />;
+  const renderItem = ({ item: { id } }) => (
+    <IncidentItem locationId={STAGING} id={id} />
+  );
 
   const keyExtractor = item => item.id;
 

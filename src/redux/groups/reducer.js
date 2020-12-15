@@ -17,7 +17,7 @@ const editGroup = (state, action) => {
     [locationId]: {
       locationId,
       visibility: true,
-      name
+      name,
     },
   };
 };

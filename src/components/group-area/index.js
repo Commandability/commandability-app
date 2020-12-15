@@ -27,7 +27,10 @@ const GroupArea = ({ initialEpoch }) => {
     { key: 'THREE', title: 'PAGE THREE' },
   ]);
 
-  const setGroupModeHandler = useCallback(groupMode => setGroupMode(groupMode), [groupMode]);
+  const setGroupModeHandler = useCallback(
+    groupMode => setGroupMode(groupMode),
+    [groupMode]
+  );
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
@@ -54,22 +57,22 @@ const GroupArea = ({ initialEpoch }) => {
   return (
     <View style={styles.container}>
       <GroupOptions
-            initialEpoch={initialEpoch}
-            setGroupModeHandler={setGroupModeHandler}
-            groupMode={groupMode}
-          />
-          <View style={styles.page}>
-            <TabView
-              navigationState={{
-                index,
-                routes,
-              }}
-              renderScene={renderScene}
-              onIndexChange={index => setIndex(index)}
-              tabBarPosition="bottom"
-              renderTabBar={renderTabBar}
-            />
-          </View>
+        initialEpoch={initialEpoch}
+        setGroupModeHandler={setGroupModeHandler}
+        groupMode={groupMode}
+      />
+      <View style={styles.page}>
+        <TabView
+          navigationState={{
+            index,
+            routes,
+          }}
+          renderScene={renderScene}
+          onIndexChange={index => setIndex(index)}
+          tabBarPosition="bottom"
+          renderTabBar={renderTabBar}
+        />
+      </View>
     </View>
   );
 };

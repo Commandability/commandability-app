@@ -46,7 +46,7 @@ const AddPersonPrompt = ({ navigation }) => {
     dispatch(
       addPerson({ firstName, lastName, badge, organization }, NEW_PERSONNEL)
     );
-    
+
     const { navigate } = navigation;
     navigate('PersonnelPrompt');
   };
@@ -99,10 +99,7 @@ const AddPersonPrompt = ({ navigation }) => {
             value={organization}
             onChangeText={organization => setOrganization(organization)}
           />
-          <TouchableOpacity
-            style={styles.opacity}
-            onPress={onAddPersonPressed}
-          >
+          <TouchableOpacity style={styles.opacity} onPress={onAddPersonPressed}>
             <Icon name="account-plus" style={styles.icon} />
             <Text style={styles.opacityText}> Add Person </Text>
           </TouchableOpacity>

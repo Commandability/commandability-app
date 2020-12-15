@@ -37,11 +37,7 @@ export const removePerson = person => {
   };
 };
 
-export const movePerson = (
-  person,
-  prevLocationData,
-  nextLocationData
-) => {
+export const movePerson = (person, prevLocationData, nextLocationData) => {
   const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   const currTime = Date.now();

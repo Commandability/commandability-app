@@ -16,21 +16,22 @@ import {
   selectSelectedPersonnel,
   selectTheme,
 } from '../../redux/selectors';
-import {
-  clearSelectedPersonnel,
-  movePerson,
-} from '../../redux/actions';
+import { clearSelectedPersonnel, movePerson } from '../../redux/actions';
 import { STAGING } from '../../modules/location-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 const Staging = () => {
   const dispatch = useDispatch();
-  const selectedLocationId = useSelector(state => selectSelectedLocationId(state));
+  const selectedLocationId = useSelector(state =>
+    selectSelectedLocationId(state)
+  );
   const selectedGroup = useSelector(state =>
     selectGroupByLocationId(state, selectedLocationId)
   );
-  const selectedPersonnel = useSelector(state => selectSelectedPersonnel(state));
+  const selectedPersonnel = useSelector(state =>
+    selectSelectedPersonnel(state)
+  );
   const theme = useSelector(state => selectTheme(state));
 
   const onStagingPressed = () => {

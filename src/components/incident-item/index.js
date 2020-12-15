@@ -23,7 +23,9 @@ const MS_IN_MINUTE = 60000;
 const IncidentItem = ({ id, locationId }) => {
   const dispatch = useDispatch();
   const person = useSelector(state => selectPersonById(state, id));
-  const selectedPersonnel = useSelector(state => selectSelectedPersonnel(state));
+  const selectedPersonnel = useSelector(state =>
+    selectSelectedPersonnel(state)
+  );
   const theme = useSelector(state => selectTheme(state));
 
   const { locationUpdateTime } = person;

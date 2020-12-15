@@ -1,5 +1,5 @@
 /**
- * ListItem Component
+ * IncidentItem Component
  *
  * Manages displaying a person in a group and sets a person as selected in redux and in local state on press.
  */
@@ -20,7 +20,7 @@ import createStyleSheet from './styles';
 
 const MS_IN_MINUTE = 60000;
 
-const ListItem = ({ id, locationId }) => {
+const IncidentItem = ({ id, locationId }) => {
   const dispatch = useDispatch();
   const person = useSelector(state => selectPersonById(state, id));
   const selectedPersonnel = useSelector(state => selectSelectedPersonnel(state));
@@ -82,9 +82,9 @@ const ListItem = ({ id, locationId }) => {
 };
 
 // props validation
-ListItem.propTypes = {
+IncidentItem.propTypes = {
   id: PropTypes.string, // the person's id
   locationId: PropTypes.string, // the parent groupName
 };
 
-export default React.memo(ListItem);
+export default React.memo(IncidentItem);

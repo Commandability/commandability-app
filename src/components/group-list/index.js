@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { selectTheme, createSelectPersonnelByLocationId } from '../../redux/selectors';
-import ListItem from '../list-item';
+import IncidentItem from '../incident-item';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
@@ -22,7 +22,7 @@ const GroupList = ({ locationId }) => {
     selectPersonnelByLocationId(state, locationId)
   );
 
-  const renderItem = ({ item: { id } }) => <ListItem locationId={locationId} id={id} />;
+  const renderItem = ({ item: { id } }) => <IncidentItem locationId={locationId} id={id} />;
 
   const keyExtractor = item => item.id;
 

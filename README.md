@@ -23,6 +23,7 @@ Download or clone this repository, then run `npm install` inside the directory.
 - [React Redux](https://react-redux.js.org/)
 - [Redux-Persist](https://github.com/rt2zz/redux-persist)
 - [Redux-Thunk](https://github.com/reduxjs/redux-thunk)
+- [Reselect](https://github.com/reduxjs/reselect)
 - [React Navigation](https://reactnavigation.org/)
 - [Firebase](https://firebase.google.com/)
 - [React Native Firebase](https://invertase.io/oss/react-native-firebase/)

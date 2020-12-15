@@ -10,7 +10,7 @@ import { FlatList, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { createSelectPersonnelByLocationId } from '../../redux/selectors';
-import ListItem from '../list-item';
+import IncidentItem from '../incident-item';
 import { STAGING } from '../../modules/location-ids';
 import styles from './styles';
 
@@ -20,7 +20,7 @@ const StagingList = () => {
     selectPersonnelByLocationId(state)
   );
 
-  const renderItem = ({ item: { id } }) => <ListItem locationId={STAGING} id={id} />;
+  const renderItem = ({ item: { id } }) => <IncidentItem locationId={STAGING} id={id} />;
 
   const keyExtractor = item => item.id;
 

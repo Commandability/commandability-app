@@ -4,7 +4,7 @@
  * Manages displaying the incident screen.
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { TabView, TabBar } from 'react-native-tab-view';
@@ -48,7 +48,7 @@ const IncidentScreen = () => {
     }
   }, []);
 
-  const setGroupModeHandler = groupMode => setGroupMode(groupMode);
+  const setGroupModeHandler = useCallback(groupMode => setGroupMode(groupMode), [groupMode]);
 
   const onEndIncidentPressed = () => {
     dispatch(endIncident());

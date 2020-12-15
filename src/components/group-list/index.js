@@ -5,18 +5,22 @@
  * the group when it is selected.
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FlatList, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { selectTheme } from '../../redux/selectors';
+import { selectTheme, createSelectPersonnelByLocationId } from '../../redux/selectors';
 import ListItem from '../list-item';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-const GroupList = ({ locationId, personnel }) => {
+const GroupList = ({ locationId }) => {
   const theme = useSelector(state => selectTheme(state));
+  const selectPersonnelByLocationId = useMemo(createSelectPersonnelByLocationId, []);
+  const personnel = useSelector(state =>
+    selectPersonnelByLocationId(state, locationId)
+  );
 
   const renderItem = ({ item: { id } }) => <ListItem locationId={locationId} id={id} />;
 
@@ -39,7 +43,6 @@ const GroupList = ({ locationId, personnel }) => {
 // props validation
 GroupList.propTypes = {
   locationId: PropTypes.string,
-  personnel: PropTypes.array
 };
 
 export default React.memo(GroupList);

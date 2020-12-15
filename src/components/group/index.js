@@ -124,7 +124,7 @@ const Group = ({
           <TouchableOpacity onPress={onSelectAllPressed} style={styles.header}>
             <Text style={styles.headerContent}> {name.toUpperCase()} </Text>
           </TouchableOpacity>
-          <GroupList locationId={locationId} personnel={personnel} />
+          <GroupList locationId={locationId} />
         </>
       )}
     </View>

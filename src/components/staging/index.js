@@ -17,9 +17,11 @@ import {
   selectTheme,
 } from '../../redux/selectors';
 import { clearSelectedPersonnel, movePerson } from '../../redux/actions';
-import { STAGING } from '../../modules/location-ids';
+import { incidentLocations } from '../../modules/locations';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
+
+const { STAGING } = incidentLocations;
 
 const Staging = () => {
   const dispatch = useDispatch();
@@ -42,7 +44,7 @@ const Staging = () => {
           person,
           // To report prev location
           selectedGroup,
-          { locationId: STAGING, name: 'Staging' }
+          STAGING
         )
       );
     });
@@ -50,7 +52,9 @@ const Staging = () => {
   };
 
   const renderOverlay =
-    selectedLocationId && selectedLocationId !== STAGING ? true : false;
+    selectedLocationId && selectedLocationId !== STAGING.locationId
+      ? true
+      : false;
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);

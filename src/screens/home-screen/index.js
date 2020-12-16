@@ -35,30 +35,12 @@ import {
 } from '../../redux/actions';
 import { START_INCIDENT, END_INCIDENT } from '../../redux/types';
 import { uploadReports, deleteAllReports } from '../../modules/report-manager';
-import {
-  GROUP_ONE,
-  GROUP_TWO,
-  GROUP_THREE,
-  GROUP_FOUR,
-  GROUP_FIVE,
-  GROUP_SIX,
-  GROUP_SEVEN,
-  GROUP_EIGHT,
-  GROUP_NINE,
-  GROUP_TEN,
-  GROUP_ELEVEN,
-  GROUP_TWELVE,
-  GROUP_THIRTEEN,
-  GROUP_FOURTEEN,
-  GROUP_FIFTEEN,
-  GROUP_SIXTEEN,
-  GROUP_SEVENTEEN,
-  GROUP_EIGHTEEN,
-  ROSTER,
-} from '../../modules/location-ids.js';
+import { incidentLocations, pageLocationIds } from '../../modules/locations.js';
 import { DARK } from '../../modules/theme-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
+
+const { ROSTER } = incidentLocations;
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -113,36 +95,17 @@ const HomeScreen = () => {
             .doc(uid)
             .get();
           const { groups, personnel } = documentSnapshot.data();
-
-          const groupIds = [
-            GROUP_ONE,
-            GROUP_TWO,
-            GROUP_THREE,
-            GROUP_FOUR,
-            GROUP_FIVE,
-            GROUP_SIX,
-            GROUP_SEVEN,
-            GROUP_EIGHT,
-            GROUP_NINE,
-            GROUP_TEN,
-            GROUP_ELEVEN,
-            GROUP_TWELVE,
-            GROUP_THIRTEEN,
-            GROUP_FOURTEEN,
-            GROUP_FIFTEEN,
-            GROUP_SIXTEEN,
-            GROUP_SEVENTEEN,
-            GROUP_EIGHTEEN,
-          ];
           // set default group settings
-          groupIds.forEach(id => {
-            const { name, visibility } = groups[id];
-            dispatch(createGroup(id, name, visibility));
+          Object.keys(pageLocationIds).forEach(page => {
+            pageLocationIds[page].locationIds.forEach(id => {
+              const { name, visibility } = groups[id];
+              dispatch(createGroup(id, name, visibility));
+            });
           });
           // refresh personnel data
           dispatch(clearPersonnel());
           personnel.forEach(person => {
-            dispatch(addPerson(person, ROSTER, false)); // false for non-temporary personnel
+            dispatch(addPerson(person, ROSTER.locationId, false)); // false for non-temporary personnel
           });
         }
 

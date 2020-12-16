@@ -13,7 +13,9 @@ import {
   TOGGLE_GROUP,
   RESET_INCIDENT,
 } from '../types';
-import { ROSTER, STAGING } from '../../modules/location-ids';
+import { incidentLocations } from '../../modules/locations';
+
+const { ROSTER, STAGING } = incidentLocations;
 
 const initialState = {
   byId: {},
@@ -74,7 +76,7 @@ const movePerson = (state, action) => {
     [id]: {
       ...person,
       locationId,
-      locationUpdateTime: locationId === ROSTER ? 0 : currTime,
+      locationUpdateTime: locationId === ROSTER.locationId ? 0 : currTime,
     },
   };
 };
@@ -124,7 +126,7 @@ const returnToStaging = (state, action) => {
     if (person.locationId === locationId) {
       byId[id] = {
         ...person,
-        locationId: STAGING,
+        locationId: STAGING.locationId,
         locationUpdateTime: currTime,
       };
     } else {
@@ -150,7 +152,7 @@ const resetIncident = state => {
     if (!isTemporary) {
       byId[id] = {
         ...person,
-        locationId: ROSTER,
+        locationId: ROSTER.locationId,
         locationUpdateTime: 0,
       };
       allIds.push(id);

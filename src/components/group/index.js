@@ -26,9 +26,11 @@ import {
   clearSelectedPersonnel,
   movePerson,
 } from '../../redux/actions';
-import { STAGING } from '../../modules/location-ids';
+import { incidentLocations } from '../../modules/locations';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
+
+const { STAGING } = incidentLocations;
 
 const Group = ({ locationId, groupMode, setGroupModeHandler }) => {
   const dispatch = useDispatch();
@@ -96,7 +98,7 @@ const Group = ({ locationId, groupMode, setGroupModeHandler }) => {
           movePerson(
             person,
             // To report prev location
-            selectedGroup || { locationId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
+            selectedGroup || STAGING, // Set prev group to staging if no prev group in redux
             group
           )
         );

@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { GroupArea, PersonnelArea, BottomBar } from '../../components';
+import { PageArea, PersonnelArea, BottomBar } from '../../components';
 import {
   selectReportData,
   selectInitialEpoch,
@@ -50,8 +50,8 @@ const IncidentScreen = () => {
         <View style={styles.sideBar}>
           <PersonnelArea />
         </View>
-        <View style={styles.groupArea}>
-          <GroupArea
+        <View style={styles.pageArea}>
+          <PageArea
             initialEpoch={reportIsActive ? activeInitialEpoch : initialEpoch}
           />
         </View>

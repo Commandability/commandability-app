@@ -11,9 +11,11 @@ import PropTypes from 'prop-types';
 
 import { selectTheme, selectPersonById } from '../../redux/selectors';
 import { movePerson } from '../../redux/actions';
-import { ROSTER, NEW_PERSONNEL } from '../../modules/location-ids';
+import { incidentLocations } from '../../modules/locations';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
+
+const { ROSTER, NEW_PERSONNEL } = incidentLocations;
 
 const RosterItem = ({ id }) => {
   const dispatch = useDispatch();
@@ -21,13 +23,7 @@ const RosterItem = ({ id }) => {
   const theme = useSelector(state => selectTheme(state));
 
   const onPress = () => {
-    dispatch(
-      movePerson(
-        person,
-        { locationId: ROSTER, name: 'Roster' },
-        { locationId: NEW_PERSONNEL, name: 'New Personnel' }
-      )
-    );
+    dispatch(movePerson(person, ROSTER, NEW_PERSONNEL));
   };
 
   const colors = themeSelector(theme);

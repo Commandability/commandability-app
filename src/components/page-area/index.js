@@ -1,5 +1,5 @@
 /**
- * GroupArea Component
+ * PageArea Component
  *
  * This component handles the group area, including groups and group options
  */
@@ -15,17 +15,19 @@ import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 import GroupOptions from '../group-options';
 import Page from '../page';
+import { pageLocationIds } from '../../modules/locations.js';
 
-const GroupArea = ({ initialEpoch }) => {
+const PageArea = ({ initialEpoch }) => {
   const theme = useSelector(state => selectTheme(state));
 
   const [groupMode, setGroupMode] = useState('');
   const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    { key: 'ONE', title: 'PAGE ONE' },
-    { key: 'TWO', title: 'PAGE TWO' },
-    { key: 'THREE', title: 'PAGE THREE' },
-  ]);
+  const [routes] = useState(
+    Object.keys(pageLocationIds).map(page => ({
+      key: pageLocationIds[page].id,
+      title: pageLocationIds[page].title,
+    }))
+  );
 
   const setGroupModeHandler = useCallback(
     groupMode => setGroupMode(groupMode),
@@ -78,8 +80,8 @@ const GroupArea = ({ initialEpoch }) => {
 };
 
 // props validation
-GroupArea.propTypes = {
+PageArea.propTypes = {
   initialEpoch: PropTypes.number,
 };
 
-export default React.memo(GroupArea);
+export default React.memo(PageArea);

@@ -16,7 +16,7 @@ export default colors =>
       paddingLeft: 16,
       marginRight: 0,
     },
-    groupArea: {
+    pageArea: {
       width: '72%',
       margin: 16,
       backgroundColor: colors.background.two,

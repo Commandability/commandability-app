@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
 import { NewPersonnel, Roster } from '../../components';
-import { NEW_PERSONNEL, STAGING } from '../../modules/location-ids';
+import { incidentLocations } from '../../modules/locations';
 import { movePerson } from '../../redux/actions';
 import {
   createSelectPersonnelByLocationId,
@@ -20,11 +20,13 @@ import {
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
+const { NEW_PERSONNEL, STAGING } = incidentLocations;
+
 const PersonnelPrompt = ({ navigation }) => {
   const dispatch = useDispatch();
   const theme = useSelector(state => selectTheme(state));
   const selectPersonnelByLocationId = useMemo(
-    () => createSelectPersonnelByLocationId(NEW_PERSONNEL),
+    () => createSelectPersonnelByLocationId(NEW_PERSONNEL.locationId),
     []
   );
   const personnel = useSelector(state => selectPersonnelByLocationId(state));
@@ -40,8 +42,8 @@ const PersonnelPrompt = ({ navigation }) => {
         movePerson(
           person,
           // To report prev location
-          { locationId: NEW_PERSONNEL, name: 'New Personnel' },
-          { locationId: STAGING, name: 'Staging' }
+          NEW_PERSONNEL,
+          STAGING
         )
       );
     });

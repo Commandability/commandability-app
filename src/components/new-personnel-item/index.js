@@ -11,9 +11,11 @@ import PropTypes from 'prop-types';
 
 import { selectPersonById, selectTheme } from '../../redux/selectors';
 import { removePerson, movePerson } from '../../redux/actions';
-import { ROSTER, NEW_PERSONNEL } from '../../modules/location-ids';
+import { incidentLocations } from '../../modules/locations';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
+
+const { ROSTER, NEW_PERSONNEL } = incidentLocations;
 
 const NewPersonnelItem = ({ id }) => {
   const dispatch = useDispatch();
@@ -36,8 +38,8 @@ const NewPersonnelItem = ({ id }) => {
               dispatch(
                 movePerson(
                   person,
-                  { locationId: NEW_PERSONNEL, name: 'New Personnel' }, // Set prev group to new personnel if no prev group in redux
-                  { locationId: ROSTER, name: 'Roster' }
+                  NEW_PERSONNEL, // Set prev group to new personnel if no prev group in redux
+                  ROSTER
                 )
               );
         },

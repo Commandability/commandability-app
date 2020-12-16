@@ -1,5 +1,5 @@
 import BottomBar from './bottom-bar';
-import GroupArea from './group-area';
+import PageArea from './page-area';
 import Group from './group';
 import GroupList from './group-list';
 import GroupOptions from './group-options';
@@ -19,7 +19,7 @@ import Timer from './timer';
 
 export {
   BottomBar,
-  GroupArea,
+  PageArea,
   Group,
   GroupList,
   GroupOptions,

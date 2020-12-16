@@ -17,12 +17,14 @@ import {
 } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
-import { STAGING, ROSTER } from '../../modules/location-ids';
+import { incidentLocations } from '../../modules/locations';
 import {
   clearSelectedPersonnel,
   movePerson,
   removePerson,
 } from '../../redux/actions';
+
+const { STAGING, ROSTER } = incidentLocations;
 
 const RemovePersonnel = () => {
   const dispatch = useDispatch();
@@ -56,8 +58,8 @@ const RemovePersonnel = () => {
                     movePerson(
                       person,
                       // To report prev location
-                      { locationId: STAGING, name: 'Staging' }, // Set prev group to staging if no prev group in redux
-                      { locationId: ROSTER, name: 'Roster' }
+                      STAGING, // Set prev group to staging if no prev group in redux
+                      ROSTER
                     )
                   );
               dispatch(clearSelectedPersonnel());
@@ -71,7 +73,7 @@ const RemovePersonnel = () => {
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
-  const renderOverlay = selectedLocationId == STAGING;
+  const renderOverlay = selectedLocationId == STAGING.locationId;
 
   return (
     <View style={styles.container}>

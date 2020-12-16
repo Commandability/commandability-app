@@ -14,7 +14,9 @@ import {
   EDIT_GROUP,
   TOGGLE_GROUP,
 } from '../types';
-import { ROSTER, NEW_PERSONNEL, STAGING } from '../../modules/location-ids';
+import { incidentLocations } from '../../modules/locations';
+
+const { ROSTER, NEW_PERSONNEL, STAGING } = incidentLocations;
 
 const logStartIncident = action => {
   const { payload } = action;
@@ -57,7 +59,7 @@ const logRemovePerson = (state, action) => {
     person: { locationId, firstName, lastName, badge, organization },
   } = payload;
 
-  return locationId === STAGING
+  return locationId === STAGING.locationId
     ? {
         ...state,
         [entryId]: {
@@ -82,21 +84,27 @@ const logMovePerson = (state, action) => {
   } = payload;
 
   let log = '';
-  if (prevLocationId === NEW_PERSONNEL && nextLocationId === STAGING) {
+  if (
+    prevLocationId === NEW_PERSONNEL.locationId &&
+    nextLocationId === STAGING.locationId
+  ) {
     log = `${
       badge ? badge + ' - ' : ''
     }${firstName} ${lastName} added to incident`;
-  } else if (prevLocationId === STAGING && nextLocationId === ROSTER) {
+  } else if (
+    prevLocationId === STAGING.locationId &&
+    nextLocationId === ROSTER.locationId
+  ) {
     log = `${
       badge ? badge + ' - ' : ''
     }${firstName} ${lastName} removed from incident`;
   } else {
     // Don't log people moving back to ROSTER from NEW_PERSONNEL or moving from ROSTER to NEW_PERSONNEL
     if (
-      prevLocationId !== NEW_PERSONNEL &&
-      nextLocationId !== ROSTER &&
-      prevLocationId !== ROSTER &&
-      nextLocationId !== NEW_PERSONNEL
+      prevLocationId !== NEW_PERSONNEL.locationId &&
+      nextLocationId !== ROSTER.locationId &&
+      prevLocationId !== ROSTER.locationId &&
+      nextLocationId !== NEW_PERSONNEL.locationId
     ) {
       log = `${badge ? badge + ' - ' : ''}${firstName} ${lastName} ${
         organization ? `(${organization}) ` : ''

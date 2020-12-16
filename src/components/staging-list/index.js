@@ -11,18 +11,20 @@ import { useSelector } from 'react-redux';
 
 import { createSelectPersonnelByLocationId } from '../../redux/selectors';
 import IncidentItem from '../incident-item';
-import { STAGING } from '../../modules/location-ids';
+import { incidentLocations } from '../../modules/locations';
 import styles from './styles';
+
+const { STAGING } = incidentLocations;
 
 const StagingList = () => {
   const selectPersonnelByLocationId = useMemo(
-    () => createSelectPersonnelByLocationId(STAGING),
+    () => createSelectPersonnelByLocationId(STAGING.locationId),
     []
   );
   const personnel = useSelector(state => selectPersonnelByLocationId(state));
 
   const renderItem = ({ item: { id } }) => (
-    <IncidentItem locationId={STAGING} id={id} />
+    <IncidentItem locationId={STAGING.locationId} id={id} />
   );
 
   const keyExtractor = item => item.id;

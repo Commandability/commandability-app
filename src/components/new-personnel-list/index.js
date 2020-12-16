@@ -10,12 +10,14 @@ import { useSelector } from 'react-redux';
 
 import { createSelectPersonnelByLocationId } from '../../redux/selectors';
 import NewPersonnelItem from '../new-personnel-item';
-import { NEW_PERSONNEL } from '../../modules/location-ids';
+import { incidentLocations } from '../../modules/locations';
 import styles from './styles';
+
+const { NEW_PERSONNEL } = incidentLocations;
 
 const NewPersonnelList = () => {
   const selectPersonnelByLocationId = useMemo(
-    () => createSelectPersonnelByLocationId(NEW_PERSONNEL),
+    () => createSelectPersonnelByLocationId(NEW_PERSONNEL.locationId),
     []
   );
   const personnel = useSelector(state => selectPersonnelByLocationId(state));

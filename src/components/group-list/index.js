@@ -28,11 +28,11 @@ const GroupList = ({ locationId }) => {
     selectPersonnelByLocationId(state, locationId)
   );
 
-  const renderItem = ({ item: { id } }) => (
-    <IncidentItem locationId={locationId} id={id} />
+  const renderItem = ({ item: { personId } }) => (
+    <IncidentItem locationId={locationId} personId={personId} />
   );
 
-  const keyExtractor = item => item.id;
+  const keyExtractor = item => item.personId;
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);

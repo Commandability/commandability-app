@@ -14,7 +14,7 @@ import {
 } from '../types';
 
 export const addPerson = (person, locationId, isTemporary = true) => {
-  const id = uuidv4();
+  const personId = uuidv4();
   const entryId = uuidv4(); // for storage in the report reducer
   const locationUpdateTime = 0;
   const dateTime = new Date().toLocaleString();
@@ -23,7 +23,7 @@ export const addPerson = (person, locationId, isTemporary = true) => {
     payload: {
       entryId,
       dateTime,
-      person: { id, ...person, locationId, locationUpdateTime, isTemporary },
+      person: { personId, ...person, locationId, locationUpdateTime, isTemporary },
     },
   };
 };

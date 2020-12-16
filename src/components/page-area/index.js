@@ -24,7 +24,7 @@ const PageArea = ({ initialEpoch }) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState(
     Object.keys(pageLocationIds).map(page => ({
-      key: pageLocationIds[page].id,
+      key: pageLocationIds[page].pageId,
       title: pageLocationIds[page].title,
     }))
   );

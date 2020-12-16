@@ -17,9 +17,9 @@ import createStyleSheet from './styles';
 
 const { ROSTER, NEW_PERSONNEL } = incidentLocations;
 
-const RosterItem = ({ id }) => {
+const RosterItem = ({ personId }) => {
   const dispatch = useDispatch();
-  const person = useSelector(state => selectPersonById(state, id));
+  const person = useSelector(state => selectPersonById(state, personId));
   const theme = useSelector(state => selectTheme(state));
 
   const onPress = () => {
@@ -47,7 +47,7 @@ const RosterItem = ({ id }) => {
 
 // props validation
 RosterItem.propTypes = {
-  id: PropTypes.string, // the current person
+  personId: PropTypes.string, // the current person
 };
 
 export default React.memo(RosterItem);

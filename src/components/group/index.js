@@ -57,7 +57,7 @@ const Group = ({ locationId, groupMode, setGroupModeHandler }) => {
   const theme = useSelector(state => selectTheme(state));
 
   const allPersonnelSelected = personnel.every(person =>
-    selectedPersonnel.some(selectedPerson => selectedPerson.id === person.id)
+    selectedPersonnel.some(selectedPerson => selectedPerson.personId === person.personId)
   );
 
   const onSelectAllPressed = () => {
@@ -92,7 +92,7 @@ const Group = ({ locationId, groupMode, setGroupModeHandler }) => {
       const { navigate } = navigation;
       navigate('EditGroupPrompt', { group });
     } else {
-      // set each selected id's new locationId to the current group
+      // set each selected personId's new locationId to the current group
       selectedPersonnel.forEach(person => {
         dispatch(
           movePerson(

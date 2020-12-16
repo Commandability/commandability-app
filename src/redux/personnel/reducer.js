@@ -41,11 +41,11 @@ const addPerson = (state, action) => {
   const { payload } = action;
   const {
     person,
-    person: { id },
+    person: { personId },
   } = payload;
   return {
     ...state,
-    [id]: {
+    [personId]: {
       ...person,
     },
   };
@@ -54,26 +54,26 @@ const addPerson = (state, action) => {
 const removePerson = (state, action) => {
   const { payload } = action;
   const {
-    person: { id },
+    person: { personId },
   } = payload;
 
   // eslint-disable-next-line no-unused-vars
-  const { [id]: removed, ...updatedPersonnel } = state;
+  const { [personId]: removed, ...updatedPersonnel } = state;
   return updatedPersonnel;
 };
 
-// set locationId of person by id
+// set locationId of person by personId
 const movePerson = (state, action) => {
   const { payload } = action;
   const {
-    person: { id },
+    person: { personId },
     nextLocationData: { locationId },
     currTime,
   } = payload;
-  const person = state[id];
+  const person = state[personId];
   return {
     ...state,
-    [id]: {
+    [personId]: {
       ...person,
       locationId,
       locationUpdateTime: locationId === ROSTER.locationId ? 0 : currTime,
@@ -97,18 +97,18 @@ const allIds = (state = initialState.allIds, action) => {
 const addPersonId = (state, action) => {
   const { payload } = action;
   const {
-    person: { id },
+    person: { personId },
   } = payload;
-  return state.concat(id);
+  return state.concat(personId);
 };
 
 const removePersonId = (state, action) => {
   const { payload } = action;
   const {
-    person: { id },
+    person: { personId },
   } = payload;
 
-  return state.filter(currId => currId != id);
+  return state.filter(currId => currId != personId);
 };
 
 // set all locationIds in a group to staging if the group is deleted
@@ -121,16 +121,16 @@ const returnToStaging = (state, action) => {
   } = action;
   const byId = {};
 
-  state.allIds.forEach(id => {
-    const person = state.byId[id];
+  state.allIds.forEach(personId => {
+    const person = state.byId[personId];
     if (person.locationId === locationId) {
-      byId[id] = {
+      byId[personId] = {
         ...person,
         locationId: STAGING.locationId,
         locationUpdateTime: currTime,
       };
     } else {
-      byId[id] = {
+      byId[personId] = {
         ...person,
       };
     }
@@ -145,17 +145,17 @@ const returnToStaging = (state, action) => {
 const resetIncident = state => {
   const byId = {};
   const allIds = [];
-  state.allIds.forEach(id => {
-    const person = state.byId[id];
+  state.allIds.forEach(personId => {
+    const person = state.byId[personId];
     const { isTemporary } = person;
     // only add a person to the reset state if they weren't added during the incident
     if (!isTemporary) {
-      byId[id] = {
+      byId[personId] = {
         ...person,
         locationId: ROSTER.locationId,
         locationUpdateTime: 0,
       };
-      allIds.push(id);
+      allIds.push(personId);
     }
   });
   return {
@@ -168,7 +168,7 @@ export const selectPersonnelAllIds = state => state.allIds;
 
 export const selectPersonnelById = state => state.byId;
 
-export const selectPersonById = (state, id) => state.byId[id];
+export const selectPersonById = (state, personId) => state.byId[personId];
 
 export default (state = initialState, action) => {
   switch (action.type) {

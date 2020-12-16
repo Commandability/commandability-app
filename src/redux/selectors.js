@@ -24,7 +24,7 @@ export const selectSelectedPersonnel = createSelector(
   selected.selectSelectedPersonnelIds,
   personnel.selectPersonnelById,
   (selectedPersonnelIds, personnelById) =>
-    selectedPersonnelIds.map(id => personnelById[id])
+    selectedPersonnelIds.map(personId => personnelById[personId])
 );
 
 export const selectIsConfigurationLoaded = createSelector(

@@ -20,9 +20,9 @@ import createStyleSheet from './styles';
 
 const MS_IN_MINUTE = 60000;
 
-const IncidentItem = ({ id, locationId }) => {
+const IncidentItem = ({ personId, locationId }) => {
   const dispatch = useDispatch();
-  const person = useSelector(state => selectPersonById(state, id));
+  const person = useSelector(state => selectPersonById(state, personId));
   const selectedPersonnel = useSelector(state =>
     selectSelectedPersonnel(state)
   );
@@ -31,7 +31,7 @@ const IncidentItem = ({ id, locationId }) => {
   const { locationUpdateTime } = person;
   const [time, setTime] = useState(Date.now() - locationUpdateTime);
 
-  const personIsSelected = selectedPersonnel.some(person => person.id === id);
+  const personIsSelected = selectedPersonnel.some(person => person.personId === personId);
 
   useEffect(() => {
     let intervalID = '';
@@ -85,7 +85,7 @@ const IncidentItem = ({ id, locationId }) => {
 
 // props validation
 IncidentItem.propTypes = {
-  id: PropTypes.string, // the person's id
+  personId: PropTypes.string, // the person's personId
   locationId: PropTypes.string, // the parent groupName
 };
 

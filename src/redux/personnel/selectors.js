@@ -10,13 +10,13 @@ export const selectPersonnelById = state =>
 export const selectPersonnelAllIds = state =>
   personnel.selectPersonnelAllIds(state.personnel);
 
-export const selectPersonById = (state, id) =>
-  personnel.selectPersonById(state.personnel, id);
+export const selectPersonById = (state, personId) =>
+  personnel.selectPersonById(state.personnel, personId);
 
 export const selectPersonnel = createSelector(
   selectPersonnelAllIds,
   selectPersonnelById,
-  (allIds, byId) => allIds.map(id => byId[id])
+  (allIds, byId) => allIds.map(personId => byId[personId])
 );
 
 // https://react-redux.js.org/api/hooks#useselector-examples
@@ -29,7 +29,7 @@ export const createSelectPersonnelByLocationId = locationId =>
         selectPersonnelById,
         (allIds, byId) =>
           allIds
-            .map(id => byId[id])
+            .map(personId => byId[personId])
             .filter(person => person.locationId === locationId)
       )
     : createSelector(
@@ -38,6 +38,6 @@ export const createSelectPersonnelByLocationId = locationId =>
         (_, locationId) => locationId,
         (allIds, byId, locationId) =>
           allIds
-            .map(id => byId[id])
+            .map(personId => byId[personId])
             .filter(person => person.locationId === locationId)
       );

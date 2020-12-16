@@ -97,9 +97,9 @@ const HomeScreen = () => {
           const { groups, personnel } = documentSnapshot.data();
           // set default group settings
           Object.keys(pageLocationIds).forEach(page => {
-            pageLocationIds[page].locationIds.forEach(id => {
-              const { name, visibility } = groups[id];
-              dispatch(createGroup(id, name, visibility));
+            pageLocationIds[page].locationIds.forEach(locationId => {
+              const { name, visibility } = groups[locationId];
+              dispatch(createGroup(locationId, name, visibility));
             });
           });
           // refresh personnel data

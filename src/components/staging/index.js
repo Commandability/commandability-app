@@ -37,7 +37,7 @@ const Staging = () => {
   const theme = useSelector(state => selectTheme(state));
 
   const onStagingPressed = () => {
-    // set each selected id's new locationId to STAGING
+    // set each selected personId's new locationId to STAGING
     selectedPersonnel.forEach(person => {
       dispatch(
         movePerson(

@@ -51,9 +51,9 @@ const RemovePersonnel = () => {
             selectedPersonnel.forEach(person => {
               const { isTemporary } = person;
               isTemporary
-                ? // remove each temporary selected id
+                ? // remove each temporary selected personId
                   dispatch(removePerson(person))
-                : // set each selected id's new locationId to ROSTER
+                : // set each selected personId's new locationId to ROSTER
                   dispatch(
                     movePerson(
                       person,

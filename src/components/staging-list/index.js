@@ -23,11 +23,11 @@ const StagingList = () => {
   );
   const personnel = useSelector(state => selectPersonnelByLocationId(state));
 
-  const renderItem = ({ item: { id } }) => (
-    <IncidentItem locationId={STAGING.locationId} id={id} />
+  const renderItem = ({ item: { personId } }) => (
+    <IncidentItem locationId={STAGING.locationId} personId={personId} />
   );
 
-  const keyExtractor = item => item.id;
+  const keyExtractor = item => item.personId;
 
   return (
     <View style={styles.container}>

@@ -4,7 +4,7 @@
 
 export const pageLocationIds = {
   PAGE_ONE: {
-    id: 'PAGE_ONE',
+    pageId: 'PAGE_ONE',
     title: 'PAGE ONE',
     locationIds: [
       'GROUP_ONE',
@@ -16,7 +16,7 @@ export const pageLocationIds = {
     ],
   },
   PAGE_TWO: {
-    id: 'PAGE_TWO',
+    pageId: 'PAGE_TWO',
     title: 'PAGE TWO',
     locationIds: [
       'GROUP_SEVEN',
@@ -28,7 +28,7 @@ export const pageLocationIds = {
     ],
   },
   PAGE_THREE: {
-    id: 'PAGE_THREE',
+    pageId: 'PAGE_THREE',
     title: 'PAGE THREE',
     locationIds: [
       'GROUP_THIRTEEN',

@@ -15,10 +15,10 @@ import styles from './styles';
 const Page = ({ route: { key }, groupMode, setGroupModeHandler }) => {
   return (
     <View style={styles.container}>
-      {pageLocationIds[key].locationIds.map(id => (
+      {pageLocationIds[key].locationIds.map(locationId => (
         <Group
-          key={id}
-          locationId={id}
+          key={locationId}
+          locationId={locationId}
           groupMode={groupMode}
           setGroupModeHandler={setGroupModeHandler}
         />

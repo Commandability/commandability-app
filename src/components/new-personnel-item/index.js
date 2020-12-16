@@ -17,9 +17,9 @@ import createStyleSheet from './styles';
 
 const { ROSTER, NEW_PERSONNEL } = incidentLocations;
 
-const NewPersonnelItem = ({ id }) => {
+const NewPersonnelItem = ({ personId }) => {
   const dispatch = useDispatch();
-  const person = useSelector(state => selectPersonById(state, id));
+  const person = useSelector(state => selectPersonById(state, personId));
   const theme = useSelector(state => selectTheme(state));
 
   const onPress = () => {
@@ -32,9 +32,9 @@ const NewPersonnelItem = ({ id }) => {
         text: 'OK',
         onPress: () => {
           isTemporary
-            ? // remove each temporary selected id
+            ? // remove each temporary selected personId
               dispatch(removePerson(person))
-            : // set each selected id's new locationId to ROSTER
+            : // set each selected personId's new locationId to ROSTER
               dispatch(
                 movePerson(
                   person,
@@ -68,7 +68,7 @@ const NewPersonnelItem = ({ id }) => {
 
 // props validation
 NewPersonnelItem.propTypes = {
-  id: PropTypes.string, // the current person
+  personId: PropTypes.string, // the current person
 };
 
 export default React.memo(NewPersonnelItem);

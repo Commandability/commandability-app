@@ -42,12 +42,12 @@ const togglePerson = (state, action) => {
   const {
     payload: { person },
   } = action;
-  const { id } = person;
+  const { personId } = person;
 
-  if (state.includes(id)) {
-    return state.filter(currId => currId != id);
+  if (state.includes(personId)) {
+    return state.filter(currId => currId != personId);
   } else {
-    return state.concat(id);
+    return state.concat(personId);
   }
 };
 
@@ -55,23 +55,23 @@ const togglePerson = (state, action) => {
 const selectPerson = (state, action) => {
   const { payload } = action;
   const {
-    person: { id },
+    person: { personId },
   } = payload;
 
-  if (state.includes(id)) {
+  if (state.includes(personId)) {
     return state;
   } else {
-    return state.concat(id);
+    return state.concat(personId);
   }
 };
 
 const deselectPerson = (state, action) => {
   const { payload } = action;
   const {
-    person: { id },
+    person: { personId },
   } = payload;
 
-  return state.filter(currId => currId != id);
+  return state.filter(currId => currId != personId);
 };
 
 const resetPersonnelIdsOnToggleGroup = (state, action) => {
@@ -104,12 +104,12 @@ const selectLocationId = (state, action) => {
   const { payload } = action;
   const {
     locationId,
-    person: { id },
+    person: { personId },
   } = payload;
 
-  // check if current id is the only id in selected to determine if locationId should be reset
+  // check if current personId is the only personId in selected to determine if locationId should be reset
   // and all locations should be enabled
-  if (state.personnelIds.length === 1 && state.personnelIds.includes(id)) {
+  if (state.personnelIds.length === 1 && state.personnelIds.includes(personId)) {
     return {
       personnelIds: personnelIds(state.personnelIds, action),
       locationId: '',

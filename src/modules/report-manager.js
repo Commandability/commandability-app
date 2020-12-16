@@ -68,14 +68,6 @@ export const deleteAllReports = async () => {
   }
 };
 
-export const deleteReport = async report => {
-  try {
-    await AsyncStorage.removeItem(report);
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
 export const uploadReports = async () => {
   try {
     const reportKeys = await getAllReportKeys();

@@ -57,7 +57,9 @@ const Group = ({ locationId, groupMode, setGroupModeHandler }) => {
   const theme = useSelector(state => selectTheme(state));
 
   const allPersonnelSelected = personnel.every(person =>
-    selectedPersonnel.some(selectedPerson => selectedPerson.personId === person.personId)
+    selectedPersonnel.some(
+      selectedPerson => selectedPerson.personId === person.personId
+    )
   );
 
   const onSelectAllPressed = () => {

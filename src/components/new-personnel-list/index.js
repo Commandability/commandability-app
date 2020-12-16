@@ -22,7 +22,9 @@ const NewPersonnelList = () => {
   );
   const personnel = useSelector(state => selectPersonnelByLocationId(state));
 
-  const renderItem = ({ item: { personId } }) => <NewPersonnelItem personId={personId} />;
+  const renderItem = ({ item: { personId } }) => (
+    <NewPersonnelItem personId={personId} />
+  );
 
   const keyExtractor = item => item.personId;
 

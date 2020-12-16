@@ -23,7 +23,13 @@ export const addPerson = (person, locationId, isTemporary = true) => {
     payload: {
       entryId,
       dateTime,
-      person: { personId, ...person, locationId, locationUpdateTime, isTemporary },
+      person: {
+        personId,
+        ...person,
+        locationId,
+        locationUpdateTime,
+        isTemporary,
+      },
     },
   };
 };

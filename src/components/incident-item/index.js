@@ -31,7 +31,9 @@ const IncidentItem = ({ personId, locationId }) => {
   const { locationUpdateTime } = person;
   const [time, setTime] = useState(Date.now() - locationUpdateTime);
 
-  const personIsSelected = selectedPersonnel.some(person => person.personId === personId);
+  const personIsSelected = selectedPersonnel.some(
+    person => person.personId === personId
+  );
 
   useEffect(() => {
     let intervalID = '';

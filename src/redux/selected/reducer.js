@@ -109,7 +109,10 @@ const selectLocationId = (state, action) => {
 
   // check if current personId is the only personId in selected to determine if locationId should be reset
   // and all locations should be enabled
-  if (state.personnelIds.length === 1 && state.personnelIds.includes(personId)) {
+  if (
+    state.personnelIds.length === 1 &&
+    state.personnelIds.includes(personId)
+  ) {
     return {
       personnelIds: personnelIds(state.personnelIds, action),
       locationId: '',

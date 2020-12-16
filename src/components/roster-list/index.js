@@ -23,7 +23,9 @@ const RosterList = ({ query }) => {
   );
   const personnel = useSelector(state => selectPersonnelByLocationId(state));
 
-  const renderItem = ({ item: { personId } }) => <RosterItem personId={personId} />;
+  const renderItem = ({ item: { personId } }) => (
+    <RosterItem personId={personId} />
+  );
 
   const keyExtractor = item => item.personId;
 

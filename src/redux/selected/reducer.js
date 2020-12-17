@@ -27,11 +27,9 @@ const personnelIds = (state = initialState.personnelIds, action) => {
       return selectPerson(state, action);
     case DESELECT_PERSON:
       return deselectPerson(state, action);
-    case TOGGLE_GROUP:
-      return resetPersonnelIdsOnToggleGroup(state, action);
     case CLEAR_SELECTED_PERSONNEL:
     case RESET_INCIDENT:
-      return [];
+      return initialState.personnelIds;
     default:
       return state;
   }
@@ -74,29 +72,40 @@ const deselectPerson = (state, action) => {
   return state.filter(currId => currId != personId);
 };
 
-const resetPersonnelIdsOnToggleGroup = (state, action) => {
-  // reset personnelIds only if a group is being removed
-  const {
-    payload: { visibility },
-  } = action;
-  if (visibility) {
-    return state;
-  } else {
-    return [];
-  }
-};
-
 const locationId = (state = initialState.locationId, action) => {
   switch (action.type) {
     case TOGGLE_PERSON:
       return selectLocationId(state, action);
-    case TOGGLE_GROUP:
-      return resetLocationIdOnToggleGroup(state, action);
     case RESET_INCIDENT:
     case CLEAR_SELECTED_PERSONNEL:
-      return '';
+      return initialState.locationId;
     default:
       return state;
+  }
+};
+
+const resetOnToggleGroup = (state, action) => {
+  const {
+    payload: { group: { locationId: selectedLocationId }, visibility },
+  } = action;
+  if (visibility) {
+    return {
+      personnelIds: personnelIds(state.personnelIds, action),
+      locationId: locationId(state.locationId, action),
+    };
+  } else {
+    // reset only if a group is being removed
+    if(selectedLocationId === state.locationId){
+      return {
+        personnelIds: initialState.personnelIds,
+        locationId: initialState.locationId,
+      };
+    } else {
+      return {
+        personnelIds: personnelIds(state.personnelIds, action),
+        locationId: locationId(state.locationId, action),
+      };
+    }
   }
 };
 
@@ -125,18 +134,6 @@ const selectLocationId = (state, action) => {
   }
 };
 
-const resetLocationIdOnToggleGroup = (state, action) => {
-  // reset personnelIds only if a group is being removed
-  const {
-    payload: { visibility },
-  } = action;
-  if (visibility) {
-    return state;
-  } else {
-    return '';
-  }
-};
-
 export const selectSelectedPersonnelIds = state => {
   return state.personnelIds;
 };
@@ -147,6 +144,8 @@ export const selectSelectedLocationId = state => {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case TOGGLE_GROUP:
+      return resetOnToggleGroup(state, action);
     case TOGGLE_PERSON:
     case SELECT_PERSON:
     case DESELECT_PERSON:

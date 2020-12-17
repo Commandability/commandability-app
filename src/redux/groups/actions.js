@@ -22,16 +22,16 @@ export const editGroup = (group, settings) => {
   };
 };
 
-export const toggleGroup = (group, visibility) => {
+export const toggleGroup = group => {
   const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   return {
     type: TOGGLE_GROUP,
-    payload: { entryId, dateTime, currTime: Date.now(), group, visibility },
+    payload: { entryId, dateTime, currTime: Date.now(), group },
   };
 };
 
-export const createGroup = (locationId, name, visibility) => ({
+export const createGroup = (locationId, name, isVisible) => ({
   type: CREATE_GROUP,
-  payload: { locationId, name, visibility },
+  payload: { locationId, name, isVisible },
 });

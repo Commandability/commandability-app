@@ -141,8 +141,7 @@ const logSetName = (state, action) => {
 const logToggleGroup = (state, action) => {
   const { payload } = action;
   const {
-    group: { name },
-    visibility,
+    group: { name, isVisible },
     entryId,
     dateTime,
   } = payload;
@@ -150,7 +149,8 @@ const logToggleGroup = (state, action) => {
     ...state,
     [entryId]: {
       dateTime,
-      log: visibility ? `Added group ${name}` : `Removed group ${name}`,
+      // If isVisible is currently true, it is being toggled to false
+      log: isVisible ? `Removed group ${name}` : `Added group ${name}`,
     },
   };
 };

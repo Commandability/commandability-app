@@ -2,7 +2,7 @@
  * Group Component
  *
  * This component displays each of the six main groups, each group's relevant data
- * list and handles visibility control of groups
+ * list and handles visibility of groups
  */
 
 import React, { useMemo } from 'react';
@@ -72,7 +72,7 @@ const Group = ({ locationId, groupMode, toggleGroupModeHandler }) => {
 
   const onGroupPressed = () => {
     if (groupMode === 'add') {
-      dispatch(toggleGroup(group, true));
+      dispatch(toggleGroup(group));
     } else if (groupMode === 'remove') {
       Alert.alert(
         'Remove group?',
@@ -85,7 +85,7 @@ const Group = ({ locationId, groupMode, toggleGroupModeHandler }) => {
           {
             text: 'OK',
             onPress: () => {
-              dispatch(toggleGroup(group, false));
+              dispatch(toggleGroup(group));
             },
           },
         ]
@@ -110,9 +110,9 @@ const Group = ({ locationId, groupMode, toggleGroupModeHandler }) => {
     toggleGroupModeHandler('');
   };
 
-  const { name, visibility } = group;
+  const { name, isVisible } = group;
 
-  const renderOverlay = visibility
+  const renderOverlay = isVisible
     ? groupMode === 'remove' ||
       groupMode === 'edit' ||
       (selectedLocationId && selectedLocationId !== locationId)
@@ -130,7 +130,7 @@ const Group = ({ locationId, groupMode, toggleGroupModeHandler }) => {
       {renderOverlay && (
         <TouchableOpacity style={styles.overlay} onPress={onGroupPressed} />
       )}
-      {visibility && (
+      {isVisible && (
         <>
           <TouchableOpacity onPress={onSelectAllPressed} style={styles.header}>
             <Text style={styles.headerContent}> {name.toUpperCase()} </Text>

@@ -16,7 +16,7 @@ const editGroup = (state, action) => {
     ...state,
     [locationId]: {
       locationId,
-      visibility: true,
+      isVisible: true,
       name,
     },
   };
@@ -26,26 +26,25 @@ const toggleGroup = (state, action) => {
   const { payload } = action;
   const {
     group,
-    group: { locationId },
-    visibility,
+    group: { locationId, isVisible },
   } = payload;
   return {
     ...state,
     [locationId]: {
       ...group,
-      visibility,
+      isVisible: !isVisible,
     },
   };
 };
 
 const createGroup = (state, action) => {
   const { payload } = action;
-  const { locationId, name, visibility } = payload;
+  const { locationId, name, isVisible } = payload;
   return {
     ...state,
     [locationId]: {
       locationId,
-      visibility,
+      isVisible,
       name,
     },
   };

@@ -86,14 +86,9 @@ const locationId = (state = initialState.locationId, action) => {
 
 const resetOnToggleGroup = (state, action) => {
   const {
-    payload: { group: { locationId: selectedLocationId }, visibility },
+    payload: { group: { locationId: selectedLocationId, isVisible } },
   } = action;
-  if (visibility) {
-    return {
-      personnelIds: personnelIds(state.personnelIds, action),
-      locationId: locationId(state.locationId, action),
-    };
-  } else {
+  if (isVisible) {
     // reset only if a group is being removed
     if(selectedLocationId === state.locationId){
       return {
@@ -106,6 +101,11 @@ const resetOnToggleGroup = (state, action) => {
         locationId: locationId(state.locationId, action),
       };
     }
+  } else {
+    return {
+      personnelIds: personnelIds(state.personnelIds, action),
+      locationId: locationId(state.locationId, action),
+    };
   }
 };
 

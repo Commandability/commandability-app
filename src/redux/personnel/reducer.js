@@ -175,15 +175,7 @@ export default (state = initialState, action) => {
     case RESET_INCIDENT:
       return resetIncident(state);
     case TOGGLE_GROUP: {
-      // reset personnel locationId only if the group is being removed
-      const {
-        payload: { visibility },
-      } = action;
-      if (visibility) {
-        break;
-      } else {
-        return returnToStaging(state, action);
-      }
+      return returnToStaging(state, action);
     }
   }
   return {

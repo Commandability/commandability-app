@@ -29,8 +29,8 @@ const PageArea = ({ initialEpoch }) => {
     }))
   );
 
-  const setGroupModeHandler = useCallback(
-    groupMode => setGroupMode(groupMode),
+  const toggleGroupModeHandler = useCallback(
+    pressedMode => groupMode ? setGroupMode('') : setGroupMode(pressedMode),
     [groupMode]
   );
 
@@ -40,7 +40,7 @@ const PageArea = ({ initialEpoch }) => {
   const renderScene = ({ route }) => (
     <Page
       route={route}
-      setGroupModeHandler={setGroupModeHandler}
+      toggleGroupModeHandler={toggleGroupModeHandler}
       groupMode={groupMode}
     />
   );
@@ -60,7 +60,7 @@ const PageArea = ({ initialEpoch }) => {
     <View style={styles.container}>
       <GroupOptions
         initialEpoch={initialEpoch}
-        setGroupModeHandler={setGroupModeHandler}
+        toggleGroupModeHandler={toggleGroupModeHandler}
         groupMode={groupMode}
       />
       <View style={styles.page}>

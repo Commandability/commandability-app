@@ -12,7 +12,7 @@ import { pageLocationIds } from '../../modules/locations.js';
 import Group from '../group';
 import styles from './styles';
 
-const Page = ({ route: { key }, groupMode, setGroupModeHandler }) => {
+const Page = ({ route: { key }, groupMode, toggleGroupModeHandler }) => {
   return (
     <View style={styles.container}>
       {pageLocationIds[key].locationIds.map(locationId => (
@@ -20,7 +20,7 @@ const Page = ({ route: { key }, groupMode, setGroupModeHandler }) => {
           key={locationId}
           locationId={locationId}
           groupMode={groupMode}
-          setGroupModeHandler={setGroupModeHandler}
+          toggleGroupModeHandler={toggleGroupModeHandler}
         />
       ))}
     </View>
@@ -30,7 +30,7 @@ const Page = ({ route: { key }, groupMode, setGroupModeHandler }) => {
 // props validation
 Page.propTypes = {
   route: PropTypes.object,
-  setGroupModeHandler: PropTypes.func,
+  toggleGroupModeHandler: PropTypes.func,
   groupMode: PropTypes.string,
 };
 

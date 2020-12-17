@@ -32,7 +32,7 @@ import createStyleSheet from './styles';
 
 const { STAGING } = incidentLocations;
 
-const Group = ({ locationId, groupMode, setGroupModeHandler }) => {
+const Group = ({ locationId, groupMode, toggleGroupModeHandler }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const selectPersonnelByLocationId = useMemo(
@@ -107,7 +107,7 @@ const Group = ({ locationId, groupMode, setGroupModeHandler }) => {
       });
       dispatch(clearSelectedPersonnel());
     }
-    setGroupModeHandler('');
+    toggleGroupModeHandler('');
   };
 
   const { name, visibility } = group;
@@ -145,7 +145,7 @@ const Group = ({ locationId, groupMode, setGroupModeHandler }) => {
 // props validation
 Group.propTypes = {
   locationId: PropTypes.string,
-  setGroupModeHandler: PropTypes.func,
+  toggleGroupModeHandler: PropTypes.func,
   groupMode: PropTypes.string,
 };
 

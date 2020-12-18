@@ -68,8 +68,8 @@ const Group = ({ locationId }) => {
   const onSelectAllPressed = () => {
     personnel.forEach(item => {
       allPersonnelSelected
-        ? dispatch(deselectPerson(item, locationId))
-        : dispatch(selectPerson(item, locationId));
+        ? dispatch(deselectPerson(item))
+        : dispatch(selectPerson(item));
     });
   };
 

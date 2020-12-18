@@ -96,8 +96,7 @@ const groupMode = (state = initialState.groupMode, action) => {
 const selectLocationId = (state, action) => {
   const { payload } = action;
   const {
-    locationId,
-    person: { personId },
+    person: { personId, locationId },
   } = payload;
 
   // Reset the selected locationId when the last selected person is deselected

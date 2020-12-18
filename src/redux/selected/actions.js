@@ -14,20 +14,20 @@ import {
 } from '../types';
 
 // Previously selected persons will be deselected
-export const togglePerson = (person, locationId) => ({
+export const togglePerson = person => ({
   type: TOGGLE_PERSON,
-  payload: { person, locationId },
+  payload: { person },
 });
 
 // Previously selected persons will remain selected
-export const selectPerson = (person, locationId) => ({
+export const selectPerson = person => ({
   type: SELECT_PERSON,
-  payload: { person, locationId },
+  payload: { person },
 });
 
-export const deselectPerson = (person, locationId) => ({
+export const deselectPerson = person => ({
   type: DESELECT_PERSON,
-  payload: { person, locationId },
+  payload: { person },
 });
 
 export const clearSelectedPersonnel = () => ({

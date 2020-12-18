@@ -20,7 +20,7 @@ import createStyleSheet from './styles';
 
 const MS_IN_MINUTE = 60000;
 
-const IncidentItem = ({ personId, locationId }) => {
+const IncidentItem = ({ personId }) => {
   const dispatch = useDispatch();
   const person = useSelector(state => selectPersonById(state, personId));
   const selectedPersonnel = useSelector(state =>
@@ -52,7 +52,7 @@ const IncidentItem = ({ personId, locationId }) => {
   }, [locationUpdateTime]);
 
   const onPress = () => {
-    dispatch(togglePerson(person, locationId));
+    dispatch(togglePerson(person));
   };
 
   const colors = themeSelector(theme);
@@ -88,7 +88,6 @@ const IncidentItem = ({ personId, locationId }) => {
 // props validation
 IncidentItem.propTypes = {
   personId: PropTypes.string, // the person's personId
-  locationId: PropTypes.string, // the parent groupName
 };
 
 export default React.memo(IncidentItem);

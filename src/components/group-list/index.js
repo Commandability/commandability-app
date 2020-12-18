@@ -29,7 +29,7 @@ const GroupList = ({ locationId }) => {
   );
 
   const renderItem = ({ item: { personId } }) => (
-    <IncidentItem locationId={locationId} personId={personId} />
+    <IncidentItem personId={personId} />
   );
 
   const keyExtractor = item => item.personId;

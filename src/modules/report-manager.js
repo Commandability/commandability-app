@@ -31,7 +31,7 @@ export const saveCurrentReport = async reportData => {
         }
       }
     }
-    await AsyncStorage.setItem(`@CAA/${uid}/${reportId}`, reportString.trim());
+    await AsyncStorage.setItem(`@CAA/${uid}/reports/${reportId}`, reportString.trim());
   } catch (error) {
     throw new Error(error);
   }
@@ -45,7 +45,7 @@ export const getAllReportKeys = async () => {
       currentUser: { uid },
     } = auth();
     const keys = await AsyncStorage.getAllKeys();
-    return keys.filter(key => key.slice(0, 34) === `@CAA/${uid}/`);
+    return keys.filter(key => key.slice(0, 42) === `@CAA/${uid}/reports/`);
   } catch (error) {
     throw new Error(error);
   }

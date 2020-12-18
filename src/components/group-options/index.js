@@ -7,32 +7,46 @@
  */
 
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { TouchableOpacity, Text, View } from 'react-native';
-import PropTypes from 'prop-types';
 
-import { selectTheme } from '../../redux/selectors';
+import { selectTheme, selectSelectedGroupMode } from '../../redux/selectors';
+import { toggleGroupMode } from '../../redux/actions';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-const GroupOptions = ({ toggleGroupModeHandler, groupMode }) => {
+const GroupOptions = () => {
+  const dispatch = useDispatch();
   const theme = useSelector(state => selectTheme(state));
+  const selectedGroupMode = useSelector(state => selectSelectedGroupMode(state));
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
+
+  const onAddPressed = () => {
+    dispatch(toggleGroupMode('add'));
+  };
+
+  const onRemovePressed = () => {
+    dispatch(toggleGroupMode('remove'));
+  };
+
+  const onEditPressed = () => {
+    dispatch(toggleGroupMode('edit'));
+  };
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={[
           styles.option,
-          groupMode === 'add' ? styles.selectedOption : styles.option,
+          selectedGroupMode === 'add' ? styles.selectedOption : styles.option,
         ]}
-        onPress={() => toggleGroupModeHandler('add')}
+        onPress={onAddPressed}
       >
         <Text
           style={[
             styles.optionContent,
-            groupMode === 'add' ? styles.selected : styles.optionContent,
+            selectedGroupMode === 'add' ? styles.selected : styles.optionContent,
           ]}
         >
           {' '}
@@ -42,14 +56,14 @@ const GroupOptions = ({ toggleGroupModeHandler, groupMode }) => {
       <TouchableOpacity
         style={[
           styles.option,
-          groupMode === 'remove' ? styles.selectedOption : styles.option,
+          selectedGroupMode === 'remove' ? styles.selectedOption : styles.option,
         ]}
-        onPress={() => toggleGroupModeHandler('remove')}
+        onPress={onRemovePressed}
       >
         <Text
           style={[
             styles.optionContent,
-            groupMode === 'remove' ? styles.selected : styles.optionContent,
+            selectedGroupMode === 'remove' ? styles.selected : styles.optionContent,
           ]}
         >
           {' '}
@@ -59,14 +73,14 @@ const GroupOptions = ({ toggleGroupModeHandler, groupMode }) => {
       <TouchableOpacity
         style={[
           styles.option,
-          groupMode === 'edit' ? styles.selectedOption : styles.option,
+          selectedGroupMode === 'edit' ? styles.selectedOption : styles.option,
         ]}
-        onPress={() => toggleGroupModeHandler('edit')}
+        onPress={onEditPressed}
       >
         <Text
           style={[
             styles.optionContent,
-            groupMode === 'edit' ? styles.selected : styles.optionContent,
+            selectedGroupMode === 'edit' ? styles.selected : styles.optionContent,
           ]}
         >
           {' '}
@@ -75,12 +89,6 @@ const GroupOptions = ({ toggleGroupModeHandler, groupMode }) => {
       </TouchableOpacity>
     </View>
   );
-};
-
-// props validation
-GroupOptions.propTypes = {
-  toggleGroupModeHandler: PropTypes.func,
-  groupMode: PropTypes.string,
 };
 
 export default GroupOptions;

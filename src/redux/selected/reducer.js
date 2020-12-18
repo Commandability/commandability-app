@@ -10,13 +10,15 @@ import {
   SELECT_PERSON,
   DESELECT_PERSON,
   CLEAR_SELECTED_PERSONNEL,
-  TOGGLE_GROUP,
+  TOGGLE_GROUP_MODE,
+  CLEAR_SELECTED_GROUP_MODE,
   RESET_INCIDENT,
 } from '../types';
 
 const initialState = {
   personnelIds: [],
   locationId: '',
+  groupMode: '',
 };
 
 const personnelIds = (state = initialState.personnelIds, action) => {
@@ -49,7 +51,6 @@ const togglePerson = (state, action) => {
   }
 };
 
-// Previously selected persons will remain selected
 const selectPerson = (state, action) => {
   const { payload } = action;
   const {
@@ -74,8 +75,6 @@ const deselectPerson = (state, action) => {
 
 const locationId = (state = initialState.locationId, action) => {
   switch (action.type) {
-    case TOGGLE_PERSON:
-      return selectLocationId(state, action);
     case RESET_INCIDENT:
     case CLEAR_SELECTED_PERSONNEL:
       return initialState.locationId;
@@ -84,28 +83,13 @@ const locationId = (state = initialState.locationId, action) => {
   }
 };
 
-const resetOnToggleGroup = (state, action) => {
-  const {
-    payload: { group: { locationId: selectedLocationId, isVisible } },
-  } = action;
-  if (isVisible) {
-    // reset only if a group is being removed
-    if(selectedLocationId === state.locationId){
-      return {
-        personnelIds: initialState.personnelIds,
-        locationId: initialState.locationId,
-      };
-    } else {
-      return {
-        personnelIds: personnelIds(state.personnelIds, action),
-        locationId: locationId(state.locationId, action),
-      };
-    }
-  } else {
-    return {
-      personnelIds: personnelIds(state.personnelIds, action),
-      locationId: locationId(state.locationId, action),
-    };
+const groupMode = (state = initialState.groupMode, action) => {
+  switch (action.type) {
+    case RESET_INCIDENT:
+    case CLEAR_SELECTED_GROUP_MODE:
+      return initialState.groupMode;
+    default:
+      return state;
   }
 };
 
@@ -116,22 +100,36 @@ const selectLocationId = (state, action) => {
     person: { personId },
   } = payload;
 
-  // check if current personId is the only personId in selected to determine if locationId should be reset
-  // and all locations should be enabled
+  // Reset the selected locationId when the last selected person is deselected
   if (
-    state.personnelIds.length === 1 &&
-    state.personnelIds.includes(personId)
+    state.personnelIds.includes(personId) &&
+    state.personnelIds.length === 1
   ) {
     return {
       personnelIds: personnelIds(state.personnelIds, action),
-      locationId: '',
+      locationId: initialState.locationId,
+      groupMode: initialState.groupMode,
     };
+  // Reset the groupMode when a person is added or removed
   } else {
     return {
       personnelIds: personnelIds(state.personnelIds, action),
       locationId,
+      groupMode: '',
     };
   }
+};
+
+// Reset selected location and groups when a groupMode is selected
+const toggleGroupMode = (state, action) => {
+  const { payload } = action;
+  const { groupMode } = payload;
+
+  return {
+    personnelIds: initialState.personnelIds,
+    locationId: initialState.locationId,
+    groupMode: state.groupMode ? '' : groupMode,
+  };
 };
 
 export const selectSelectedPersonnelIds = state => {
@@ -142,18 +140,23 @@ export const selectSelectedLocationId = state => {
   return state.locationId;
 };
 
+export const selectSelectedGroupMode = state => {
+  return state.groupMode;
+};
+
 export default (state = initialState, action) => {
   switch (action.type) {
-    case TOGGLE_GROUP:
-      return resetOnToggleGroup(state, action);
     case TOGGLE_PERSON:
     case SELECT_PERSON:
     case DESELECT_PERSON:
       return selectLocationId(state, action);
+    case TOGGLE_GROUP_MODE:
+      return toggleGroupMode(state, action);
     default:
       return {
         personnelIds: personnelIds(state.personnelIds, action),
         locationId: locationId(state.locationId, action),
+        groupMode: groupMode(state.groupMode, action),
       };
   }
 };

@@ -7,3 +7,6 @@ export const selectSelectedLocationId = state =>
 
 export const selectSelectedPersonnelIds = state =>
   selected.selectSelectedPersonnelIds(state.selected);
+
+export const selectSelectedGroupMode = state =>
+  selected.selectSelectedGroupMode(state.selected);

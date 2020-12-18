@@ -18,13 +18,15 @@ import {
   selectSelectedLocationId,
   selectSelectedPersonnel,
   selectTheme,
+  selectSelectedGroupMode
 } from '../../redux/selectors';
 import {
   toggleGroup,
   selectPerson,
   deselectPerson,
-  clearSelectedPersonnel,
   movePerson,
+  clearSelectedPersonnel,
+  clearSelectedGroupMode,
 } from '../../redux/actions';
 import { incidentLocations } from '../../modules/locations';
 import themeSelector from '../../modules/themes';
@@ -32,7 +34,7 @@ import createStyleSheet from './styles';
 
 const { STAGING } = incidentLocations;
 
-const Group = ({ locationId, groupMode, toggleGroupModeHandler }) => {
+const Group = ({ locationId }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const selectPersonnelByLocationId = useMemo(
@@ -54,6 +56,7 @@ const Group = ({ locationId, groupMode, toggleGroupModeHandler }) => {
   const selectedPersonnel = useSelector(state =>
     selectSelectedPersonnel(state)
   );
+  const selectedGroupMode = useSelector(state => selectSelectedGroupMode(state));
   const theme = useSelector(state => selectTheme(state));
 
   const allPersonnelSelected = personnel.every(person =>
@@ -71,9 +74,9 @@ const Group = ({ locationId, groupMode, toggleGroupModeHandler }) => {
   };
 
   const onGroupPressed = () => {
-    if (groupMode === 'add') {
+    if (selectedGroupMode === 'add') {
       dispatch(toggleGroup(group));
-    } else if (groupMode === 'remove') {
+    } else if (selectedGroupMode === 'remove') {
       Alert.alert(
         'Remove group?',
         'All personnel will be returned to staging',
@@ -90,7 +93,7 @@ const Group = ({ locationId, groupMode, toggleGroupModeHandler }) => {
           },
         ]
       );
-    } else if (groupMode === 'edit') {
+    } else if (selectedGroupMode === 'edit') {
       const { navigate } = navigation;
       navigate('EditGroupPrompt', { group });
     } else {
@@ -107,18 +110,19 @@ const Group = ({ locationId, groupMode, toggleGroupModeHandler }) => {
       });
       dispatch(clearSelectedPersonnel());
     }
-    toggleGroupModeHandler('');
+    
+    dispatch(clearSelectedGroupMode());
   };
 
   const { name, isVisible } = group;
 
   const renderOverlay = isVisible
-    ? groupMode === 'remove' ||
-      groupMode === 'edit' ||
+    ? selectedGroupMode === 'remove' ||
+      selectedGroupMode === 'edit' ||
       (selectedLocationId && selectedLocationId !== locationId)
       ? true
       : false
-    : groupMode === 'add'
+    : selectedGroupMode === 'add'
     ? true
     : false;
 
@@ -145,8 +149,6 @@ const Group = ({ locationId, groupMode, toggleGroupModeHandler }) => {
 // props validation
 Group.propTypes = {
   locationId: PropTypes.string,
-  toggleGroupModeHandler: PropTypes.func,
-  groupMode: PropTypes.string,
 };
 
 export default React.memo(Group);

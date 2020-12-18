@@ -4,7 +4,7 @@
  * This component handles the group area, including groups and group options
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Text, View } from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
@@ -20,7 +20,6 @@ import { pageLocationIds } from '../../modules/locations.js';
 const PageArea = ({ initialEpoch }) => {
   const theme = useSelector(state => selectTheme(state));
 
-  const [groupMode, setGroupMode] = useState('');
   const [index, setIndex] = useState(0);
   const [routes] = useState(
     Object.keys(pageLocationIds).map(page => ({
@@ -29,19 +28,12 @@ const PageArea = ({ initialEpoch }) => {
     }))
   );
 
-  const toggleGroupModeHandler = useCallback(
-    pressedMode => groupMode ? setGroupMode('') : setGroupMode(pressedMode),
-    [groupMode]
-  );
-
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
   const renderScene = ({ route }) => (
     <Page
       route={route}
-      toggleGroupModeHandler={toggleGroupModeHandler}
-      groupMode={groupMode}
     />
   );
 
@@ -60,8 +52,6 @@ const PageArea = ({ initialEpoch }) => {
     <View style={styles.container}>
       <GroupOptions
         initialEpoch={initialEpoch}
-        toggleGroupModeHandler={toggleGroupModeHandler}
-        groupMode={groupMode}
       />
       <View style={styles.page}>
         <TabView

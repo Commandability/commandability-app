@@ -22,7 +22,7 @@ export const CLEAR_PERSONNEL = 'CLEAR_PERSONNEL';
 
 export const EDIT_GROUP = 'EDIT_GROUP';
 export const TOGGLE_GROUP = 'TOGGLE_GROUP';
-export const CREATE_GROUP = 'CREATE_GROUP';
+export const CREATE_GROUPS = 'CREATE_GROUPS';
 
 export const TOGGLE_PERSON = 'TOGGLE_PERSON';
 export const SELECT_PERSON = 'SELECT_PERSON';

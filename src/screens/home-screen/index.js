@@ -28,14 +28,14 @@ import {
   toIncidentStack,
   toEndStack,
   resetApp,
-  createGroup,
+  createGroups,
   clearPersonnel,
   addPerson,
   toggleTheme,
 } from '../../redux/actions';
 import { START_INCIDENT, END_INCIDENT } from '../../redux/types';
 import { uploadReports, deleteAllReports } from '../../modules/report-manager';
-import { staticLocations, pageLocationIds } from '../../modules/locations.js';
+import { staticLocations } from '../../modules/locations.js';
 import { DARK } from '../../modules/theme-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
@@ -95,14 +95,9 @@ const HomeScreen = () => {
             .doc(uid)
             .get();
           const { groups, personnel } = documentSnapshot.data();
-          // set default group settings
-          Object.keys(pageLocationIds).forEach(page => {
-            pageLocationIds[page].locationIds.forEach(locationId => {
-              const { name, isVisible } = groups[locationId];
-              dispatch(createGroup(locationId, name, isVisible));
-            });
-          });
-          // refresh personnel data
+
+          dispatch(createGroups(groups));
+
           dispatch(clearPersonnel());
           personnel.forEach(person => {
             dispatch(addPerson(person, ROSTER.locationId, false)); // false for non-temporary personnel

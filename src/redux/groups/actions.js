@@ -6,7 +6,7 @@
 
 import uuidv4 from 'uuid/v4';
 
-import { EDIT_GROUP, TOGGLE_GROUP, CREATE_GROUP } from '../types';
+import { EDIT_GROUP, TOGGLE_GROUP, CREATE_GROUPS } from '../types';
 
 export const editGroup = (group, settings) => {
   const entryId = uuidv4(); // for storage in the report reducer
@@ -31,7 +31,7 @@ export const toggleGroup = group => {
   };
 };
 
-export const createGroup = (locationId, name, isVisible) => ({
-  type: CREATE_GROUP,
-  payload: { locationId, name, isVisible },
+export const createGroups = groups => ({
+  type: CREATE_GROUPS,
+  payload: { groups },
 });

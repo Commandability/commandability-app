@@ -31,7 +31,10 @@ export const saveCurrentReport = async reportData => {
         }
       }
     }
-    await AsyncStorage.setItem(`@CAA/${uid}/reports/${reportId}`, reportString.trim());
+    await AsyncStorage.setItem(
+      `@CAA/${uid}/reports/${reportId}`,
+      reportString.trim()
+    );
   } catch (error) {
     throw new Error(error);
   }

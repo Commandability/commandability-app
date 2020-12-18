@@ -13,9 +13,9 @@ import {
   TOGGLE_GROUP,
   RESET_INCIDENT,
 } from '../types';
-import { incidentLocations } from '../../modules/locations';
+import { staticLocations } from '../../modules/locations';
 
-const { ROSTER, STAGING } = incidentLocations;
+const { ROSTER, STAGING } = staticLocations;
 
 const initialState = {
   byId: {},

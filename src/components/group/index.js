@@ -18,7 +18,7 @@ import {
   selectSelectedLocationId,
   selectSelectedPersonnel,
   selectTheme,
-  selectSelectedGroupMode
+  selectSelectedGroupMode,
 } from '../../redux/selectors';
 import {
   toggleGroup,
@@ -28,11 +28,11 @@ import {
   clearSelectedPersonnel,
   clearSelectedGroupMode,
 } from '../../redux/actions';
-import { incidentLocations } from '../../modules/locations';
+import { staticLocations } from '../../modules/locations';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-const { STAGING } = incidentLocations;
+const { STAGING } = staticLocations;
 
 const Group = ({ locationId }) => {
   const dispatch = useDispatch();
@@ -56,7 +56,9 @@ const Group = ({ locationId }) => {
   const selectedPersonnel = useSelector(state =>
     selectSelectedPersonnel(state)
   );
-  const selectedGroupMode = useSelector(state => selectSelectedGroupMode(state));
+  const selectedGroupMode = useSelector(state =>
+    selectSelectedGroupMode(state)
+  );
   const theme = useSelector(state => selectTheme(state));
 
   const allPersonnelSelected = personnel.every(person =>
@@ -110,7 +112,7 @@ const Group = ({ locationId }) => {
       });
       dispatch(clearSelectedPersonnel());
     }
-    
+
     dispatch(clearSelectedGroupMode());
   };
 

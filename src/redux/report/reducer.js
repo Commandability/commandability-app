@@ -14,9 +14,9 @@ import {
   EDIT_GROUP,
   TOGGLE_GROUP,
 } from '../types';
-import { incidentLocations } from '../../modules/locations';
+import { staticLocations } from '../../modules/locations';
 
-const { ROSTER, NEW_PERSONNEL, STAGING } = incidentLocations;
+const { ROSTER, NEW_PERSONNEL, STAGING } = staticLocations;
 
 const logStartIncident = action => {
   const { payload } = action;

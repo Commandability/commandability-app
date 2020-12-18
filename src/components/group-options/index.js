@@ -18,7 +18,9 @@ import createStyleSheet from './styles';
 const GroupOptions = () => {
   const dispatch = useDispatch();
   const theme = useSelector(state => selectTheme(state));
-  const selectedGroupMode = useSelector(state => selectSelectedGroupMode(state));
+  const selectedGroupMode = useSelector(state =>
+    selectSelectedGroupMode(state)
+  );
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
@@ -46,7 +48,9 @@ const GroupOptions = () => {
         <Text
           style={[
             styles.optionContent,
-            selectedGroupMode === 'add' ? styles.selected : styles.optionContent,
+            selectedGroupMode === 'add'
+              ? styles.selected
+              : styles.optionContent,
           ]}
         >
           {' '}
@@ -56,14 +60,18 @@ const GroupOptions = () => {
       <TouchableOpacity
         style={[
           styles.option,
-          selectedGroupMode === 'remove' ? styles.selectedOption : styles.option,
+          selectedGroupMode === 'remove'
+            ? styles.selectedOption
+            : styles.option,
         ]}
         onPress={onRemovePressed}
       >
         <Text
           style={[
             styles.optionContent,
-            selectedGroupMode === 'remove' ? styles.selected : styles.optionContent,
+            selectedGroupMode === 'remove'
+              ? styles.selected
+              : styles.optionContent,
           ]}
         >
           {' '}
@@ -80,7 +88,9 @@ const GroupOptions = () => {
         <Text
           style={[
             styles.optionContent,
-            selectedGroupMode === 'edit' ? styles.selected : styles.optionContent,
+            selectedGroupMode === 'edit'
+              ? styles.selected
+              : styles.optionContent,
           ]}
         >
           {' '}

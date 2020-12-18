@@ -14,12 +14,12 @@ import PropTypes from 'prop-types';
 import { selectPersonnel, selectTheme } from '../../redux/selectors';
 import { toggleTheme, toEndStack } from '../../redux/actions';
 import Timer from '../timer';
-import { incidentLocations } from '../../modules/locations';
+import { staticLocations } from '../../modules/locations';
 import { DARK } from '../../modules/theme-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-const { ROSTER, NEW_PERSONNEL, STAGING } = incidentLocations;
+const { ROSTER, NEW_PERSONNEL, STAGING } = staticLocations;
 
 const BottomBar = ({ initialEpoch }) => {
   const dispatch = useDispatch();

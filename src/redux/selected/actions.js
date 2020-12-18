@@ -10,7 +10,7 @@ import {
   DESELECT_PERSON,
   CLEAR_SELECTED_PERSONNEL,
   TOGGLE_GROUP_MODE,
-  CLEAR_SELECTED_GROUP_MODE
+  CLEAR_SELECTED_GROUP_MODE,
 } from '../types';
 
 // Previously selected persons will be deselected

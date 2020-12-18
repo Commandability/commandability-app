@@ -31,11 +31,7 @@ const PageArea = ({ initialEpoch }) => {
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
-  const renderScene = ({ route }) => (
-    <Page
-      route={route}
-    />
-  );
+  const renderScene = ({ route }) => <Page route={route} />;
 
   const renderTabBar = props => (
     <TabBar
@@ -50,9 +46,7 @@ const PageArea = ({ initialEpoch }) => {
 
   return (
     <View style={styles.container}>
-      <GroupOptions
-        initialEpoch={initialEpoch}
-      />
+      <GroupOptions initialEpoch={initialEpoch} />
       <View style={styles.page}>
         <TabView
           navigationState={{

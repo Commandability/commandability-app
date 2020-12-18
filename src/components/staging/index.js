@@ -17,11 +17,11 @@ import {
   selectTheme,
 } from '../../redux/selectors';
 import { clearSelectedPersonnel, movePerson } from '../../redux/actions';
-import { incidentLocations } from '../../modules/locations';
+import { staticLocations } from '../../modules/locations';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-const { STAGING } = incidentLocations;
+const { STAGING } = staticLocations;
 
 const Staging = () => {
   const dispatch = useDispatch();

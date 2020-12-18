@@ -35,12 +35,12 @@ import {
 } from '../../redux/actions';
 import { START_INCIDENT, END_INCIDENT } from '../../redux/types';
 import { uploadReports, deleteAllReports } from '../../modules/report-manager';
-import { incidentLocations, pageLocationIds } from '../../modules/locations.js';
+import { staticLocations, pageLocationIds } from '../../modules/locations.js';
 import { DARK } from '../../modules/theme-ids';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-const { ROSTER } = incidentLocations;
+const { ROSTER } = staticLocations;
 
 const HomeScreen = () => {
   const dispatch = useDispatch();

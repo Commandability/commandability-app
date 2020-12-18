@@ -11,10 +11,10 @@ import PropTypes from 'prop-types';
 
 import { createSelectPersonnelByLocationId } from '../../redux/selectors';
 import RosterItem from '../roster-item';
-import { incidentLocations } from '../../modules/locations';
+import { staticLocations } from '../../modules/locations';
 import styles from './styles';
 
-const { ROSTER } = incidentLocations;
+const { ROSTER } = staticLocations;
 
 const RosterList = ({ query }) => {
   const selectPersonnelByLocationId = useMemo(

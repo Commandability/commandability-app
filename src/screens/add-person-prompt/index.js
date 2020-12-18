@@ -20,11 +20,11 @@ import PropTypes from 'prop-types';
 
 import { addPerson } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
-import { incidentLocations } from '../../modules/locations';
+import { staticLocations } from '../../modules/locations';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-const { NEW_PERSONNEL } = incidentLocations;
+const { NEW_PERSONNEL } = staticLocations;
 
 const AddPersonPrompt = ({ navigation }) => {
   const dispatch = useDispatch();

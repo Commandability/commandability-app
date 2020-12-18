@@ -109,7 +109,7 @@ const selectLocationId = (state, action) => {
       locationId: initialState.locationId,
       groupMode: initialState.groupMode,
     };
-  // Reset the groupMode when a person is added or removed
+    // Reset the groupMode when a person is added or removed
   } else {
     return {
       personnelIds: personnelIds(state.personnelIds, action),

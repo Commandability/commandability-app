@@ -11,10 +11,10 @@ import { useSelector } from 'react-redux';
 
 import { createSelectPersonnelByLocationId } from '../../redux/selectors';
 import IncidentItem from '../incident-item';
-import { incidentLocations } from '../../modules/locations';
+import { staticLocations } from '../../modules/locations';
 import styles from './styles';
 
-const { STAGING } = incidentLocations;
+const { STAGING } = staticLocations;
 
 const StagingList = () => {
   const selectPersonnelByLocationId = useMemo(

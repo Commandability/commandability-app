@@ -10,10 +10,10 @@ import { useSelector } from 'react-redux';
 
 import { createSelectPersonnelByLocationId } from '../../redux/selectors';
 import NewPersonnelItem from '../new-personnel-item';
-import { incidentLocations } from '../../modules/locations';
+import { staticLocations } from '../../modules/locations';
 import styles from './styles';
 
-const { NEW_PERSONNEL } = incidentLocations;
+const { NEW_PERSONNEL } = staticLocations;
 
 const NewPersonnelList = () => {
   const selectPersonnelByLocationId = useMemo(

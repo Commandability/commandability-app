@@ -11,11 +11,11 @@ import PropTypes from 'prop-types';
 
 import { selectPersonById, selectTheme } from '../../redux/selectors';
 import { removePerson, movePerson } from '../../redux/actions';
-import { incidentLocations } from '../../modules/locations';
+import { staticLocations } from '../../modules/locations';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-const { ROSTER, NEW_PERSONNEL } = incidentLocations;
+const { ROSTER, NEW_PERSONNEL } = staticLocations;
 
 const NewPersonnelItem = ({ personId }) => {
   const dispatch = useDispatch();

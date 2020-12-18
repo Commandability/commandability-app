@@ -16,10 +16,7 @@ const Page = ({ route: { key } }) => {
   return (
     <View style={styles.container}>
       {pageLocationIds[key].locationIds.map(locationId => (
-        <Group
-          key={locationId}
-          locationId={locationId}
-        />
+        <Group key={locationId} locationId={locationId} />
       ))}
     </View>
   );

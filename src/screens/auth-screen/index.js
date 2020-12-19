@@ -47,7 +47,7 @@ const AuthScreen = () => {
     if (!isConnected) {
       Alert.alert(
         'Failed to connect to the network',
-        'Please check your network connection status. ',
+        'Please check your network connection status',
         [
           {
             text: 'OK',
@@ -64,14 +64,14 @@ const AuthScreen = () => {
       let message = '';
       switch (error.message) {
         case 'auth/invalid-email':
-          message = 'The email address you entered is invalid. ';
+          message = 'The email address you entered is invalid';
           break;
         case 'auth/user-not-found':
         case 'auth/wrong-password':
           message = 'Incorrect email or password';
           break;
         default:
-          message = 'Unknown error. ';
+          message = 'Unknown error';
       }
       Alert.alert('Error', message, [
         {

@@ -6,6 +6,7 @@
 
 import React, { useState } from 'react';
 import {
+  ActivityIndicator,
   Alert,
   TouchableOpacity,
   View,
@@ -18,6 +19,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import PropTypes from 'prop-types';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import NetInfo from '@react-native-community/netinfo';
 
 import { resetIncident, toHomeStack } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
@@ -27,23 +29,59 @@ import createStyleSheet from './styles';
 const ExitIncidentPrompt = ({ navigation }) => {
   const dispatch = useDispatch();
   const theme = useSelector(state => selectTheme(state));
-  const {
-    currentUser: { email: userEmail },
-  } = auth();
+  const { currentUser } = auth();
 
-  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [password, setPassword] = useState('dev-password');
 
-  const onExitPressed = () => {
-    if (email === userEmail) {
+  const onExitPressed = async () => {
+    if (!password) {
+      Alert.alert("Please enter your organization's password", '', [
+        {
+          text: 'OK',
+        },
+      ]);
+      return;
+    }
+
+    const { isConnected } = await NetInfo.fetch();
+    if (!isConnected) {
+      Alert.alert(
+        'Failed to connect to the network',
+        'Please check your network connection status. ',
+        [
+          {
+            text: 'OK',
+          },
+        ]
+      );
+      return;
+    }
+
+    setLoading(true);
+    const credential = auth.EmailAuthProvider.credential(
+      currentUser.email,
+      password
+    );
+    try {
+      await currentUser.reauthenticateWithCredential(credential);
       dispatch(resetIncident()); // reset personnel locations and group settings, remove all temporary personnel from state
       dispatch(toHomeStack());
-    } else {
-      Alert.alert('Incorrect organization email', '', [
+    } catch (error) {
+      let message = '';
+      if (error.message == 'auth/wrong-password') {
+        message = 'Incorrect password';
+      } else {
+        message = 'Unknown error';
+      }
+      Alert.alert('Error', message, [
         {
           text: 'OK',
         },
       ]);
     }
+    setLoading(false);
+    setPassword('');
   };
 
   const onCancelPressed = () => {
@@ -67,26 +105,33 @@ const ExitIncidentPrompt = ({ navigation }) => {
         <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
           <View style={styles.prompt}>
             <Text style={styles.promptText}>
-              {`Are you absolutely sure you want to exit without saving?`}
+              Are you absolutely sure you want to exit without saving?
             </Text>
             <Text style={styles.promptText}>
-              <Text>Please type </Text>
-              <Text style={styles.email}>{userEmail}</Text>
-              <Text> to confirm.</Text>
+              Please enter your password to confirm
             </Text>
           </View>
-          <Text style={styles.label}>Organization email *</Text>
+          <Text style={styles.label}>Password</Text>
           <TextInput
-            style={styles.emailInput}
+            style={styles.passwordInput}
             autoCapitalize="none"
-            onChangeText={email => setEmail(email)}
-            value={email}
+            secureTextEntry
+            onChangeText={password => setPassword(password)}
+            value={password}
           />
           <TouchableOpacity style={styles.opacity} onPress={onExitPressed}>
+            <Icon name="cancel" style={styles.icon} />
             <Text style={styles.opacityText}>Exit Without Saving</Text>
           </TouchableOpacity>
         </KeyboardAwareScrollView>
       </View>
+      {loading && (
+        <ActivityIndicator
+          style={styles.activityIndicator}
+          color={colors.primary}
+          size={'large'}
+        />
+      )}
     </View>
   );
 };

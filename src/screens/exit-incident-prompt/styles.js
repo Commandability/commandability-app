@@ -17,6 +17,7 @@ export default colors =>
     },
     promptText: {
       fontSize: 24,
+      marginBottom: 8,
       color: colors.text.main,
     },
     label: {
@@ -26,7 +27,7 @@ export default colors =>
     email: {
       color: colors.primary,
     },
-    emailInput: {
+    passwordInput: {
       height: 48,
       color: colors.text.main,
       backgroundColor: colors.background.two,

@@ -5,7 +5,7 @@
  */
 
 import { TOGGLE_THEME } from '../types';
-import { DARK, LIGHT } from '../../modules/theme-ids';
+import { DARK, LIGHT } from '../../modules/themes';
 
 const initialState = {
   currentTheme: DARK,

@@ -11,7 +11,7 @@ import {
   TO_INCIDENT_STACK,
   TO_END_STACK,
 } from '../types';
-import { AUTH_STACK } from '../../modules/stack-ids';
+import { AUTH_STACK } from '../../modules/navigation-stacks';
 
 const initialState = {
   currentStack: AUTH_STACK,

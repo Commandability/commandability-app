@@ -4,7 +4,8 @@
  * Store all colors used in app styling.
  */
 
-import { DARK } from './theme-ids';
+export const LIGHT = 'LIGHT';
+export const DARK = 'DARK';
 
 export default theme => {
   if (theme === DARK) {

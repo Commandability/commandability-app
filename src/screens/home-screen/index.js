@@ -40,7 +40,7 @@ import {
   deleteAllReports,
 } from '../../modules/report-manager';
 import { staticLocations } from '../../modules/locations.js';
-import { DARK } from '../../modules/theme-ids';
+import { DARK } from '../../modules/themes';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 

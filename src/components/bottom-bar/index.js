@@ -15,7 +15,7 @@ import { selectPersonnel, selectTheme } from '../../redux/selectors';
 import { toggleTheme, toEndStack } from '../../redux/actions';
 import Timer from '../timer';
 import { staticLocations } from '../../modules/locations';
-import { DARK } from '../../modules/theme-ids';
+import { DARK } from '../../modules/themes';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 

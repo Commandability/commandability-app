@@ -26,7 +26,7 @@ import {
   HOME_STACK,
   INCIDENT_STACK,
   END_STACK,
-} from './modules/stack-ids';
+} from './modules/navigation-stacks';
 import { selectStack } from './redux/selectors';
 
 const Auth = createStackNavigator();

@@ -34,7 +34,11 @@ import {
   toggleTheme,
 } from '../../redux/actions';
 import { START_INCIDENT, END_INCIDENT } from '../../redux/types';
-import { uploadReports, deleteAllReports } from '../../modules/report-manager';
+import {
+  getNumberOfReports,
+  uploadReports,
+  deleteAllReports,
+} from '../../modules/report-manager';
 import { staticLocations } from '../../modules/locations.js';
 import { DARK } from '../../modules/theme-ids';
 import themeSelector from '../../modules/themes';
@@ -51,6 +55,7 @@ const HomeScreen = () => {
   );
 
   const [loading, setLoading] = useState(false);
+  const [numberOfReports, setNumberOfReports] = useState(0);
 
   const reportIsActive =
     reportData[START_INCIDENT] && !reportData[END_INCIDENT];
@@ -64,6 +69,14 @@ const HomeScreen = () => {
       dispatch(toEndStack());
     }
   }, [reportIsActive, reportIsComplete]);
+
+  useEffect(() => {
+    const getNumberOfReportsEffect = async () => {
+      const result = await getNumberOfReports();
+      setNumberOfReports(result);
+    };
+    getNumberOfReportsEffect();
+  }, []);
 
   const onStartIncidentPressed = () => {
     if (isConfigurationLoaded) {
@@ -141,6 +154,7 @@ const HomeScreen = () => {
       try {
         await uploadReports();
         await deleteAllReports();
+        setNumberOfReports(0);
         Alert.alert(
           'All reports uploaded',
           'All reports were successfully uploaded and removed from local storage',
@@ -233,7 +247,12 @@ const HomeScreen = () => {
           color={colors.primary}
         >
           <Icon name="upload" style={styles.icon} />
-          <Text style={styles.opacityText}>Upload Reports</Text>
+          <Text style={styles.opacityText}>
+            <Text>Upload Reports</Text>
+            <Text
+              style={numberOfReports ? styles.reportsOnDevice : styles.noReportsOnDevice}
+            >{` (${numberOfReports})`}</Text>
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.row}>

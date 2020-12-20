@@ -42,7 +42,7 @@ export const saveCurrentReport = async reportData => {
 
 // avoid the promise constructor anti-pattern: a promise's then() clause always returns a new promise
 // https://stackoverflow.com/questions/43036229/is-it-an-anti-pattern-to-use-async-await-inside-of-a-new-promise-constructor/43050114
-export const getAllReportKeys = async () => {
+const getAllReportKeys = async () => {
   try {
     const {
       currentUser: { uid },
@@ -54,9 +54,10 @@ export const getAllReportKeys = async () => {
   }
 };
 
-export const getReport = async key => {
+export const getNumberOfReports = async () => {
   try {
-    return await AsyncStorage.getItem(key);
+    const reportKeys = await getAllReportKeys();
+    return reportKeys.length;
   } catch (error) {
     throw new Error(error);
   }
@@ -74,7 +75,9 @@ export const deleteAllReports = async () => {
 export const uploadReports = async () => {
   try {
     const reportKeys = await getAllReportKeys();
-    const reportPromises = reportKeys.map(key => getReport(key));
+    const reportPromises = reportKeys.map(
+      async key => await AsyncStorage.getItem(key)
+    );
     const reports = await Promise.all(reportPromises);
     const {
       currentUser,

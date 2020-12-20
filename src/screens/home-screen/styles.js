@@ -35,4 +35,10 @@ export default colors =>
       fontSize: 42,
       color: colors.text.main,
     },
+    reportsOnDevice: {
+      color: colors.primary,
+    },
+    noReportsOnDevice: {
+      color: colors.text.main,
+    },
   });

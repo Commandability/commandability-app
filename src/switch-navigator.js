@@ -52,18 +52,9 @@ const setStack = stack => {
       return (
         <Incident.Navigator screenOptions={screenOptions}>
           <Incident.Screen name="IncidentScreen" component={IncidentScreen} />
-          <Incident.Screen
-            name="EditGroupPrompt"
-            component={EditGroupPrompt}
-          />
-          <Incident.Screen
-            name="PersonnelPrompt"
-            component={PersonnelPrompt}
-          />
-          <Incident.Screen
-            name="AddPersonPrompt"
-            component={AddPersonPrompt}
-          />
+          <Incident.Screen name="EditGroupPrompt" component={EditGroupPrompt} />
+          <Incident.Screen name="PersonnelPrompt" component={PersonnelPrompt} />
+          <Incident.Screen name="AddPersonPrompt" component={AddPersonPrompt} />
         </Incident.Navigator>
       );
     case END_STACK:
@@ -90,13 +81,14 @@ const setStack = stack => {
   }
 };
 
-const createStyleSheet = colors => StyleSheet.create({
-  // eslint-disable-next-line react-native/no-unused-styles
-  container: { 
-    flex: 1,
-    backgroundColor: colors.background.one
-  }
-});
+const createStyleSheet = colors =>
+  StyleSheet.create({
+    // eslint-disable-next-line react-native/no-unused-styles
+    container: {
+      flex: 1,
+      backgroundColor: colors.background.one,
+    },
+  });
 
 const SwitchNavigator = () => {
   const theme = useSelector(state => selectTheme(state));

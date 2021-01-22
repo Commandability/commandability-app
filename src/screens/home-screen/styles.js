@@ -29,16 +29,29 @@ export default colors =>
     icon: {
       fontSize: 42,
       color: colors.primary,
-      marginRight: 30,
+      marginRight: 32,
+    },
+    opacityContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     opacityText: {
       fontSize: 42,
       color: colors.text.main,
     },
+    reportsNumber: {
+      paddingHorizontal: 12,
+      marginLeft: 32,
+      borderRadius: 5,
+    },
     reportsOnDevice: {
-      color: colors.primary,
+      backgroundColor: colors.primary,
+      color: colors.background.one,
     },
     noReportsOnDevice: {
-      color: colors.text.main,
+      backgroundColor: colors.background.three,
+      color: colors.text.disabled,
     },
   });

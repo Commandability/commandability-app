@@ -246,13 +246,19 @@ const HomeScreen = () => {
           onPress={onUploadReportsPressed}
           color={colors.primary}
         >
-          <Icon name="upload" style={styles.icon} />
-          <Text style={styles.opacityText}>
-            <Text>Upload Reports</Text>
+          <View style={styles.opacityContainer}>
+            <Icon name="upload" style={styles.icon} />
+            <Text style={styles.opacityText}>Upload Reports</Text>
             <Text
-              style={numberOfReports ? styles.reportsOnDevice : styles.noReportsOnDevice}
-            >{` (${numberOfReports})`}</Text>
-          </Text>
+              style={[
+                styles.opacityText,
+                styles.reportsNumber,
+                numberOfReports
+                  ? styles.reportsOnDevice
+                  : styles.noReportsOnDevice,
+              ]}
+            >{`${numberOfReports}`}</Text>
+          </View>
         </TouchableOpacity>
       </View>
       <View style={styles.row}>

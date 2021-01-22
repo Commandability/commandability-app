@@ -190,7 +190,7 @@ const HomeScreen = () => {
   };
 
   const onSignOutPressed = async () => {
-    if(numberOfReports){
+    if (numberOfReports) {
       Alert.alert(
         'Reports remain on device',
         'Please upload all reports before signing out',

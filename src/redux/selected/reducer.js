@@ -127,7 +127,7 @@ const toggleGroupMode = (state, action) => {
   return {
     personnelIds: initialState.personnelIds,
     locationId: initialState.locationId,
-    groupMode: state.groupMode ? '' : groupMode,
+    groupMode: state.groupMode && state.groupMode === groupMode ? '' : groupMode,
   };
 };
 

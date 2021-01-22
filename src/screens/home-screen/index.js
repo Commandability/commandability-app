@@ -190,33 +190,45 @@ const HomeScreen = () => {
   };
 
   const onSignOutPressed = async () => {
-    Alert.alert(
-      'Are you sure you want to sign out?',
-      'All personnel and incident data will be removed, but any reports will still be available on next sign in',
-      [
-        {
-          text: 'Cancel',
-          onPress: () => {},
-        },
-        {
-          text: 'OK',
-          onPress: async () => {
-            setLoading(true);
-            dispatch(resetApp());
-            try {
-              await dispatch(signOut());
-            } catch (error) {
-              Alert.alert('Error', error, [
-                {
-                  text: 'OK',
-                },
-              ]);
-            }
+    if(numberOfReports){
+      Alert.alert(
+        'Reports remain on device',
+        'Please upload all reports before signing out',
+        [
+          {
+            text: 'OK',
           },
-        },
-      ]
-    );
-    setLoading(false);
+        ]
+      );
+    } else {
+      Alert.alert(
+        'Are you sure you want to sign out?',
+        'All personnel and incident data will be removed',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => {},
+          },
+          {
+            text: 'OK',
+            onPress: async () => {
+              setLoading(true);
+              dispatch(resetApp());
+              try {
+                await dispatch(signOut());
+              } catch (error) {
+                Alert.alert('Error', error, [
+                  {
+                    text: 'OK',
+                  },
+                ]);
+              }
+            },
+          },
+        ]
+      );
+      setLoading(false);
+    }
   };
 
   const colors = themeSelector(theme);

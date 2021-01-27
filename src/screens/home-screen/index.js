@@ -96,45 +96,7 @@ const HomeScreen = () => {
 
   const onUpdateConfigurationPressed = async () => {
     const { isConnected } = await NetInfo.fetch();
-    if (isConnected) {
-      setLoading(true);
-      try {
-        const { currentUser } = auth();
-        // User is signed in.
-        if (currentUser) {
-          const { uid } = currentUser;
-          const documentSnapshot = await firestore()
-            .collection('users')
-            .doc(uid)
-            .get();
-          const { groups, personnel } = documentSnapshot.data();
-
-          dispatch(createGroups(groups));
-
-          dispatch(clearPersonnel());
-          personnel.forEach(person => {
-            dispatch(addPerson(person, ROSTER.locationId, false)); // false for non-temporary personnel
-          });
-        }
-
-        Alert.alert(
-          'Configuration updated',
-          'The latest configuration data has been loaded from your organization\'s account',
-          [
-            {
-              text: 'OK',
-            },
-          ]
-        );
-      } catch (error) {
-        Alert.alert('Error', error, [
-          {
-            text: 'OK',
-          },
-        ]);
-      }
-      setLoading(false);
-    } else {
+    if (!isConnected) {
       Alert.alert(
         'Failed to connect to the network',
         'Please check your network connection status',
@@ -144,35 +106,51 @@ const HomeScreen = () => {
           },
         ]
       );
+      return;
     }
+
+    setLoading(true);
+    try {
+      const { currentUser } = auth();
+      // User is signed in.
+      if (currentUser) {
+        const { uid } = currentUser;
+        const documentSnapshot = await firestore()
+          .collection('users')
+          .doc(uid)
+          .get();
+        const { groups, personnel } = documentSnapshot.data();
+
+        dispatch(createGroups(groups));
+
+        dispatch(clearPersonnel());
+        personnel.forEach(person => {
+          dispatch(addPerson(person, ROSTER.locationId, false)); // false for non-temporary personnel
+        });
+      }
+
+      Alert.alert(
+        'Configuration updated',
+        'The latest configuration data has been loaded from your organization\'s account',
+        [
+          {
+            text: 'OK',
+          },
+        ]
+      );
+    } catch (error) {
+      Alert.alert('Error', error, [
+        {
+          text: 'OK',
+        },
+      ]);
+    }
+    setLoading(false);
   };
 
   const onUploadReportsPressed = async () => {
     const { isConnected } = await NetInfo.fetch();
-    if (isConnected) {
-      setLoading(true);
-      try {
-        await uploadReports();
-        await deleteAllReports();
-        setNumberOfReports(0);
-        Alert.alert(
-          'All reports uploaded',
-          'All reports were successfully uploaded and removed from local storage',
-          [
-            {
-              text: 'OK',
-            },
-          ]
-        );
-      } catch (error) {
-        Alert.alert('Error', error, [
-          {
-            text: 'OK',
-          },
-        ]);
-      }
-      setLoading(false);
-    } else {
+    if (!isConnected) {
       Alert.alert(
         'Failed to connect to the network',
         'Please check your network connection status',
@@ -182,7 +160,44 @@ const HomeScreen = () => {
           },
         ]
       );
+      return;
     }
+
+    if(!numberOfReports){
+      Alert.alert(
+        'No reports on device',
+        'There were no reports on the device to upload',
+        [
+          {
+            text: 'OK',
+          },
+        ]
+      );
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await uploadReports();
+      await deleteAllReports();
+      setNumberOfReports(0);
+      Alert.alert(
+        'All reports uploaded',
+        'All reports were successfully uploaded and removed from local storage',
+        [
+          {
+            text: 'OK',
+          },
+        ]
+      );
+    } catch (error) {
+      Alert.alert('Error', error, [
+        {
+          text: 'OK',
+        },
+      ]);
+    }
+    setLoading(false);
   };
 
   const onToggleThemePressed = () => {

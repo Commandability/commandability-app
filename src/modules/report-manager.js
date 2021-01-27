@@ -9,12 +9,13 @@ import storage from '@react-native-firebase/storage';
 import AsyncStorage from '@react-native-community/async-storage';
 import uuidv4 from 'uuid/v4';
 
-export const saveCurrentReport = async reportData => {
+export const uploadCurrentReport = async reportData => {
   try {
     const {
       currentUser: { uid },
     } = auth();
-    const reportId = uuidv4();
+    const uploadId = uuidv4();
+
     // Generate report string from data
     let reportString = '';
     if (reportData) {
@@ -31,9 +32,47 @@ export const saveCurrentReport = async reportData => {
         }
       }
     }
+    const report = reportString.trim();
+    
+    // Upload report
+    const uploadPath = `/users/${uid}/${uploadId}`;
+    let storageRef = storage().ref();
+    let reportRef = storageRef.child(uploadPath);
+    await reportRef.putString(report);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const saveCurrentReport = async reportData => {
+  try {
+    const {
+      currentUser: { uid },
+    } = auth();
+    const reportId = uuidv4();
+
+    // Generate report string from data
+    let reportString = '';
+    if (reportData) {
+      reportString += `Location: ${reportData['LOCATION']}\n`;
+      if (reportData['NOTES']) {
+        reportString += `Notes: ${reportData['NOTES']}\n`;
+      } else {
+        reportString += `Notes: none.\n`;
+      }
+      for (const entry in reportData) {
+        const { dateTime, log } = reportData[entry];
+        if (dateTime && log) {
+          reportString += `${dateTime}: ${log}\n`;
+        }
+      }
+    }
+
+    // Save report
+    const report = reportString.trim();
     await AsyncStorage.setItem(
       `@CAA/${uid}/reports/${reportId}`,
-      reportString.trim()
+      report
     );
   } catch (error) {
     throw new Error(error);
@@ -89,11 +128,7 @@ export const uploadReports = async () => {
         const uploadPath = `/users/${uid}/${uploadId}`;
         let storageRef = storage().ref();
         let reportRef = storageRef.child(uploadPath);
-        try {
-          return reportRef.putString(report);
-        } catch (error) {
-          throw new Error(error);
-        }
+        return reportRef.putString(report);
       });
       await Promise.all(uploadPromises);
     }

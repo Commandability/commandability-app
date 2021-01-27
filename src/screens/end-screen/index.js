@@ -16,6 +16,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import NetInfo from '@react-native-community/netinfo';
 import PropTypes from 'prop-types';
 
 import { selectReportData, selectTheme } from '../../redux/selectors';
@@ -26,7 +27,7 @@ import {
   toHomeStack,
   toIncidentStack,
 } from '../../redux/actions';
-import { saveCurrentReport } from '../../modules/report-manager';
+import { uploadCurrentReport, saveCurrentReport } from '../../modules/report-manager';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
@@ -42,6 +43,47 @@ const EndScreen = ({ navigation }) => {
   useEffect(() => {
     dispatch(endIncident()); // log incident end
   }, []);
+
+  const onUploadAndExitPressed = async () => {
+    const { isConnected } = await NetInfo.fetch();
+    if (isConnected) {
+      if (location) {
+        reportData['LOCATION'] = location;
+        if (notes) {
+          reportData['NOTES'] = notes;
+        }
+        setLoading(true);
+        try {
+          await uploadCurrentReport(reportData);
+        } catch (error) {
+          Alert.alert('Error', error, [
+            {
+              text: 'OK',
+            },
+          ]);
+        }
+        setLoading(false);
+        dispatch(resetIncident()); // reset personnel locations and group settings, remove all temporary personnel from state
+        dispatch(toHomeStack());
+      } else {
+        Alert.alert('Location is required', '', [
+          {
+            text: 'OK',
+          },
+        ]);
+      }
+    } else {
+      Alert.alert(
+        'Failed to connect to the network',
+        'Please check your network connection status',
+        [
+          {
+            text: 'OK',
+          },
+        ]
+      );
+    }
+  };
 
   const onSaveAndExitPressed = async () => {
     if (location) {
@@ -113,14 +155,14 @@ const EndScreen = ({ navigation }) => {
           onChangeText={notes => setNotes(notes)}
           value={notes}
         />
-        <TouchableOpacity
-          style={styles.opacity}
-          onPress={onResumeIncidentPressed}
-        >
-          <Icon name="restart" style={styles.icon} />
-          <Text style={styles.opacityText}>Resume Incident</Text>
-        </TouchableOpacity>
         <View style={styles.row}>
+          <TouchableOpacity
+            style={[styles.opacity, styles.rowOpacity]}
+            onPress={onResumeIncidentPressed}
+          >
+            <Icon name="restart" style={styles.icon} />
+            <Text style={styles.opacityText}>Resume Incident</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={[styles.opacity, styles.rowOpacity]}
             onPress={onExitWithoutSavingPressed}
@@ -128,11 +170,20 @@ const EndScreen = ({ navigation }) => {
             <Icon name="cancel" style={styles.icon} />
             <Text style={styles.opacityText}>Exit Without Saving</Text>
           </TouchableOpacity>
+        </View>
+        <View style={styles.row}>
+          <TouchableOpacity
+            style={[styles.opacity, styles.rowOpacity]}
+            onPress={onUploadAndExitPressed}
+          >
+            <Icon name="upload" style={styles.icon} />
+            <Text style={styles.opacityText}>Upload and Exit</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={[styles.opacity, styles.rowOpacity]}
             onPress={onSaveAndExitPressed}
           >
-            <Icon name="check" style={styles.icon} />
+            <Icon name="content-save" style={styles.icon} />
             <Text style={styles.opacityText}>Save and Exit</Text>
           </TouchableOpacity>
         </View>

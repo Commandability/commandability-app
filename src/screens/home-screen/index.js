@@ -119,7 +119,7 @@ const HomeScreen = () => {
 
         Alert.alert(
           'Configuration updated',
-          "The latest configuration data has been loaded from your organization's account",
+          'The latest configuration data has been loaded from your organization\'s account',
           [
             {
               text: 'OK',
@@ -241,7 +241,7 @@ const HomeScreen = () => {
         onPress={onStartIncidentPressed}
         color={colors.primary}
       >
-        <Icon name="launch" style={styles.icon} />
+        <Icon name="alarm-light" style={styles.icon} />
         <Text style={styles.opacityText}>Start Incident</Text>
       </TouchableOpacity>
       <View style={styles.row}>

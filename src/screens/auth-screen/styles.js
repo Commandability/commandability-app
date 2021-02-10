@@ -41,7 +41,7 @@ export default colors =>
     icon: {
       fontSize: 42,
       color: colors.primary,
-      marginRight: 30,
+      marginRight: 32,
     },
     iconText: {
       fontSize: 42,

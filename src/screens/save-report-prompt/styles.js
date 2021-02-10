@@ -8,15 +8,20 @@ export default colors =>
       right: 0,
       bottom: 24,
     },
+    backOpacity: {
+      position: 'absolute',
+      left: 24,
+      top: 24,
+    },
+    backIcon: {
+      color: colors.primary,
+      fontSize: 42,
+    },
     container: {
       flex: 1,
       justifyContent: 'center',
       backgroundColor: colors.background.one,
       padding: 24,
-    },
-    promptContainer: {
-      flex: 1,
-      justifyContent: 'center',
     },
     opacity: {
       flexDirection: 'row',
@@ -38,14 +43,6 @@ export default colors =>
     icon: {
       fontSize: 42,
       color: colors.primary,
-      marginRight: 30,
-    },
-    backButton: {
-      color: colors.primary,
-      fontSize: 42,
-    },
-    backBar: {
-      alignSelf: 'flex-start',
-      marginBottom: 48,
+      marginRight: 32,
     },
   });

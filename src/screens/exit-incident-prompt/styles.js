@@ -2,15 +2,20 @@ import { StyleSheet } from 'react-native';
 
 export default colors =>
   StyleSheet.create({
+    backOpacity: {
+      position: 'absolute',
+      left: 24,
+      top: 24,
+    },
+    backIcon: {
+      color: colors.primary,
+      fontSize: 42,
+    },
     container: {
       flex: 1,
       justifyContent: 'center',
       backgroundColor: colors.background.one,
       padding: 24,
-    },
-    promptContainer: {
-      flex: 1,
-      justifyContent: 'center',
     },
     prompt: {
       margin: 24,
@@ -47,14 +52,6 @@ export default colors =>
     icon: {
       fontSize: 42,
       color: colors.primary,
-      marginRight: 30,
-    },
-    backButton: {
-      color: colors.primary,
-      fontSize: 42,
-    },
-    backBar: {
-      alignSelf: 'flex-start',
-      marginBottom: 48,
+      marginRight: 32,
     },
   });

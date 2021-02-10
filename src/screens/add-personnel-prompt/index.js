@@ -62,11 +62,9 @@ const AddPersonnelPrompt = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {Platform.OS === 'android' && (
-        <View style={styles.backBar}>
-          <TouchableOpacity onPress={onCancelPressed}>
-            <Icon name="chevron-left" style={styles.backButton} />
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
+          <Icon name="chevron-left" style={styles.backIcon} />
+        </TouchableOpacity>
       )}
       <View style={styles.promptContainer}>
         <View style={styles.leftCol}>

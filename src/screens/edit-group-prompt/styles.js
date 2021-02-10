@@ -8,9 +8,14 @@ export default colors =>
       backgroundColor: colors.background.one,
       padding: 24,
     },
-    promptContainer: {
-      flex: 1,
-      justifyContent: 'center',
+    backOpacity: {
+      position: 'absolute',
+      left: 24,
+      top: 24,
+    },
+    backIcon: {
+      color: colors.primary,
+      fontSize: 42,
     },
     label: {
       color: colors.primary,
@@ -40,14 +45,6 @@ export default colors =>
     icon: {
       fontSize: 42,
       color: colors.primary,
-      marginRight: 30,
-    },
-    backButton: {
-      color: colors.primary,
-      fontSize: 42,
-    },
-    backBar: {
-      alignSelf: 'flex-start',
-      marginBottom: 48,
+      marginRight: 32,
     },
   });

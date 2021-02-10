@@ -95,13 +95,11 @@ const ExitIncidentPrompt = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {Platform.OS === 'android' && (
-        <View style={styles.backBar}>
-          <TouchableOpacity onPress={onCancelPressed}>
-            <Icon name="chevron-left" style={styles.backButton} />
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
+          <Icon name="chevron-left" style={styles.backIcon} />
+        </TouchableOpacity>
       )}
-      <View style={styles.promptContainer}>
+      <View>
         <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
           <View style={styles.prompt}>
             <Text style={styles.promptText}>

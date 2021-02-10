@@ -95,13 +95,11 @@ const SaveReportPrompt = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       {Platform.OS === 'android' && (
-        <View style={styles.backBar}>
-          <TouchableOpacity onPress={onCancelPressed}>
-            <Icon name="chevron-left" style={styles.backButton} />
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
+          <Icon name="chevron-left" style={styles.backIcon} />
+        </TouchableOpacity>
       )}
-      <View style={styles.promptContainer}>
+      <View>
         <TouchableOpacity style={styles.opacity} onPress={onExitPressed}>
           <Icon name="cancel" style={styles.icon} />
           <Text style={styles.opacityText}>Exit without saving</Text>

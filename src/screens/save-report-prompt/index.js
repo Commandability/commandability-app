@@ -109,14 +109,14 @@ const SaveReportPrompt = ({ route, navigation }) => {
           onPress={onSaveToDevicePressed}
         >
           <Icon name="upload" style={styles.icon} />
-          <Text style={styles.opacityText}>Save to device</Text>
+          <Text style={styles.opacityText}>Save to device and exit</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.opacity, styles.opacityHighlight]}
           onPress={onSaveToCloudPressed}
         >
           <Icon name="content-save" style={styles.icon} />
-          <Text style={styles.opacityText}>Save to cloud</Text>
+          <Text style={styles.opacityText}>Save to cloud and exit</Text>
         </TouchableOpacity>
       </View>
       {loading && (

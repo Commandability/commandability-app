@@ -23,7 +23,7 @@ const PersonnelArea = () => {
 
   const onAddPersonnelPressed = () => {
     const { navigate } = navigation;
-    navigate('PersonnelPrompt');
+    navigate('AddPersonnelPrompt');
   };
 
   const colors = themeSelector(theme);

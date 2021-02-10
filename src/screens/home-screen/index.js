@@ -131,7 +131,7 @@ const HomeScreen = () => {
 
       Alert.alert(
         'Configuration updated',
-        'The latest configuration data has been loaded from your organization\'s account',
+        "The latest configuration data has been loaded from your organization's account",
         [
           {
             text: 'OK',
@@ -163,7 +163,7 @@ const HomeScreen = () => {
       return;
     }
 
-    if(!numberOfReports){
+    if (!numberOfReports) {
       Alert.alert(
         'No reports on device',
         'There were no reports on the device to upload',
@@ -207,7 +207,7 @@ const HomeScreen = () => {
   const onSignOutPressed = async () => {
     if (numberOfReports) {
       Alert.alert(
-        'Reports remain on device',
+        'Reports on device',
         'Please upload all reports before signing out',
         [
           {
@@ -257,7 +257,7 @@ const HomeScreen = () => {
         color={colors.primary}
       >
         <Icon name="alarm-light" style={styles.icon} />
-        <Text style={styles.opacityText}>Start Incident</Text>
+        <Text style={styles.opacityText}>Start incident</Text>
       </TouchableOpacity>
       <View style={styles.row}>
         <TouchableOpacity
@@ -266,16 +266,16 @@ const HomeScreen = () => {
           color={colors.primary}
         >
           <Icon name="update" style={styles.icon} />
-          <Text style={styles.opacityText}>Update Configuration</Text>
+          <Text style={styles.opacityText}>Update configuration</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.opacity}
+          style={[styles.opacity, numberOfReports && styles.opacityHighlight]}
           onPress={onUploadReportsPressed}
           color={colors.primary}
         >
-          <View style={styles.opacityContainer}>
+          <View style={styles.reportsNumberContainer}>
             <Icon name="upload" style={styles.icon} />
-            <Text style={styles.opacityText}>Upload Reports</Text>
+            <Text style={styles.opacityText}>Upload reports</Text>
             <Text
               style={[
                 styles.opacityText,

@@ -26,12 +26,16 @@ export default colors =>
       margin: 24,
       borderRadius: 5,
     },
+    opacityHighlight: {
+      borderWidth: 1,
+      borderColor: colors.primary,
+    },
     icon: {
       fontSize: 42,
       color: colors.primary,
       marginRight: 32,
     },
-    opacityContainer: {
+    reportsNumberContainer: {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'center',

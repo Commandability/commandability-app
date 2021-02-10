@@ -53,7 +53,7 @@ const AddPersonPrompt = ({ navigation }) => {
     );
 
     const { navigate } = navigation;
-    navigate('PersonnelPrompt');
+    navigate('AddPersonnelPrompt');
   };
 
   const onCancelPressed = () => {

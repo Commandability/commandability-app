@@ -1,5 +1,5 @@
 /**
- * PersonnelPrompt Component
+ * AddPersonnelPrompt Component
  *
  * Provides functionality for moving personnel to the current incident screen.
  */
@@ -22,7 +22,7 @@ import createStyleSheet from './styles';
 
 const { NEW_PERSONNEL, STAGING } = staticLocations;
 
-const PersonnelPrompt = ({ navigation }) => {
+const AddPersonnelPrompt = ({ navigation }) => {
   const dispatch = useDispatch();
   const theme = useSelector(state => selectTheme(state));
   const selectPersonnelByLocationId = useMemo(
@@ -98,8 +98,8 @@ const PersonnelPrompt = ({ navigation }) => {
 };
 
 // props validation
-PersonnelPrompt.propTypes = {
+AddPersonnelPrompt.propTypes = {
   navigation: PropTypes.object,
 };
 
-export default PersonnelPrompt;
+export default AddPersonnelPrompt;

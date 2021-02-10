@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {
   HomeScreen,
@@ -19,7 +20,8 @@ import {
   EndScreen,
   ExitIncidentPrompt,
   AuthScreen,
-  PersonnelPrompt,
+  AddPersonnelPrompt,
+  SaveReportPrompt,
   AddPersonPrompt,
 } from './screens';
 import {
@@ -30,6 +32,8 @@ import {
 } from './modules/navigation-stacks';
 import { selectStack, selectTheme } from './redux/selectors';
 import themeSelector from './modules/themes';
+
+const PERSISTENCE_KEY = 'NAVIGATION_STATE';
 
 const Auth = createStackNavigator();
 const Home = createStackNavigator();
@@ -53,7 +57,10 @@ const setStack = stack => {
         <Incident.Navigator screenOptions={screenOptions}>
           <Incident.Screen name="IncidentScreen" component={IncidentScreen} />
           <Incident.Screen name="EditGroupPrompt" component={EditGroupPrompt} />
-          <Incident.Screen name="PersonnelPrompt" component={PersonnelPrompt} />
+          <Incident.Screen
+            name="AddPersonnelPrompt"
+            component={AddPersonnelPrompt}
+          />
           <Incident.Screen name="AddPersonPrompt" component={AddPersonPrompt} />
         </Incident.Navigator>
       );
@@ -61,6 +68,7 @@ const setStack = stack => {
       return (
         <End.Navigator screenOptions={screenOptions}>
           <End.Screen name="EndScreen" component={EndScreen} />
+          <End.Screen name="SaveReportPrompt" component={SaveReportPrompt} />
           <End.Screen
             name="ExitIncidentPrompt"
             component={ExitIncidentPrompt}
@@ -94,16 +102,50 @@ const SwitchNavigator = () => {
   const theme = useSelector(state => selectTheme(state));
   const stack = useSelector(state => selectStack(state));
 
+  const [isReady, setIsReady] = React.useState(false);
+  const [initialState, setInitialState] = React.useState();
+
+  // https://reactnavigation.org/docs/state-persistence/
   useEffect(() => {
-    SplashScreen.hide();
-  }, []);
+    const restoreState = async () => {
+      try {
+        const savedStateString = await AsyncStorage.getItem(PERSISTENCE_KEY);
+        const state = savedStateString
+          ? JSON.parse(savedStateString)
+          : undefined;
+
+        if (state !== undefined) {
+          setInitialState(state);
+        }
+      } finally {
+        setIsReady(true);
+      }
+    };
+
+    if (!isReady) {
+      restoreState();
+    } else {
+      SplashScreen.hide();
+    }
+  }, [isReady]);
+
+  if (!isReady) {
+    return null;
+  }
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
   return (
     <View style={styles.container}>
-      <NavigationContainer>{setStack(stack)}</NavigationContainer>
+      <NavigationContainer
+        initialState={initialState}
+        onStateChange={state =>
+          AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
+        }
+      >
+        {setStack(stack)}
+      </NavigationContainer>
     </View>
   );
 };

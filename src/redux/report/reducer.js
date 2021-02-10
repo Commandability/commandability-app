@@ -32,13 +32,16 @@ const logStartIncident = action => {
 const logEndIncident = (state, action) => {
   const { payload } = action;
   const { entryId, dateTime } = payload;
-  return {
-    ...state,
-    [entryId]: {
-      dateTime,
-      log: `Incident ended`,
-    },
-  };
+  // Only log end incident if there is not an end incident entry
+  return state[entryId]
+    ? state
+    : {
+        ...state,
+        [entryId]: {
+          dateTime,
+          log: `Incident ended`,
+        },
+      };
 };
 
 const resumeIncident = state => {
@@ -59,6 +62,7 @@ const logRemovePerson = (state, action) => {
     person: { locationId, firstName, lastName, badge, organization },
   } = payload;
 
+  // Only log if removed from staging
   return locationId === STAGING.locationId
     ? {
         ...state,

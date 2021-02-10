@@ -24,9 +24,6 @@ export default colors =>
       color: colors.primary,
       marginLeft: 24,
     },
-    email: {
-      color: colors.primary,
-    },
     passwordInput: {
       height: 48,
       color: colors.text.main,

@@ -10,7 +10,8 @@ import EditGroupPrompt from './edit-group-prompt';
 import HomeScreen from './home-screen';
 import IncidentScreen from './incident-screen';
 import AuthScreen from './auth-screen';
-import PersonnelPrompt from './personnel-prompt';
+import AddPersonnelPrompt from './add-personnel-prompt';
+import SaveReportPrompt from './save-report-prompt';
 import AddPersonPrompt from './add-person-prompt';
 
 export {
@@ -20,6 +21,7 @@ export {
   HomeScreen,
   IncidentScreen,
   AuthScreen,
-  PersonnelPrompt,
+  AddPersonnelPrompt,
+  SaveReportPrompt,
   AddPersonPrompt,
 };

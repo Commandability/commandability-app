@@ -1,5 +1,5 @@
 /**
- * EndScreen component
+ * ExitIncidentPrompt component
  *
  * Manages exiting the incident without saving.
  */

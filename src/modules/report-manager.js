@@ -9,6 +9,8 @@ import storage from '@react-native-firebase/storage';
 import AsyncStorage from '@react-native-community/async-storage';
 import uuidv4 from 'uuid/v4';
 
+export const DEVICE_REPORT_LIMIT = 10;
+
 export const generateReport = reportData => {
   // Generate report string from data
   let reportString = '';

@@ -37,7 +37,7 @@ const BottomBar = ({ initialEpoch }) => {
     if (!personnelAreInGroups) {
       Alert.alert(
         'Personnel are still active',
-        'Please move all personnel to staging before ending the incident',
+        'Please move all personnel to staging before ending the incident.',
         [
           {
             text: 'OK',

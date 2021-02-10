@@ -40,7 +40,7 @@ const EndScreen = ({ navigation }) => {
       },
       {
         text: 'OK',
-        onPress: async () => {
+        onPress: () => {
           dispatch(resumeIncident());
           dispatch(toIncidentStack());
         },
@@ -64,7 +64,7 @@ const EndScreen = ({ navigation }) => {
     }
 
     const { navigate } = navigation;
-    navigate('SaveReportPrompt', { reportData });
+    navigate('SavePrompt', { reportData });
   };
 
   const colors = themeSelector(theme);

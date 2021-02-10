@@ -1,5 +1,5 @@
 /**
- * ExitIncidentPrompt component
+ * ExitWithoutSavingPrompt component
  *
  * Manages exiting the incident without saving.
  */
@@ -26,7 +26,7 @@ import { selectTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-const ExitIncidentPrompt = ({ navigation }) => {
+const ExitWithoutSavingPrompt = ({ navigation }) => {
   const dispatch = useDispatch();
   const theme = useSelector(state => selectTheme(state));
   const { currentUser } = auth();
@@ -48,7 +48,7 @@ const ExitIncidentPrompt = ({ navigation }) => {
     if (!isConnected) {
       Alert.alert(
         'Failed to connect to the network',
-        'Please check your network connection status. ',
+        'Please check your network connection status.',
         [
           {
             text: 'OK',
@@ -70,9 +70,9 @@ const ExitIncidentPrompt = ({ navigation }) => {
     } catch (error) {
       let message = '';
       if (error.message == 'auth/wrong-password') {
-        message = 'Incorrect password';
+        message = 'Incorrect password.';
       } else {
-        message = 'Unknown error';
+        message = 'Unknown error.';
       }
       Alert.alert('Error', message, [
         {
@@ -134,8 +134,8 @@ const ExitIncidentPrompt = ({ navigation }) => {
   );
 };
 
-ExitIncidentPrompt.propTypes = {
+ExitWithoutSavingPrompt.propTypes = {
   navigation: PropTypes.object,
 };
 
-export default ExitIncidentPrompt;
+export default ExitWithoutSavingPrompt;

@@ -99,7 +99,7 @@ const HomeScreen = () => {
     if (!isConnected) {
       Alert.alert(
         'Failed to connect to the network',
-        'Please check your network connection status',
+        'Please check your network connection status.',
         [
           {
             text: 'OK',
@@ -131,7 +131,7 @@ const HomeScreen = () => {
 
       Alert.alert(
         'Configuration updated',
-        "The latest configuration data has been loaded from your organization's account",
+        "The latest configuration data has been loaded from your organization's account.",
         [
           {
             text: 'OK',
@@ -153,7 +153,7 @@ const HomeScreen = () => {
     if (!isConnected) {
       Alert.alert(
         'Failed to connect to the network',
-        'Please check your network connection status',
+        'Please check your network connection status.',
         [
           {
             text: 'OK',
@@ -166,7 +166,7 @@ const HomeScreen = () => {
     if (!numberOfReports) {
       Alert.alert(
         'No reports on device',
-        'There were no reports on the device to upload',
+        'There were no reports on the device to upload.',
         [
           {
             text: 'OK',
@@ -183,7 +183,7 @@ const HomeScreen = () => {
       setNumberOfReports(0);
       Alert.alert(
         'All reports uploaded',
-        'All reports were successfully uploaded and removed from local storage',
+        'All reports were successfully uploaded and removed from local storage.',
         [
           {
             text: 'OK',
@@ -208,7 +208,7 @@ const HomeScreen = () => {
     if (numberOfReports) {
       Alert.alert(
         'Reports on device',
-        'Please upload all reports before signing out',
+        'Please upload all reports before signing out.',
         [
           {
             text: 'OK',
@@ -218,7 +218,7 @@ const HomeScreen = () => {
     } else {
       Alert.alert(
         'Are you sure you want to sign out?',
-        'All personnel and incident data will be removed',
+        'All personnel and incident data will be removed.',
         [
           {
             text: 'Cancel',

@@ -5,23 +5,23 @@
  */
 
 import EndScreen from './end-screen';
-import ExitIncidentPrompt from './exit-incident-prompt';
+import ExitWithoutSavingPrompt from './exit-without-saving-prompt';
 import EditGroupPrompt from './edit-group-prompt';
 import HomeScreen from './home-screen';
 import IncidentScreen from './incident-screen';
 import AuthScreen from './auth-screen';
 import AddPersonnelPrompt from './add-personnel-prompt';
-import SaveReportPrompt from './save-report-prompt';
+import SavePrompt from './save-prompt';
 import AddPersonPrompt from './add-person-prompt';
 
 export {
   EndScreen,
-  ExitIncidentPrompt,
+  ExitWithoutSavingPrompt,
   EditGroupPrompt,
   HomeScreen,
   IncidentScreen,
   AuthScreen,
   AddPersonnelPrompt,
-  SaveReportPrompt,
+  SavePrompt,
   AddPersonPrompt,
 };

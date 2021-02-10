@@ -18,10 +18,10 @@ import {
   IncidentScreen,
   EditGroupPrompt,
   EndScreen,
-  ExitIncidentPrompt,
+  ExitWithoutSavingPrompt,
   AuthScreen,
   AddPersonnelPrompt,
-  SaveReportPrompt,
+  SavePrompt,
   AddPersonPrompt,
 } from './screens';
 import {
@@ -68,10 +68,10 @@ const setStack = stack => {
       return (
         <End.Navigator screenOptions={screenOptions}>
           <End.Screen name="EndScreen" component={EndScreen} />
-          <End.Screen name="SaveReportPrompt" component={SaveReportPrompt} />
+          <End.Screen name="SavePrompt" component={SavePrompt} />
           <End.Screen
-            name="ExitIncidentPrompt"
-            component={ExitIncidentPrompt}
+            name="ExitWithoutSavingPrompt"
+            component={ExitWithoutSavingPrompt}
           />
         </End.Navigator>
       );

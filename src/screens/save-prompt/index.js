@@ -60,8 +60,8 @@ const SavePrompt = ({ route, navigation }) => {
     }
 
     Alert.alert(
-      'Are you sure?',
-      `You can only save ${DEVICE_REPORT_LIMIT - numberOfReports} more reports on device.`,
+      `${DEVICE_REPORT_LIMIT - numberOfReports} saves remaining`,
+      `Are you sure? Only ${DEVICE_REPORT_LIMIT} reports can be saved to the device.`,
       [
         {
           text: 'Cancel',

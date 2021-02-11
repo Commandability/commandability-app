@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   View,
   Platform,
+  Switch, 
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -22,6 +23,7 @@ import { editGroup } from '../../redux/actions';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
+import Slider from '@react-native-community/slider';
 
 const EditGroupPrompt = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -33,6 +35,8 @@ const EditGroupPrompt = ({ navigation, route }) => {
     },
   } = route;
   const [newName, setNewName] = useState(currName);
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousSate=> !previousSate);
 
   const onSavePressed = () => {
     if (newName) {
@@ -78,6 +82,22 @@ const EditGroupPrompt = ({ navigation, route }) => {
             value={newName}
             onChangeText={newName => setNewName(newName)}
           />
+          <Text style={styles.label}>Group Alerts</Text>
+          <View style={styles.toggle}>
+            <Switch
+              trackColor={{ false: "#767577", true: "#81b0ff" }}
+              thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
+            <Slider
+              minimumValue={5}
+              maximumValue={60}
+              step={5}
+              minimumTrackTintColor="#FFFFFF"
+              maximumTrackTintColor="#000000"
+            />
+          </View>
           <TouchableOpacity style={styles.opacity} onPress={onSavePressed}>
             <Icon name="check" style={styles.icon} />
             <Text style={styles.opacityText}>Save</Text>

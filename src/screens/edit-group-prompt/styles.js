@@ -50,4 +50,10 @@ export default colors =>
       alignSelf: 'flex-start',
       marginBottom: 48,
     },
+    toggle: {
+      margin: 24,
+      alignItems: "flex-start",
+      justifyContent: "center",
+      flex: 1,
+    },
   });

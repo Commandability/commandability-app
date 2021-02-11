@@ -39,6 +39,42 @@ export const pageLocationIds = {
       'GROUP_EIGHTEEN',
     ],
   },
+  PAGE_FOUR: {
+    pageId: 'PAGE_FOUR',
+    title: 'PAGE FOUR',
+    locationIds: [
+      'GROUP_NINETEEN',
+      'GROUP_TWENTY',
+      'GROUP_TWENTY-ONE',
+      'GROUP_TWENTY-TWO',
+      'GROUP_TWENTY-THREE',
+      'GROUP_TWENTY-FOUR',
+    ],
+  },
+  PAGE_FIVE: {
+    pageId: 'PAGE_FIVE',
+    title: 'PAGE FIVE',
+    locationIds: [
+      'GROUP_TWENTY-FIVE',
+      'GROUP_TWENTY-SIX',
+      'GROUP_TWENTY-SEVEN',
+      'GROUP_TWENTY-EIGHT',
+      'GROUP_TWENTY-NINE',
+      'GROUP_THIRTY',
+    ],
+  },
+  PAGE_SIX: {
+    pageId: 'PAGE_SIX',
+    title: 'PAGE SIX',
+    locationIds: [
+      'GROUP_THIRTY-ONE',
+      'GROUP_THIRTY-TWO',
+      'GROUP_THIRTY-THREE',
+      'GROUP_THIRTY-FOUR',
+      'GROUP_THIRTY-FIVE',
+      'GROUP_THIRTY-SIX',
+    ],
+  },
 };
 
 export const staticLocations = {

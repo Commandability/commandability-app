@@ -17,7 +17,9 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
+import { ErrorBoundary } from 'react-error-boundary';
 
+import ErrorFallback from '../error-fallback';
 import {
   selectReportData,
   selectIsConfigurationLoaded,
@@ -177,13 +179,15 @@ const HomeScreen = () => {
     }
 
     setLoading(true);
+    let uploadSuccess = false;
     try {
       await uploadReports();
+      uploadSuccess = true;
       await deleteAllReports();
-      setNumberOfReports(0);
+
       Alert.alert(
-        'All reports uploaded',
-        'All reports were successfully uploaded and removed from local storage.',
+        'Upload completed successfully',
+        'All reports have been uploaded and removed from the device.',
         [
           {
             text: 'OK',
@@ -191,13 +195,24 @@ const HomeScreen = () => {
         ]
       );
     } catch (error) {
-      Alert.alert('Error', error, [
-        {
-          text: 'OK',
-        },
-      ]);
+      if(uploadSuccess){
+        Alert.alert('Error removing reports from device', 
+        'All reports were successfully uploaded, but were not successfully removed from the device. Clear app storage manually before next use.', [
+          {
+            text: 'OK',
+          },
+        ]);
+      } else {
+        Alert.alert('Upload failed', 
+        error, [
+          {
+            text: 'OK',
+          },
+        ]);
+      }
     }
     setLoading(false);
+    setNumberOfReports(0);
   };
 
   const onToggleThemePressed = () => {
@@ -249,73 +264,85 @@ const HomeScreen = () => {
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
+  const onReset = async () => {
+    setLoading(false);
+    const result = await getNumberOfReports();
+    setNumberOfReports(result);
+  };
+
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.opacity}
-        onPress={onStartIncidentPressed}
-        color={colors.primary}
-      >
-        <Icon name="alarm-light" style={styles.icon} />
-        <Text style={styles.opacityText}>Start incident</Text>
-      </TouchableOpacity>
-      <View style={styles.row}>
+    <ErrorBoundary
+      FallbackComponent={ErrorFallback}
+      onReset={onReset}
+      resetKeys={[loading, numberOfReports]}
+    >
+      <View style={styles.container}>
         <TouchableOpacity
           style={styles.opacity}
-          onPress={onUpdateConfigurationPressed}
+          onPress={onStartIncidentPressed}
           color={colors.primary}
         >
-          <Icon name="update" style={styles.icon} />
-          <Text style={styles.opacityText}>Update configuration</Text>
+          <Icon name="alarm-light" style={styles.icon} />
+          <Text style={styles.opacityText}>Start incident</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.opacity, numberOfReports && styles.opacityHighlight]}
-          onPress={onUploadReportsPressed}
-          color={colors.primary}
-        >
-          <View style={styles.reportsNumberContainer}>
-            <Icon name="upload" style={styles.icon} />
-            <Text style={styles.opacityText}>Upload reports</Text>
-            <Text
-              style={[
-                styles.opacityText,
-                styles.reportsNumber,
-                numberOfReports
-                  ? styles.reportsOnDevice
-                  : styles.noReportsOnDevice,
-              ]}
-            >{`${numberOfReports}`}</Text>
-          </View>
-        </TouchableOpacity>
+        <View style={styles.row}>
+          <TouchableOpacity
+            style={styles.opacity}
+            onPress={onUpdateConfigurationPressed}
+            color={colors.primary}
+          >
+            <Icon name="update" style={styles.icon} />
+            <Text style={styles.opacityText}>Update configuration</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.opacity, numberOfReports && styles.opacityHighlight]}
+            onPress={onUploadReportsPressed}
+            color={colors.primary}
+          >
+            <View style={styles.reportsNumberContainer}>
+              <Icon name="upload" style={styles.icon} />
+              <Text style={styles.opacityText}>Upload reports</Text>
+              <Text
+                style={[
+                  styles.opacityText,
+                  styles.reportsNumber,
+                  numberOfReports
+                    ? styles.reportsOnDevice
+                    : styles.noReportsOnDevice,
+                ]}
+              >{`${numberOfReports}`}</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.row}>
+          <TouchableOpacity
+            style={styles.opacity}
+            onPress={onToggleThemePressed}
+            color={colors.primary}
+          >
+            <Icon name="theme-light-dark" style={styles.icon} />
+            <Text style={styles.opacityText}>
+              {theme === DARK ? 'Light' : 'Dark'}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.opacity}
+            onPress={onSignOutPressed}
+            color={colors.primary}
+          >
+            <Icon name="logout" style={styles.icon} />
+            <Text style={styles.opacityText}>Sign out</Text>
+          </TouchableOpacity>
+        </View>
+        {loading && (
+          <ActivityIndicator
+            style={styles.activityIndicator}
+            color={colors.primary}
+            size={'large'}
+          />
+        )}
       </View>
-      <View style={styles.row}>
-        <TouchableOpacity
-          style={styles.opacity}
-          onPress={onToggleThemePressed}
-          color={colors.primary}
-        >
-          <Icon name="theme-light-dark" style={styles.icon} />
-          <Text style={styles.opacityText}>
-            {theme === DARK ? 'Light' : 'Dark'}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.opacity}
-          onPress={onSignOutPressed}
-          color={colors.primary}
-        >
-          <Icon name="logout" style={styles.icon} />
-          <Text style={styles.opacityText}>Sign out</Text>
-        </TouchableOpacity>
-      </View>
-      {loading && (
-        <ActivityIndicator
-          style={styles.activityIndicator}
-          color={colors.primary}
-          size={'large'}
-        />
-      )}
-    </View>
+    </ErrorBoundary>
   );
 };
 

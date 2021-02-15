@@ -16,8 +16,10 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
+import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
+import ErrorFallback from '../error-fallback';
 import { resetIncident, toHomeStack } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
 import { DEVICE_REPORT_LIMIT, getNumberOfReports, uploadReport, saveReport } from '../../modules/report-manager';
@@ -130,41 +132,53 @@ const SavePrompt = ({ route, navigation }) => {
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
+  const onReset = async () => {
+    setLoading(false);
+    const result = await getNumberOfReports();
+    setNumberOfReports(result);
+  };
+
   return (
-    <View style={styles.container}>
-      {Platform.OS === 'android' && (
-        <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
-          <Icon name="chevron-left" style={styles.backIcon} />
-        </TouchableOpacity>
-      )}
-      <View>
-        <TouchableOpacity style={styles.opacity} onPress={onExitPressed}>
-          <Icon name="cancel" style={styles.icon} />
-          <Text style={styles.opacityText}>Exit without saving</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.opacity}
-          onPress={onSaveToDevicePressed}
-        >
-          <Icon name="upload" style={styles.icon} />
-          <Text style={styles.opacityText}>Save to device and exit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.opacity, styles.opacityHighlight]}
-          onPress={onSaveToCloudPressed}
-        >
-          <Icon name="content-save" style={styles.icon} />
-          <Text style={styles.opacityText}>Save to cloud and exit</Text>
-        </TouchableOpacity>
+    <ErrorBoundary
+      FallbackComponent={ErrorFallback}
+      onReset={onReset}
+      resetKeys={[loading, numberOfReports]}
+    >
+      <View style={styles.container}>
+        {Platform.OS === 'android' && (
+          <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
+            <Icon name="chevron-left" style={styles.backIcon} />
+          </TouchableOpacity>
+        )}
+        <View>
+          <TouchableOpacity style={styles.opacity} onPress={onExitPressed}>
+            <Icon name="cancel" style={styles.icon} />
+            <Text style={styles.opacityText}>Exit without saving</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.opacity}
+            onPress={onSaveToDevicePressed}
+          >
+            <Icon name="content-save" style={styles.icon} />
+            <Text style={styles.opacityText}>Save to device and exit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.opacity, styles.opacityHighlight]}
+            onPress={onSaveToCloudPressed}
+          >
+            <Icon name="upload" style={styles.icon} />
+            <Text style={styles.opacityText}>Save to cloud and exit</Text>
+          </TouchableOpacity>
+        </View>
+        {loading && (
+          <ActivityIndicator
+            style={styles.activityIndicator}
+            color={colors.primary}
+            size={'large'}
+          />
+        )}
       </View>
-      {loading && (
-        <ActivityIndicator
-          style={styles.activityIndicator}
-          color={colors.primary}
-          size={'large'}
-        />
-      )}
-    </View>
+    </ErrorBoundary>
   );
 };
 

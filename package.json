@@ -5,6 +5,7 @@
   "scripts": {
     "start": "react-native start",
     "run:android": "react-native run-android",
+    "run:android:release": "npx react-native run-android --variant release",
     "run:ios": "react-native run-ios --simulator=\"iPhone X\"",
     "build:apk": "cd android && ./gradlew assembleRelease",
     "test": "jest",
@@ -25,6 +26,7 @@
     "install": "^0.13.0",
     "npm": "^6.14.9",
     "react": "16.8.6",
+    "react-error-boundary": "^3.1.0",
     "react-native": "^0.62.2",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.3",

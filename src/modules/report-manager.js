@@ -15,12 +15,17 @@ export const generateReport = reportData => {
   // Generate report string from data
   let reportString = '';
   if (reportData) {
-    reportString += `Location: ${reportData['LOCATION']}\n`;
-    if (reportData['NOTES']) {
-      reportString += `Notes: ${reportData['NOTES']}\n`;
+    if (reportData['EMERGENCY_UPLOAD']) {
+      reportString += `${reportData['EMERGENCY_UPLOAD']}\n`;
     } else {
-      reportString += `Notes: none.\n`;
+      reportString += `Location: ${reportData['LOCATION']}\n`;
+      if (reportData['NOTES']) {
+        reportString += `Notes: ${reportData['NOTES']}\n`;
+      } else {
+        reportString += `Notes: none\n`;
+      }
     }
+    
     for (const entry in reportData) {
       const { dateTime, log } = reportData[entry];
       if (dateTime && log) {

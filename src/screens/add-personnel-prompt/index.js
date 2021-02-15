@@ -8,8 +8,10 @@ import React, { useMemo } from 'react';
 import { View, TouchableOpacity, Text, Platform } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
+import ErrorFallback from '../error-fallback';
 import { NewPersonnel, Roster } from '../../components';
 import { staticLocations } from '../../modules/locations';
 import { movePerson } from '../../redux/actions';
@@ -60,38 +62,42 @@ const AddPersonnelPrompt = ({ navigation }) => {
   const styles = createStyleSheet(colors);
 
   return (
-    <View style={styles.container}>
-      {Platform.OS === 'android' && (
-        <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
-          <Icon name="chevron-left" style={styles.backIcon} />
-        </TouchableOpacity>
-      )}
-      <View style={styles.promptContainer}>
-        <View style={styles.leftCol}>
-          <View style={styles.newPersonnel}>
-            <NewPersonnel />
-            <TouchableOpacity
-              style={styles.option}
-              onPress={onAddToIncidentPressed}
-            >
-              <Text style={styles.optionContent}>ADD TO INCIDENT</Text>
-            </TouchableOpacity>
+    <ErrorBoundary
+      FallbackComponent={ErrorFallback}
+    >
+      <View style={styles.container}>
+        {Platform.OS === 'android' && (
+          <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
+            <Icon name="chevron-left" style={styles.backIcon} />
+          </TouchableOpacity>
+        )}
+        <View style={styles.promptContainer}>
+          <View style={styles.leftCol}>
+            <View style={styles.newPersonnel}>
+              <NewPersonnel />
+              <TouchableOpacity
+                style={styles.option}
+                onPress={onAddToIncidentPressed}
+              >
+                <Text style={styles.optionContent}>ADD TO INCIDENT</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-        <View style={styles.rightCol}>
-          <View style={styles.roster}>
-            <Roster />
-            <TouchableOpacity
-              style={styles.option}
-              onPress={onAddPersonPressed}
-            >
-              <Text style={styles.optionContent}>ADD PERSON</Text>
-              <Icon name="arrow-right" style={styles.optionContent} />
-            </TouchableOpacity>
+          <View style={styles.rightCol}>
+            <View style={styles.roster}>
+              <Roster />
+              <TouchableOpacity
+                style={styles.option}
+                onPress={onAddPersonPressed}
+              >
+                <Text style={styles.optionContent}>ADD PERSON</Text>
+                <Icon name="arrow-right" style={styles.optionContent} />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
-    </View>
+    </ErrorBoundary>
   );
 };
 

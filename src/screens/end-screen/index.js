@@ -9,8 +9,10 @@ import { Alert, TouchableOpacity, View, Text, TextInput } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
+import ErrorFallback from '../error-fallback';
 import { selectReportData, selectTheme } from '../../redux/selectors';
 import {
   endIncident,
@@ -70,41 +72,52 @@ const EndScreen = ({ navigation }) => {
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
-  return (
-    <View style={styles.container}>
-      <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-        <Text style={styles.label}>Location *</Text>
-        <TextInput
-          style={styles.locationInput}
-          autoCapitalize="none"
-          onChangeText={location => setLocation(location)}
-          value={location}
-        />
-        <Text style={styles.label}>Notes</Text>
-        <TextInput
-          style={styles.notesInput}
-          autoCapitalize="none"
-          multiline={true}
-          onChangeText={notes => setNotes(notes)}
-          value={notes}
-        />
+  const onReset = () => {
+    setLocation('');
+    setNotes('');
+  };
 
-        <TouchableOpacity
-          style={styles.opacity}
-          onPress={onResumeIncidentPressed}
-        >
-          <Icon name="restart" style={styles.icon} />
-          <Text style={styles.opacityText}>Resume incident</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.opacity, styles.opacityHighlight]}
-          onPress={onContinuePressed}
-        >
-          <Icon name="arrow-right" style={styles.icon} />
-          <Text style={styles.opacityText}>Continue</Text>
-        </TouchableOpacity>
-      </KeyboardAwareScrollView>
-    </View>
+  return (
+    <ErrorBoundary
+      FallbackComponent={ErrorFallback}
+      onReset={onReset}
+      resetKeys={[location, notes]}
+    >
+      <View style={styles.container}>
+        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+          <Text style={styles.label}>Location *</Text>
+          <TextInput
+            style={styles.locationInput}
+            autoCapitalize="none"
+            onChangeText={location => setLocation(location)}
+            value={location}
+          />
+          <Text style={styles.label}>Notes</Text>
+          <TextInput
+            style={styles.notesInput}
+            autoCapitalize="none"
+            multiline={true}
+            onChangeText={notes => setNotes(notes)}
+            value={notes}
+          />
+
+          <TouchableOpacity
+            style={styles.opacity}
+            onPress={onResumeIncidentPressed}
+          >
+            <Icon name="restart" style={styles.icon} />
+            <Text style={styles.opacityText}>Resume incident</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.opacity, styles.opacityHighlight]}
+            onPress={onContinuePressed}
+          >
+            <Icon name="arrow-right" style={styles.icon} />
+            <Text style={styles.opacityText}>Continue</Text>
+          </TouchableOpacity>
+        </KeyboardAwareScrollView>
+      </View>
+    </ErrorBoundary>
   );
 };
 

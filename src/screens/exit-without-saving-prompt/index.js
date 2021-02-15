@@ -16,11 +16,13 @@ import {
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import PropTypes from 'prop-types';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
+import { ErrorBoundary } from 'react-error-boundary';
+import PropTypes from 'prop-types';
 
+import ErrorFallback from '../error-fallback';
 import { resetIncident, toHomeStack } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
@@ -92,45 +94,56 @@ const ExitWithoutSavingPrompt = ({ navigation }) => {
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
+  const onReset = () => {
+    setLoading(false);
+    setPassword('');
+  };
+
   return (
-    <View style={styles.container}>
-      {Platform.OS === 'android' && (
-        <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
-          <Icon name="chevron-left" style={styles.backIcon} />
-        </TouchableOpacity>
-      )}
-      <View>
-        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-          <View style={styles.prompt}>
-            <Text style={styles.promptText}>
-              Are you absolutely sure you want to exit without saving?
-            </Text>
-            <Text style={styles.promptText}>
-              Please enter your password to confirm
-            </Text>
-          </View>
-          <Text style={styles.label}>Password</Text>
-          <TextInput
-            style={styles.passwordInput}
-            autoCapitalize="none"
-            secureTextEntry
-            onChangeText={password => setPassword(password)}
-            value={password}
-          />
-          <TouchableOpacity style={styles.opacity} onPress={onExitPressed}>
-            <Icon name="cancel" style={styles.icon} />
-            <Text style={styles.opacityText}>Exit Without Saving</Text>
+    <ErrorBoundary
+      FallbackComponent={ErrorFallback}
+      onReset={onReset}
+      resetKeys={[loading, password]}
+    >
+      <View style={styles.container}>
+        {Platform.OS === 'android' && (
+          <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
+            <Icon name="chevron-left" style={styles.backIcon} />
           </TouchableOpacity>
-        </KeyboardAwareScrollView>
+        )}
+        <View>
+          <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+            <View style={styles.prompt}>
+              <Text style={styles.promptText}>
+                Are you absolutely sure you want to exit without saving?
+              </Text>
+              <Text style={styles.promptText}>
+                Please enter your password to confirm
+              </Text>
+            </View>
+            <Text style={styles.label}>Password</Text>
+            <TextInput
+              style={styles.passwordInput}
+              autoCapitalize="none"
+              secureTextEntry
+              onChangeText={password => setPassword(password)}
+              value={password}
+            />
+            <TouchableOpacity style={styles.opacity} onPress={onExitPressed}>
+              <Icon name="cancel" style={styles.icon} />
+              <Text style={styles.opacityText}>Exit Without Saving</Text>
+            </TouchableOpacity>
+          </KeyboardAwareScrollView>
+        </View>
+        {loading && (
+          <ActivityIndicator
+            style={styles.activityIndicator}
+            color={colors.primary}
+            size={'large'}
+          />
+        )}
       </View>
-      {loading && (
-        <ActivityIndicator
-          style={styles.activityIndicator}
-          color={colors.primary}
-          size={'large'}
-        />
-      )}
-    </View>
+    </ErrorBoundary>
   );
 };
 

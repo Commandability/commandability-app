@@ -17,7 +17,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
+import { ErrorBoundary } from 'react-error-boundary';
 
+import ErrorFallback from '../error-fallback';
 import { addPerson } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
 import { staticLocations } from '../../modules/locations';
@@ -64,51 +66,64 @@ const AddPersonPrompt = ({ navigation }) => {
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
+  const onReset = () => {
+    setFirstName('');
+    setLastName('');
+    setBadge('');
+    setOrganization('');
+  };
+
   return (
-    <View style={styles.container}>
-      {Platform.OS === 'android' && (
-        <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
-          <Icon name="chevron-left" style={styles.backIcon} />
-        </TouchableOpacity>
-      )}
-      <View>
-        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-          <Text style={styles.label}>First Name*</Text>
-          <TextInput
-            style={styles.input}
-            maxLength={36}
-            value={firstName}
-            onChangeText={firstName => setFirstName(firstName)}
-          />
-          <Text style={styles.label}>Last Name*</Text>
-          <TextInput
-            style={styles.input}
-            maxLength={36}
-            value={lastName}
-            onChangeText={lastName => setLastName(lastName)}
-          />
-          <Text style={styles.label}>Badge Number</Text>
-          <TextInput
-            style={styles.input}
-            keyboardType={'numeric'}
-            maxLength={10}
-            value={badge}
-            onChangeText={badge => setBadge(badge)}
-          />
-          <Text style={styles.label}>Organization</Text>
-          <TextInput
-            style={styles.input}
-            maxLength={36}
-            value={organization}
-            onChangeText={organization => setOrganization(organization)}
-          />
-          <TouchableOpacity style={styles.opacity} onPress={onAddPersonPressed}>
-            <Icon name="account-plus" style={styles.icon} />
-            <Text style={styles.opacityText}> Add Person </Text>
+    <ErrorBoundary
+      FallbackComponent={ErrorFallback}
+      onReset={onReset}
+      resetKeys={[firstName, lastName, badge, organization]}
+    >
+      <View style={styles.container}>
+        {Platform.OS === 'android' && (
+          <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
+            <Icon name="chevron-left" style={styles.backIcon} />
           </TouchableOpacity>
-        </KeyboardAwareScrollView>
+        )}
+        <View>
+          <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+            <Text style={styles.label}>First Name*</Text>
+            <TextInput
+              style={styles.input}
+              maxLength={36}
+              value={firstName}
+              onChangeText={firstName => setFirstName(firstName)}
+            />
+            <Text style={styles.label}>Last Name*</Text>
+            <TextInput
+              style={styles.input}
+              maxLength={36}
+              value={lastName}
+              onChangeText={lastName => setLastName(lastName)}
+            />
+            <Text style={styles.label}>Badge Number</Text>
+            <TextInput
+              style={styles.input}
+              keyboardType={'numeric'}
+              maxLength={10}
+              value={badge}
+              onChangeText={badge => setBadge(badge)}
+            />
+            <Text style={styles.label}>Organization</Text>
+            <TextInput
+              style={styles.input}
+              maxLength={36}
+              value={organization}
+              onChangeText={organization => setOrganization(organization)}
+            />
+            <TouchableOpacity style={styles.opacity} onPress={onAddPersonPressed}>
+              <Icon name="account-plus" style={styles.icon} />
+              <Text style={styles.opacityText}> Add Person </Text>
+            </TouchableOpacity>
+          </KeyboardAwareScrollView>
+        </View>
       </View>
-    </View>
+    </ErrorBoundary>
   );
 };
 

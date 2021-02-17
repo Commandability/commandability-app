@@ -8,15 +8,6 @@ export default colors =>
       right: 0,
       bottom: 24,
     },
-    backOpacity: {
-      position: 'absolute',
-      left: 24,
-      top: 24,
-    },
-    backIcon: {
-      color: colors.primary,
-      fontSize: 42,
-    },
     container: {
       flex: 1,
       justifyContent: 'center',

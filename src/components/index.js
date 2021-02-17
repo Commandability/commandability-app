@@ -1,3 +1,4 @@
+import BackButton from './back-button';
 import BottomBar from './bottom-bar';
 import PageArea from './page-area';
 import Group from './group';
@@ -18,6 +19,7 @@ import StagingList from './staging-list';
 import Timer from './timer';
 
 export {
+  BackButton,
   BottomBar,
   PageArea,
   Group,

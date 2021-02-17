@@ -6,8 +6,8 @@
  */
 
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { TouchableOpacity, Text, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 

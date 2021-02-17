@@ -12,7 +12,6 @@ import {
   View,
   TextInput,
   Text,
-  Platform,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -20,15 +19,15 @@ import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 import { ErrorBoundary } from 'react-error-boundary';
-import PropTypes from 'prop-types';
 
+import { BackButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { resetIncident, toHomeStack } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-const ExitWithoutSavingPrompt = ({ navigation }) => {
+const ExitWithoutSavingPrompt = () => {
   const dispatch = useDispatch();
   const theme = useSelector(state => selectTheme(state));
   const { currentUser } = auth();
@@ -86,11 +85,6 @@ const ExitWithoutSavingPrompt = ({ navigation }) => {
     setPassword('');
   };
 
-  const onCancelPressed = () => {
-    const { goBack } = navigation;
-    goBack();
-  };
-
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
@@ -106,11 +100,7 @@ const ExitWithoutSavingPrompt = ({ navigation }) => {
       resetKeys={[loading, password]}
     >
       <View style={styles.container}>
-        {Platform.OS === 'android' && (
-          <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
-            <Icon name="chevron-left" style={styles.backIcon} />
-          </TouchableOpacity>
-        )}
+        <BackButton/>
         <View>
           <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
             <View style={styles.prompt}>
@@ -145,10 +135,6 @@ const ExitWithoutSavingPrompt = ({ navigation }) => {
       </View>
     </ErrorBoundary>
   );
-};
-
-ExitWithoutSavingPrompt.propTypes = {
-  navigation: PropTypes.object,
 };
 
 export default ExitWithoutSavingPrompt;

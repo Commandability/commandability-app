@@ -5,12 +5,13 @@
  */
 
 import React, { useMemo } from 'react';
-import { View, TouchableOpacity, Text, Platform } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
+import { BackButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { NewPersonnel, Roster } from '../../components';
 import { staticLocations } from '../../modules/locations';
@@ -32,11 +33,6 @@ const AddPersonnelPrompt = ({ navigation }) => {
     []
   );
   const personnel = useSelector(state => selectPersonnelByLocationId(state));
-
-  const onCancelPressed = () => {
-    const { goBack } = navigation;
-    goBack();
-  };
 
   const onAddToIncidentPressed = () => {
     personnel.forEach(person => {
@@ -66,11 +62,7 @@ const AddPersonnelPrompt = ({ navigation }) => {
       FallbackComponent={ErrorFallbackScreen}
     >
       <View style={styles.container}>
-        {Platform.OS === 'android' && (
-          <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
-            <Icon name="chevron-left" style={styles.backIcon} />
-          </TouchableOpacity>
-        )}
+        <BackButton/>
         <View style={styles.promptContainer}>
           <View style={styles.leftCol}>
             <View style={styles.newPersonnel}>

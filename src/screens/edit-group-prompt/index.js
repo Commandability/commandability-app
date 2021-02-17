@@ -10,14 +10,14 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View,
-  Platform,
+  View
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
+import { BackButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { selectTheme } from '../../redux/selectors';
 import { editGroup } from '../../redux/actions';
@@ -54,11 +54,6 @@ const EditGroupPrompt = ({ navigation, route }) => {
     }
   };
 
-  const onCancelPressed = () => {
-    const { goBack } = navigation;
-    goBack();
-  };
-
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
@@ -73,11 +68,7 @@ const EditGroupPrompt = ({ navigation, route }) => {
       resetKeys={[newName]}
     >
       <View style={styles.container}>
-        {Platform.OS === 'android' && (
-          <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
-            <Icon name="chevron-left" style={styles.backIcon} />
-          </TouchableOpacity>
-        )}
+        <BackButton/>
         <View>
           <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
             <Text style={styles.label}>Group name *</Text>

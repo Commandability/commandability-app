@@ -10,7 +10,6 @@ import {
   Alert,
   TouchableOpacity,
   View,
-  Platform,
   Text,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,6 +18,7 @@ import NetInfo from '@react-native-community/netinfo';
 import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
+import { BackButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { resetIncident, toHomeStack } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
@@ -124,11 +124,6 @@ const SavePrompt = ({ route, navigation }) => {
     }
   };
 
-  const onCancelPressed = () => {
-    const { goBack } = navigation;
-    goBack();
-  };
-
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
@@ -145,11 +140,7 @@ const SavePrompt = ({ route, navigation }) => {
       resetKeys={[loading, numberOfReports]}
     >
       <View style={styles.container}>
-        {Platform.OS === 'android' && (
-          <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
-            <Icon name="chevron-left" style={styles.backIcon} />
-          </TouchableOpacity>
-        )}
+        <BackButton/>
         <View>
           <TouchableOpacity style={styles.opacity} onPress={onExitPressed}>
             <Icon name="cancel" style={styles.icon} />

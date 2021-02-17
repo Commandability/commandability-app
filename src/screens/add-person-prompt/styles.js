@@ -8,15 +8,6 @@ export default colors =>
       backgroundColor: colors.background.one,
       padding: 24,
     },
-    backOpacity: {
-      position: 'absolute',
-      left: 24,
-      top: 24,
-    },
-    backIcon: {
-      color: colors.primary,
-      fontSize: 42,
-    },
     label: {
       color: colors.primary,
       marginLeft: 24,
@@ -46,9 +37,5 @@ export default colors =>
       fontSize: 42,
       color: colors.primary,
       marginRight: 32,
-    },
-    backButton: {
-      color: colors.primary,
-      fontSize: 42,
     },
   });

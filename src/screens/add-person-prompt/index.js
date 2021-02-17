@@ -11,7 +11,6 @@ import {
   TouchableOpacity,
   TextInput,
   Text,
-  Platform,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -19,6 +18,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 import { ErrorBoundary } from 'react-error-boundary';
 
+import { BackButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { addPerson } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
@@ -58,11 +58,6 @@ const AddPersonPrompt = ({ navigation }) => {
     navigate('AddPersonnelPrompt');
   };
 
-  const onCancelPressed = () => {
-    const { goBack } = navigation;
-    goBack();
-  };
-
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
@@ -80,11 +75,7 @@ const AddPersonPrompt = ({ navigation }) => {
       resetKeys={[firstName, lastName, badge, organization]}
     >
       <View style={styles.container}>
-        {Platform.OS === 'android' && (
-          <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
-            <Icon name="chevron-left" style={styles.backIcon} />
-          </TouchableOpacity>
-        )}
+        <BackButton/>
         <View>
           <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
             <Text style={styles.label}>First Name*</Text>

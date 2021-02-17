@@ -9,15 +9,6 @@ export default colors =>
       padding: 24,
       flexDirection: 'row',
     },
-    backOpacity: {
-      position: 'absolute',
-      left: 24,
-      top: 24,
-    },
-    backIcon: {
-      color: colors.primary,
-      fontSize: 42,
-    },
     promptContainer: {
       flex: 1,
       flexDirection: 'row',

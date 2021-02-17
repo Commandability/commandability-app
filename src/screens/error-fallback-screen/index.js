@@ -29,9 +29,7 @@ import { START_INCIDENT } from '../../redux/types';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-// save to cloud and exit button message, different when no auth, and when no data (?) or maybe on no data just say all app data uploaded??
-
-const ErrorFallback = ({error, resetErrorBoundary}) => {
+const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
   const dispatch = useDispatch();
   const theme = useSelector(state => selectTheme(state));
   const reportData = useSelector(state => selectReportData(state));
@@ -130,9 +128,9 @@ const ErrorFallback = ({error, resetErrorBoundary}) => {
   );
 };
 
-ErrorFallback.propTypes = {
+ErrorFallbackScreen.propTypes = {
   error: PropTypes.object,
   resetErrorBoundary: PropTypes.func
 };
 
-export default ErrorFallback;
+export default ErrorFallbackScreen;

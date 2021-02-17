@@ -19,7 +19,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import ErrorFallback from '../error-fallback';
+import ErrorFallbackScreen from '../error-fallback-screen';
 import { addPerson } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
 import { staticLocations } from '../../modules/locations';
@@ -75,7 +75,7 @@ const AddPersonPrompt = ({ navigation }) => {
 
   return (
     <ErrorBoundary
-      FallbackComponent={ErrorFallback}
+      FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[firstName, lastName, badge, organization]}
     >

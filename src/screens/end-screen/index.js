@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
-import ErrorFallback from '../error-fallback';
+import ErrorFallbackScreen from '../error-fallback-screen';
 import { selectReportData, selectTheme } from '../../redux/selectors';
 import {
   endIncident,
@@ -79,7 +79,7 @@ const EndScreen = ({ navigation }) => {
 
   return (
     <ErrorBoundary
-      FallbackComponent={ErrorFallback}
+      FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[location, notes]}
     >

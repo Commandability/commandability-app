@@ -22,7 +22,7 @@ import NetInfo from '@react-native-community/netinfo';
 import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
-import ErrorFallback from '../error-fallback';
+import ErrorFallbackScreen from '../error-fallback-screen';
 import { resetIncident, toHomeStack } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
@@ -101,7 +101,7 @@ const ExitWithoutSavingPrompt = ({ navigation }) => {
 
   return (
     <ErrorBoundary
-      FallbackComponent={ErrorFallback}
+      FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[loading, password]}
     >

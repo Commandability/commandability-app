@@ -19,7 +19,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import ErrorFallback from '../error-fallback';
+import ErrorFallbackScreen from '../error-fallback-screen';
 import {
   selectReportData,
   selectIsConfigurationLoaded,
@@ -272,7 +272,7 @@ const HomeScreen = () => {
 
   return (
     <ErrorBoundary
-      FallbackComponent={ErrorFallback}
+      FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[loading, numberOfReports]}
     >

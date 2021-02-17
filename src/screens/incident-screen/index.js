@@ -9,7 +9,7 @@ import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import ErrorFallback from '../error-fallback';
+import ErrorFallbackScreen from '../error-fallback-screen';
 import { PageArea, PersonnelArea, BottomBar } from '../../components';
 import {
   selectReportData,
@@ -52,7 +52,7 @@ const IncidentScreen = () => {
 
   return (
     <ErrorBoundary
-      FallbackComponent={ErrorFallback}
+      FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[initialEpoch]}
     >

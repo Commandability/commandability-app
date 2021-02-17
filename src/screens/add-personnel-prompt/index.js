@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
-import ErrorFallback from '../error-fallback';
+import ErrorFallbackScreen from '../error-fallback-screen';
 import { NewPersonnel, Roster } from '../../components';
 import { staticLocations } from '../../modules/locations';
 import { movePerson } from '../../redux/actions';
@@ -63,7 +63,7 @@ const AddPersonnelPrompt = ({ navigation }) => {
 
   return (
     <ErrorBoundary
-      FallbackComponent={ErrorFallback}
+      FallbackComponent={ErrorFallbackScreen}
     >
       <View style={styles.container}>
         {Platform.OS === 'android' && (

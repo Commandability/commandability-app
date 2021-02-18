@@ -5,13 +5,7 @@
  */
 
 import React, { useState } from 'react';
-import {
-  Alert,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View
-} from 'react-native';
+import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -68,7 +62,7 @@ const EditGroupPrompt = ({ navigation, route }) => {
       resetKeys={[newName]}
     >
       <View style={styles.container}>
-        <BackButton/>
+        <BackButton />
         <View>
           <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
             <Text style={styles.label}>Group name *</Text>

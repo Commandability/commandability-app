@@ -22,7 +22,12 @@ import { BackButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { resetIncident, toHomeStack } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
-import { DEVICE_REPORT_LIMIT, getNumberOfReports, uploadReport, saveReport } from '../../modules/report-manager';
+import {
+  DEVICE_REPORT_LIMIT,
+  getNumberOfReports,
+  uploadReport,
+  saveReport,
+} from '../../modules/report-manager';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
@@ -68,7 +73,7 @@ const SavePrompt = ({ route, navigation }) => {
         {
           text: 'Cancel',
           onPress: () => {},
-          style: 'cancel'
+          style: 'cancel',
         },
         {
           text: 'OK',
@@ -87,7 +92,7 @@ const SavePrompt = ({ route, navigation }) => {
                 },
               ]);
             }
-          }
+          },
         },
       ]
     );
@@ -140,7 +145,7 @@ const SavePrompt = ({ route, navigation }) => {
       resetKeys={[loading, numberOfReports]}
     >
       <View style={styles.container}>
-        <BackButton/>
+        <BackButton />
         <View>
           <TouchableOpacity style={styles.opacity} onPress={onExitPressed}>
             <Icon name="cancel" style={styles.icon} />

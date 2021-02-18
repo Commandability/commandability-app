@@ -195,16 +195,18 @@ const HomeScreen = () => {
         ]
       );
     } catch (error) {
-      if(uploadSuccess){
-        Alert.alert('Error removing reports from device', 
-        'All reports were successfully uploaded, but were not successfully removed from the device. Clear app storage manually before next use.', [
-          {
-            text: 'OK',
-          },
-        ]);
+      if (uploadSuccess) {
+        Alert.alert(
+          'Error removing reports from device',
+          'All reports were successfully uploaded, but were not successfully removed from the device. Clear app storage manually before next use.',
+          [
+            {
+              text: 'OK',
+            },
+          ]
+        );
       } else {
-        Alert.alert('Upload failed', 
-        error, [
+        Alert.alert('Upload failed', error, [
           {
             text: 'OK',
           },

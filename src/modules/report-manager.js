@@ -25,7 +25,7 @@ export const generateReport = reportData => {
         reportString += `Notes: none\n`;
       }
     }
-    
+
     for (const entry in reportData) {
       const { dateTime, log } = reportData[entry];
       if (dateTime && log) {

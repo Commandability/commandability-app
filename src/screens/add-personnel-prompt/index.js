@@ -5,13 +5,12 @@
  */
 
 import React, { useMemo } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
-import { BackButton } from '../../components';
+import { BackButton, SmallButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { NewPersonnel, Roster } from '../../components';
 import { staticLocations } from '../../modules/locations';
@@ -58,34 +57,26 @@ const AddPersonnelPrompt = ({ navigation }) => {
   const styles = createStyleSheet(colors);
 
   return (
-    <ErrorBoundary
-      FallbackComponent={ErrorFallbackScreen}
-    >
+    <ErrorBoundary FallbackComponent={ErrorFallbackScreen}>
       <View style={styles.container}>
-        <BackButton/>
-        <View style={styles.promptContainer}>
-          <View style={styles.leftCol}>
-            <View style={styles.newPersonnel}>
-              <NewPersonnel />
-              <TouchableOpacity
-                style={styles.option}
-                onPress={onAddToIncidentPressed}
-              >
-                <Text style={styles.optionContent}>ADD TO INCIDENT</Text>
-              </TouchableOpacity>
-            </View>
+        <BackButton />
+        <View style={styles.leftCol}>
+          <View style={styles.colContainer}>
+            <NewPersonnel />
+            <SmallButton
+              text="ADD TO INCIDENT"
+              onPress={onAddToIncidentPressed}
+            />
           </View>
-          <View style={styles.rightCol}>
-            <View style={styles.roster}>
-              <Roster />
-              <TouchableOpacity
-                style={styles.option}
-                onPress={onAddPersonPressed}
-              >
-                <Text style={styles.optionContent}>ADD PERSON</Text>
-                <Icon name="arrow-right" style={styles.optionContent} />
-              </TouchableOpacity>
-            </View>
+        </View>
+        <View style={styles.rightCol}>
+          <View style={styles.colContainer}>
+            <Roster />
+            <SmallButton
+              text="ADD PERSON"
+              onPress={onAddPersonPressed}
+              type="navigator"
+            />
           </View>
         </View>
       </View>

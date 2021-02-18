@@ -7,6 +7,7 @@ export default colors =>
     },
     page: {
       flex: 1,
+      marginTop: 16,
     },
     tabBar: {
       backgroundColor: colors.background.three,

@@ -14,6 +14,7 @@ import RemovePersonnel from './remove-personnel';
 import Roster from './roster';
 import RosterItem from './roster-item';
 import RosterList from './roster-list';
+import SmallButton from './small-button';
 import Staging from './staging';
 import StagingList from './staging-list';
 import Timer from './timer';
@@ -35,6 +36,7 @@ export {
   Roster,
   RosterItem,
   RosterList,
+  SmallButton,
   Staging,
   StagingList,
   Timer,

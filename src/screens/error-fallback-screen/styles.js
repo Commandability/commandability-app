@@ -16,7 +16,7 @@ export default colors =>
     },
     prompt: {
       marginLeft: 24,
-      marginBottom: 72
+      marginBottom: 72,
     },
     promptHeader: {
       fontSize: 48,

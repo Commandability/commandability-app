@@ -7,6 +7,8 @@ export default colors =>
       color: colors.text.main,
       backgroundColor: colors.background.three,
       borderRadius: 5,
+      width: '100%',
+      marginBottom: 16,
     },
     queryInput: {
       height: 40,

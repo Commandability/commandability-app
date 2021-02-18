@@ -17,6 +17,7 @@ export default colors =>
       flex: 1,
       backgroundColor: colors.background.three,
       width: '100%',
+      marginTop: 16,
       borderRadius: 5,
     },
     header: {

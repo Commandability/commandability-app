@@ -29,15 +29,14 @@ import { START_INCIDENT } from '../../redux/types';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
-const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
+const ErrorFallbackScreen = ({ error, resetErrorBoundary }) => {
   const dispatch = useDispatch();
   const theme = useSelector(state => selectTheme(state));
   const reportData = useSelector(state => selectReportData(state));
 
   const [loading, setLoading] = useState(false);
 
-  const reportIsUnsaved =
-    reportData[START_INCIDENT];
+  const reportIsUnsaved = reportData[START_INCIDENT];
 
   const { currentUser } = auth();
 
@@ -63,7 +62,7 @@ const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
     let uploadSuccess = false;
     try {
       await uploadReports();
-      if(reportIsUnsaved){
+      if (reportIsUnsaved) {
         reportData['EMERGENCY_UPLOAD'] = 'Emergency upload: report incomplete';
         await uploadReport(reportData);
         dispatch(resetIncident());
@@ -81,23 +80,24 @@ const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
         ]
       );
     } catch (error) {
-      if(uploadSuccess){
-        Alert.alert('Error removing reports from device', 
-        'All reports were successfully uploaded, but were not successfully removed from the device. Clear app storage manually before next use.', [
-          {
-            text: 'OK',
-          },
-        ]);
+      if (uploadSuccess) {
+        Alert.alert(
+          'Error removing reports from device',
+          'All reports were successfully uploaded, but were not successfully removed from the device. Clear app storage manually before next use.',
+          [
+            {
+              text: 'OK',
+            },
+          ]
+        );
       } else {
-        Alert.alert('Emergency upload failed', 
-        error, [
+        Alert.alert('Emergency upload failed', error, [
           {
             text: 'OK',
           },
         ]);
       }
-        
-      }
+    }
     setLoading(false);
   };
 
@@ -112,7 +112,10 @@ const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
         <Text style={styles.opacityText}>Try again</Text>
       </TouchableOpacity>
       {currentUser && (
-        <TouchableOpacity style={styles.opacity} onPress={onEmergencyUploadPressed}>
+        <TouchableOpacity
+          style={styles.opacity}
+          onPress={onEmergencyUploadPressed}
+        >
           <Icon name="upload" style={styles.icon} />
           <Text style={styles.opacityText}>Emergency upload</Text>
         </TouchableOpacity>
@@ -130,7 +133,7 @@ const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
 
 ErrorFallbackScreen.propTypes = {
   error: PropTypes.object,
-  resetErrorBoundary: PropTypes.func
+  resetErrorBoundary: PropTypes.func,
 };
 
 export default ErrorFallbackScreen;

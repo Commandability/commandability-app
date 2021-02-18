@@ -100,7 +100,7 @@ const ExitWithoutSavingPrompt = () => {
       resetKeys={[loading, password]}
     >
       <View style={styles.container}>
-        <BackButton/>
+        <BackButton />
         <View>
           <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
             <View style={styles.prompt}>

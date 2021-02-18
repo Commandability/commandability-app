@@ -5,13 +5,7 @@
  */
 
 import React, { useState } from 'react';
-import {
-  Alert,
-  View,
-  TouchableOpacity,
-  TextInput,
-  Text,
-} from 'react-native';
+import { Alert, View, TouchableOpacity, TextInput, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -75,7 +69,7 @@ const AddPersonPrompt = ({ navigation }) => {
       resetKeys={[firstName, lastName, badge, organization]}
     >
       <View style={styles.container}>
-        <BackButton/>
+        <BackButton />
         <View>
           <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
             <Text style={styles.label}>First Name*</Text>
@@ -107,7 +101,10 @@ const AddPersonPrompt = ({ navigation }) => {
               value={organization}
               onChangeText={organization => setOrganization(organization)}
             />
-            <TouchableOpacity style={styles.opacity} onPress={onAddPersonPressed}>
+            <TouchableOpacity
+              style={styles.opacity}
+              onPress={onAddPersonPressed}
+            >
               <Icon name="account-plus" style={styles.icon} />
               <Text style={styles.opacityText}> Add Person </Text>
             </TouchableOpacity>

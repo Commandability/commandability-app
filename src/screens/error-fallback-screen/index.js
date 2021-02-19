@@ -4,7 +4,7 @@
  * Manages recovering from js errors that are not asynchronous.
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, Alert, View, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import auth from '@react-native-firebase/auth';
@@ -15,6 +15,7 @@ import { LargeButton } from '../../components';
 import { resetIncident } from '../../redux/actions';
 import { selectTheme, selectReportData } from '../../redux/selectors';
 import {
+  getNumberOfReports,
   uploadReport,
   uploadReports,
   deleteAllReports,
@@ -29,10 +30,19 @@ const ErrorFallbackScreen = ({ error, resetErrorBoundary }) => {
   const reportData = useSelector(state => selectReportData(state));
 
   const [loading, setLoading] = useState(false);
+  const [numberOfReports, setNumberOfReports] = useState(0);
 
   const reportIsUnsaved = reportData[START_INCIDENT];
 
   const { currentUser } = auth();
+
+  useEffect(() => {
+    const getNumberOfReportsEffect = async () => {
+      const result = await getNumberOfReports();
+      setNumberOfReports(result);
+    };
+    getNumberOfReportsEffect();
+  }, []);
 
   const colors = themeSelector(theme);
   const globalStyles = createGlobalStyleSheet(colors);
@@ -43,6 +53,19 @@ const ErrorFallbackScreen = ({ error, resetErrorBoundary }) => {
       Alert.alert(
         'Failed to connect to the network',
         'Please check your network connection status.',
+        [
+          {
+            text: 'OK',
+          },
+        ]
+      );
+      return;
+    }
+
+    if (!reportIsUnsaved && !numberOfReports) {
+      Alert.alert(
+        'Emergency upload completed successfully',
+        'No saved or active reports found on device.',
         [
           {
             text: 'OK',

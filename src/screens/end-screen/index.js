@@ -20,7 +20,7 @@ import {
   toIncidentStack,
 } from '../../redux/actions';
 import themeSelector from '../../modules/themes';
-import createStyleSheet from './styles';
+import createGlobalStyleSheet from '../../modules/global-styles';
 
 const EndScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -70,7 +70,7 @@ const EndScreen = ({ navigation }) => {
   };
 
   const colors = themeSelector(theme);
-  const styles = createStyleSheet(colors);
+  const globalStyles = createGlobalStyleSheet(colors);
 
   const onReset = () => {
     setLocation('');
@@ -83,18 +83,18 @@ const EndScreen = ({ navigation }) => {
       onReset={onReset}
       resetKeys={[location, notes]}
     >
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
         <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-          <Text style={styles.label}>Location *</Text>
+          <Text style={globalStyles.label}>Location *</Text>
           <TextInput
-            style={styles.locationInput}
+            style={globalStyles.input}
             autoCapitalize="none"
             onChangeText={location => setLocation(location)}
             value={location}
           />
-          <Text style={styles.label}>Notes</Text>
+          <Text style={globalStyles.label}>Notes</Text>
           <TextInput
-            style={styles.notesInput}
+            style={globalStyles.multilineInput}
             autoCapitalize="none"
             multiline={true}
             onChangeText={notes => setNotes(notes)}

@@ -17,7 +17,7 @@ import ErrorFallbackScreen from '../error-fallback-screen';
 import { resetIncident, toHomeStack } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
-import createStyleSheet from './styles';
+import createGlobalStyleSheet from '../../modules/global-styles';
 
 const ExitWithoutSavingPrompt = () => {
   const dispatch = useDispatch();
@@ -78,7 +78,7 @@ const ExitWithoutSavingPrompt = () => {
   };
 
   const colors = themeSelector(theme);
-  const styles = createStyleSheet(colors);
+  const globalStyles = createGlobalStyleSheet(colors);
 
   const onReset = () => {
     setLoading(false);
@@ -91,21 +91,21 @@ const ExitWithoutSavingPrompt = () => {
       onReset={onReset}
       resetKeys={[loading, password]}
     >
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
         <BackButton />
         <View>
           <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-            <View style={styles.prompt}>
-              <Text style={styles.promptText}>
+            <View style={globalStyles.prompt}>
+              <Text style={globalStyles.promptText}>
                 Are you absolutely sure you want to exit without saving?
               </Text>
-              <Text style={styles.promptText}>
+              <Text style={globalStyles.promptText}>
                 Please enter your password to confirm
               </Text>
             </View>
-            <Text style={styles.label}>Password</Text>
+            <Text style={globalStyles.label}>Password</Text>
             <TextInput
-              style={styles.passwordInput}
+              style={globalStyles.input}
               autoCapitalize="none"
               secureTextEntry
               onChangeText={password => setPassword(password)}
@@ -120,7 +120,7 @@ const ExitWithoutSavingPrompt = () => {
         </View>
         {loading && (
           <ActivityIndicator
-            style={styles.activityIndicator}
+            style={globalStyles.activityIndicator}
             color={colors.primary}
             size={'large'}
           />

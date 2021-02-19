@@ -16,7 +16,7 @@ import ErrorFallbackScreen from '../error-fallback-screen';
 import { selectTheme } from '../../redux/selectors';
 import { editGroup } from '../../redux/actions';
 import themeSelector from '../../modules/themes';
-import createStyleSheet from './styles';
+import createGlobalStyleSheet from '../../modules/global-styles';
 
 const EditGroupPrompt = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const EditGroupPrompt = ({ navigation, route }) => {
   };
 
   const colors = themeSelector(theme);
-  const styles = createStyleSheet(colors);
+  const globalStyles = createGlobalStyleSheet(colors);
 
   const onReset = () => {
     setNewName('');
@@ -60,13 +60,13 @@ const EditGroupPrompt = ({ navigation, route }) => {
       onReset={onReset}
       resetKeys={[newName]}
     >
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
         <BackButton />
         <View>
           <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-            <Text style={styles.label}>Group name *</Text>
+            <Text style={globalStyles.label}>Group name *</Text>
             <TextInput
-              style={styles.nameInput}
+              style={globalStyles.input}
               autoCapitalize="none"
               value={newName}
               onChangeText={newName => setNewName(newName)}

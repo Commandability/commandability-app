@@ -2,17 +2,6 @@ import { StyleSheet } from 'react-native';
 
 export default colors =>
   StyleSheet.create({
-    activityIndicator: {
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      bottom: 24,
-    },
-    container: {
-      flex: 1,
-      backgroundColor: colors.background.one,
-      padding: 24,
-    },
     row: {
       flexDirection: 'row',
       flex: 1,

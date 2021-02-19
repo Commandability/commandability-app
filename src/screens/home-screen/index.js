@@ -38,6 +38,7 @@ import {
 import { staticLocations } from '../../modules/locations.js';
 import { DARK } from '../../modules/themes';
 import themeSelector from '../../modules/themes';
+import createGlobalStyleSheet from '../../modules/global-styles';
 import createStyleSheet from './styles';
 
 const { ROSTER } = staticLocations;
@@ -258,6 +259,7 @@ const HomeScreen = () => {
   };
 
   const colors = themeSelector(theme);
+  const globalStyles = createGlobalStyleSheet(colors);
   const styles = createStyleSheet(colors);
 
   const onReset = async () => {
@@ -272,7 +274,7 @@ const HomeScreen = () => {
       onReset={onReset}
       resetKeys={[loading, numberOfReports]}
     >
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
         <LargeButton
           text="Start incident"
           onPress={onStartIncidentPressed}
@@ -319,7 +321,7 @@ const HomeScreen = () => {
         </View>
         {loading && (
           <ActivityIndicator
-            style={styles.activityIndicator}
+            style={globalStyles.activityIndicator}
             color={colors.primary}
             size={'large'}
           />

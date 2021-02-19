@@ -16,7 +16,7 @@ import ErrorFallbackScreen from '../error-fallback-screen';
 import { selectTheme } from '../../redux/selectors';
 import { signIn } from '../../redux/actions';
 import themeSelector from '../../modules/themes';
-import createStyleSheet from './styles';
+import createGlobalStyleSheet from '../../modules/global-styles';
 
 const AuthScreen = () => {
   const dispatch = useDispatch();
@@ -79,7 +79,7 @@ const AuthScreen = () => {
   };
 
   const colors = themeSelector(theme);
-  const styles = createStyleSheet(colors);
+  const globalStyles = createGlobalStyleSheet(colors);
 
   const onReset = () => {
     setLoading(false);
@@ -93,20 +93,20 @@ const AuthScreen = () => {
       onReset={onReset}
       resetKeys={[loading, email, password]}
     >
-      <View style={styles.container}>
-        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-          <View style={styles.content}>
-            <Text style={styles.label}>Email</Text>
+      <View style={globalStyles.container}>
+        <View>
+          <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+            <Text style={globalStyles.label}>Email</Text>
             <TextInput
-              style={styles.textInput}
+              style={globalStyles.input}
               autoCapitalize="none"
               keyboardType="email-address"
               onChangeText={email => setEmail(email)}
               value={email}
             />
-            <Text style={styles.label}>Password</Text>
+            <Text style={globalStyles.label}>Password</Text>
             <TextInput
-              style={styles.textInput}
+              style={globalStyles.input}
               autoCapitalize="none"
               secureTextEntry
               onChangeText={password => setPassword(password)}
@@ -117,11 +117,11 @@ const AuthScreen = () => {
               onPress={onSignInPressed}
               icon="login"
             />
-          </View>
-        </KeyboardAwareScrollView>
+          </KeyboardAwareScrollView>
+        </View>
         {loading && (
           <ActivityIndicator
-            style={styles.activityIndicator}
+            style={globalStyles.activityIndicator}
             color={colors.primary}
             size={'large'}
           />

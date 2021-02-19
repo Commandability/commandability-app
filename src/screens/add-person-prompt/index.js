@@ -17,7 +17,7 @@ import { addPerson } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
 import { staticLocations } from '../../modules/locations';
 import themeSelector from '../../modules/themes';
-import createStyleSheet from './styles';
+import createGlobalStyleSheet from '../../modules/global-styles';
 
 const { NEW_PERSONNEL } = staticLocations;
 
@@ -52,7 +52,7 @@ const AddPersonPrompt = ({ navigation }) => {
   };
 
   const colors = themeSelector(theme);
-  const styles = createStyleSheet(colors);
+  const globalStyles = createGlobalStyleSheet(colors);
 
   const onReset = () => {
     setFirstName('');
@@ -67,35 +67,35 @@ const AddPersonPrompt = ({ navigation }) => {
       onReset={onReset}
       resetKeys={[firstName, lastName, badge, organization]}
     >
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
         <BackButton />
         <View>
           <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-            <Text style={styles.label}>First Name*</Text>
+            <Text style={globalStyles.label}>First Name*</Text>
             <TextInput
-              style={styles.input}
+              style={globalStyles.input}
               maxLength={36}
               value={firstName}
               onChangeText={firstName => setFirstName(firstName)}
             />
-            <Text style={styles.label}>Last Name*</Text>
+            <Text style={globalStyles.label}>Last Name*</Text>
             <TextInput
-              style={styles.input}
+              style={globalStyles.input}
               maxLength={36}
               value={lastName}
               onChangeText={lastName => setLastName(lastName)}
             />
-            <Text style={styles.label}>Badge Number</Text>
+            <Text style={globalStyles.label}>Badge Number</Text>
             <TextInput
-              style={styles.input}
+              style={globalStyles.input}
               keyboardType={'numeric'}
               maxLength={10}
               value={badge}
               onChangeText={badge => setBadge(badge)}
             />
-            <Text style={styles.label}>Organization</Text>
+            <Text style={globalStyles.label}>Organization</Text>
             <TextInput
-              style={styles.input}
+              style={globalStyles.input}
               maxLength={36}
               value={organization}
               onChangeText={organization => setOrganization(organization)}

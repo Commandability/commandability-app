@@ -22,7 +22,7 @@ import {
   saveReport,
 } from '../../modules/report-manager';
 import themeSelector from '../../modules/themes';
-import createStyleSheet from './styles';
+import createGlobalStyleSheet from '../../modules/global-styles';
 
 const SavePrompt = ({ route, navigation }) => {
   const dispatch = useDispatch();
@@ -123,7 +123,7 @@ const SavePrompt = ({ route, navigation }) => {
   };
 
   const colors = themeSelector(theme);
-  const styles = createStyleSheet(colors);
+  const globalStyles = createGlobalStyleSheet(colors);
 
   const onReset = async () => {
     setLoading(false);
@@ -137,7 +137,7 @@ const SavePrompt = ({ route, navigation }) => {
       onReset={onReset}
       resetKeys={[loading, numberOfReports]}
     >
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
         <BackButton />
         <View>
           <LargeButton
@@ -159,7 +159,7 @@ const SavePrompt = ({ route, navigation }) => {
         </View>
         {loading && (
           <ActivityIndicator
-            style={styles.activityIndicator}
+            style={globalStyles.activityIndicator}
             color={colors.primary}
             size={'large'}
           />

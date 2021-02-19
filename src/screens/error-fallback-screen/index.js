@@ -21,7 +21,7 @@ import {
 } from '../../modules/report-manager';
 import { START_INCIDENT } from '../../redux/types';
 import themeSelector from '../../modules/themes';
-import createStyleSheet from './styles';
+import createGlobalStyleSheet from '../../modules/global-styles';
 
 const ErrorFallbackScreen = ({ error, resetErrorBoundary }) => {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const ErrorFallbackScreen = ({ error, resetErrorBoundary }) => {
   const { currentUser } = auth();
 
   const colors = themeSelector(theme);
-  const styles = createStyleSheet(colors);
+  const globalStyles = createGlobalStyleSheet(colors);
 
   const onEmergencyUploadPressed = async () => {
     const { isConnected } = await NetInfo.fetch();
@@ -96,10 +96,10 @@ const ErrorFallbackScreen = ({ error, resetErrorBoundary }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.prompt}>
-        <Text style={styles.promptHeader}>Something went wrong:</Text>
-        <Text style={styles.promptText}>{error.message}</Text>
+    <View style={globalStyles.container}>
+      <View style={globalStyles.prompt}>
+        <Text style={globalStyles.promptHeader}>Something went wrong:</Text>
+        <Text style={globalStyles.promptText}>{error.message}</Text>
       </View>
       <LargeButton
         text="Try again"
@@ -115,7 +115,7 @@ const ErrorFallbackScreen = ({ error, resetErrorBoundary }) => {
       )}
       {loading && (
         <ActivityIndicator
-          style={styles.activityIndicator}
+          style={globalStyles.activityIndicator}
           color={colors.primary}
           size={'large'}
         />

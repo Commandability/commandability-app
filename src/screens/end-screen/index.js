@@ -5,13 +5,13 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Alert, TouchableOpacity, View, Text, TextInput } from 'react-native';
+import { Alert, View, Text, TextInput } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
+import { LargeButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { selectReportData, selectTheme } from '../../redux/selectors';
 import {
@@ -100,21 +100,17 @@ const EndScreen = ({ navigation }) => {
             onChangeText={notes => setNotes(notes)}
             value={notes}
           />
-
-          <TouchableOpacity
-            style={styles.opacity}
+          <LargeButton
+            text="Resume incident"
             onPress={onResumeIncidentPressed}
-          >
-            <Icon name="restart" style={styles.icon} />
-            <Text style={styles.opacityText}>Resume incident</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.opacity, styles.opacityHighlight]}
+            icon="restart"
+          />
+          <LargeButton
+            text="Continue"
             onPress={onContinuePressed}
-          >
-            <Icon name="arrow-right" style={styles.icon} />
-            <Text style={styles.opacityText}>Continue</Text>
-          </TouchableOpacity>
+            icon="arrow-right"
+            priority={true}
+          />
         </KeyboardAwareScrollView>
       </View>
     </ErrorBoundary>

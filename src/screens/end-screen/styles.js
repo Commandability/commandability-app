@@ -30,26 +30,4 @@ export default colors =>
       paddingLeft: 16,
       borderRadius: 5,
     },
-    opacity: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: colors.background.two,
-      padding: 48,
-      margin: 24,
-      borderRadius: 5,
-    },
-    opacityHighlight: {
-      borderWidth: 1,
-      borderColor: colors.primary,
-    },
-    opacityText: {
-      fontSize: 42,
-      color: colors.text.main,
-    },
-    icon: {
-      fontSize: 42,
-      color: colors.primary,
-      marginRight: 32,
-    },
   });

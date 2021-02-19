@@ -5,6 +5,7 @@ import Group from './group';
 import GroupList from './group-list';
 import GroupOptions from './group-options';
 import IncidentItem from './incident-item';
+import LargeButton from './large-button';
 import NewPersonnel from './new-personnel';
 import NewPersonnelItem from './new-personnel-item';
 import NewPersonnelList from './new-personnel-list';
@@ -27,6 +28,7 @@ export {
   GroupList,
   GroupOptions,
   IncidentItem,
+  LargeButton,
   NewPersonnel,
   NewPersonnelItem,
   NewPersonnelList,

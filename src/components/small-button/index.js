@@ -1,5 +1,5 @@
 /**
- * BackButton Component
+ * SmallButton Component
  *
  * This component handles small buttons
  */

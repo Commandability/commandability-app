@@ -5,19 +5,13 @@
  */
 
 import React, { useState } from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  TouchableOpacity,
-  View,
-  Text,
-} from 'react-native';
+import { ActivityIndicator, Alert, View, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import auth from '@react-native-firebase/auth';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 import PropTypes from 'prop-types';
 
+import { LargeButton } from '../../components';
 import { resetIncident } from '../../redux/actions';
 import { selectTheme, selectReportData } from '../../redux/selectors';
 import {
@@ -107,18 +101,17 @@ const ErrorFallbackScreen = ({ error, resetErrorBoundary }) => {
         <Text style={styles.promptHeader}>Something went wrong:</Text>
         <Text style={styles.promptText}>{error.message}</Text>
       </View>
-      <TouchableOpacity style={styles.opacity} onPress={resetErrorBoundary}>
-        <Icon name="refresh" style={styles.icon} />
-        <Text style={styles.opacityText}>Try again</Text>
-      </TouchableOpacity>
+      <LargeButton
+        text="Try again"
+        onPress={resetErrorBoundary}
+        icon="refresh"
+      />
       {currentUser && (
-        <TouchableOpacity
-          style={styles.opacity}
+        <LargeButton
+          text="Emergency upload"
           onPress={onEmergencyUploadPressed}
-        >
-          <Icon name="upload" style={styles.icon} />
-          <Text style={styles.opacityText}>Emergency upload</Text>
-        </TouchableOpacity>
+          icon="upload"
+        />
       )}
       {loading && (
         <ActivityIndicator

@@ -5,20 +5,13 @@
  */
 
 import React, { useState } from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  TouchableOpacity,
-  TextInput,
-  View,
-  Text,
-} from 'react-native';
+import { ActivityIndicator, Alert, TextInput, View, Text } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSelector, useDispatch } from 'react-redux';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 import { ErrorBoundary } from 'react-error-boundary';
 
+import { LargeButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { selectTheme } from '../../redux/selectors';
 import { signIn } from '../../redux/actions';
@@ -119,10 +112,11 @@ const AuthScreen = () => {
               onChangeText={password => setPassword(password)}
               value={password}
             />
-            <TouchableOpacity style={styles.opacity} onPress={onSignInPressed}>
-              <Icon name="login" style={styles.icon} />
-              <Text style={styles.iconText}>Sign in</Text>
-            </TouchableOpacity>
+            <LargeButton
+              text="Sign in"
+              onPress={onSignInPressed}
+              icon="login"
+            />
           </View>
         </KeyboardAwareScrollView>
         {loading && (

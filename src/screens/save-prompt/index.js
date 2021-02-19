@@ -5,20 +5,13 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  TouchableOpacity,
-  View,
-  Text,
-} from 'react-native';
+import { ActivityIndicator, Alert, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
-import { BackButton } from '../../components';
+import { BackButton, LargeButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { resetIncident, toHomeStack } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
@@ -147,24 +140,22 @@ const SavePrompt = ({ route, navigation }) => {
       <View style={styles.container}>
         <BackButton />
         <View>
-          <TouchableOpacity style={styles.opacity} onPress={onExitPressed}>
-            <Icon name="cancel" style={styles.icon} />
-            <Text style={styles.opacityText}>Exit without saving</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.opacity}
+          <LargeButton
+            text="Exit without saving"
+            onPress={onExitPressed}
+            icon="cancel"
+          />
+          <LargeButton
+            text="Save to device and exit"
             onPress={onSaveToDevicePressed}
-          >
-            <Icon name="content-save" style={styles.icon} />
-            <Text style={styles.opacityText}>Save to device and exit</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.opacity, styles.opacityHighlight]}
+            icon="content-save"
+          />
+          <LargeButton
+            text="Save to cloud and exit"
             onPress={onSaveToCloudPressed}
-          >
-            <Icon name="upload" style={styles.icon} />
-            <Text style={styles.opacityText}>Save to cloud and exit</Text>
-          </TouchableOpacity>
+            icon="upload"
+            priority={true}
+          />
         </View>
         {loading && (
           <ActivityIndicator

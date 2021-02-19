@@ -5,17 +5,16 @@
  */
 
 import React, { useState } from 'react';
-import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Text, TextInput, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
-import { BackButton } from '../../components';
+import { BackButton, LargeButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { selectTheme } from '../../redux/selectors';
 import { editGroup } from '../../redux/actions';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
@@ -72,10 +71,7 @@ const EditGroupPrompt = ({ navigation, route }) => {
               value={newName}
               onChangeText={newName => setNewName(newName)}
             />
-            <TouchableOpacity style={styles.opacity} onPress={onSavePressed}>
-              <Icon name="check" style={styles.icon} />
-              <Text style={styles.opacityText}>Save</Text>
-            </TouchableOpacity>
+            <LargeButton text="Save" onPress={onSavePressed} icon="check" />
           </KeyboardAwareScrollView>
         </View>
       </View>

@@ -5,14 +5,13 @@
  */
 
 import React, { useState } from 'react';
-import { Alert, View, TouchableOpacity, TextInput, Text } from 'react-native';
+import { Alert, View, TextInput, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { BackButton } from '../../components';
+import { BackButton, LargeButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { addPerson } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
@@ -101,13 +100,11 @@ const AddPersonPrompt = ({ navigation }) => {
               value={organization}
               onChangeText={organization => setOrganization(organization)}
             />
-            <TouchableOpacity
-              style={styles.opacity}
+            <LargeButton
+              text="Add person"
               onPress={onAddPersonPressed}
-            >
-              <Icon name="account-plus" style={styles.icon} />
-              <Text style={styles.opacityText}> Add Person </Text>
-            </TouchableOpacity>
+              icon="account-plus"
+            />
           </KeyboardAwareScrollView>
         </View>
       </View>

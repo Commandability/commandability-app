@@ -17,35 +17,15 @@ export default colors =>
       flexDirection: 'row',
       flex: 1,
     },
-    opacity: {
-      flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: colors.background.two,
-      margin: 24,
-      borderRadius: 5,
-    },
-    opacityHighlight: {
-      borderWidth: 1,
-      borderColor: colors.primary,
-    },
-    icon: {
-      fontSize: 42,
-      color: colors.primary,
-      marginRight: 32,
-    },
     reportsNumberContainer: {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
     },
-    opacityText: {
+    reportsNumber: {
       fontSize: 42,
       color: colors.text.main,
-    },
-    reportsNumber: {
       paddingHorizontal: 12,
       marginLeft: 32,
       borderRadius: 5,

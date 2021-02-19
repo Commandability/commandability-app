@@ -5,20 +5,14 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  TouchableOpacity,
-  View,
-  Text,
-} from 'react-native';
+import { ActivityIndicator, Alert, View, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 import { ErrorBoundary } from 'react-error-boundary';
 
+import { LargeButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import {
   selectReportData,
@@ -279,62 +273,49 @@ const HomeScreen = () => {
       resetKeys={[loading, numberOfReports]}
     >
       <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.opacity}
+        <LargeButton
+          text="Start incident"
           onPress={onStartIncidentPressed}
-          color={colors.primary}
-        >
-          <Icon name="alarm-light" style={styles.icon} />
-          <Text style={styles.opacityText}>Start incident</Text>
-        </TouchableOpacity>
+          icon="alarm-light"
+          type="flex"
+        />
         <View style={styles.row}>
-          <TouchableOpacity
-            style={styles.opacity}
+          <LargeButton
+            text="Update configuration"
             onPress={onUpdateConfigurationPressed}
-            color={colors.primary}
-          >
-            <Icon name="update" style={styles.icon} />
-            <Text style={styles.opacityText}>Update configuration</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.opacity, numberOfReports && styles.opacityHighlight]}
+            icon="update"
+            type="flex"
+          />
+          <LargeButton
+            text="Upload reports"
             onPress={onUploadReportsPressed}
-            color={colors.primary}
+            icon="upload"
+            type="flex"
+            priority={!!numberOfReports}
           >
-            <View style={styles.reportsNumberContainer}>
-              <Icon name="upload" style={styles.icon} />
-              <Text style={styles.opacityText}>Upload reports</Text>
-              <Text
-                style={[
-                  styles.opacityText,
-                  styles.reportsNumber,
-                  numberOfReports
-                    ? styles.reportsOnDevice
-                    : styles.noReportsOnDevice,
-                ]}
-              >{`${numberOfReports}`}</Text>
-            </View>
-          </TouchableOpacity>
+            <Text
+              style={[
+                styles.reportsNumber,
+                numberOfReports
+                  ? styles.reportsOnDevice
+                  : styles.noReportsOnDevice,
+              ]}
+            >{`${numberOfReports}`}</Text>
+          </LargeButton>
         </View>
         <View style={styles.row}>
-          <TouchableOpacity
-            style={styles.opacity}
+          <LargeButton
+            text={theme === DARK ? 'Light' : 'Dark'}
             onPress={onToggleThemePressed}
-            color={colors.primary}
-          >
-            <Icon name="theme-light-dark" style={styles.icon} />
-            <Text style={styles.opacityText}>
-              {theme === DARK ? 'Light' : 'Dark'}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.opacity}
+            icon="theme-light-dark"
+            type="flex"
+          />
+          <LargeButton
+            text="Sign out"
             onPress={onSignOutPressed}
-            color={colors.primary}
-          >
-            <Icon name="logout" style={styles.icon} />
-            <Text style={styles.opacityText}>Sign out</Text>
-          </TouchableOpacity>
+            icon="logout"
+            type="flex"
+          />
         </View>
         {loading && (
           <ActivityIndicator

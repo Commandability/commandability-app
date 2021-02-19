@@ -5,22 +5,14 @@
  */
 
 import React, { useState } from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  TouchableOpacity,
-  View,
-  TextInput,
-  Text,
-} from 'react-native';
+import { ActivityIndicator, Alert, View, TextInput, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import auth from '@react-native-firebase/auth';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { BackButton } from '../../components';
+import { BackButton, LargeButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { resetIncident, toHomeStack } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
@@ -119,10 +111,11 @@ const ExitWithoutSavingPrompt = () => {
               onChangeText={password => setPassword(password)}
               value={password}
             />
-            <TouchableOpacity style={styles.opacity} onPress={onExitPressed}>
-              <Icon name="cancel" style={styles.icon} />
-              <Text style={styles.opacityText}>Exit Without Saving</Text>
-            </TouchableOpacity>
+            <LargeButton
+              text="Exit without saving"
+              onPress={onExitPressed}
+              icon="cancel"
+            />
           </KeyboardAwareScrollView>
         </View>
         {loading && (

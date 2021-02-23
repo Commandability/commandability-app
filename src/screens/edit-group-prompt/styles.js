@@ -50,10 +50,15 @@ export default colors =>
       alignSelf: 'flex-start',
       marginBottom: 48,
     },
-    toggle: {
+    alertToggle: {
       margin: 24,
       alignItems: "flex-start",
       justifyContent: "center",
       flex: 1,
+      flexDirection: "row",
+    },
+    slider: {
+      width: 200,
+      alignSelf: "center",
     },
   });

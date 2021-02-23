@@ -83,10 +83,10 @@ const EditGroupPrompt = ({ navigation, route }) => {
             onChangeText={newName => setNewName(newName)}
           />
           <Text style={styles.label}>Group Alerts</Text>
-          <View style={styles.toggle}>
+          <View style={styles.alertToggle}>
             <Switch
-              trackColor={{ false: "#767577", true: "#81b0ff" }}
-              thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+              trackColor={{ false: "#FFFFFF", true: "#FFFFFF" }}
+              thumbColor={isEnabled ? colors.primary : colors.text.disabled}
               onValueChange={toggleSwitch}
               value={isEnabled}
             />
@@ -96,6 +96,8 @@ const EditGroupPrompt = ({ navigation, route }) => {
               step={5}
               minimumTrackTintColor="#FFFFFF"
               maximumTrackTintColor="#000000"
+              thumbTintColor={colors.primary}
+              style={styles.slider}
             />
           </View>
           <TouchableOpacity style={styles.opacity} onPress={onSavePressed}>

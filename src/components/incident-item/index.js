@@ -61,6 +61,15 @@ const IncidentItem = ({ personId }) => {
   const displayTime = Math.floor(time / MS_IN_MINUTE);
   const renderOverlay = personIsSelected;
 
+
+  console.log(person);
+
+  //useEffect(() => {
+  //  if ((displayTime % 5 == 0) && displayTime >= alertTime){
+  //
+  //   }
+  //});
+
   return (
     <>
       {renderOverlay && (

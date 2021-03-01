@@ -9,32 +9,65 @@ import storage from '@react-native-firebase/storage';
 import AsyncStorage from '@react-native-community/async-storage';
 import uuidv4 from 'uuid/v4';
 
-export const saveCurrentReport = async reportData => {
+export const DEVICE_REPORT_LIMIT = 10;
+
+export const generateReport = reportData => {
+  // Generate report string from data
+  let reportString = '';
+  if (reportData) {
+    if (reportData['EMERGENCY_UPLOAD']) {
+      reportString += `${reportData['EMERGENCY_UPLOAD']}\n`;
+    } else {
+      reportString += `Location: ${reportData['LOCATION']}\n`;
+      if (reportData['NOTES']) {
+        reportString += `Notes: ${reportData['NOTES']}\n`;
+      } else {
+        reportString += `Notes: none\n`;
+      }
+    }
+
+    for (const entry in reportData) {
+      const { dateTime, log } = reportData[entry];
+      if (dateTime && log) {
+        reportString += `${dateTime}: ${log}\n`;
+      }
+    }
+  }
+  const report = reportString.trim();
+
+  return report;
+};
+
+export const uploadReport = async reportData => {
+  try {
+    const {
+      currentUser: { uid },
+    } = auth();
+    const uploadId = uuidv4();
+
+    const report = generateReport(reportData);
+
+    // Upload report
+    const uploadPath = `/users/${uid}/${uploadId}`;
+    let storageRef = storage().ref();
+    let reportRef = storageRef.child(uploadPath);
+    await reportRef.putString(report);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const saveReport = async reportData => {
   try {
     const {
       currentUser: { uid },
     } = auth();
     const reportId = uuidv4();
-    // Generate report string from data
-    let reportString = '';
-    if (reportData) {
-      reportString += `Location: ${reportData['LOCATION']}\n`;
-      if (reportData['NOTES']) {
-        reportString += `Notes: ${reportData['NOTES']}\n`;
-      } else {
-        reportString += `Notes: none.\n`;
-      }
-      for (const entry in reportData) {
-        const { dateTime, log } = reportData[entry];
-        if (dateTime && log) {
-          reportString += `${dateTime}: ${log}\n`;
-        }
-      }
-    }
-    await AsyncStorage.setItem(
-      `@CAA/${uid}/reports/${reportId}`,
-      reportString.trim()
-    );
+
+    const report = generateReport(reportData);
+
+    // Save report
+    await AsyncStorage.setItem(`@CAA/${uid}/reports/${reportId}`, report);
   } catch (error) {
     throw new Error(error);
   }
@@ -89,11 +122,7 @@ export const uploadReports = async () => {
         const uploadPath = `/users/${uid}/${uploadId}`;
         let storageRef = storage().ref();
         let reportRef = storageRef.child(uploadPath);
-        try {
-          return reportRef.putString(report);
-        } catch (error) {
-          throw new Error(error);
-        }
+        return reportRef.putString(report);
       });
       await Promise.all(uploadPromises);
     }

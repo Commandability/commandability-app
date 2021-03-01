@@ -5,24 +5,19 @@
  */
 
 import React, { useState } from 'react';
-import {
-  Alert,
-  View,
-  TouchableOpacity,
-  TextInput,
-  Text,
-  Platform,
-} from 'react-native';
+import { Alert, View, TextInput, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
+import { ErrorBoundary } from 'react-error-boundary';
 
+import { BackButton, LargeButton } from '../../components';
+import ErrorFallbackScreen from '../error-fallback-screen';
 import { addPerson } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
 import { staticLocations } from '../../modules/locations';
 import themeSelector from '../../modules/themes';
-import createStyleSheet from './styles';
+import createGlobalStyleSheet from '../../modules/global-styles';
 
 const { NEW_PERSONNEL } = staticLocations;
 
@@ -53,64 +48,67 @@ const AddPersonPrompt = ({ navigation }) => {
     );
 
     const { navigate } = navigation;
-    navigate('PersonnelPrompt');
-  };
-
-  const onCancelPressed = () => {
-    const { goBack } = navigation;
-    goBack();
+    navigate('AddPersonnelPrompt');
   };
 
   const colors = themeSelector(theme);
-  const styles = createStyleSheet(colors);
+  const globalStyles = createGlobalStyleSheet(colors);
+
+  const onReset = () => {
+    setFirstName('');
+    setLastName('');
+    setBadge('');
+    setOrganization('');
+  };
 
   return (
-    <View style={styles.container}>
-      {Platform.OS === 'android' && (
-        <View style={styles.backBar}>
-          <TouchableOpacity onPress={onCancelPressed}>
-            <Icon name="chevron-left" style={styles.backButton} />
-          </TouchableOpacity>
+    <ErrorBoundary
+      FallbackComponent={ErrorFallbackScreen}
+      onReset={onReset}
+      resetKeys={[firstName, lastName, badge, organization]}
+    >
+      <View style={globalStyles.container}>
+        <BackButton />
+        <View>
+          <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+            <Text style={globalStyles.label}>First Name*</Text>
+            <TextInput
+              style={globalStyles.input}
+              maxLength={36}
+              value={firstName}
+              onChangeText={firstName => setFirstName(firstName)}
+            />
+            <Text style={globalStyles.label}>Last Name*</Text>
+            <TextInput
+              style={globalStyles.input}
+              maxLength={36}
+              value={lastName}
+              onChangeText={lastName => setLastName(lastName)}
+            />
+            <Text style={globalStyles.label}>Badge Number</Text>
+            <TextInput
+              style={globalStyles.input}
+              keyboardType={'numeric'}
+              maxLength={10}
+              value={badge}
+              onChangeText={badge => setBadge(badge)}
+            />
+            <Text style={globalStyles.label}>Organization</Text>
+            <TextInput
+              style={globalStyles.input}
+              maxLength={36}
+              value={organization}
+              onChangeText={organization => setOrganization(organization)}
+            />
+            <LargeButton
+              text="Add person"
+              onPress={onAddPersonPressed}
+              icon="account-plus"
+            />
+          </KeyboardAwareScrollView>
         </View>
-      )}
-      <View style={styles.promptContainer}>
-        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-          <Text style={styles.label}>First Name*</Text>
-          <TextInput
-            style={styles.input}
-            maxLength={36}
-            value={firstName}
-            onChangeText={firstName => setFirstName(firstName)}
-          />
-          <Text style={styles.label}>Last Name*</Text>
-          <TextInput
-            style={styles.input}
-            maxLength={36}
-            value={lastName}
-            onChangeText={lastName => setLastName(lastName)}
-          />
-          <Text style={styles.label}>Badge Number</Text>
-          <TextInput
-            style={styles.input}
-            keyboardType={'numeric'}
-            maxLength={10}
-            value={badge}
-            onChangeText={badge => setBadge(badge)}
-          />
-          <Text style={styles.label}>Organization</Text>
-          <TextInput
-            style={styles.input}
-            maxLength={36}
-            value={organization}
-            onChangeText={organization => setOrganization(organization)}
-          />
-          <TouchableOpacity style={styles.opacity} onPress={onAddPersonPressed}>
-            <Icon name="account-plus" style={styles.icon} />
-            <Text style={styles.opacityText}> Add Person </Text>
-          </TouchableOpacity>
-        </KeyboardAwareScrollView>
       </View>
-    </View>
+    </ErrorBoundary>
   );
 };
 

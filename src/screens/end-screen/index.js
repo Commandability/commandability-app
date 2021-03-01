@@ -5,76 +5,34 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  TouchableOpacity,
-  View,
-  Text,
-  TextInput,
-} from 'react-native';
+import { Alert, View, Text, TextInput } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
+import { LargeButton } from '../../components';
+import ErrorFallbackScreen from '../error-fallback-screen';
 import { selectReportData, selectTheme } from '../../redux/selectors';
 import {
-  resetIncident,
   endIncident,
   resumeIncident,
-  toHomeStack,
   toIncidentStack,
 } from '../../redux/actions';
-import { saveCurrentReport } from '../../modules/report-manager';
 import themeSelector from '../../modules/themes';
-import createStyleSheet from './styles';
+import createGlobalStyleSheet from '../../modules/global-styles';
 
 const EndScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const theme = useSelector(state => selectTheme(state));
   const reportData = useSelector(state => selectReportData(state));
 
-  const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState('');
   const [notes, setNotes] = useState('');
 
   useEffect(() => {
     dispatch(endIncident()); // log incident end
   }, []);
-
-  const onSaveAndExitPressed = async () => {
-    if (location) {
-      reportData['LOCATION'] = location;
-      if (notes) {
-        reportData['NOTES'] = notes;
-      }
-      setLoading(true);
-      try {
-        await saveCurrentReport(reportData);
-      } catch (error) {
-        Alert.alert('Error', error, [
-          {
-            text: 'OK',
-          },
-        ]);
-      }
-      setLoading(false);
-      dispatch(resetIncident()); // reset personnel locations and group settings, remove all temporary personnel from state
-      dispatch(toHomeStack());
-    } else {
-      Alert.alert('Location is required', '', [
-        {
-          text: 'OK',
-        },
-      ]);
-    }
-  };
-
-  const onExitWithoutSavingPressed = () => {
-    const { navigate } = navigation;
-    navigate('ExitIncidentPrompt');
-  };
 
   const onResumeIncidentPressed = () => {
     Alert.alert('Are you sure you want to resume the incident?', '', [
@@ -84,7 +42,7 @@ const EndScreen = ({ navigation }) => {
       },
       {
         text: 'OK',
-        onPress: async () => {
+        onPress: () => {
           dispatch(resumeIncident());
           dispatch(toIncidentStack());
         },
@@ -92,59 +50,70 @@ const EndScreen = ({ navigation }) => {
     ]);
   };
 
+  const onContinuePressed = () => {
+    if (!location) {
+      Alert.alert('Location is required', '', [
+        {
+          text: 'OK',
+        },
+      ]);
+      return;
+    }
+
+    reportData['LOCATION'] = location;
+    if (notes) {
+      reportData['NOTES'] = notes;
+    }
+
+    const { navigate } = navigation;
+    navigate('SavePrompt', { reportData });
+  };
+
   const colors = themeSelector(theme);
-  const styles = createStyleSheet(colors);
+  const globalStyles = createGlobalStyleSheet(colors);
+
+  const onReset = () => {
+    setLocation('');
+    setNotes('');
+  };
 
   return (
-    <View style={styles.container}>
-      <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-        <Text style={styles.label}>Location *</Text>
-        <TextInput
-          style={styles.locationInput}
-          autoCapitalize="none"
-          onChangeText={location => setLocation(location)}
-          value={location}
-        />
-        <Text style={styles.label}>Notes</Text>
-        <TextInput
-          style={styles.notesInput}
-          autoCapitalize="none"
-          multiline={true}
-          onChangeText={notes => setNotes(notes)}
-          value={notes}
-        />
-        <TouchableOpacity
-          style={styles.opacity}
-          onPress={onResumeIncidentPressed}
-        >
-          <Icon name="restart" style={styles.icon} />
-          <Text style={styles.opacityText}>Resume Incident</Text>
-        </TouchableOpacity>
-        <View style={styles.row}>
-          <TouchableOpacity
-            style={[styles.opacity, styles.rowOpacity]}
-            onPress={onExitWithoutSavingPressed}
-          >
-            <Icon name="cancel" style={styles.icon} />
-            <Text style={styles.opacityText}>Exit Without Saving</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.opacity, styles.rowOpacity]}
-            onPress={onSaveAndExitPressed}
-          >
-            <Icon name="check" style={styles.icon} />
-            <Text style={styles.opacityText}>Save and Exit</Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAwareScrollView>
-      {loading && (
-        <ActivityIndicator
-          style={styles.activityIndicator}
-          color={colors.primary}
-          size={'large'}
-        />
-      )}
-    </View>
+    <ErrorBoundary
+      FallbackComponent={ErrorFallbackScreen}
+      onReset={onReset}
+      resetKeys={[location, notes]}
+    >
+      <View style={globalStyles.container}>
+        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+          <Text style={globalStyles.label}>Location *</Text>
+          <TextInput
+            style={globalStyles.input}
+            autoCapitalize="none"
+            onChangeText={location => setLocation(location)}
+            value={location}
+          />
+          <Text style={globalStyles.label}>Notes</Text>
+          <TextInput
+            style={globalStyles.multilineInput}
+            autoCapitalize="none"
+            multiline={true}
+            onChangeText={notes => setNotes(notes)}
+            value={notes}
+          />
+          <LargeButton
+            text="Resume incident"
+            onPress={onResumeIncidentPressed}
+            icon="restart"
+          />
+          <LargeButton
+            text="Continue"
+            onPress={onContinuePressed}
+            icon="arrow-right"
+            priority={true}
+          />
+        </KeyboardAwareScrollView>
+      </View>
+    </ErrorBoundary>
   );
 };
 

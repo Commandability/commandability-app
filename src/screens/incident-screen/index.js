@@ -7,7 +7,9 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { ErrorBoundary } from 'react-error-boundary';
 
+import ErrorFallbackScreen from '../error-fallback-screen';
 import { PageArea, PersonnelArea, BottomBar } from '../../components';
 import {
   selectReportData,
@@ -25,13 +27,13 @@ const IncidentScreen = () => {
   const activeInitialEpoch = useSelector(state => selectInitialEpoch(state));
   const reportData = useSelector(state => selectReportData(state));
 
-  const [initialEpoch] = useState(Date.now());
+  const [initialEpoch, setInitialEpoch] = useState(Date.now());
 
   const reportIsActive =
     reportData[START_INCIDENT] && !reportData[END_INCIDENT];
 
   useEffect(() => {
-    // prevent start incident from wiping report when IncidentScreen is re-mounted after a crash
+    // prevent start incident from wiping report when IncidentScreen is re-mounted
     if (!reportIsActive) {
       dispatch(startIncident(initialEpoch));
     }
@@ -44,23 +46,33 @@ const IncidentScreen = () => {
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
+  const onReset = () => {
+    setInitialEpoch(Date.now());
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.mainArea}>
-        <View style={styles.sideBar}>
-          <PersonnelArea />
+    <ErrorBoundary
+      FallbackComponent={ErrorFallbackScreen}
+      onReset={onReset}
+      resetKeys={[initialEpoch]}
+    >
+      <View style={styles.container}>
+        <View style={styles.mainArea}>
+          <View style={styles.sideBar}>
+            <PersonnelArea />
+          </View>
+          <View style={styles.pageArea}>
+            <PageArea
+              initialEpoch={reportIsActive ? activeInitialEpoch : initialEpoch}
+            />
+          </View>
         </View>
-        <View style={styles.pageArea}>
-          <PageArea
-            initialEpoch={reportIsActive ? activeInitialEpoch : initialEpoch}
-          />
-        </View>
+        <BottomBar
+          endHandler={onEndIncidentPressed}
+          initialEpoch={reportIsActive ? activeInitialEpoch : initialEpoch}
+        />
       </View>
-      <BottomBar
-        endHandler={onEndIncidentPressed}
-        initialEpoch={reportIsActive ? activeInitialEpoch : initialEpoch}
-      />
-    </View>
+    </ErrorBoundary>
   );
 };
 

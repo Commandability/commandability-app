@@ -8,21 +8,18 @@
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { TouchableOpacity, Text, View } from 'react-native';
+import { View } from 'react-native';
 
-import { selectTheme, selectSelectedGroupMode } from '../../redux/selectors';
+import SmallButton from '../small-button';
+import { selectSelectedGroupMode } from '../../redux/selectors';
 import { toggleGroupMode } from '../../redux/actions';
-import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 const GroupOptions = () => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => selectTheme(state));
   const selectedGroupMode = useSelector(state =>
     selectSelectedGroupMode(state)
   );
-  const colors = themeSelector(theme);
-  const styles = createStyleSheet(colors);
 
   const onAddPressed = () => {
     dispatch(toggleGroupMode('add'));
@@ -36,67 +33,28 @@ const GroupOptions = () => {
     dispatch(toggleGroupMode('edit'));
   };
 
+  const styles = createStyleSheet();
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={[
-          styles.option,
-          selectedGroupMode === 'add' ? styles.selectedOption : styles.option,
-        ]}
+      <SmallButton
+        text="ADD GROUP"
         onPress={onAddPressed}
-      >
-        <Text
-          style={[
-            styles.optionContent,
-            selectedGroupMode === 'add'
-              ? styles.selected
-              : styles.optionContent,
-          ]}
-        >
-          {' '}
-          ADD GROUP{' '}
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[
-          styles.option,
-          selectedGroupMode === 'remove'
-            ? styles.selectedOption
-            : styles.option,
-        ]}
+        type="selector"
+        selected={selectedGroupMode === 'add'}
+      />
+      <SmallButton
+        text="REMOVE GROUP"
         onPress={onRemovePressed}
-      >
-        <Text
-          style={[
-            styles.optionContent,
-            selectedGroupMode === 'remove'
-              ? styles.selected
-              : styles.optionContent,
-          ]}
-        >
-          {' '}
-          REMOVE GROUP{' '}
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[
-          styles.option,
-          selectedGroupMode === 'edit' ? styles.selectedOption : styles.option,
-        ]}
+        type="selector"
+        selected={selectedGroupMode === 'remove'}
+      />
+      <SmallButton
+        text="EDIT GROUP"
         onPress={onEditPressed}
-      >
-        <Text
-          style={[
-            styles.optionContent,
-            selectedGroupMode === 'edit'
-              ? styles.selected
-              : styles.optionContent,
-          ]}
-        >
-          {' '}
-          EDIT GROUP{' '}
-        </Text>
-      </TouchableOpacity>
+        type="selector"
+        selected={selectedGroupMode === 'edit'}
+      />
     </View>
   );
 };

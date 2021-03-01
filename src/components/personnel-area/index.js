@@ -6,11 +6,11 @@
  */
 
 import React from 'react';
+import { View } from 'react-native';
 import { useSelector } from 'react-redux';
-import { TouchableOpacity, Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 
+import SmallButton from '../small-button';
 import { selectTheme } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
@@ -23,7 +23,7 @@ const PersonnelArea = () => {
 
   const onAddPersonnelPressed = () => {
     const { navigate } = navigation;
-    navigate('PersonnelPrompt');
+    navigate('AddPersonnelPrompt');
   };
 
   const colors = themeSelector(theme);
@@ -31,10 +31,11 @@ const PersonnelArea = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.option} onPress={onAddPersonnelPressed}>
-        <Text style={styles.optionContent}>ADD PERSONNEL</Text>
-        <Icon name="arrow-right" style={styles.optionContent} />
-      </TouchableOpacity>
+      <SmallButton
+        onPress={onAddPersonnelPressed}
+        text="ADD PERSONNEL"
+        type="navigator"
+      />
       <Staging />
       <RemovePersonnel />
     </View>

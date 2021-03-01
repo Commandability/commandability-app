@@ -5,23 +5,18 @@
  */
 
 import React, { useState } from 'react';
-import {
-  Alert,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  Platform,
-} from 'react-native';
+import { Alert, Text, TextInput, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
+import { BackButton, LargeButton } from '../../components';
+import ErrorFallbackScreen from '../error-fallback-screen';
 import { selectTheme } from '../../redux/selectors';
 import { editGroup } from '../../redux/actions';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import themeSelector from '../../modules/themes';
-import createStyleSheet from './styles';
+import createGlobalStyleSheet from '../../modules/global-styles';
 
 const EditGroupPrompt = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -52,39 +47,35 @@ const EditGroupPrompt = ({ navigation, route }) => {
     }
   };
 
-  const onCancelPressed = () => {
-    const { goBack } = navigation;
-    goBack();
+  const colors = themeSelector(theme);
+  const globalStyles = createGlobalStyleSheet(colors);
+
+  const onReset = () => {
+    setNewName('');
   };
 
-  const colors = themeSelector(theme);
-  const styles = createStyleSheet(colors);
-
   return (
-    <View style={styles.container}>
-      {Platform.OS === 'android' && (
-        <View style={styles.backBar}>
-          <TouchableOpacity onPress={onCancelPressed}>
-            <Icon name="chevron-left" style={styles.backButton} />
-          </TouchableOpacity>
+    <ErrorBoundary
+      FallbackComponent={ErrorFallbackScreen}
+      onReset={onReset}
+      resetKeys={[newName]}
+    >
+      <View style={globalStyles.container}>
+        <BackButton />
+        <View>
+          <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+            <Text style={globalStyles.label}>Group name *</Text>
+            <TextInput
+              style={globalStyles.input}
+              autoCapitalize="none"
+              value={newName}
+              onChangeText={newName => setNewName(newName)}
+            />
+            <LargeButton text="Save" onPress={onSavePressed} icon="check" />
+          </KeyboardAwareScrollView>
         </View>
-      )}
-      <View style={styles.promptContainer}>
-        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-          <Text style={styles.label}>Group name *</Text>
-          <TextInput
-            style={styles.nameInput}
-            autoCapitalize="none"
-            value={newName}
-            onChangeText={newName => setNewName(newName)}
-          />
-          <TouchableOpacity style={styles.opacity} onPress={onSavePressed}>
-            <Icon name="check" style={styles.icon} />
-            <Text style={styles.opacityText}>Save</Text>
-          </TouchableOpacity>
-        </KeyboardAwareScrollView>
       </View>
-    </View>
+    </ErrorBoundary>
   );
 };
 

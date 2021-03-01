@@ -1,15 +1,17 @@
 /**
- * PersonnelPrompt Component
+ * AddPersonnelPrompt Component
  *
  * Provides functionality for moving personnel to the current incident screen.
  */
 
 import React, { useMemo } from 'react';
-import { View, TouchableOpacity, Text, Platform } from 'react-native';
+import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
+import { BackButton, SmallButton } from '../../components';
+import ErrorFallbackScreen from '../error-fallback-screen';
 import { NewPersonnel, Roster } from '../../components';
 import { staticLocations } from '../../modules/locations';
 import { movePerson } from '../../redux/actions';
@@ -22,7 +24,7 @@ import createStyleSheet from './styles';
 
 const { NEW_PERSONNEL, STAGING } = staticLocations;
 
-const PersonnelPrompt = ({ navigation }) => {
+const AddPersonnelPrompt = ({ navigation }) => {
   const dispatch = useDispatch();
   const theme = useSelector(state => selectTheme(state));
   const selectPersonnelByLocationId = useMemo(
@@ -30,11 +32,6 @@ const PersonnelPrompt = ({ navigation }) => {
     []
   );
   const personnel = useSelector(state => selectPersonnelByLocationId(state));
-
-  const onCancelPressed = () => {
-    const { goBack } = navigation;
-    goBack();
-  };
 
   const onAddToIncidentPressed = () => {
     personnel.forEach(person => {
@@ -60,46 +57,36 @@ const PersonnelPrompt = ({ navigation }) => {
   const styles = createStyleSheet(colors);
 
   return (
-    <View style={styles.container}>
-      {Platform.OS === 'android' && (
-        <View style={styles.backBar}>
-          <TouchableOpacity onPress={onCancelPressed}>
-            <Icon name="chevron-left" style={styles.backButton} />
-          </TouchableOpacity>
-        </View>
-      )}
-      <View style={styles.promptContainer}>
+    <ErrorBoundary FallbackComponent={ErrorFallbackScreen}>
+      <View style={styles.container}>
+        <BackButton />
         <View style={styles.leftCol}>
-          <View style={styles.newPersonnel}>
+          <View style={styles.colContainer}>
             <NewPersonnel />
-            <TouchableOpacity
-              style={styles.option}
+            <SmallButton
+              text="ADD TO INCIDENT"
               onPress={onAddToIncidentPressed}
-            >
-              <Text style={styles.optionContent}>ADD TO INCIDENT</Text>
-            </TouchableOpacity>
+            />
           </View>
         </View>
         <View style={styles.rightCol}>
-          <View style={styles.roster}>
+          <View style={styles.colContainer}>
             <Roster />
-            <TouchableOpacity
-              style={styles.option}
+            <SmallButton
+              text="ADD PERSON"
               onPress={onAddPersonPressed}
-            >
-              <Text style={styles.optionContent}>ADD PERSON</Text>
-              <Icon name="arrow-right" style={styles.optionContent} />
-            </TouchableOpacity>
+              type="navigator"
+            />
           </View>
         </View>
       </View>
-    </View>
+    </ErrorBoundary>
   );
 };
 
 // props validation
-PersonnelPrompt.propTypes = {
+AddPersonnelPrompt.propTypes = {
   navigation: PropTypes.object,
 };
 
-export default PersonnelPrompt;
+export default AddPersonnelPrompt;

@@ -1,36 +1,35 @@
 /**
- * AuthScreen component
+ * ExitWithoutSavingPrompt component
  *
- * Manages displaying the login page.
+ * Manages exiting the incident without saving.
  */
 
 import React, { useState } from 'react';
-import { ActivityIndicator, Alert, TextInput, View, Text } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { ActivityIndicator, Alert, View, TextInput, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import auth from '@react-native-firebase/auth';
 import NetInfo from '@react-native-community/netinfo';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { LargeButton } from '../../components';
+import { BackButton, LargeButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
+import { resetIncident, toHomeStack } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
-import { signIn } from '../../redux/actions';
 import themeSelector from '../../modules/themes';
 import createGlobalStyleSheet from '../../modules/global-styles';
 
-const AuthScreen = () => {
+const ExitWithoutSavingPrompt = () => {
   const dispatch = useDispatch();
   const theme = useSelector(state => selectTheme(state));
+  const { currentUser } = auth();
 
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState('commandabilityapp@gmail.com'); // For Development
-  const [password, setPassword] = useState('dev-password'); // For Development
-  // const [email, setEmail] = useState(''); // For Production
-  // const [password, setPassword] = useState(''); // For Production
+  const [password, setPassword] = useState('dev-password');
 
-  const onSignInPressed = async () => {
-    if (!email || !password) {
-      Alert.alert('Please enter both an email and password', '', [
+  const onExitPressed = async () => {
+    if (!password) {
+      Alert.alert("Please enter your organization's password", '', [
         {
           text: 'OK',
         },
@@ -53,29 +52,29 @@ const AuthScreen = () => {
     }
 
     setLoading(true);
+    const credential = auth.EmailAuthProvider.credential(
+      currentUser.email,
+      password
+    );
     try {
-      await dispatch(signIn(email, password));
+      await currentUser.reauthenticateWithCredential(credential);
+      dispatch(resetIncident()); // reset personnel locations and group settings, remove all temporary personnel from state
+      dispatch(toHomeStack());
     } catch (error) {
       let message = '';
-      switch (error.message) {
-        case 'auth/invalid-email':
-          message = 'The email address you entered is invalid.';
-          break;
-        case 'auth/user-not-found':
-        case 'auth/wrong-password':
-          message = 'Incorrect email or password.';
-          break;
-        default:
-          message = 'Unknown error.';
+      if (error.message == 'auth/wrong-password') {
+        message = 'Incorrect password.';
+      } else {
+        message = 'Unknown error.';
       }
       Alert.alert('Error', message, [
         {
           text: 'OK',
         },
       ]);
-      setLoading(false);
-      setPassword('');
     }
+    setLoading(false);
+    setPassword('');
   };
 
   const colors = themeSelector(theme);
@@ -83,7 +82,6 @@ const AuthScreen = () => {
 
   const onReset = () => {
     setLoading(false);
-    setEmail('');
     setPassword('');
   };
 
@@ -91,19 +89,20 @@ const AuthScreen = () => {
     <ErrorBoundary
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
-      resetKeys={[loading, email, password]}
+      resetKeys={[loading, password]}
     >
       <View style={globalStyles.container}>
+        <BackButton />
         <View>
           <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-            <Text style={globalStyles.label}>Email</Text>
-            <TextInput
-              style={globalStyles.input}
-              autoCapitalize="none"
-              keyboardType="email-address"
-              onChangeText={email => setEmail(email)}
-              value={email}
-            />
+            <View style={globalStyles.prompt}>
+              <Text style={globalStyles.promptText}>
+                Are you absolutely sure you want to exit without saving?
+              </Text>
+              <Text style={globalStyles.promptText}>
+                Please enter your password to confirm
+              </Text>
+            </View>
             <Text style={globalStyles.label}>Password</Text>
             <TextInput
               style={globalStyles.input}
@@ -113,9 +112,9 @@ const AuthScreen = () => {
               value={password}
             />
             <LargeButton
-              text="Sign in"
-              onPress={onSignInPressed}
-              icon="login"
+              text="Exit without saving"
+              onPress={onExitPressed}
+              icon="cancel"
             />
           </KeyboardAwareScrollView>
         </View>
@@ -131,4 +130,4 @@ const AuthScreen = () => {
   );
 };
 
-export default AuthScreen;
+export default ExitWithoutSavingPrompt;

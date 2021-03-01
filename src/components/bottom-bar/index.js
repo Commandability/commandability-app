@@ -6,17 +6,16 @@
  */
 
 import React from 'react';
-import { Alert, TouchableOpacity, Text, View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
+import SmallButton from '../small-button';
 import { selectPersonnel, selectTheme } from '../../redux/selectors';
 import { toggleTheme, toEndStack } from '../../redux/actions';
 import Timer from '../timer';
 import { staticLocations } from '../../modules/locations';
 import { DARK } from '../../modules/themes';
-import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
 const { ROSTER, NEW_PERSONNEL, STAGING } = staticLocations;
@@ -37,7 +36,7 @@ const BottomBar = ({ initialEpoch }) => {
     if (!personnelAreInGroups) {
       Alert.alert(
         'Personnel are still active',
-        'Please move all personnel to staging before ending the incident',
+        'Please move all personnel to staging before ending the incident.',
         [
           {
             text: 'OK',
@@ -62,8 +61,7 @@ const BottomBar = ({ initialEpoch }) => {
 
   const onThemePressed = () => dispatch(toggleTheme());
 
-  const colors = themeSelector(theme);
-  const styles = createStyleSheet(colors);
+  const styles = createStyleSheet();
 
   return (
     <View style={styles.container}>
@@ -71,15 +69,11 @@ const BottomBar = ({ initialEpoch }) => {
         <Timer initialEpoch={initialEpoch} />
       </View>
       <View style={styles.options}>
-        <TouchableOpacity style={styles.option} onPress={onThemePressed}>
-          <Text style={styles.optionContent}>
-            {theme === DARK ? 'LIGHT THEME' : 'DARK THEME'}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.option} onPress={onEndPressed}>
-          <Text style={styles.optionContent}> END </Text>
-          <Icon name="arrow-right" style={styles.optionContent} />
-        </TouchableOpacity>
+        <SmallButton
+          onPress={onThemePressed}
+          text={theme === DARK ? 'LIGHT THEME' : 'DARK THEME'}
+        />
+        <SmallButton onPress={onEndPressed} text="END" type="navigator" />
       </View>
     </View>
   );

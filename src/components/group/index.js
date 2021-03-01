@@ -81,7 +81,7 @@ const Group = ({ locationId }) => {
     } else if (selectedGroupMode === 'remove') {
       Alert.alert(
         'Remove group?',
-        'All personnel will be returned to staging',
+        'All personnel will be returned to staging.',
         [
           {
             text: 'Cancel',

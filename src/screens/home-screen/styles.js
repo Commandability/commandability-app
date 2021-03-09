@@ -21,7 +21,7 @@ export default colors =>
     },
     reportsOnDevice: {
       backgroundColor: colors.primary,
-      color: colors.background.one,
+      color: colors.text.alternate,
     },
     noReportsOnDevice: {
       backgroundColor: colors.background.three,

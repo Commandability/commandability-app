@@ -68,8 +68,9 @@ const EditGroupPrompt = ({ navigation, route }) => {
             <TextInput
               style={globalStyles.input}
               autoCapitalize="none"
-              value={newName}
               onChangeText={newName => setNewName(newName)}
+              value={newName}
+              selectionColor={colors.primary}
             />
             <LargeButton text="Save" onPress={onSavePressed} icon="check" />
           </KeyboardAwareScrollView>

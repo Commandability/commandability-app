@@ -110,6 +110,7 @@ const ExitWithoutSavingPrompt = () => {
               secureTextEntry
               onChangeText={password => setPassword(password)}
               value={password}
+              selectionColor={colors.primary}
             />
             <LargeButton
               text="Exit without saving"

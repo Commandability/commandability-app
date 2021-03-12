@@ -24,7 +24,7 @@ const Roster = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerContent}> ROSTER </Text>
+        <Text style={styles.headerContent}>ROSTER</Text>
       </View>
       <TextInput
         style={styles.queryInput}
@@ -33,6 +33,7 @@ const Roster = () => {
         placeholderTextColor={colors.text.main}
         onChangeText={query => setQuery(query)}
         value={query}
+        selectionColor={colors.primary}
       />
       <RosterList query={query} />
     </View>

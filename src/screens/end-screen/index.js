@@ -91,6 +91,7 @@ const EndScreen = ({ navigation }) => {
             autoCapitalize="none"
             onChangeText={location => setLocation(location)}
             value={location}
+            selectionColor={colors.primary}
           />
           <Text style={globalStyles.label}>Notes</Text>
           <TextInput
@@ -99,6 +100,7 @@ const EndScreen = ({ navigation }) => {
             multiline={true}
             onChangeText={notes => setNotes(notes)}
             value={notes}
+            selectionColor={colors.primary}
           />
           <LargeButton
             text="Resume incident"

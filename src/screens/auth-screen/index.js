@@ -103,6 +103,7 @@ const AuthScreen = () => {
               keyboardType="email-address"
               onChangeText={email => setEmail(email)}
               value={email}
+              selectionColor={colors.primary}
             />
             <Text style={globalStyles.label}>Password</Text>
             <TextInput
@@ -111,6 +112,7 @@ const AuthScreen = () => {
               secureTextEntry
               onChangeText={password => setPassword(password)}
               value={password}
+              selectionColor={colors.primary}
             />
             <LargeButton
               text="Sign in"

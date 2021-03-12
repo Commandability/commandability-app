@@ -77,9 +77,9 @@ const RemovePersonnel = () => {
 
   return (
     <View style={styles.container}>
-      {renderOverlay && (
+      {renderOverlay ? (
         <TouchableOpacity style={styles.overlay} onPress={onRemovePressed} />
-      )}
+      ) : null}
       <View style={styles.remove}>
         <Text style={styles.header}>REMOVE PERSONNEL</Text>
         <Icon name="account-multiple-remove" style={styles.icon} />

@@ -129,20 +129,20 @@ const ErrorFallbackScreen = ({ error, resetErrorBoundary }) => {
         onPress={resetErrorBoundary}
         icon="refresh"
       />
-      {currentUser && (
+      {currentUser ? (
         <LargeButton
           text="Emergency upload"
           onPress={onEmergencyUploadPressed}
           icon="upload"
         />
-      )}
-      {loading && (
+      ) : null}
+      {loading ? (
         <ActivityIndicator
           style={globalStyles.activityIndicator}
           color={colors.primary}
           size={'large'}
         />
-      )}
+      ) : null}
     </View>
   );
 };

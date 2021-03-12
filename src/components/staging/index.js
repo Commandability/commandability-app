@@ -61,9 +61,9 @@ const Staging = () => {
 
   return (
     <View style={styles.container}>
-      {renderOverlay && (
+      {renderOverlay ? (
         <TouchableOpacity style={styles.overlay} onPress={onStagingPressed} />
-      )}
+      ) : null}
       <View style={styles.header}>
         <Text style={styles.headerContent}> STAGING </Text>
       </View>

@@ -189,13 +189,13 @@ const SavePrompt = ({ route, navigation }) => {
             priority={true}
           />
         </View>
-        {loading && (
+        {loading ? (
           <ActivityIndicator
             style={globalStyles.activityIndicator}
             color={colors.primary}
             size={'large'}
           />
-        )}
+        ) : null}
       </View>
     </ErrorBoundary>
   );

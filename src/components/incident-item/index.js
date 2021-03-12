@@ -63,9 +63,9 @@ const IncidentItem = ({ personId }) => {
 
   return (
     <>
-      {renderOverlay && (
+      {renderOverlay ? (
         <TouchableOpacity style={styles.overlay} onPress={onPress} />
-      )}
+      ) : null}
       <TouchableOpacity onPress={onPress} style={styles.container}>
         <View style={styles.content}>
           <View style={styles.mainLine}>

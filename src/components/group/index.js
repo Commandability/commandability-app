@@ -133,17 +133,17 @@ const Group = ({ locationId }) => {
 
   return (
     <View style={styles.container}>
-      {renderOverlay && (
+      {renderOverlay ? (
         <TouchableOpacity style={styles.overlay} onPress={onGroupPressed} />
-      )}
-      {isVisible && (
+      ) : null}
+      {isVisible ? (
         <>
           <TouchableOpacity onPress={onSelectAllPressed} style={styles.header}>
             <Text style={styles.headerContent}> {name.toUpperCase()} </Text>
           </TouchableOpacity>
           <GroupList locationId={locationId} />
         </>
-      )}
+      ) : null}
     </View>
   );
 };

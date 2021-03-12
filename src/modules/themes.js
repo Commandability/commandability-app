@@ -17,7 +17,7 @@ const themeMap = {
     },
     overlay: '#ffffff',
     text: {
-      main: '#e2e2e2',
+      main: '#ffffff',
       alternate: '#121212',
       disabled: '#878787',
     },
@@ -32,7 +32,7 @@ const themeMap = {
     overlay: '#000000',
     text: {
       main: '#121212',
-      alternate: '#f5f5f5',
+      alternate: '#ffffff',
       disabled: '#878787',
     },
   }

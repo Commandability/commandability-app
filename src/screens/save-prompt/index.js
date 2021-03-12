@@ -7,6 +7,8 @@
 import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, Alert, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 import NetInfo from '@react-native-community/netinfo';
 import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
@@ -108,7 +110,37 @@ const SavePrompt = ({ route, navigation }) => {
 
     setLoading(true);
     try {
-      await uploadReport(reportData);
+      const { currentUser } = auth();
+      const { uid } = currentUser;
+      const documentSnapshot = await firestore()
+        .collection('users')
+        .doc(uid)
+        .get();
+      const { account: { expirationTimestamp } } = documentSnapshot.data();
+      const expirationDate = expirationTimestamp?.toDate();
+
+      if (!expirationDate || Date.now() > expirationDate) {
+        Alert.alert(
+          'Report upload disabled',
+          'Please sign in to the Commandability web portal to check your account status.',
+          [
+            {
+              text: 'OK',
+            },
+          ]
+        );
+      } else {
+        await uploadReport(reportData);
+        Alert.alert(
+          'Upload completed successfully',
+          'The report has been uploaded and removed from the device.',
+          [
+            {
+              text: 'OK',
+            },
+          ]
+        );
+      }
       setLoading(false);
       // reset personnel locations and group settings, remove all temporary personnel from state
       dispatch(resetIncident());

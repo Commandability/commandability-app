@@ -109,22 +109,19 @@ const HomeScreen = () => {
     setLoading(true);
     try {
       const { currentUser } = auth();
-      // User is signed in.
-      if (currentUser) {
-        const { uid } = currentUser;
-        const documentSnapshot = await firestore()
-          .collection('users')
-          .doc(uid)
-          .get();
-        const { groups, personnel } = documentSnapshot.data();
+      const { uid } = currentUser;
+      const documentSnapshot = await firestore()
+        .collection('users')
+        .doc(uid)
+        .get();
+      const { groups, personnel } = documentSnapshot.data();
 
-        dispatch(createGroups(groups));
+      dispatch(createGroups(groups));
 
-        dispatch(clearPersonnel());
-        personnel.forEach(person => {
-          dispatch(addPerson(person, ROSTER.locationId, false)); // false for non-temporary personnel
-        });
-      }
+      dispatch(clearPersonnel());
+      personnel.forEach(person => {
+        dispatch(addPerson(person, ROSTER.locationId, false)); // false for non-temporary personnel
+      });
 
       Alert.alert(
         'Configuration updated',
@@ -176,19 +173,40 @@ const HomeScreen = () => {
     setLoading(true);
     let uploadSuccess = false;
     try {
-      await uploadReports();
-      uploadSuccess = true;
-      await deleteAllReports();
+      const { currentUser } = auth();
+      const { uid } = currentUser;
+      const documentSnapshot = await firestore()
+        .collection('users')
+        .doc(uid)
+        .get();
+      const { account: { expirationTimestamp } } = documentSnapshot.data();
+      const expirationDate = expirationTimestamp?.toDate();
+      
+      if (!expirationDate || Date.now() > expirationDate) {
+        Alert.alert(
+          'Report upload disabled',
+          'Please sign in to the Commandability web portal to check your account status.',
+          [
+            {
+              text: 'OK',
+            },
+          ]
+        );
+      } else {
+        await uploadReports();
+        uploadSuccess = true;
+        await deleteAllReports();
 
-      Alert.alert(
-        'Upload completed successfully',
-        'All reports have been uploaded and removed from the device.',
-        [
-          {
-            text: 'OK',
-          },
-        ]
-      );
+        Alert.alert(
+          'Upload completed successfully',
+          'All reports have been uploaded and removed from the device.',
+          [
+            {
+              text: 'OK',
+            },
+          ]
+        );
+      }
     } catch (error) {
       if (uploadSuccess) {
         Alert.alert(

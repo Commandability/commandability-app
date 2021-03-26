@@ -17,6 +17,7 @@ const editGroup = (state, action) => {
   const {
     group: { locationId },
     name,
+    alert
   } = payload;
   return {
     ...state,
@@ -24,6 +25,7 @@ const editGroup = (state, action) => {
       locationId,
       isVisible: true,
       name,
+      alert
     },
   };
 };
@@ -51,15 +53,17 @@ const createGroups = action => {
   const groups = {};
   Object.keys(pageLocationIds).forEach(page => {
     pageLocationIds[page].locationIds.forEach(locationId => {
-      const { name: defaultName, isVisible: defaultIsVisible } = defaultGroups[
+      const { name: defaultName, isVisible: defaultIsVisible, alert: defaultAlert } = defaultGroups[
         locationId
       ];
       groups[locationId] = {
         locationId,
         name: defaultName,
         isVisible: defaultIsVisible,
+        alert: defaultAlert,
         defaultName,
         defaultIsVisible,
+        defaultAlert,
       };
     });
   });
@@ -77,6 +81,7 @@ const resetIncident = state => {
         ...group,
         name: state[locationId].defaultName,
         isVisible: state[locationId].defaultIsVisible,
+        alert: state[locationId].defaultAlert
       };
     });
   });
@@ -84,7 +89,8 @@ const resetIncident = state => {
   return groups;
 };
 
-export const selectGroupByLocationId = (state, locationId) => state[locationId];
+export const selectGroupByLocationId = (state, locationId) => 
+locationId === "STAGING" ? null : state[locationId];
 
 export const selectGroups = state => state;
 

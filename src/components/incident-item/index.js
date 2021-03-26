@@ -13,7 +13,9 @@ import {
   selectPersonById,
   selectSelectedPersonnel,
   selectTheme,
+  selectGroupByLocationId,
 } from '../../redux/selectors';
+import STAGING from '../../modules/locations';
 import { togglePerson } from '../../redux/actions';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
@@ -23,6 +25,7 @@ const MS_IN_MINUTE = 60000;
 const IncidentItem = ({ personId }) => {
   const dispatch = useDispatch();
   const person = useSelector(state => selectPersonById(state, personId));
+  const group = useSelector(state => selectGroupByLocationId(state, locationId));
   const selectedPersonnel = useSelector(state =>
     selectSelectedPersonnel(state)
   );
@@ -30,10 +33,13 @@ const IncidentItem = ({ personId }) => {
 
   const { locationUpdateTime } = person;
   const [time, setTime] = useState(Date.now() - locationUpdateTime);
+  const [alertFlag, setAlertFlag] = useState(false);
 
   const personIsSelected = selectedPersonnel.some(
     person => person.personId === personId
   );
+
+  const displayTime = Math.floor(time / MS_IN_MINUTE);
 
   useEffect(() => {
     let intervalID = '';
@@ -51,29 +57,30 @@ const IncidentItem = ({ personId }) => {
     };
   }, [locationUpdateTime]);
 
+  useEffect(() => {
+    if(group){
+      const { alert } = group;
+      if(displayTime >= alert){
+        setAlertFlag(true);
+      }}
+  }, [time]);
+
   const onPress = () => {
     dispatch(togglePerson(person));
   };
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
-  const { firstName, lastName, badge, shift, organization } = person;
-  const displayTime = Math.floor(time / MS_IN_MINUTE);
+  const { firstName, lastName, badge, shift, organization, locationId } = person;
   const renderOverlay = personIsSelected;
-
-
-  console.log(person);
-
-  //useEffect(() => {
-  //  if ((displayTime % 5 == 0) && displayTime >= alertTime){
-  //
-  //   }
-  //});
 
   return (
     <>
       {renderOverlay && (
         <TouchableOpacity style={styles.overlay} onPress={onPress} />
+      )}
+      {alertFlag && (
+        <View pointerEvents="none" style={styles.contentAlert}/>
       )}
       <TouchableOpacity onPress={onPress} style={styles.container}>
         <View style={styles.content}>

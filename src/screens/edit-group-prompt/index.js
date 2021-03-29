@@ -12,7 +12,6 @@ import {
   TouchableOpacity,
   View,
   Platform,
-  Switch, 
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -23,7 +22,7 @@ import { editGroup } from '../../redux/actions';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
-import Slider from '@react-native-community/slider';
+import DropDownPicker from 'react-native-dropdown-picker'; 
 
 const EditGroupPrompt = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -35,8 +34,14 @@ const EditGroupPrompt = ({ navigation, route }) => {
     },
   } = route;
   const [newName, setNewName] = useState(currName);
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousSate=> !previousSate);
+
+  const {
+    params: {
+      group: { alert: alertTime},
+    },
+  } = route;
+
+  console.log(route);
 
   const onSavePressed = () => {
     if (newName) {
@@ -84,20 +89,23 @@ const EditGroupPrompt = ({ navigation, route }) => {
           />
           <Text style={styles.label}>Group Alerts</Text>
           <View style={styles.alertToggle}>
-            <Switch
-              trackColor={{ false: "#FFFFFF", true: "#FFFFFF" }}
-              thumbColor={isEnabled ? colors.primary : colors.text.disabled}
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-            />
-            <Slider
-              minimumValue={5}
-              maximumValue={60}
-              step={5}
-              minimumTrackTintColor="#FFFFFF"
-              maximumTrackTintColor="#000000"
-              thumbTintColor={colors.primary}
-              style={styles.slider}
+            <DropDownPicker
+              items={[
+                {label: 'Disabled', value: '0'},
+                {label: '5 Minutes', value: '5'},
+                {label: '10 Minutes', value: '10'},
+                {label: '15 Minutes', value: '15'},
+                {label: '20 Minutes', value: '20'},
+                {label: '25 Minutes', value: '25'},
+                {label: '30 Minutes', value: '30'},
+                {label: '35 Minutes', value: '35'},
+                {label: '40 Minutes', value: '40'},
+                {label: '45 Minutes', value: '45'},
+                {label: '50 Minutes', value: '50'},
+                {label: '55 Minutes', value: '55'},
+                {label: '60 Minutes', value: '60'},
+              ]}
+              defaultValue={alertTime}
             />
           </View>
           <TouchableOpacity style={styles.opacity} onPress={onSavePressed}>

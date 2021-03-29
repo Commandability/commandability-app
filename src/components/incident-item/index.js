@@ -15,7 +15,6 @@ import {
   selectTheme,
   selectGroupByLocationId,
 } from '../../redux/selectors';
-import STAGING from '../../modules/locations';
 import { togglePerson } from '../../redux/actions';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
@@ -25,6 +24,7 @@ const MS_IN_MINUTE = 60000;
 const IncidentItem = ({ personId }) => {
   const dispatch = useDispatch();
   const person = useSelector(state => selectPersonById(state, personId));
+  const { firstName, lastName, badge, shift, organization, locationId } = person;
   const group = useSelector(state => selectGroupByLocationId(state, locationId));
   const selectedPersonnel = useSelector(state =>
     selectSelectedPersonnel(state)
@@ -60,6 +60,7 @@ const IncidentItem = ({ personId }) => {
   useEffect(() => {
     if(group){
       const { alert } = group;
+      console.log(alert, displayTime);
       if(displayTime >= alert){
         setAlertFlag(true);
       }}
@@ -71,7 +72,6 @@ const IncidentItem = ({ personId }) => {
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
-  const { firstName, lastName, badge, shift, organization, locationId } = person;
   const renderOverlay = personIsSelected;
 
   return (

@@ -60,7 +60,6 @@ const IncidentItem = ({ personId }) => {
   useEffect(() => {
     if(group){
       const { alert } = group;
-      console.log(alert, displayTime);
       if(displayTime >= alert){
         setAlertFlag(true);
       }}

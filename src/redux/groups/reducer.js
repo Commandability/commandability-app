@@ -53,7 +53,7 @@ const createGroups = action => {
   const groups = {};
   Object.keys(pageLocationIds).forEach(page => {
     pageLocationIds[page].locationIds.forEach(locationId => {
-      const { name: defaultName, isVisible: defaultIsVisible, alert: defaultAlert } = defaultGroups[
+      const { name: defaultName, isVisible: defaultIsVisible, alert: defaultAlert, alertCount: defaultAlertCount } = defaultGroups[
         locationId
       ];
       groups[locationId] = {
@@ -61,6 +61,7 @@ const createGroups = action => {
         name: defaultName,
         isVisible: defaultIsVisible,
         alert: defaultAlert,
+        alertCount: defaultAlertCount,
         defaultName,
         defaultIsVisible,
         defaultAlert,
@@ -81,7 +82,8 @@ const resetIncident = state => {
         ...group,
         name: state[locationId].defaultName,
         isVisible: state[locationId].defaultIsVisible,
-        alert: state[locationId].defaultAlert
+        alert: state[locationId].defaultAlert,
+        alertCount: state[locationId].defaultAlertCount
       };
     });
   });

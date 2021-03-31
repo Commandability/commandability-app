@@ -22,7 +22,7 @@ import { editGroup } from '../../redux/actions';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
-import DropDownPicker from 'react-native-dropdown-picker'; 
+import {Picker} from '@react-native-picker/picker'; 
 
 const EditGroupPrompt = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -37,11 +37,10 @@ const EditGroupPrompt = ({ navigation, route }) => {
 
   const {
     params: {
-      group: { alert: alertTime},
+      group: { alert: alert},
     },
   } = route;
-
-  console.log(route);
+  const [alertTime, setAlertTime] = useState(alert);
 
   const onSavePressed = () => {
     if (newName) {
@@ -50,7 +49,7 @@ const EditGroupPrompt = ({ navigation, route }) => {
         params: { group },
       } = route;
 
-      dispatch(editGroup(group, { name: newName }));
+      dispatch(editGroup(group, { name: newName, alert: alertTime }));
       goBack();
     } else {
       Alert.alert('Please enter a new name', '', [
@@ -68,6 +67,7 @@ const EditGroupPrompt = ({ navigation, route }) => {
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
+  console.log(alert);
 
   return (
     <View style={styles.container}>
@@ -89,24 +89,26 @@ const EditGroupPrompt = ({ navigation, route }) => {
           />
           <Text style={styles.label}>Group Alerts</Text>
           <View style={styles.alertToggle}>
-            <DropDownPicker
-              items={[
-                {label: 'Disabled', value: '0'},
-                {label: '5 Minutes', value: '5'},
-                {label: '10 Minutes', value: '10'},
-                {label: '15 Minutes', value: '15'},
-                {label: '20 Minutes', value: '20'},
-                {label: '25 Minutes', value: '25'},
-                {label: '30 Minutes', value: '30'},
-                {label: '35 Minutes', value: '35'},
-                {label: '40 Minutes', value: '40'},
-                {label: '45 Minutes', value: '45'},
-                {label: '50 Minutes', value: '50'},
-                {label: '55 Minutes', value: '55'},
-                {label: '60 Minutes', value: '60'},
-              ]}
-              defaultValue={alertTime}
-            />
+            <Picker
+              selectedValue={alert}
+              onValueChange={(alert) =>
+                setAlertTime(alert)}
+              style
+              >
+              <Picker.Item label= 'Disabled' value= '0' />
+              <Picker.Item label= '5 Minutes' value= '5' />
+              <Picker.Item label= '10 Minutes' value= '10' />
+              <Picker.Item label= '15 Minutes' value= '15' />
+              <Picker.Item label= '20 Minutes' value= '20' />
+              <Picker.Item label= '25 Minutes' value= '25' />
+              <Picker.Item label= '30 Minutes' value= '30' />
+              <Picker.Item label= '35 Minutes' value= '35' />
+              <Picker.Item label= '40 Minutes' value= '40' />
+              <Picker.Item label= '45 Minutes' value= '45' />
+              <Picker.Item label= '50 Minutes' value= '50' />
+              <Picker.Item label= '55 Minutes' value= '55' />
+              <Picker.Item label= '60 Minutes' value= '60' />
+            </Picker>
           </View>
           <TouchableOpacity style={styles.opacity} onPress={onSavePressed}>
             <Icon name="check" style={styles.icon} />

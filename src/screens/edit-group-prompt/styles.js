@@ -53,12 +53,20 @@ export default colors =>
     alertToggle: {
       margin: 24,
       alignItems: "flex-start",
-      justifyContent: "center",
       flex: 1,
-      flexDirection: "row",
     },
-    slider: {
-      width: 200,
-      alignSelf: "center",
+    dropDownContainer: {
+      height: 48,
+      width: 300,
+    },
+    dropDown: {
+      backgroundColor: colors.background.two,
+    },
+    dropDownItem: {
+      color: colors.text.main,
+      backgroundColor: colors.background.two,
+    },
+    dropDownStyle: {
+      backgroundColor: colors.background.two,
     },
   });

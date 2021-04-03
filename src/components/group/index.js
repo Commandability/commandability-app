@@ -125,8 +125,6 @@ const Group = ({ locationId }) => {
   const { name, isVisible } = group;
   let { alertCount } = group;
 
-  console.log(alertCount);
-
   const renderOverlay = isVisible
     ? selectedGroupMode === 'remove' ||
       selectedGroupMode === 'edit' ||

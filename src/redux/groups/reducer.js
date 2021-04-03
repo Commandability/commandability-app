@@ -21,6 +21,7 @@ const editGroup = (state, action) => {
     name,
     alert
   } = payload;
+
   return {
     ...state,
     [locationId]: {
@@ -43,6 +44,8 @@ const addGroupAlert = (state, action) => {
     group: { locationId, alertCount },
     personId,
   } = payload;
+
+  console.log(personId);
 
   return {
     ...state,

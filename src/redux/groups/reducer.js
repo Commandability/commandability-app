@@ -6,6 +6,8 @@
 
 import {
   EDIT_GROUP,
+  ADD_GROUP_ALERT,
+  REMOVE_GROUP_ALERT,
   TOGGLE_GROUP,
   CREATE_GROUPS,
   RESET_INCIDENT,
@@ -15,7 +17,7 @@ import { pageLocationIds } from '../../modules/locations.js';
 const editGroup = (state, action) => {
   const { payload } = action;
   const {
-    group: { locationId },
+    group: { locationId, alertCount, defaultName, defaultIsVisible, defaultAlert },
     name,
     alert
   } = payload;
@@ -25,7 +27,45 @@ const editGroup = (state, action) => {
       locationId,
       isVisible: true,
       name,
-      alert
+      alert,
+      alertCount,
+      defaultName,
+      defaultIsVisible,
+      defaultAlert,
+    },
+  };
+};
+
+const addGroupAlert = (state, action) => {
+  const { payload } = action;
+  const {
+    group,
+    group: { locationId, alertCount },
+    personId,
+  } = payload;
+
+  return {
+    ...state,
+    [locationId]: {
+      ...group,
+      alertCount: [...alertCount, personId],
+    },
+  };
+};
+
+const removeGroupAlert = (state, action) => {
+  const { payload } = action;
+  const {
+    group,
+    group: { locationId, alertCount },
+    personId,
+  } = payload;
+
+  return {
+    ...state,
+    [locationId]: {
+      ...group,
+      alertCount: alertCount.filter(alertCount => alertCount.id !== personId),
     },
   };
 };
@@ -100,6 +140,10 @@ export default (state = {}, action) => {
   switch (action.type) {
     case EDIT_GROUP:
       return editGroup(state, action);
+    case ADD_GROUP_ALERT:
+      return addGroupAlert(state, action);
+    case REMOVE_GROUP_ALERT:
+      return removeGroupAlert(state, action);
     case TOGGLE_GROUP:
       return toggleGroup(state, action);
     case CREATE_GROUPS:

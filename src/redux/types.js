@@ -21,6 +21,8 @@ export const MOVE_PERSON = 'MOVE_PERSON';
 export const CLEAR_PERSONNEL = 'CLEAR_PERSONNEL';
 
 export const EDIT_GROUP = 'EDIT_GROUP';
+export const ADD_GROUP_ALERT = 'ADD_GROUP_ALERT';
+export const REMOVE_GROUP_ALERT = 'REMOVE_GROUP_ALERT';
 export const TOGGLE_GROUP = 'TOGGLE_GROUP';
 export const CREATE_GROUPS = 'CREATE_GROUPS';
 

@@ -37,19 +37,19 @@ const EditGroupPrompt = ({ navigation, route }) => {
 
   const {
     params: {
-      group: { alert: alert},
+      group: { alert: currAlertTime },
     },
   } = route;
-  const [alertTime, setAlertTime] = useState(alert);
+  const [newAlertTime, setNewAlertTime] = useState(currAlertTime);
 
   const onSavePressed = () => {
-    if (newName) {
+    if (newName || newAlertTime) {
       const { goBack } = navigation;
       const {
         params: { group },
       } = route;
 
-      dispatch(editGroup(group, { name: newName, alert: alertTime }));
+      dispatch(editGroup(group, { name: newName, alert: newAlertTime }));
       goBack();
     } else {
       Alert.alert('Please enter a new name', '', [
@@ -67,7 +67,6 @@ const EditGroupPrompt = ({ navigation, route }) => {
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
-  console.log(alert);
 
   return (
     <View style={styles.container}>
@@ -88,12 +87,13 @@ const EditGroupPrompt = ({ navigation, route }) => {
             onChangeText={newName => setNewName(newName)}
           />
           <Text style={styles.label}>Group Alerts</Text>
-          <View style={styles.alertToggle}>
+          <View style={styles.pickerContainer}>
             <Picker
-              selectedValue={alert}
-              onValueChange={(alert) =>
-                setAlertTime(alert)}
-              style
+              selectedValue={currAlertTime}
+              onValueChange={newAlertTime =>
+                setNewAlertTime(newAlertTime)}
+              style={styles.picker}
+              //itemStyle={styles.pickerItem}
               >
               <Picker.Item label= 'Disabled' value= '0' />
               <Picker.Item label= '5 Minutes' value= '5' />

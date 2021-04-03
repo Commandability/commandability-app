@@ -50,23 +50,20 @@ export default colors =>
       alignSelf: 'flex-start',
       marginBottom: 48,
     },
-    alertToggle: {
+    pickerContainer: {
+      borderRadius: 5,
       margin: 24,
-      alignItems: "flex-start",
-      flex: 1,
-    },
-    dropDownContainer: {
       height: 48,
       width: 300,
-    },
-    dropDown: {
+      alignItems: "flex-start",
       backgroundColor: colors.background.two,
     },
-    dropDownItem: {
+    picker: {
+      width: 300,
       color: colors.text.main,
-      backgroundColor: colors.background.two,
+      
     },
-    dropDownStyle: {
-      backgroundColor: colors.background.two,
+    pickerItem: {
+      color: colors.primary,
     },
   });

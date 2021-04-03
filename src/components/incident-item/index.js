@@ -15,7 +15,7 @@ import {
   selectTheme,
   selectGroupByLocationId,
 } from '../../redux/selectors';
-import { togglePerson } from '../../redux/actions';
+import { addGroupAlert, togglePerson } from '../../redux/actions';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
@@ -60,7 +60,8 @@ const IncidentItem = ({ personId }) => {
   useEffect(() => {
     if(group){
       const { alert } = group;
-      if(displayTime >= alert){
+      if(displayTime >= alert && !alertFlag){
+        dispatch(addGroupAlert(group, personId));
         setAlertFlag(true);
       }}
   }, [time]);

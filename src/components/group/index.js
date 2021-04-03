@@ -25,6 +25,7 @@ import {
   selectPerson,
   deselectPerson,
   movePerson,
+  removeGroupAlert,
   clearSelectedPersonnel,
   clearSelectedGroupMode,
 } from '../../redux/actions';
@@ -101,6 +102,11 @@ const Group = ({ locationId }) => {
     } else {
       // set each selected personId's new locationId to the current group
       selectedPersonnel.forEach(person => {
+        let { personId } = person;
+        const { alertCount } = group;
+        if (alertCount.includes(personId)) {
+          dispatch(removeGroupAlert(group, personId));
+        }
         dispatch(
           movePerson(
             person,
@@ -117,6 +123,9 @@ const Group = ({ locationId }) => {
   };
 
   const { name, isVisible } = group;
+  let { alertCount } = group;
+
+  console.log(alertCount);
 
   const renderOverlay = isVisible
     ? selectedGroupMode === 'remove' ||
@@ -137,12 +146,12 @@ const Group = ({ locationId }) => {
         <TouchableOpacity style={styles.overlay} onPress={onGroupPressed} />
       )}
       {isVisible && (
-        <>
+        <View style={alertCount != [] ? styles.alertContainer : styles.noAlert}>
           <TouchableOpacity onPress={onSelectAllPressed} style={styles.header}>
             <Text style={styles.headerContent}> {name.toUpperCase()} </Text>
           </TouchableOpacity>
           <GroupList locationId={locationId} />
-        </>
+        </View>
       )}
     </View>
   );

@@ -6,8 +6,8 @@
 
 import {
   EDIT_GROUP,
-  ADD_GROUP_ALERT,
-  REMOVE_GROUP_ALERT,
+  ALERT_PERSON_TO_GROUP,
+  DEALERT_PERSON_TO_GROUP,
   TOGGLE_GROUP,
   CREATE_GROUPS,
   RESET_INCIDENT,
@@ -17,7 +17,8 @@ import { pageLocationIds } from '../../modules/locations.js';
 const editGroup = (state, action) => {
   const { payload } = action;
   const {
-    group: { locationId, alertCount, defaultName, defaultIsVisible, defaultAlert },
+    group,
+    group: { locationId },
     name,
     alert
   } = payload;
@@ -25,50 +26,47 @@ const editGroup = (state, action) => {
   return {
     ...state,
     [locationId]: {
-      locationId,
-      isVisible: true,
+      ...group,
       name,
       alert,
-      alertCount,
-      defaultName,
-      defaultIsVisible,
-      defaultAlert,
     },
   };
 };
 
-const addGroupAlert = (state, action) => {
+const alertPersonToGroup = (state, action) => {
   const { payload } = action;
   const {
     group,
-    group: { locationId, alertCount },
-    personId,
+    group: { locationId, alerted },
+    person: { personId },
   } = payload;
 
-  console.log(personId);
+  if (alerted.includes(personId)) {
+    return state;
+  } else {
+    return {
+      ...state,
+      [locationId]: {
+        ...group,
+        alerted: alerted.concat(personId),
+      },
+    };
+  }
+};
+
+const dealertPersonToGroup = (state, action) => {
+  const { payload } = action;
+  const {
+    group,
+    group: { locationId },
+    person: { personId },
+  } = payload;
 
   return {
     ...state,
     [locationId]: {
       ...group,
-      alertCount: [...alertCount, personId],
-    },
-  };
-};
-
-const removeGroupAlert = (state, action) => {
-  const { payload } = action;
-  const {
-    group,
-    group: { locationId, alertCount },
-    personId,
-  } = payload;
-
-  return {
-    ...state,
-    [locationId]: {
-      ...group,
-      alertCount: alertCount.filter(alertCount => alertCount.id !== personId),
+      alerted: state[locationId].alerted.filter(id => id !== personId),
     },
   };
 };
@@ -96,15 +94,15 @@ const createGroups = action => {
   const groups = {};
   Object.keys(pageLocationIds).forEach(page => {
     pageLocationIds[page].locationIds.forEach(locationId => {
-      const { name: defaultName, isVisible: defaultIsVisible, alert: defaultAlert, alertCount: defaultAlertCount } = defaultGroups[
+      const { name: defaultName, isVisible: defaultIsVisible, alert: defaultAlert } = defaultGroups[
         locationId
       ];
       groups[locationId] = {
         locationId,
         name: defaultName,
-        isVisible: defaultIsVisible,
-        alert: defaultAlert,
-        alertCount: defaultAlertCount,
+        isVisible: defaultIsVisible  ?? true,
+        alert: defaultAlert ?? 0,
+        alerted: [],
         defaultName,
         defaultIsVisible,
         defaultAlert,
@@ -126,7 +124,7 @@ const resetIncident = state => {
         name: state[locationId].defaultName,
         isVisible: state[locationId].defaultIsVisible,
         alert: state[locationId].defaultAlert,
-        alertCount: state[locationId].defaultAlertCount
+        alerted: []
       };
     });
   });
@@ -134,8 +132,7 @@ const resetIncident = state => {
   return groups;
 };
 
-export const selectGroupByLocationId = (state, locationId) => 
-locationId === "STAGING" ? null : state[locationId];
+export const selectGroupByLocationId = (state, locationId) => state?.[locationId];
 
 export const selectGroups = state => state;
 
@@ -143,10 +140,10 @@ export default (state = {}, action) => {
   switch (action.type) {
     case EDIT_GROUP:
       return editGroup(state, action);
-    case ADD_GROUP_ALERT:
-      return addGroupAlert(state, action);
-    case REMOVE_GROUP_ALERT:
-      return removeGroupAlert(state, action);
+    case ALERT_PERSON_TO_GROUP:
+      return alertPersonToGroup(state, action);
+    case DEALERT_PERSON_TO_GROUP:
+      return dealertPersonToGroup(state, action);
     case TOGGLE_GROUP:
       return toggleGroup(state, action);
     case CREATE_GROUPS:

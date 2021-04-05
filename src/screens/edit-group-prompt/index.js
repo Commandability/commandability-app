@@ -22,7 +22,9 @@ import { editGroup } from '../../redux/actions';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
-import {Picker} from '@react-native-picker/picker'; 
+import { Picker } from '@react-native-picker/picker';
+
+const alertTimes = [1, 2, 5, 10, 15, 20, 25, 30];
 
 const EditGroupPrompt = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -30,16 +32,11 @@ const EditGroupPrompt = ({ navigation, route }) => {
 
   const {
     params: {
-      group: { name: currName },
+      group: { name: currName, alert: currAlertTime },
     },
   } = route;
-  const [newName, setNewName] = useState(currName);
 
-  const {
-    params: {
-      group: { alert: currAlertTime },
-    },
-  } = route;
+  const [newName, setNewName] = useState(currName);
   const [newAlertTime, setNewAlertTime] = useState(currAlertTime);
 
   const onSavePressed = () => {
@@ -86,28 +83,21 @@ const EditGroupPrompt = ({ navigation, route }) => {
             value={newName}
             onChangeText={newName => setNewName(newName)}
           />
-          <Text style={styles.label}>Group Alerts</Text>
+          <Text style={styles.label}>Group alerts</Text>
           <View style={styles.pickerContainer}>
             <Picker
               selectedValue={currAlertTime}
-              onValueChange={newAlertTime =>
-                setNewAlertTime(newAlertTime)}
+              onValueChange={newAlertTime => setNewAlertTime(newAlertTime)}
               style={styles.picker}
-              //itemStyle={styles.pickerItem}
-              >
-              <Picker.Item label= 'Disabled' value= '0' />
-              <Picker.Item label= '5 Minutes' value= '5' />
-              <Picker.Item label= '10 Minutes' value= '10' />
-              <Picker.Item label= '15 Minutes' value= '15' />
-              <Picker.Item label= '20 Minutes' value= '20' />
-              <Picker.Item label= '25 Minutes' value= '25' />
-              <Picker.Item label= '30 Minutes' value= '30' />
-              <Picker.Item label= '35 Minutes' value= '35' />
-              <Picker.Item label= '40 Minutes' value= '40' />
-              <Picker.Item label= '45 Minutes' value= '45' />
-              <Picker.Item label= '50 Minutes' value= '50' />
-              <Picker.Item label= '55 Minutes' value= '55' />
-              <Picker.Item label= '60 Minutes' value= '60' />
+            >
+              <Picker.Item key={0} label="Disabled" value={0} />
+              {alertTimes.map(time => (
+                <Picker.Item
+                  key={time}
+                  label={`${time} minutes`}
+                  value={time}
+                />
+              ))}
             </Picker>
           </View>
           <TouchableOpacity style={styles.opacity} onPress={onSavePressed}>

@@ -15,7 +15,7 @@ import {
   selectTheme,
   selectGroupByLocationId,
 } from '../../redux/selectors';
-import { addGroupAlert, removeGroupAlert, togglePerson } from '../../redux/actions';
+import { alertPersonToGroup, dealertPersonToGroup, togglePerson } from '../../redux/actions';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
@@ -32,8 +32,10 @@ const IncidentItem = ({ personId }) => {
   const theme = useSelector(state => selectTheme(state));
 
   const { locationUpdateTime } = person;
+  const { alert } = group ?? {};
+  
   const [time, setTime] = useState(Date.now() - locationUpdateTime);
-  const [alertFlag, setAlertFlag] = useState(false);
+  const [alerted, setAlerted] = useState(false);
 
   const personIsSelected = selectedPersonnel.some(
     person => person.personId === personId
@@ -57,18 +59,32 @@ const IncidentItem = ({ personId }) => {
     };
   }, [locationUpdateTime]);
 
+  // Won't run if alert is 0, which is when alerts are disabled! This happens when an alert is set and people are alerted, but then the alert is disabled
+  // Also make text red instead of the overlay
+  // Also also stop dispatching the dealert action every second lol
+  // Don't have alerts in firebase by default? (potential solution to first problem)
+
   useEffect(() => {
-    if(group){
-      const { alert } = group;
-      if(displayTime >= alert && !alertFlag){
-        dispatch(addGroupAlert(group, personId));
-        setAlertFlag(true);
-      }}
-      else if(displayTime < alert && alertFlag){
-        dispatch(removeGroupAlert(group,personId));
-        setAlertFlag(false);
+    // If the item is in a group and an alert is active
+    if (alert){
+      if (displayTime >= alert){
+        if (!alerted) {
+          setAlerted(true);
+          dispatch(alertPersonToGroup(group, person));
+        }
       }
-  }, [time]);
+      else if(displayTime < alert){
+        if (alerted) {
+          setAlerted(false);
+          dispatch(dealertPersonToGroup(group, person));
+        }
+      }
+    // If an alert is no longer active but the item is alerted
+    } else if (alerted) {
+      setAlerted(false);
+      dispatch(dealertPersonToGroup(group, person));
+    }
+  }, [alert, displayTime]);
 
   const onPress = () => {
     dispatch(togglePerson(person));
@@ -83,9 +99,9 @@ const IncidentItem = ({ personId }) => {
       {renderOverlay && (
         <TouchableOpacity style={styles.overlay} onPress={onPress} />
       )}
-      {alertFlag && (
+      {alerted ? (
         <View pointerEvents="none" style={styles.contentAlert}/>
-      )}
+      ) : null}
       <TouchableOpacity onPress={onPress} style={styles.container}>
         <View style={styles.content}>
           <View style={styles.mainLine}>

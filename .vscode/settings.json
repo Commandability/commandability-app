@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
     "component",
+    "dealert",
     "flatlist",
     "netinfo",
     "persistor",
@@ -9,5 +10,4 @@
     "uuidv",
     "will"
   ],
-  "eslint.enable": true
 }

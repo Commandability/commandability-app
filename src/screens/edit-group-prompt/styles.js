@@ -61,9 +61,5 @@ export default colors =>
     picker: {
       width: 300,
       color: colors.text.main,
-      
-    },
-    pickerItem: {
-      color: colors.primary,
     },
   });

@@ -4,7 +4,7 @@
  * This component handles the group area, including groups and group options
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Text, View } from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
@@ -21,6 +21,7 @@ const PageArea = ({ initialEpoch }) => {
   const theme = useSelector(state => selectTheme(state));
 
   const [index, setIndex] = useState(0);
+  const [pageAlerts, setPageAlerts] = useState([]);
   const [routes] = useState(
     Object.keys(pageLocationIds).map(page => ({
       key: pageLocationIds[page].pageId,
@@ -28,10 +29,29 @@ const PageArea = ({ initialEpoch }) => {
     }))
   );
 
+
+
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
   const renderScene = ({ route }) => <Page route={route} />;
+
+  useEffect(() => {
+    let alertFlag = false;
+    let tempArray = [];
+    pageLocationIds.forEach(page => {
+      page[2].forEach(locationId => {
+        if (alertedGroups.includes(locationId)){
+          alertFlag = true;
+        }
+      if (alertFlag){
+        tempArray.push(page);
+      }
+      alertFlag = false;
+      });
+    });
+    setPageAlerts(tempArray);
+  }, [alertedGroups]);
 
   const renderTabBar = props => (
     <TabBar
@@ -39,7 +59,7 @@ const PageArea = ({ initialEpoch }) => {
       indicatorStyle={styles.indicator}
       style={styles.tabBar}
       renderLabel={({ route }) => (
-        <Text style={styles.tabLabel}>{route.title}</Text>
+        <Text style={pageAlerts.includes(route.key) ? styles.tabAlertLabel : styles.tabLabel}>{route.title}</Text>
       )}
     />
   );

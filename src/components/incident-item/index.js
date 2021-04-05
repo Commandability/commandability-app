@@ -35,7 +35,7 @@ const IncidentItem = ({ personId }) => {
   const { alert } = group ?? {};
   
   const [time, setTime] = useState(Date.now() - locationUpdateTime);
-  const [alerted, setAlerted] = useState(false);
+  const [alertedItem, setAlertedItem] = useState(false);
 
   const personIsSelected = selectedPersonnel.some(
     person => person.personId === personId
@@ -59,29 +59,24 @@ const IncidentItem = ({ personId }) => {
     };
   }, [locationUpdateTime]);
 
-  // Won't run if alert is 0, which is when alerts are disabled! This happens when an alert is set and people are alerted, but then the alert is disabled
-  // Also make text red instead of the overlay
-  // Also also stop dispatching the dealert action every second lol
-  // Don't have alerts in firebase by default? (potential solution to first problem)
-
   useEffect(() => {
     // If the item is in a group and an alert is active
     if (alert){
       if (displayTime >= alert){
-        if (!alerted) {
-          setAlerted(true);
+        if (!alertedItem) {
+          setAlertedItem(true);
           dispatch(alertPersonToGroup(group, person));
         }
       }
       else if(displayTime < alert){
-        if (alerted) {
-          setAlerted(false);
+        if (alertedItem) {
+          setAlertedItem(false);
           dispatch(dealertPersonToGroup(group, person));
         }
       }
-    // If an alert is no longer active but the item is alerted
-    } else if (alerted) {
-      setAlerted(false);
+    // If an alert is no longer active but the item is alertedItem
+    } else if (alertedItem) {
+      setAlertedItem(false);
       dispatch(dealertPersonToGroup(group, person));
     }
   }, [alert, displayTime]);
@@ -99,18 +94,15 @@ const IncidentItem = ({ personId }) => {
       {renderOverlay && (
         <TouchableOpacity style={styles.overlay} onPress={onPress} />
       )}
-      {alerted ? (
-        <View pointerEvents="none" style={styles.contentAlert}/>
-      ) : null}
       <TouchableOpacity onPress={onPress} style={styles.container}>
         <View style={styles.content}>
           <View style={styles.mainLine}>
-            <Text style={styles.name}>{`${firstName} ${lastName}`}</Text>
-            <Text style={styles.time}>{`${displayTime}`}</Text>
+            <Text style={[styles.name, alertedItem && styles.alertText]}>{`${firstName} ${lastName}`}</Text>
+            <Text style={[styles.time, alertedItem && styles.alertText]}>{`${displayTime}`}</Text>
           </View>
           <View style={styles.line}>
-            <Text style={styles.label}>{`${badge ? badge + ' ' : ''}`}</Text>
-            <Text style={styles.label}>{`${shift ? shift : ''}`}</Text>
+            <Text style={[styles.label, alertedItem && styles.alertText]}>{`${badge ? badge + ' ' : ''}`}</Text>
+            <Text style={[styles.label, alertedItem && styles.alertText]}>{`${shift ? shift : ''}`}</Text>
             <Text style={styles.label}>{`${
               organization ? organization : ''
             }`}</Text>

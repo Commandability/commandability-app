@@ -21,16 +21,6 @@ export default colors =>
       marginHorizontal: 8,
       paddingVertical: 4,
     },
-    contentAlert: {
-      backgroundColor: colors.primary,
-      opacity: 0.2,
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      zIndex:2,
-      width: '100%',
-      height: '100%',
-    },
     mainLine: {
       flex: 1,
       flexDirection: 'row',
@@ -39,6 +29,9 @@ export default colors =>
     line: {
       flex: 1,
       flexDirection: 'row',
+    },
+    alertText: {
+      color: colors.primary
     },
     name: {
       flex: 1,

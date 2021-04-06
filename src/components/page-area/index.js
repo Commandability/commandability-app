@@ -10,7 +10,7 @@ import { Text, View } from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
 import PropTypes from 'prop-types';
 
-import { selectTheme } from '../../redux/selectors';
+import { selectTheme, selectAlertedGroups } from '../../redux/selectors';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 import GroupOptions from '../group-options';
@@ -19,9 +19,10 @@ import { pageLocationIds } from '../../modules/locations.js';
 
 const PageArea = ({ initialEpoch }) => {
   const theme = useSelector(state => selectTheme(state));
+  const alertedGroups = useSelector(state => selectAlertedGroups(state));
 
   const [index, setIndex] = useState(0);
-  const [pageAlerts, setPageAlerts] = useState([]);
+  const [alertedPages, setAlertedPages] = useState([]);
   const [routes] = useState(
     Object.keys(pageLocationIds).map(page => ({
       key: pageLocationIds[page].pageId,
@@ -29,28 +30,22 @@ const PageArea = ({ initialEpoch }) => {
     }))
   );
 
-
-
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
   const renderScene = ({ route }) => <Page route={route} />;
 
   useEffect(() => {
-    let alertFlag = false;
-    let tempArray = [];
-    pageLocationIds.forEach(page => {
-      page[2].forEach(locationId => {
-        if (alertedGroups.includes(locationId)){
-          alertFlag = true;
-        }
-      if (alertFlag){
-        tempArray.push(page);
+    setAlertedPages([]);
+    Object.keys(pageLocationIds).forEach(key => {
+      if (
+        pageLocationIds[key].locationIds.some(locationId =>
+          alertedGroups.includes(locationId)
+        )
+      ) {
+        setAlertedPages(prevState => [...prevState, pageLocationIds[key].pageId]);
       }
-      alertFlag = false;
-      });
     });
-    setPageAlerts(tempArray);
   }, [alertedGroups]);
 
   const renderTabBar = props => (
@@ -59,7 +54,15 @@ const PageArea = ({ initialEpoch }) => {
       indicatorStyle={styles.indicator}
       style={styles.tabBar}
       renderLabel={({ route }) => (
-        <Text style={pageAlerts.includes(route.key) ? styles.tabAlertLabel : styles.tabLabel}>{route.title}</Text>
+        <Text
+          style={
+            alertedPages.includes(route.key)
+              ? styles.tabAlertLabel
+              : styles.tabLabel
+          }
+        >
+          {route.title}
+        </Text>
       )}
     />
   );

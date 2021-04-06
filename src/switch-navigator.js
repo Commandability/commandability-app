@@ -29,9 +29,9 @@ import {
   HOME_STACK,
   INCIDENT_STACK,
   END_STACK,
-} from './modules/navigation-stacks';
+} from './utils/navigation-stacks';
 import { selectStack, selectTheme } from './redux/selectors';
-import themeSelector from './modules/themes';
+import themeSelector from './utils/themes';
 
 const PERSISTENCE_KEY = 'NAVIGATION_STATE';
 

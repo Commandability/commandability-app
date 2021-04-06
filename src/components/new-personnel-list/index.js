@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 
 import { createSelectPersonnelByLocationId } from '../../redux/selectors';
 import NewPersonnelItem from '../new-personnel-item';
-import { staticLocations } from '../../modules/locations';
+import { staticLocations } from '../../utils/locations';
 import styles from './styles';
 
 const { NEW_PERSONNEL } = staticLocations;

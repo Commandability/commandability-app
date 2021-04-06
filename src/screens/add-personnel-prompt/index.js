@@ -13,13 +13,13 @@ import PropTypes from 'prop-types';
 import { BackButton, SmallButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { NewPersonnel, Roster } from '../../components';
-import { staticLocations } from '../../modules/locations';
+import { staticLocations } from '../../utils/locations';
 import { movePerson } from '../../redux/actions';
 import {
   createSelectPersonnelByLocationId,
   selectTheme,
 } from '../../redux/selectors';
-import themeSelector from '../../modules/themes';
+import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
 const { NEW_PERSONNEL, STAGING } = staticLocations;

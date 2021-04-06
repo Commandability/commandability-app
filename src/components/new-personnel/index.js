@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 
 import NewPersonnelList from '../new-personnel-list';
 import { selectTheme } from '../../redux/selectors';
-import themeSelector from '../../modules/themes';
+import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
 const NewPersonnel = () => {

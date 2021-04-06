@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 
 import { createSelectPersonnelByLocationId } from '../../redux/selectors';
 import RosterItem from '../roster-item';
-import { staticLocations } from '../../modules/locations';
+import { staticLocations } from '../../utils/locations';
 import styles from './styles';
 
 const { ROSTER } = staticLocations;

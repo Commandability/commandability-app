@@ -18,7 +18,7 @@ import {
 } from '../../redux/selectors';
 import { startIncident, endIncident } from '../../redux/actions';
 import { START_INCIDENT, END_INCIDENT } from '../../redux/types';
-import themeSelector from '../../modules/themes';
+import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
 const IncidentScreen = () => {

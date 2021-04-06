@@ -13,7 +13,7 @@ import {
   TOGGLE_GROUP,
   RESET_INCIDENT,
 } from '../types';
-import { staticLocations } from '../../modules/locations';
+import { staticLocations } from '../../utils/locations';
 
 const { ROSTER, STAGING } = staticLocations;
 

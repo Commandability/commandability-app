@@ -20,7 +20,7 @@ import {
   dealertPersonToGroup,
   togglePerson,
 } from '../../redux/actions';
-import themeSelector from '../../modules/themes';
+import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
 const MS_IN_MINUTE = 60000;

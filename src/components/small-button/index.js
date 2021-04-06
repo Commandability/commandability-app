@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
 import { selectTheme } from '../../redux/selectors';
-import themeSelector from '../../modules/themes';
+import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
 const SmallButton = ({ text, onPress, type, selected }) => {

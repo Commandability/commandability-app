@@ -15,9 +15,9 @@ import { BackButton, LargeButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { addPerson } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
-import { staticLocations } from '../../modules/locations';
-import themeSelector from '../../modules/themes';
-import createGlobalStyleSheet from '../../modules/global-styles';
+import { staticLocations } from '../../utils/locations';
+import themeSelector from '../../utils/themes';
+import createGlobalStyleSheet from '../../utils/global-styles';
 
 const { NEW_PERSONNEL } = staticLocations;
 

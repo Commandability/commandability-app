@@ -10,7 +10,7 @@ import { Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { selectTheme } from '../../redux/selectors';
-import themeSelector from '../../modules/themes';
+import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
 const MS_IN_SECOND = 1000;

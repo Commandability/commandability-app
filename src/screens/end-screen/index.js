@@ -19,8 +19,8 @@ import {
   resumeIncident,
   toIncidentStack,
 } from '../../redux/actions';
-import themeSelector from '../../modules/themes';
-import createGlobalStyleSheet from '../../modules/global-styles';
+import themeSelector from '../../utils/themes';
+import createGlobalStyleSheet from '../../utils/global-styles';
 
 const EndScreen = ({ navigation }) => {
   const dispatch = useDispatch();

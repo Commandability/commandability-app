@@ -22,9 +22,9 @@ import {
   getNumberOfReports,
   uploadReport,
   saveReport,
-} from '../../modules/report-manager';
-import themeSelector from '../../modules/themes';
-import createGlobalStyleSheet from '../../modules/global-styles';
+} from '../../utils/report-manager';
+import themeSelector from '../../utils/themes';
+import createGlobalStyleSheet from '../../utils/global-styles';
 
 const SavePrompt = ({ route, navigation }) => {
   const dispatch = useDispatch();

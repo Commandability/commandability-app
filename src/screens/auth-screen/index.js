@@ -15,8 +15,8 @@ import { LargeButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { selectTheme } from '../../redux/selectors';
 import { signIn } from '../../redux/actions';
-import themeSelector from '../../modules/themes';
-import createGlobalStyleSheet from '../../modules/global-styles';
+import themeSelector from '../../utils/themes';
+import createGlobalStyleSheet from '../../utils/global-styles';
 
 const AuthScreen = () => {
   const dispatch = useDispatch();

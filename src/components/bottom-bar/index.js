@@ -14,8 +14,8 @@ import SmallButton from '../small-button';
 import { selectPersonnel, selectTheme } from '../../redux/selectors';
 import { toggleTheme, toEndStack } from '../../redux/actions';
 import Timer from '../timer';
-import { staticLocations } from '../../modules/locations';
-import { DARK } from '../../modules/themes';
+import { staticLocations } from '../../utils/locations';
+import { DARK } from '../../utils/themes';
 import createStyleSheet from './styles';
 
 const { ROSTER, NEW_PERSONNEL, STAGING } = staticLocations;

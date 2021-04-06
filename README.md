@@ -14,7 +14,7 @@ Download or clone this repository, then run `npm install` inside the directory.
 - `/src/redux`: contains redux store configuration, all redux actions, reducers, and selectors
 - `/src/components`: contains switch navigator and all UI components
 - `/src/screens`: contains all screens
-- `/src/modules`: contains all custom modules
+- `/src/utils`: contains all custom utilities
 
 ## Modules
 

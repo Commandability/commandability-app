@@ -16,8 +16,8 @@ import { BackButton, LargeButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { resetIncident, toHomeStack } from '../../redux/actions';
 import { selectTheme } from '../../redux/selectors';
-import themeSelector from '../../modules/themes';
-import createGlobalStyleSheet from '../../modules/global-styles';
+import themeSelector from '../../utils/themes';
+import createGlobalStyleSheet from '../../utils/global-styles';
 
 const ExitWithoutSavingPrompt = () => {
   const dispatch = useDispatch();

@@ -3,7 +3,7 @@
 import { createSelector } from 'reselect';
 
 import * as groups from './reducer';
-import { pageLocationIds } from '../../modules/locations.js';
+import { pageLocationIds } from '../../utils/locations.js';
 
 export const selectGroupByLocationId = (state, locationId) =>
   groups.selectGroupByLocationId(state.groups, locationId);

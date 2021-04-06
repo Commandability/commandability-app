@@ -12,7 +12,7 @@ import {
   CREATE_GROUPS,
   RESET_INCIDENT,
 } from '../types';
-import { pageLocationIds } from '../../modules/locations.js';
+import { pageLocationIds } from '../../utils/locations.js';
 
 const editGroup = (state, action) => {
   const { payload } = action;

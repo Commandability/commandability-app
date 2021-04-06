@@ -10,7 +10,7 @@ import {
   RESUME_INCIDENT,
 } from './types';
 
-import { INCIDENT_STACK, END_STACK } from '../modules/navigation-stacks';
+import { INCIDENT_STACK, END_STACK } from '../utils/navigation-stacks';
 
 export * from './groups/actions';
 export * from './navigation/actions';

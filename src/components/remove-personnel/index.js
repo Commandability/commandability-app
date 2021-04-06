@@ -15,9 +15,9 @@ import {
   selectSelectedLocationId,
   selectSelectedPersonnel,
 } from '../../redux/selectors';
-import themeSelector from '../../modules/themes';
+import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
-import { staticLocations } from '../../modules/locations';
+import { staticLocations } from '../../utils/locations';
 import {
   clearSelectedPersonnel,
   movePerson,

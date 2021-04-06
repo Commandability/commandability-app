@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 
 import { createSelectPersonnelByLocationId } from '../../redux/selectors';
 import IncidentItem from '../incident-item';
-import { staticLocations } from '../../modules/locations';
+import { staticLocations } from '../../utils/locations';
 import styles from './styles';
 
 const { STAGING } = staticLocations;

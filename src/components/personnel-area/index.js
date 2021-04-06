@@ -12,7 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import SmallButton from '../small-button';
 import { selectTheme } from '../../redux/selectors';
-import themeSelector from '../../modules/themes';
+import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 import RemovePersonnel from '../remove-personnel';
 import Staging from '../staging';

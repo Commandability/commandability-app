@@ -11,8 +11,8 @@ import PropTypes from 'prop-types';
 
 import { selectPersonById, selectTheme } from '../../redux/selectors';
 import { removePerson, movePerson } from '../../redux/actions';
-import { staticLocations } from '../../modules/locations';
-import themeSelector from '../../modules/themes';
+import { staticLocations } from '../../utils/locations';
+import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
 const { ROSTER, NEW_PERSONNEL } = staticLocations;

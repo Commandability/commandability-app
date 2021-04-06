@@ -16,8 +16,8 @@ import { BackButton, LargeButton } from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import { selectTheme } from '../../redux/selectors';
 import { editGroup } from '../../redux/actions';
-import themeSelector from '../../modules/themes';
-import createGlobalStyleSheet from '../../modules/global-styles';
+import themeSelector from '../../utils/themes';
+import createGlobalStyleSheet from '../../utils/global-styles';
 import createStyleSheet from './styles';
 
 const alertTimes = [5, 10, 15, 20, 25, 30];

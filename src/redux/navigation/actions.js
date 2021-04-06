@@ -18,7 +18,7 @@ import {
   HOME_STACK,
   INCIDENT_STACK,
   END_STACK,
-} from '../../modules/navigation-stacks';
+} from '../../utils/navigation-stacks';
 
 export const signIn = (email, password) => {
   return async dispatch => {

@@ -11,11 +11,11 @@ import { TabView, TabBar } from 'react-native-tab-view';
 import PropTypes from 'prop-types';
 
 import { selectTheme, selectAlertedGroups } from '../../redux/selectors';
-import themeSelector from '../../modules/themes';
+import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 import GroupOptions from '../group-options';
 import Page from '../page';
-import { pageLocationIds } from '../../modules/locations.js';
+import { pageLocationIds } from '../../utils/locations.js';
 
 const PageArea = ({ initialEpoch }) => {
   const theme = useSelector(state => selectTheme(state));

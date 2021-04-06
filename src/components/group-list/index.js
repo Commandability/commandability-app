@@ -15,7 +15,7 @@ import {
   createSelectPersonnelByLocationId,
 } from '../../redux/selectors';
 import IncidentItem from '../incident-item';
-import themeSelector from '../../modules/themes';
+import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
 const GroupList = ({ locationId }) => {

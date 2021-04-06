@@ -34,11 +34,11 @@ import {
   getNumberOfReports,
   uploadReports,
   deleteAllReports,
-} from '../../modules/report-manager';
-import { staticLocations } from '../../modules/locations.js';
-import { DARK } from '../../modules/themes';
-import themeSelector from '../../modules/themes';
-import createGlobalStyleSheet from '../../modules/global-styles';
+} from '../../utils/report-manager';
+import { staticLocations } from '../../utils/locations.js';
+import { DARK } from '../../utils/themes';
+import themeSelector from '../../utils/themes';
+import createGlobalStyleSheet from '../../utils/global-styles';
 import createStyleSheet from './styles';
 
 const { ROSTER } = staticLocations;

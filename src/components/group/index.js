@@ -29,8 +29,8 @@ import {
   clearSelectedPersonnel,
   clearSelectedGroupMode,
 } from '../../redux/actions';
-import { staticLocations } from '../../modules/locations';
-import themeSelector from '../../modules/themes';
+import { staticLocations } from '../../utils/locations';
+import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
 const { STAGING } = staticLocations;

@@ -19,10 +19,10 @@ import {
   uploadReport,
   uploadReports,
   deleteAllReports,
-} from '../../modules/report-manager';
+} from '../../utils/report-manager';
 import { START_INCIDENT } from '../../redux/types';
-import themeSelector from '../../modules/themes';
-import createGlobalStyleSheet from '../../modules/global-styles';
+import themeSelector from '../../utils/themes';
+import createGlobalStyleSheet from '../../utils/global-styles';
 
 const ErrorFallbackScreen = ({ error, resetErrorBoundary }) => {
   const dispatch = useDispatch();

@@ -14,7 +14,7 @@ import {
   EDIT_GROUP,
   TOGGLE_GROUP,
 } from '../types';
-import { staticLocations } from '../../modules/locations';
+import { staticLocations } from '../../utils/locations';
 
 const { ROSTER, NEW_PERSONNEL, STAGING } = staticLocations;
 

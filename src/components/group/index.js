@@ -110,7 +110,7 @@ const Group = ({ locationId }) => {
             dispatch(dealertPersonToGroup(selectedGroup, person));
           }
         }
-        
+
         dispatch(
           movePerson(
             person,
@@ -147,7 +147,9 @@ const Group = ({ locationId }) => {
         <TouchableOpacity style={styles.overlay} onPress={onGroupPressed} />
       ) : null}
       {isVisible ? (
-        <View style={[styles.alertContainer, alerted.length !== 0 && styles.alert]}>
+        <View
+          style={[styles.alertContainer, alerted.length !== 0 && styles.alert]}
+        >
           <TouchableOpacity onPress={onSelectAllPressed} style={styles.header}>
             <Text style={styles.headerContent}>{name.toUpperCase()}</Text>
           </TouchableOpacity>

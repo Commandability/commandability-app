@@ -15,7 +15,11 @@ import {
   selectTheme,
   selectGroupByLocationId,
 } from '../../redux/selectors';
-import { alertPersonToGroup, dealertPersonToGroup, togglePerson } from '../../redux/actions';
+import {
+  alertPersonToGroup,
+  dealertPersonToGroup,
+  togglePerson,
+} from '../../redux/actions';
 import themeSelector from '../../modules/themes';
 import createStyleSheet from './styles';
 
@@ -24,8 +28,17 @@ const MS_IN_MINUTE = 60000;
 const IncidentItem = ({ personId }) => {
   const dispatch = useDispatch();
   const person = useSelector(state => selectPersonById(state, personId));
-  const { firstName, lastName, badge, shift, organization, locationId } = person;
-  const group = useSelector(state => selectGroupByLocationId(state, locationId));
+  const {
+    firstName,
+    lastName,
+    badge,
+    shift,
+    organization,
+    locationId,
+  } = person;
+  const group = useSelector(state =>
+    selectGroupByLocationId(state, locationId)
+  );
   const selectedPersonnel = useSelector(state =>
     selectSelectedPersonnel(state)
   );
@@ -33,7 +46,7 @@ const IncidentItem = ({ personId }) => {
 
   const { locationUpdateTime } = person;
   const { alert } = group ?? {};
-  
+
   const [time, setTime] = useState(Date.now() - locationUpdateTime);
   const [alertedItem, setAlertedItem] = useState(false);
 
@@ -61,20 +74,19 @@ const IncidentItem = ({ personId }) => {
 
   useEffect(() => {
     // If the item is in a group and an alert is active
-    if (alert){
-      if (displayTime >= alert){
+    if (alert) {
+      if (displayTime >= alert) {
         if (!alertedItem) {
           setAlertedItem(true);
           dispatch(alertPersonToGroup(group, person));
         }
-      }
-      else if(displayTime < alert){
+      } else if (displayTime < alert) {
         if (alertedItem) {
           setAlertedItem(false);
           dispatch(dealertPersonToGroup(group, person));
         }
       }
-    // If an alert is no longer active but the item is alertedItem
+      // If an alert is no longer active but the item is alertedItem
     } else if (alertedItem) {
       setAlertedItem(false);
       dispatch(dealertPersonToGroup(group, person));
@@ -97,12 +109,20 @@ const IncidentItem = ({ personId }) => {
       <TouchableOpacity onPress={onPress} style={styles.container}>
         <View style={styles.content}>
           <View style={styles.mainLine}>
-            <Text style={[styles.name, alertedItem && styles.alertText]}>{`${firstName} ${lastName}`}</Text>
-            <Text style={[styles.time, alertedItem && styles.alertText]}>{`${displayTime}`}</Text>
+            <Text
+              style={[styles.name, alertedItem && styles.alertText]}
+            >{`${firstName} ${lastName}`}</Text>
+            <Text
+              style={[styles.time, alertedItem && styles.alertText]}
+            >{`${displayTime}`}</Text>
           </View>
           <View style={styles.line}>
-            <Text style={[styles.label, alertedItem && styles.alertText]}>{`${badge ? badge + ' ' : ''}`}</Text>
-            <Text style={[styles.label, alertedItem && styles.alertText]}>{`${shift ? shift : ''}`}</Text>
+            <Text style={[styles.label, alertedItem && styles.alertText]}>{`${
+              badge ? badge + ' ' : ''
+            }`}</Text>
+            <Text style={[styles.label, alertedItem && styles.alertText]}>{`${
+              shift ? shift : ''
+            }`}</Text>
             <Text style={styles.label}>{`${
               organization ? organization : ''
             }`}</Text>

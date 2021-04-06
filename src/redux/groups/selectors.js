@@ -18,7 +18,7 @@ export const selectAlertedGroups = createSelector(
       pageLocationIds[page].locationIds.forEach(locationId => {
         const { alerted } = groups[locationId];
 
-        if(alerted.length) {
+        if (alerted.length) {
           alertedGroups.push(locationId);
         }
       });

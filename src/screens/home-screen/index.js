@@ -179,9 +179,11 @@ const HomeScreen = () => {
         .collection('users')
         .doc(uid)
         .get();
-      const { account: { expirationTimestamp } } = documentSnapshot.data();
+      const {
+        account: { expirationTimestamp },
+      } = documentSnapshot.data();
       const expirationDate = expirationTimestamp?.toDate();
-      
+
       if (!expirationDate || Date.now() > expirationDate) {
         Alert.alert(
           'Report upload disabled',

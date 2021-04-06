@@ -43,7 +43,10 @@ const PageArea = ({ initialEpoch }) => {
           alertedGroups.includes(locationId)
         )
       ) {
-        setAlertedPages(prevState => [...prevState, pageLocationIds[key].pageId]);
+        setAlertedPages(prevState => [
+          ...prevState,
+          pageLocationIds[key].pageId,
+        ]);
       }
     });
   }, [alertedGroups]);

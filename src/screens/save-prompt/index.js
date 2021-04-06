@@ -116,7 +116,9 @@ const SavePrompt = ({ route, navigation }) => {
         .collection('users')
         .doc(uid)
         .get();
-      const { account: { expirationTimestamp } } = documentSnapshot.data();
+      const {
+        account: { expirationTimestamp },
+      } = documentSnapshot.data();
       const expirationDate = expirationTimestamp?.toDate();
 
       if (!expirationDate || Date.now() > expirationDate) {

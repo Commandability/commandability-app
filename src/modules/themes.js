@@ -35,7 +35,7 @@ const themeMap = {
       alternate: '#ffffff',
       disabled: '#878787',
     },
-  }
+  },
 };
 
 export default theme => themeMap[theme];

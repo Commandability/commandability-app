@@ -9,6 +9,7 @@ import { Alert, Text, TextInput, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ErrorBoundary } from 'react-error-boundary';
+import { Picker } from '@react-native-picker/picker';
 import PropTypes from 'prop-types';
 
 import { BackButton, LargeButton } from '../../components';
@@ -17,6 +18,9 @@ import { selectTheme } from '../../redux/selectors';
 import { editGroup } from '../../redux/actions';
 import themeSelector from '../../modules/themes';
 import createGlobalStyleSheet from '../../modules/global-styles';
+import createStyleSheet from './styles';
+
+const alertTimes = [5, 10, 15, 20, 25, 30];
 
 const EditGroupPrompt = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -24,19 +28,21 @@ const EditGroupPrompt = ({ navigation, route }) => {
 
   const {
     params: {
-      group: { name: currName },
+      group: { name: currName, alert: currAlertTime },
     },
   } = route;
+
   const [newName, setNewName] = useState(currName);
+  const [newAlertTime, setNewAlertTime] = useState(currAlertTime);
 
   const onSavePressed = () => {
-    if (newName) {
+    if (newName || newAlertTime) {
       const { goBack } = navigation;
       const {
         params: { group },
       } = route;
 
-      dispatch(editGroup(group, { name: newName }));
+      dispatch(editGroup(group, { name: newName, alert: newAlertTime }));
       goBack();
     } else {
       Alert.alert('Please enter a new name', '', [
@@ -48,6 +54,7 @@ const EditGroupPrompt = ({ navigation, route }) => {
   };
 
   const colors = themeSelector(theme);
+  const styles = createStyleSheet(colors);
   const globalStyles = createGlobalStyleSheet(colors);
 
   const onReset = () => {
@@ -72,6 +79,23 @@ const EditGroupPrompt = ({ navigation, route }) => {
               value={newName}
               selectionColor={colors.primary}
             />
+            <Text style={globalStyles.label}>Group alerts</Text>
+            <View style={styles.pickerContainer}>
+              <Picker
+                selectedValue={currAlertTime}
+                onValueChange={newAlertTime => setNewAlertTime(newAlertTime)}
+                style={styles.picker}
+              >
+                <Picker.Item key={0} label="Disabled" value={0} />
+                {alertTimes.map(time => (
+                  <Picker.Item
+                    key={time}
+                    label={`${time} minutes`}
+                    value={time}
+                  />
+                ))}
+              </Picker>
+            </View>
             <LargeButton text="Save" onPress={onSavePressed} icon="check" />
           </KeyboardAwareScrollView>
         </View>

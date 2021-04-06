@@ -30,6 +30,9 @@ export default colors =>
       flex: 1,
       flexDirection: 'row',
     },
+    alertText: {
+      color: colors.primary
+    },
     name: {
       flex: 1,
       textAlign: 'left',

@@ -25,6 +25,7 @@ import {
   selectPerson,
   deselectPerson,
   movePerson,
+  dealertPersonToGroup,
   clearSelectedPersonnel,
   clearSelectedGroupMode,
 } from '../../redux/actions';
@@ -101,11 +102,20 @@ const Group = ({ locationId }) => {
     } else {
       // set each selected personId's new locationId to the current group
       selectedPersonnel.forEach(person => {
+        const { personId } = person;
+
+        if (selectedGroup) {
+          const { alerted } = selectedGroup;
+          if (alerted.includes(personId)) {
+            dispatch(dealertPersonToGroup(selectedGroup, person));
+          }
+        }
+        
         dispatch(
           movePerson(
             person,
             // To report prev location
-            selectedGroup || STAGING, // Set prev group to staging if no prev group in redux
+            selectedGroup ?? STAGING, // Set prev group to staging if no prev group in redux
             group
           )
         );
@@ -116,7 +126,7 @@ const Group = ({ locationId }) => {
     dispatch(clearSelectedGroupMode());
   };
 
-  const { name, isVisible } = group;
+  const { name, isVisible, alerted } = group;
 
   const renderOverlay = isVisible
     ? selectedGroupMode === 'remove' ||
@@ -137,12 +147,12 @@ const Group = ({ locationId }) => {
         <TouchableOpacity style={styles.overlay} onPress={onGroupPressed} />
       ) : null}
       {isVisible ? (
-        <>
+        <View style={[styles.alertContainer, alerted.length !== 0 && styles.alert]}>
           <TouchableOpacity onPress={onSelectAllPressed} style={styles.header}>
-            <Text style={styles.headerContent}> {name.toUpperCase()} </Text>
+            <Text style={styles.headerContent}>{name.toUpperCase()}</Text>
           </TouchableOpacity>
           <GroupList locationId={locationId} />
-        </>
+        </View>
       ) : null}
     </View>
   );

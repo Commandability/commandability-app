@@ -6,6 +6,8 @@
 
 import {
   EDIT_GROUP,
+  ALERT_PERSON_TO_GROUP,
+  DEALERT_PERSON_TO_GROUP,
   TOGGLE_GROUP,
   CREATE_GROUPS,
   RESET_INCIDENT,
@@ -15,15 +17,56 @@ import { pageLocationIds } from '../../modules/locations.js';
 const editGroup = (state, action) => {
   const { payload } = action;
   const {
+    group,
     group: { locationId },
     name,
+    alert
   } = payload;
+
   return {
     ...state,
     [locationId]: {
-      locationId,
-      isVisible: true,
+      ...group,
       name,
+      alert,
+    },
+  };
+};
+
+const alertPersonToGroup = (state, action) => {
+  const { payload } = action;
+  const {
+    group,
+    group: { locationId, alerted },
+    person: { personId },
+  } = payload;
+
+  if (alerted.includes(personId)) {
+    return state;
+  } else {
+    return {
+      ...state,
+      [locationId]: {
+        ...group,
+        alerted: alerted.concat(personId),
+      },
+    };
+  }
+};
+
+const dealertPersonToGroup = (state, action) => {
+  const { payload } = action;
+  const {
+    group,
+    group: { locationId },
+    person: { personId },
+  } = payload;
+
+  return {
+    ...state,
+    [locationId]: {
+      ...group,
+      alerted: state[locationId].alerted.filter(id => id !== personId),
     },
   };
 };
@@ -51,15 +94,18 @@ const createGroups = action => {
   const groups = {};
   Object.keys(pageLocationIds).forEach(page => {
     pageLocationIds[page].locationIds.forEach(locationId => {
-      const { name: defaultName, isVisible: defaultIsVisible } = defaultGroups[
+      const { name: defaultName, isVisible: defaultIsVisible, alert: defaultAlert } = defaultGroups[
         locationId
       ];
       groups[locationId] = {
         locationId,
         name: defaultName,
-        isVisible: defaultIsVisible,
+        isVisible: defaultIsVisible  ?? true,
+        alert: defaultAlert ?? 0,
+        alerted: [],
         defaultName,
         defaultIsVisible,
+        defaultAlert,
       };
     });
   });
@@ -77,6 +123,8 @@ const resetIncident = state => {
         ...group,
         name: state[locationId].defaultName,
         isVisible: state[locationId].defaultIsVisible,
+        alert: state[locationId].defaultAlert,
+        alerted: []
       };
     });
   });
@@ -84,7 +132,7 @@ const resetIncident = state => {
   return groups;
 };
 
-export const selectGroupByLocationId = (state, locationId) => state[locationId];
+export const selectGroupByLocationId = (state, locationId) => state?.[locationId];
 
 export const selectGroups = state => state;
 
@@ -92,6 +140,10 @@ export default (state = {}, action) => {
   switch (action.type) {
     case EDIT_GROUP:
       return editGroup(state, action);
+    case ALERT_PERSON_TO_GROUP:
+      return alertPersonToGroup(state, action);
+    case DEALERT_PERSON_TO_GROUP:
+      return dealertPersonToGroup(state, action);
     case TOGGLE_GROUP:
       return toggleGroup(state, action);
     case CREATE_GROUPS:

@@ -18,6 +18,9 @@ export default colors =>
     tabLabel: {
       color: colors.text.main,
     },
+    tabAlertLabel: {
+      color: colors.primary,
+    },
     indicator: {
       backgroundColor: colors.primary,
     },

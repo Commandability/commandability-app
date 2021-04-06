@@ -31,4 +31,12 @@ export default colors =>
       fontSize: 14,
       color: colors.primary,
     },
+    alertContainer: {
+      flex: 1,
+    },
+    alert: {
+      borderWidth: 1.5,
+      borderColor: colors.primary,
+      borderRadius: 5,
+    },
   });

@@ -4,20 +4,20 @@
  * Reducers to track certain timers on the App.
  */
 
-import { START_INCIDENT, RESET_INCIDENT } from '../types';
+import {START_INCIDENT, RESET_INCIDENT} from '../types';
 
-const initialState = { initialEpoch: 0 };
+const initialState = {initialEpoch: 0};
 
 const setInitialEpoch = (state, action) => {
-  const { payload } = action;
-  const { initialEpoch } = payload;
+  const {payload} = action;
+  const {initialEpoch} = payload;
   return {
     ...state,
     initialEpoch,
   };
 };
 
-export const selectInitialEpoch = state => {
+export const selectInitialEpoch = (state) => {
   return state.initialEpoch;
 };
 

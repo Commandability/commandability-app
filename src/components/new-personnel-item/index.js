@@ -5,22 +5,22 @@
  */
 
 import React from 'react';
-import { Text, TouchableOpacity, View, Alert } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import {Text, TouchableOpacity, View, Alert} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { selectPersonById, selectTheme } from '../../redux/selectors';
-import { removePerson, movePerson } from '../../redux/actions';
-import { staticLocations } from '../../utils/locations';
+import {selectPersonById, selectTheme} from '../../redux/selectors';
+import {removePerson, movePerson} from '../../redux/actions';
+import {staticLocations} from '../../utils/locations';
 import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
-const { ROSTER, NEW_PERSONNEL } = staticLocations;
+const {ROSTER, NEW_PERSONNEL} = staticLocations;
 
-const NewPersonnelItem = ({ personId }) => {
+const NewPersonnelItem = ({personId}) => {
   const dispatch = useDispatch();
-  const person = useSelector(state => selectPersonById(state, personId));
-  const theme = useSelector(state => selectTheme(state));
+  const person = useSelector((state) => selectPersonById(state, personId));
+  const theme = useSelector((state) => selectTheme(state));
 
   const onPress = () => {
     Alert.alert('Remove person?', '', [
@@ -39,8 +39,8 @@ const NewPersonnelItem = ({ personId }) => {
                 movePerson(
                   person,
                   NEW_PERSONNEL, // Set prev group to new personnel if no prev group in redux
-                  ROSTER
-                )
+                  ROSTER,
+                ),
               );
         },
       },
@@ -49,7 +49,7 @@ const NewPersonnelItem = ({ personId }) => {
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
-  const { isTemporary, firstName, lastName, badge, shift } = person;
+  const {isTemporary, firstName, lastName, badge, shift} = person;
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>

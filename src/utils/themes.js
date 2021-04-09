@@ -38,4 +38,4 @@ const themeMap = {
   },
 };
 
-export default theme => themeMap[theme];
+export default (theme) => themeMap[theme];

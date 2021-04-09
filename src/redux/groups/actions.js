@@ -4,7 +4,7 @@
  * Actions to add and remove groups, and change group names.
  */
 
- import {v4 as uuidv4} from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 
 import {
   EDIT_GROUP,
@@ -25,34 +25,34 @@ export const editGroup = (group, settings) => {
 
   return {
     type: EDIT_GROUP,
-    payload: { entryId, dateTime, group, name, alert },
+    payload: {entryId, dateTime, group, name, alert},
   };
 };
 
 export const alertPersonToGroup = (group, person) => {
   return {
     type: ALERT_PERSON_TO_GROUP,
-    payload: { group, person },
+    payload: {group, person},
   };
 };
 
 export const dealertPersonToGroup = (group, person) => {
   return {
     type: DEALERT_PERSON_TO_GROUP,
-    payload: { group, person },
+    payload: {group, person},
   };
 };
 
-export const toggleGroup = group => {
+export const toggleGroup = (group) => {
   const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   return {
     type: TOGGLE_GROUP,
-    payload: { entryId, dateTime, currTime: Date.now(), group },
+    payload: {entryId, dateTime, currTime: Date.now(), group},
   };
 };
 
-export const createGroups = groups => ({
+export const createGroups = (groups) => ({
   type: CREATE_GROUPS,
-  payload: { groups },
+  payload: {groups},
 });

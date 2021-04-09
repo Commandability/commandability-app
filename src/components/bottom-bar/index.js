@@ -6,31 +6,31 @@
  */
 
 import React from 'react';
-import { Alert, View } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import {Alert, View} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import SmallButton from '../small-button';
-import { selectPersonnel, selectTheme } from '../../redux/selectors';
-import { toggleTheme, toEndStack } from '../../redux/actions';
+import {selectPersonnel, selectTheme} from '../../redux/selectors';
+import {toggleTheme, toEndStack} from '../../redux/actions';
 import Timer from '../timer';
-import { staticLocations } from '../../utils/locations';
-import { DARK } from '../../utils/themes';
+import {staticLocations} from '../../utils/locations';
+import {DARK} from '../../utils/themes';
 import createStyleSheet from './styles';
 
-const { ROSTER, NEW_PERSONNEL, STAGING } = staticLocations;
+const {ROSTER, NEW_PERSONNEL, STAGING} = staticLocations;
 
-const BottomBar = ({ initialEpoch }) => {
+const BottomBar = ({initialEpoch}) => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => selectTheme(state));
-  const personnel = useSelector(state => selectPersonnel(state));
+  const theme = useSelector((state) => selectTheme(state));
+  const personnel = useSelector((state) => selectPersonnel(state));
 
   const onEndPressed = () => {
     const personnelAreInGroups = personnel.every(
-      person =>
+      (person) =>
         person.locationId === ROSTER.locationId ||
         person.locationId === NEW_PERSONNEL.locationId ||
-        person.locationId === STAGING.locationId
+        person.locationId === STAGING.locationId,
     );
 
     if (!personnelAreInGroups) {
@@ -41,7 +41,7 @@ const BottomBar = ({ initialEpoch }) => {
           {
             text: 'OK',
           },
-        ]
+        ],
       );
     } else {
       Alert.alert('Are you sure you want to end the incident?', '', [

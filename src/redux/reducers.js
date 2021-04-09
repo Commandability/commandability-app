@@ -5,9 +5,9 @@
  * It also contains the logic for the RESET_APP action.
  */
 
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { persistReducer, purgeStoredState } from 'redux-persist';
+import {persistReducer, purgeStoredState} from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 import groups from './groups/reducer';
@@ -17,7 +17,7 @@ import report from './report/reducer';
 import selected from './selected/reducer';
 import theme from './theme/reducer';
 import timer from './timer/reducer';
-import { RESET_APP } from './types';
+import {RESET_APP} from './types';
 
 const groupsPersistConfig = {
   key: 'groups',

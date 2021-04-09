@@ -4,19 +4,19 @@
  * Manages displaying save and exit report options after an incident.
  */
 
-import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, Alert, View } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {useState, useEffect} from 'react';
+import {ActivityIndicator, Alert, View} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import NetInfo from '@react-native-community/netinfo';
-import { ErrorBoundary } from 'react-error-boundary';
+import {ErrorBoundary} from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
-import { BackButton, LargeButton } from '../../components';
+import {BackButton, LargeButton} from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
-import { resetIncident, toHomeStack } from '../../redux/actions';
-import { selectTheme } from '../../redux/selectors';
+import {resetIncident, toHomeStack} from '../../redux/actions';
+import {selectTheme} from '../../redux/selectors';
 import {
   DEVICE_REPORT_LIMIT,
   getNumberOfReports,
@@ -26,10 +26,10 @@ import {
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 
-const SavePrompt = ({ route, navigation }) => {
+const SavePrompt = ({route, navigation}) => {
   const dispatch = useDispatch();
-  const { reportData } = route.params;
-  const theme = useSelector(state => selectTheme(state));
+  const {reportData} = route.params;
+  const theme = useSelector((state) => selectTheme(state));
 
   const [loading, setLoading] = useState(false);
   const [numberOfReports, setNumberOfReports] = useState(0);
@@ -43,7 +43,7 @@ const SavePrompt = ({ route, navigation }) => {
   }, []);
 
   const onExitPressed = () => {
-    const { navigate } = navigation;
+    const {navigate} = navigation;
     navigate('ExitWithoutSavingPrompt');
   };
 
@@ -56,7 +56,7 @@ const SavePrompt = ({ route, navigation }) => {
           {
             text: 'OK',
           },
-        ]
+        ],
       );
       return;
     }
@@ -89,12 +89,12 @@ const SavePrompt = ({ route, navigation }) => {
             }
           },
         },
-      ]
+      ],
     );
   };
 
   const onSaveToCloudPressed = async () => {
-    const { isConnected } = await NetInfo.fetch();
+    const {isConnected} = await NetInfo.fetch();
     if (!isConnected) {
       Alert.alert(
         'Failed to connect to the network',
@@ -103,21 +103,21 @@ const SavePrompt = ({ route, navigation }) => {
           {
             text: 'OK',
           },
-        ]
+        ],
       );
       return;
     }
 
     setLoading(true);
     try {
-      const { currentUser } = auth();
-      const { uid } = currentUser;
+      const {currentUser} = auth();
+      const {uid} = currentUser;
       const documentSnapshot = await firestore()
         .collection('users')
         .doc(uid)
         .get();
       const {
-        account: { expirationTimestamp },
+        account: {expirationTimestamp},
       } = documentSnapshot.data();
       const expirationDate = expirationTimestamp?.toDate();
 
@@ -129,7 +129,7 @@ const SavePrompt = ({ route, navigation }) => {
             {
               text: 'OK',
             },
-          ]
+          ],
         );
       } else {
         await uploadReport(reportData);
@@ -140,7 +140,7 @@ const SavePrompt = ({ route, navigation }) => {
             {
               text: 'OK',
             },
-          ]
+          ],
         );
       }
       setLoading(false);
@@ -169,8 +169,7 @@ const SavePrompt = ({ route, navigation }) => {
     <ErrorBoundary
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
-      resetKeys={[loading, numberOfReports]}
-    >
+      resetKeys={[loading, numberOfReports]}>
       <View style={globalStyles.container}>
         <BackButton />
         <View>

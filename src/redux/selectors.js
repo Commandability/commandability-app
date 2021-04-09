@@ -4,7 +4,7 @@
  * This file contains all redux selectors
  */
 
-import { createSelector } from 'reselect';
+import {createSelector} from 'reselect';
 
 import * as personnel from './personnel/selectors';
 import * as groups from './groups/selectors';
@@ -24,12 +24,12 @@ export const selectSelectedPersonnel = createSelector(
   selected.selectSelectedPersonnelIds,
   personnel.selectPersonnelById,
   (selectedPersonnelIds, personnelById) =>
-    selectedPersonnelIds.map(personId => personnelById[personId])
+    selectedPersonnelIds.map((personId) => personnelById[personId]),
 );
 
 export const selectIsConfigurationLoaded = createSelector(
   personnel.selectPersonnel,
   groups.selectGroups,
   (personnel, groups) =>
-    Object.keys(groups).length > 1 || Object.keys(personnel) > 1
+    Object.keys(groups).length > 1 || Object.keys(personnel) > 1,
 );

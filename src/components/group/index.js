@@ -5,10 +5,10 @@
  * list and handles visibility of groups
  */
 
-import React, { useMemo } from 'react';
-import { Alert, TouchableOpacity, Text, View } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import React, {useMemo} from 'react';
+import {Alert, TouchableOpacity, Text, View} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 import PropTypes from 'prop-types';
 
 import GroupList from '../group-list';
@@ -29,47 +29,47 @@ import {
   clearSelectedPersonnel,
   clearSelectedGroupMode,
 } from '../../redux/actions';
-import { staticLocations } from '../../utils/locations';
+import {staticLocations} from '../../utils/locations';
 import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
-const { STAGING } = staticLocations;
+const {STAGING} = staticLocations;
 
-const Group = ({ locationId }) => {
+const Group = ({locationId}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const selectPersonnelByLocationId = useMemo(
     createSelectPersonnelByLocationId,
-    []
+    [],
   );
-  const personnel = useSelector(state =>
-    selectPersonnelByLocationId(state, locationId)
+  const personnel = useSelector((state) =>
+    selectPersonnelByLocationId(state, locationId),
   );
-  const selectedLocationId = useSelector(state =>
-    selectSelectedLocationId(state)
+  const selectedLocationId = useSelector((state) =>
+    selectSelectedLocationId(state),
   );
-  const group = useSelector(state =>
-    selectGroupByLocationId(state, locationId)
+  const group = useSelector((state) =>
+    selectGroupByLocationId(state, locationId),
   );
-  const selectedGroup = useSelector(state =>
-    selectGroupByLocationId(state, selectedLocationId)
+  const selectedGroup = useSelector((state) =>
+    selectGroupByLocationId(state, selectedLocationId),
   );
-  const selectedPersonnel = useSelector(state =>
-    selectSelectedPersonnel(state)
+  const selectedPersonnel = useSelector((state) =>
+    selectSelectedPersonnel(state),
   );
-  const selectedGroupMode = useSelector(state =>
-    selectSelectedGroupMode(state)
+  const selectedGroupMode = useSelector((state) =>
+    selectSelectedGroupMode(state),
   );
-  const theme = useSelector(state => selectTheme(state));
+  const theme = useSelector((state) => selectTheme(state));
 
-  const allPersonnelSelected = personnel.every(person =>
+  const allPersonnelSelected = personnel.every((person) =>
     selectedPersonnel.some(
-      selectedPerson => selectedPerson.personId === person.personId
-    )
+      (selectedPerson) => selectedPerson.personId === person.personId,
+    ),
   );
 
   const onSelectAllPressed = () => {
-    personnel.forEach(item => {
+    personnel.forEach((item) => {
       allPersonnelSelected
         ? dispatch(deselectPerson(item))
         : dispatch(selectPerson(item));
@@ -94,18 +94,18 @@ const Group = ({ locationId }) => {
               dispatch(toggleGroup(group));
             },
           },
-        ]
+        ],
       );
     } else if (selectedGroupMode === 'edit') {
-      const { navigate } = navigation;
-      navigate('EditGroupPrompt', { group });
+      const {navigate} = navigation;
+      navigate('EditGroupPrompt', {group});
     } else {
       // set each selected personId's new locationId to the current group
-      selectedPersonnel.forEach(person => {
-        const { personId } = person;
+      selectedPersonnel.forEach((person) => {
+        const {personId} = person;
 
         if (selectedGroup) {
-          const { alerted } = selectedGroup;
+          const {alerted} = selectedGroup;
           if (alerted.includes(personId)) {
             dispatch(dealertPersonToGroup(selectedGroup, person));
           }
@@ -116,8 +116,8 @@ const Group = ({ locationId }) => {
             person,
             // To report prev location
             selectedGroup ?? STAGING, // Set prev group to staging if no prev group in redux
-            group
-          )
+            group,
+          ),
         );
       });
       dispatch(clearSelectedPersonnel());
@@ -126,7 +126,7 @@ const Group = ({ locationId }) => {
     dispatch(clearSelectedGroupMode());
   };
 
-  const { name, isVisible, alerted } = group;
+  const {name, isVisible, alerted} = group;
 
   const renderOverlay = isVisible
     ? selectedGroupMode === 'remove' ||
@@ -148,8 +148,7 @@ const Group = ({ locationId }) => {
       ) : null}
       {isVisible ? (
         <View
-          style={[styles.alertContainer, alerted.length !== 0 && styles.alert]}
-        >
+          style={[styles.alertContainer, alerted.length !== 0 && styles.alert]}>
           <TouchableOpacity onPress={onSelectAllPressed} style={styles.header}>
             <Text style={styles.headerContent}>{name.toUpperCase()}</Text>
           </TouchableOpacity>

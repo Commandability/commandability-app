@@ -5,17 +5,17 @@
  */
 
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
-import { useSelector } from 'react-redux';
+import {TouchableOpacity, Text} from 'react-native';
+import {useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
-import { selectTheme } from '../../redux/selectors';
+import {selectTheme} from '../../redux/selectors';
 import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
-const LargeButton = ({ children, text, onPress, icon, type, priority }) => {
-  const theme = useSelector(state => selectTheme(state));
+const LargeButton = ({children, text, onPress, icon, type, priority}) => {
+  const theme = useSelector((state) => selectTheme(state));
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
@@ -30,8 +30,7 @@ const LargeButton = ({ children, text, onPress, icon, type, priority }) => {
   return (
     <TouchableOpacity
       style={[styles.opacity, priority && styles.priority, opacityType]}
-      onPress={onPress}
-    >
+      onPress={onPress}>
       <Icon name={icon} style={styles.opacityIcon} />
       <Text style={styles.opacityText}>{text}</Text>
       {children}

@@ -4,15 +4,15 @@
  * Manages displaying the home screen and activity indicator when signing out.
  */
 
-import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, Alert, View, Text } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {useState, useEffect} from 'react';
+import {ActivityIndicator, Alert, View, Text} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import NetInfo from '@react-native-community/netinfo';
-import { ErrorBoundary } from 'react-error-boundary';
+import {ErrorBoundary} from 'react-error-boundary';
 
-import { LargeButton } from '../../components';
+import {LargeButton} from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import {
   selectReportData,
@@ -29,26 +29,26 @@ import {
   addPerson,
   toggleTheme,
 } from '../../redux/actions';
-import { START_INCIDENT, END_INCIDENT } from '../../redux/types';
+import {START_INCIDENT, END_INCIDENT} from '../../redux/types';
 import {
   getNumberOfReports,
   uploadReports,
   deleteAllReports,
 } from '../../utils/report-manager';
-import { staticLocations } from '../../utils/locations.js';
-import { DARK } from '../../utils/themes';
+import {staticLocations} from '../../utils/locations.js';
+import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 import createStyleSheet from './styles';
 
-const { ROSTER } = staticLocations;
+const {ROSTER} = staticLocations;
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => selectTheme(state));
-  const reportData = useSelector(state => selectReportData(state));
-  const isConfigurationLoaded = useSelector(state =>
-    selectIsConfigurationLoaded(state)
+  const theme = useSelector((state) => selectTheme(state));
+  const reportData = useSelector((state) => selectReportData(state));
+  const isConfigurationLoaded = useSelector((state) =>
+    selectIsConfigurationLoaded(state),
   );
 
   const [loading, setLoading] = useState(false);
@@ -86,13 +86,13 @@ const HomeScreen = () => {
           {
             text: 'OK',
           },
-        ]
+        ],
       );
     }
   };
 
   const onUpdateConfigurationPressed = async () => {
-    const { isConnected } = await NetInfo.fetch();
+    const {isConnected} = await NetInfo.fetch();
     if (!isConnected) {
       Alert.alert(
         'Failed to connect to the network',
@@ -101,25 +101,25 @@ const HomeScreen = () => {
           {
             text: 'OK',
           },
-        ]
+        ],
       );
       return;
     }
 
     setLoading(true);
     try {
-      const { currentUser } = auth();
-      const { uid } = currentUser;
+      const {currentUser} = auth();
+      const {uid} = currentUser;
       const documentSnapshot = await firestore()
         .collection('users')
         .doc(uid)
         .get();
-      const { groups, personnel } = documentSnapshot.data();
+      const {groups, personnel} = documentSnapshot.data();
 
       dispatch(createGroups(groups));
 
       dispatch(clearPersonnel());
-      personnel.forEach(person => {
+      personnel.forEach((person) => {
         dispatch(addPerson(person, ROSTER.locationId, false)); // false for non-temporary personnel
       });
 
@@ -130,7 +130,7 @@ const HomeScreen = () => {
           {
             text: 'OK',
           },
-        ]
+        ],
       );
     } catch (error) {
       Alert.alert('Error', error, [
@@ -143,7 +143,7 @@ const HomeScreen = () => {
   };
 
   const onUploadReportsPressed = async () => {
-    const { isConnected } = await NetInfo.fetch();
+    const {isConnected} = await NetInfo.fetch();
     if (!isConnected) {
       Alert.alert(
         'Failed to connect to the network',
@@ -152,7 +152,7 @@ const HomeScreen = () => {
           {
             text: 'OK',
           },
-        ]
+        ],
       );
       return;
     }
@@ -165,7 +165,7 @@ const HomeScreen = () => {
           {
             text: 'OK',
           },
-        ]
+        ],
       );
       return;
     }
@@ -173,14 +173,14 @@ const HomeScreen = () => {
     setLoading(true);
     let uploadSuccess = false;
     try {
-      const { currentUser } = auth();
-      const { uid } = currentUser;
+      const {currentUser} = auth();
+      const {uid} = currentUser;
       const documentSnapshot = await firestore()
         .collection('users')
         .doc(uid)
         .get();
       const {
-        account: { expirationTimestamp },
+        account: {expirationTimestamp},
       } = documentSnapshot.data();
       const expirationDate = expirationTimestamp?.toDate();
 
@@ -192,7 +192,7 @@ const HomeScreen = () => {
             {
               text: 'OK',
             },
-          ]
+          ],
         );
       } else {
         await uploadReports();
@@ -206,7 +206,7 @@ const HomeScreen = () => {
             {
               text: 'OK',
             },
-          ]
+          ],
         );
       }
     } catch (error) {
@@ -218,7 +218,7 @@ const HomeScreen = () => {
             {
               text: 'OK',
             },
-          ]
+          ],
         );
       } else {
         Alert.alert('Upload failed', error, [
@@ -245,7 +245,7 @@ const HomeScreen = () => {
           {
             text: 'OK',
           },
-        ]
+        ],
       );
     } else {
       Alert.alert(
@@ -272,7 +272,7 @@ const HomeScreen = () => {
               }
             },
           },
-        ]
+        ],
       );
       setLoading(false);
     }
@@ -292,8 +292,7 @@ const HomeScreen = () => {
     <ErrorBoundary
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
-      resetKeys={[loading, numberOfReports]}
-    >
+      resetKeys={[loading, numberOfReports]}>
       <View style={globalStyles.container}>
         <LargeButton
           text="Start incident"
@@ -313,16 +312,14 @@ const HomeScreen = () => {
             onPress={onUploadReportsPressed}
             icon="upload"
             type="flex"
-            priority={!!numberOfReports}
-          >
+            priority={!!numberOfReports}>
             <Text
               style={[
                 styles.reportsNumber,
                 numberOfReports
                   ? styles.reportsOnDevice
                   : styles.noReportsOnDevice,
-              ]}
-            >{`${numberOfReports}`}</Text>
+              ]}>{`${numberOfReports}`}</Text>
           </LargeButton>
         </View>
         <View style={styles.row}>

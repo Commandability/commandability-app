@@ -4,26 +4,26 @@
  * Provides functionality for adding temporary personnel to the incident.
  */
 
-import React, { useState } from 'react';
-import { Alert, View, TextInput, Text } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import React, {useState} from 'react';
+import {Alert, View, TextInput, Text} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import PropTypes from 'prop-types';
-import { ErrorBoundary } from 'react-error-boundary';
+import {ErrorBoundary} from 'react-error-boundary';
 
-import { BackButton, LargeButton } from '../../components';
+import {BackButton, LargeButton} from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
-import { addPerson } from '../../redux/actions';
-import { selectTheme } from '../../redux/selectors';
-import { staticLocations } from '../../utils/locations';
+import {addPerson} from '../../redux/actions';
+import {selectTheme} from '../../redux/selectors';
+import {staticLocations} from '../../utils/locations';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 
-const { NEW_PERSONNEL } = staticLocations;
+const {NEW_PERSONNEL} = staticLocations;
 
-const AddPersonPrompt = ({ navigation }) => {
+const AddPersonPrompt = ({navigation}) => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => selectTheme(state));
+  const theme = useSelector((state) => selectTheme(state));
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -42,12 +42,12 @@ const AddPersonPrompt = ({ navigation }) => {
 
     dispatch(
       addPerson(
-        { firstName, lastName, badge, organization },
-        NEW_PERSONNEL.locationId
-      )
+        {firstName, lastName, badge, organization},
+        NEW_PERSONNEL.locationId,
+      ),
     );
 
-    const { navigate } = navigation;
+    const {navigate} = navigation;
     navigate('AddPersonnelPrompt');
   };
 
@@ -65,8 +65,7 @@ const AddPersonPrompt = ({ navigation }) => {
     <ErrorBoundary
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
-      resetKeys={[firstName, lastName, badge, organization]}
-    >
+      resetKeys={[firstName, lastName, badge, organization]}>
       <View style={globalStyles.container}>
         <BackButton />
         <View>
@@ -76,7 +75,7 @@ const AddPersonPrompt = ({ navigation }) => {
               style={globalStyles.input}
               maxLength={36}
               value={firstName}
-              onChangeText={firstName => setFirstName(firstName)}
+              onChangeText={(firstName) => setFirstName(firstName)}
               selectionColor={colors.primary}
             />
             <Text style={globalStyles.label}>Last Name*</Text>
@@ -84,7 +83,7 @@ const AddPersonPrompt = ({ navigation }) => {
               style={globalStyles.input}
               maxLength={36}
               value={lastName}
-              onChangeText={lastName => setLastName(lastName)}
+              onChangeText={(lastName) => setLastName(lastName)}
               selectionColor={colors.primary}
             />
             <Text style={globalStyles.label}>Badge Number</Text>
@@ -93,7 +92,7 @@ const AddPersonPrompt = ({ navigation }) => {
               keyboardType={'numeric'}
               maxLength={10}
               value={badge}
-              onChangeText={badge => setBadge(badge)}
+              onChangeText={(badge) => setBadge(badge)}
               selectionColor={colors.primary}
             />
             <Text style={globalStyles.label}>Organization</Text>
@@ -101,7 +100,7 @@ const AddPersonPrompt = ({ navigation }) => {
               style={globalStyles.input}
               maxLength={36}
               value={organization}
-              onChangeText={organization => setOrganization(organization)}
+              onChangeText={(organization) => setOrganization(organization)}
               selectionColor={colors.primary}
             />
             <LargeButton

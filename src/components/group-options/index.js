@@ -7,18 +7,18 @@
  */
 
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { View } from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {View} from 'react-native';
 
 import SmallButton from '../small-button';
-import { selectSelectedGroupMode } from '../../redux/selectors';
-import { toggleGroupMode } from '../../redux/actions';
+import {selectSelectedGroupMode} from '../../redux/selectors';
+import {toggleGroupMode} from '../../redux/actions';
 import createStyleSheet from './styles';
 
 const GroupOptions = () => {
   const dispatch = useDispatch();
-  const selectedGroupMode = useSelector(state =>
-    selectSelectedGroupMode(state)
+  const selectedGroupMode = useSelector((state) =>
+    selectSelectedGroupMode(state),
   );
 
   const onAddPressed = () => {

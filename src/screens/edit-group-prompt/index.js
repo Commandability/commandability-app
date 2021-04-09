@@ -4,31 +4,31 @@
  * Displays the options for editing a group. Can take user input for a new group name, or remove the group
  */
 
-import React, { useState } from 'react';
-import { Alert, Text, TextInput, View } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { ErrorBoundary } from 'react-error-boundary';
-import { Picker } from '@react-native-picker/picker';
+import React, {useState} from 'react';
+import {Alert, Text, TextInput, View} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {ErrorBoundary} from 'react-error-boundary';
+import {Picker} from '@react-native-picker/picker';
 import PropTypes from 'prop-types';
 
-import { BackButton, LargeButton } from '../../components';
+import {BackButton, LargeButton} from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
-import { selectTheme } from '../../redux/selectors';
-import { editGroup } from '../../redux/actions';
+import {selectTheme} from '../../redux/selectors';
+import {editGroup} from '../../redux/actions';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 import createStyleSheet from './styles';
 
 const alertTimes = [5, 10, 15, 20, 25, 30];
 
-const EditGroupPrompt = ({ navigation, route }) => {
+const EditGroupPrompt = ({navigation, route}) => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => selectTheme(state));
+  const theme = useSelector((state) => selectTheme(state));
 
   const {
     params: {
-      group: { name: currName, alert: currAlertTime },
+      group: {name: currName, alert: currAlertTime},
     },
   } = route;
 
@@ -37,12 +37,12 @@ const EditGroupPrompt = ({ navigation, route }) => {
 
   const onSavePressed = () => {
     if (newName || newAlertTime) {
-      const { goBack } = navigation;
+      const {goBack} = navigation;
       const {
-        params: { group },
+        params: {group},
       } = route;
 
-      dispatch(editGroup(group, { name: newName, alert: newAlertTime }));
+      dispatch(editGroup(group, {name: newName, alert: newAlertTime}));
       goBack();
     } else {
       Alert.alert('Please enter a new name', '', [
@@ -65,8 +65,7 @@ const EditGroupPrompt = ({ navigation, route }) => {
     <ErrorBoundary
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
-      resetKeys={[newName]}
-    >
+      resetKeys={[newName]}>
       <View style={globalStyles.container}>
         <BackButton />
         <View>
@@ -75,7 +74,7 @@ const EditGroupPrompt = ({ navigation, route }) => {
             <TextInput
               style={globalStyles.input}
               autoCapitalize="none"
-              onChangeText={newName => setNewName(newName)}
+              onChangeText={(newName) => setNewName(newName)}
               value={newName}
               selectionColor={colors.primary}
             />
@@ -83,11 +82,10 @@ const EditGroupPrompt = ({ navigation, route }) => {
             <View style={styles.pickerContainer}>
               <Picker
                 selectedValue={currAlertTime}
-                onValueChange={newAlertTime => setNewAlertTime(newAlertTime)}
-                style={styles.picker}
-              >
+                onValueChange={(newAlertTime) => setNewAlertTime(newAlertTime)}
+                style={styles.picker}>
                 <Picker.Item key={0} label="Disabled" value={0} />
-                {alertTimes.map(time => (
+                {alertTimes.map((time) => (
                   <Picker.Item
                     key={time}
                     label={`${time} minutes`}

@@ -4,7 +4,7 @@
  * Actions to add and remove personnel, and change current group.
  */
 
- import {v4 as uuidv4} from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 
 import {
   ADD_PERSON,
@@ -34,12 +34,12 @@ export const addPerson = (person, locationId, isTemporary = true) => {
   };
 };
 
-export const removePerson = person => {
+export const removePerson = (person) => {
   const entryId = uuidv4();
   const dateTime = new Date().toLocaleString();
   return {
     type: REMOVE_PERSON,
-    payload: { entryId, dateTime, person },
+    payload: {entryId, dateTime, person},
   };
 };
 

@@ -6,12 +6,12 @@
  */
 
 import React from 'react';
-import { View } from 'react-native';
-import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import {View} from 'react-native';
+import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 
 import SmallButton from '../small-button';
-import { selectTheme } from '../../redux/selectors';
+import {selectTheme} from '../../redux/selectors';
 import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 import RemovePersonnel from '../remove-personnel';
@@ -19,10 +19,10 @@ import Staging from '../staging';
 
 const PersonnelArea = () => {
   const navigation = useNavigation();
-  const theme = useSelector(state => selectTheme(state));
+  const theme = useSelector((state) => selectTheme(state));
 
   const onAddPersonnelPressed = () => {
-    const { navigate } = navigation;
+    const {navigate} = navigation;
     navigate('AddPersonnelPrompt');
   };
 

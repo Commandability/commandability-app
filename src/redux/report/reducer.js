@@ -14,13 +14,13 @@ import {
   EDIT_GROUP,
   TOGGLE_GROUP,
 } from '../types';
-import { staticLocations } from '../../utils/locations';
+import {staticLocations} from '../../utils/locations';
 
-const { ROSTER, NEW_PERSONNEL, STAGING } = staticLocations;
+const {ROSTER, NEW_PERSONNEL, STAGING} = staticLocations;
 
-const logStartIncident = action => {
-  const { payload } = action;
-  const { entryId, dateTime } = payload;
+const logStartIncident = (action) => {
+  const {payload} = action;
+  const {entryId, dateTime} = payload;
   return {
     [entryId]: {
       dateTime,
@@ -30,8 +30,8 @@ const logStartIncident = action => {
 };
 
 const logEndIncident = (state, action) => {
-  const { payload } = action;
-  const { entryId, dateTime } = payload;
+  const {payload} = action;
+  const {entryId, dateTime} = payload;
   // Only log end incident if there is not an end incident entry
   return state[entryId]
     ? state
@@ -44,7 +44,7 @@ const logEndIncident = (state, action) => {
       };
 };
 
-const resumeIncident = state => {
+const resumeIncident = (state) => {
   const {
     // eslint-disable-next-line no-unused-vars
     [END_INCIDENT]: removed,
@@ -55,11 +55,11 @@ const resumeIncident = state => {
 
 // For temporary personnel
 const logRemovePerson = (state, action) => {
-  const { payload } = action;
+  const {payload} = action;
   const {
     entryId,
     dateTime,
-    person: { locationId, firstName, lastName, badge, organization },
+    person: {locationId, firstName, lastName, badge, organization},
   } = payload;
 
   // Only log if removed from staging
@@ -78,13 +78,13 @@ const logRemovePerson = (state, action) => {
 
 // For incident personnel
 const logMovePerson = (state, action) => {
-  const { payload } = action;
+  const {payload} = action;
   const {
     entryId,
     dateTime,
-    person: { firstName, lastName, badge, organization },
-    prevLocationData: { name: prevName, locationId: prevLocationId },
-    nextLocationData: { name: nextName, locationId: nextLocationId },
+    person: {firstName, lastName, badge, organization},
+    prevLocationData: {name: prevName, locationId: prevLocationId},
+    nextLocationData: {name: nextName, locationId: nextLocationId},
   } = payload;
 
   let log = '';
@@ -126,9 +126,9 @@ const logMovePerson = (state, action) => {
 };
 
 const logSetName = (state, action) => {
-  const { payload } = action;
+  const {payload} = action;
   const {
-    group: { name },
+    group: {name},
     newName,
     entryId,
     dateTime,
@@ -143,9 +143,9 @@ const logSetName = (state, action) => {
 };
 
 const logToggleGroup = (state, action) => {
-  const { payload } = action;
+  const {payload} = action;
   const {
-    group: { name, isVisible },
+    group: {name, isVisible},
     entryId,
     dateTime,
   } = payload;
@@ -159,7 +159,7 @@ const logToggleGroup = (state, action) => {
   };
 };
 
-export const selectReportData = state => state;
+export const selectReportData = (state) => state;
 
 export default (state = {}, action) => {
   switch (action.type) {

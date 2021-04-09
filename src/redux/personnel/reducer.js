@@ -13,9 +13,9 @@ import {
   TOGGLE_GROUP,
   RESET_INCIDENT,
 } from '../types';
-import { staticLocations } from '../../utils/locations';
+import {staticLocations} from '../../utils/locations';
 
-const { ROSTER, STAGING } = staticLocations;
+const {ROSTER, STAGING} = staticLocations;
 
 const initialState = {
   byId: {},
@@ -38,10 +38,10 @@ const byId = (state = initialState.byId, action) => {
 };
 
 const addPerson = (state, action) => {
-  const { payload } = action;
+  const {payload} = action;
   const {
     person,
-    person: { personId },
+    person: {personId},
   } = payload;
   return {
     ...state,
@@ -52,22 +52,22 @@ const addPerson = (state, action) => {
 };
 
 const removePerson = (state, action) => {
-  const { payload } = action;
+  const {payload} = action;
   const {
-    person: { personId },
+    person: {personId},
   } = payload;
 
   // eslint-disable-next-line no-unused-vars
-  const { [personId]: removed, ...updatedPersonnel } = state;
+  const {[personId]: removed, ...updatedPersonnel} = state;
   return updatedPersonnel;
 };
 
 // set locationId of person by personId
 const movePerson = (state, action) => {
-  const { payload } = action;
+  const {payload} = action;
   const {
-    person: { personId },
-    nextLocationData: { locationId },
+    person: {personId},
+    nextLocationData: {locationId},
     currTime,
   } = payload;
   const person = state[personId];
@@ -95,20 +95,20 @@ const allIds = (state = initialState.allIds, action) => {
 };
 
 const addPersonId = (state, action) => {
-  const { payload } = action;
+  const {payload} = action;
   const {
-    person: { personId },
+    person: {personId},
   } = payload;
   return state.concat(personId);
 };
 
 const removePersonId = (state, action) => {
-  const { payload } = action;
+  const {payload} = action;
   const {
-    person: { personId },
+    person: {personId},
   } = payload;
 
-  return state.filter(currId => currId != personId);
+  return state.filter((currId) => currId != personId);
 };
 
 // set all locationIds in a group to staging if the group is deleted
@@ -116,12 +116,12 @@ const returnToStaging = (state, action) => {
   const {
     payload: {
       currTime,
-      group: { locationId },
+      group: {locationId},
     },
   } = action;
   const byId = {};
 
-  state.allIds.forEach(personId => {
+  state.allIds.forEach((personId) => {
     const person = state.byId[personId];
     if (person.locationId === locationId) {
       byId[personId] = {
@@ -142,12 +142,12 @@ const returnToStaging = (state, action) => {
 };
 
 // set all groupIds to default and locationUpdateTime to 0 at end of incident
-const resetIncident = state => {
+const resetIncident = (state) => {
   const byId = {};
   const allIds = [];
-  state.allIds.forEach(personId => {
+  state.allIds.forEach((personId) => {
     const person = state.byId[personId];
-    const { isTemporary } = person;
+    const {isTemporary} = person;
     // only add a person to the reset state if they weren't added during the incident
     if (!isTemporary) {
       byId[personId] = {
@@ -164,9 +164,9 @@ const resetIncident = state => {
   };
 };
 
-export const selectPersonnelAllIds = state => state.allIds;
+export const selectPersonnelAllIds = (state) => state.allIds;
 
-export const selectPersonnelById = state => state.byId;
+export const selectPersonnelById = (state) => state.byId;
 
 export const selectPersonById = (state, personId) => state.byId[personId];
 

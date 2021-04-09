@@ -40,21 +40,21 @@ const personnelIds = (state = initialState.personnelIds, action) => {
 // Previously selected persons will be deselected
 const togglePerson = (state, action) => {
   const {
-    payload: { person },
+    payload: {person},
   } = action;
-  const { personId } = person;
+  const {personId} = person;
 
   if (state.includes(personId)) {
-    return state.filter(currId => currId != personId);
+    return state.filter((currId) => currId != personId);
   } else {
     return state.concat(personId);
   }
 };
 
 const selectPerson = (state, action) => {
-  const { payload } = action;
+  const {payload} = action;
   const {
-    person: { personId },
+    person: {personId},
   } = payload;
 
   if (state.includes(personId)) {
@@ -65,12 +65,12 @@ const selectPerson = (state, action) => {
 };
 
 const deselectPerson = (state, action) => {
-  const { payload } = action;
+  const {payload} = action;
   const {
-    person: { personId },
+    person: {personId},
   } = payload;
 
-  return state.filter(currId => currId != personId);
+  return state.filter((currId) => currId != personId);
 };
 
 const locationId = (state = initialState.locationId, action) => {
@@ -94,9 +94,9 @@ const groupMode = (state = initialState.groupMode, action) => {
 };
 
 const selectLocationId = (state, action) => {
-  const { payload } = action;
+  const {payload} = action;
   const {
-    person: { personId, locationId },
+    person: {personId, locationId},
   } = payload;
 
   // Reset the selected locationId when the last selected person is deselected
@@ -121,8 +121,8 @@ const selectLocationId = (state, action) => {
 
 // Reset selected location and groups when a groupMode is selected
 const toggleGroupMode = (state, action) => {
-  const { payload } = action;
-  const { groupMode } = payload;
+  const {payload} = action;
+  const {groupMode} = payload;
 
   return {
     personnelIds: initialState.personnelIds,
@@ -132,15 +132,15 @@ const toggleGroupMode = (state, action) => {
   };
 };
 
-export const selectSelectedPersonnelIds = state => {
+export const selectSelectedPersonnelIds = (state) => {
   return state.personnelIds;
 };
 
-export const selectSelectedLocationId = state => {
+export const selectSelectedLocationId = (state) => {
   return state.locationId;
 };
 
-export const selectSelectedGroupMode = state => {
+export const selectSelectedGroupMode = (state) => {
   return state.groupMode;
 };
 

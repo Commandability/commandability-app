@@ -5,12 +5,12 @@
  * Based on https://reactnavigation.org/docs/auth-flow except using redux instead of the Context API.
  */
 
-import React, { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import RNBootSplash from "react-native-bootsplash";
+import React, {useEffect} from 'react';
+import {View, StyleSheet} from 'react-native';
+import {useSelector} from 'react-redux';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import RNBootSplash from 'react-native-bootsplash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
@@ -30,7 +30,7 @@ import {
   INCIDENT_STACK,
   END_STACK,
 } from './utils/navigation-stacks';
-import { selectStack, selectTheme } from './redux/selectors';
+import {selectStack, selectTheme} from './redux/selectors';
 import themeSelector from './utils/themes';
 
 const PERSISTENCE_KEY = 'NAVIGATION_STATE';
@@ -44,7 +44,7 @@ const screenOptions = {
   headerShown: false,
 };
 
-const setStack = stack => {
+const setStack = (stack) => {
   switch (stack) {
     case HOME_STACK:
       return (
@@ -82,14 +82,14 @@ const setStack = stack => {
           <Auth.Screen
             name="AuthScreen"
             component={AuthScreen}
-            options={{ animationTypeForReplace: 'pop' }}
+            options={{animationTypeForReplace: 'pop'}}
           />
         </Auth.Navigator>
       );
   }
 };
 
-const createStyleSheet = colors =>
+const createStyleSheet = (colors) =>
   StyleSheet.create({
     // eslint-disable-next-line react-native/no-unused-styles
     container: {
@@ -99,8 +99,8 @@ const createStyleSheet = colors =>
   });
 
 const SwitchNavigator = () => {
-  const theme = useSelector(state => selectTheme(state));
-  const stack = useSelector(state => selectStack(state));
+  const theme = useSelector((state) => selectTheme(state));
+  const stack = useSelector((state) => selectStack(state));
 
   const [isReady, setIsReady] = React.useState(false);
   const [initialState, setInitialState] = React.useState();
@@ -140,10 +140,9 @@ const SwitchNavigator = () => {
     <View style={styles.container}>
       <NavigationContainer
         initialState={initialState}
-        onStateChange={state =>
+        onStateChange={(state) =>
           AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
-        }
-      >
+        }>
         {setStack(stack)}
       </NavigationContainer>
     </View>

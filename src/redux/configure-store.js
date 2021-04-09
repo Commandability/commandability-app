@@ -4,10 +4,10 @@
  * Handle all redux middleware and generate redux store with redux-persist.
  */
 
-import { createStore, applyMiddleware } from 'redux';
-import { compose } from 'redux'; // Development only
+import {createStore, applyMiddleware} from 'redux';
+import {compose} from 'redux'; // Development only
 import thunk from 'redux-thunk';
-import { persistStore } from 'redux-persist';
+import {persistStore} from 'redux-persist';
 
 import persistedReducers from './reducers';
 
@@ -17,8 +17,8 @@ export default () => {
   let store = createStore(
     persistedReducers,
     // applyMiddleware(thunk), // Production
-    composeEnhancers(applyMiddleware(thunk)) // Development only
+    composeEnhancers(applyMiddleware(thunk)), // Development only
   );
   let persistor = persistStore(store);
-  return { store, persistor };
+  return {store, persistor};
 };

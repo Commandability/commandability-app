@@ -4,37 +4,37 @@
  * Manages recovering from js errors that are not asynchronous.
  */
 
-import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, Alert, View, Text } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {useState, useEffect} from 'react';
+import {ActivityIndicator, Alert, View, Text} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import NetInfo from '@react-native-community/netinfo';
 import PropTypes from 'prop-types';
 
-import { LargeButton } from '../../components';
-import { resetIncident } from '../../redux/actions';
-import { selectTheme, selectReportData } from '../../redux/selectors';
+import {LargeButton} from '../../components';
+import {resetIncident} from '../../redux/actions';
+import {selectTheme, selectReportData} from '../../redux/selectors';
 import {
   getNumberOfReports,
   uploadReport,
   uploadReports,
   deleteAllReports,
 } from '../../utils/report-manager';
-import { START_INCIDENT } from '../../redux/types';
+import {START_INCIDENT} from '../../redux/types';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 
-const ErrorFallbackScreen = ({ error, resetErrorBoundary }) => {
+const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => selectTheme(state));
-  const reportData = useSelector(state => selectReportData(state));
+  const theme = useSelector((state) => selectTheme(state));
+  const reportData = useSelector((state) => selectReportData(state));
 
   const [loading, setLoading] = useState(false);
   const [numberOfReports, setNumberOfReports] = useState(0);
 
   const reportIsUnsaved = reportData[START_INCIDENT];
 
-  const { currentUser } = auth();
+  const {currentUser} = auth();
 
   useEffect(() => {
     const getNumberOfReportsEffect = async () => {
@@ -48,7 +48,7 @@ const ErrorFallbackScreen = ({ error, resetErrorBoundary }) => {
   const globalStyles = createGlobalStyleSheet(colors);
 
   const onEmergencyUploadPressed = async () => {
-    const { isConnected } = await NetInfo.fetch();
+    const {isConnected} = await NetInfo.fetch();
     if (!isConnected) {
       Alert.alert(
         'Failed to connect to the network',
@@ -57,7 +57,7 @@ const ErrorFallbackScreen = ({ error, resetErrorBoundary }) => {
           {
             text: 'OK',
           },
-        ]
+        ],
       );
       return;
     }
@@ -70,7 +70,7 @@ const ErrorFallbackScreen = ({ error, resetErrorBoundary }) => {
           {
             text: 'OK',
           },
-        ]
+        ],
       );
       return;
     }
@@ -94,7 +94,7 @@ const ErrorFallbackScreen = ({ error, resetErrorBoundary }) => {
           {
             text: 'OK',
           },
-        ]
+        ],
       );
     } catch (error) {
       if (uploadSuccess) {
@@ -105,7 +105,7 @@ const ErrorFallbackScreen = ({ error, resetErrorBoundary }) => {
             {
               text: 'OK',
             },
-          ]
+          ],
         );
       } else {
         Alert.alert('Emergency upload failed', error, [

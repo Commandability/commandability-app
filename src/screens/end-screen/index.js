@@ -4,16 +4,16 @@
  * Manages displaying the end screen after an incident.
  */
 
-import React, { useState, useEffect } from 'react';
-import { Alert, View, Text, TextInput } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { ErrorBoundary } from 'react-error-boundary';
+import React, {useState, useEffect} from 'react';
+import {Alert, View, Text, TextInput} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {ErrorBoundary} from 'react-error-boundary';
 import PropTypes from 'prop-types';
 
-import { LargeButton } from '../../components';
+import {LargeButton} from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
-import { selectReportData, selectTheme } from '../../redux/selectors';
+import {selectReportData, selectTheme} from '../../redux/selectors';
 import {
   endIncident,
   resumeIncident,
@@ -22,10 +22,10 @@ import {
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 
-const EndScreen = ({ navigation }) => {
+const EndScreen = ({navigation}) => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => selectTheme(state));
-  const reportData = useSelector(state => selectReportData(state));
+  const theme = useSelector((state) => selectTheme(state));
+  const reportData = useSelector((state) => selectReportData(state));
 
   const [location, setLocation] = useState('');
   const [notes, setNotes] = useState('');
@@ -65,8 +65,8 @@ const EndScreen = ({ navigation }) => {
       reportData['NOTES'] = notes;
     }
 
-    const { navigate } = navigation;
-    navigate('SavePrompt', { reportData });
+    const {navigate} = navigation;
+    navigate('SavePrompt', {reportData});
   };
 
   const colors = themeSelector(theme);
@@ -81,15 +81,14 @@ const EndScreen = ({ navigation }) => {
     <ErrorBoundary
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
-      resetKeys={[location, notes]}
-    >
+      resetKeys={[location, notes]}>
       <View style={globalStyles.container}>
         <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
           <Text style={globalStyles.label}>Location *</Text>
           <TextInput
             style={globalStyles.input}
             autoCapitalize="none"
-            onChangeText={location => setLocation(location)}
+            onChangeText={(location) => setLocation(location)}
             value={location}
             selectionColor={colors.primary}
           />
@@ -98,7 +97,7 @@ const EndScreen = ({ navigation }) => {
             style={globalStyles.multilineInput}
             autoCapitalize="none"
             multiline={true}
-            onChangeText={notes => setNotes(notes)}
+            onChangeText={(notes) => setNotes(notes)}
             value={notes}
             selectionColor={colors.primary}
           />

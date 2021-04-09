@@ -6,8 +6,8 @@
  */
 
 import React from 'react';
-import { TouchableOpacity, Text, View } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import {TouchableOpacity, Text, View} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
 
 import StagingList from '../staging-list';
 import {
@@ -16,36 +16,36 @@ import {
   selectSelectedPersonnel,
   selectTheme,
 } from '../../redux/selectors';
-import { clearSelectedPersonnel, movePerson } from '../../redux/actions';
-import { staticLocations } from '../../utils/locations';
+import {clearSelectedPersonnel, movePerson} from '../../redux/actions';
+import {staticLocations} from '../../utils/locations';
 import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
-const { STAGING } = staticLocations;
+const {STAGING} = staticLocations;
 
 const Staging = () => {
   const dispatch = useDispatch();
-  const selectedLocationId = useSelector(state =>
-    selectSelectedLocationId(state)
+  const selectedLocationId = useSelector((state) =>
+    selectSelectedLocationId(state),
   );
-  const selectedGroup = useSelector(state =>
-    selectGroupByLocationId(state, selectedLocationId)
+  const selectedGroup = useSelector((state) =>
+    selectGroupByLocationId(state, selectedLocationId),
   );
-  const selectedPersonnel = useSelector(state =>
-    selectSelectedPersonnel(state)
+  const selectedPersonnel = useSelector((state) =>
+    selectSelectedPersonnel(state),
   );
-  const theme = useSelector(state => selectTheme(state));
+  const theme = useSelector((state) => selectTheme(state));
 
   const onStagingPressed = () => {
     // set each selected personId's new locationId to STAGING
-    selectedPersonnel.forEach(person => {
+    selectedPersonnel.forEach((person) => {
       dispatch(
         movePerson(
           person,
           // To report prev location
           selectedGroup,
-          STAGING
-        )
+          STAGING,
+        ),
       );
     });
     dispatch(clearSelectedPersonnel());

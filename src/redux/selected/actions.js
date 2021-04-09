@@ -14,29 +14,29 @@ import {
 } from '../types';
 
 // Previously selected persons will be deselected
-export const togglePerson = person => ({
+export const togglePerson = (person) => ({
   type: TOGGLE_PERSON,
-  payload: { person },
+  payload: {person},
 });
 
 // Previously selected persons will remain selected
-export const selectPerson = person => ({
+export const selectPerson = (person) => ({
   type: SELECT_PERSON,
-  payload: { person },
+  payload: {person},
 });
 
-export const deselectPerson = person => ({
+export const deselectPerson = (person) => ({
   type: DESELECT_PERSON,
-  payload: { person },
+  payload: {person},
 });
 
 export const clearSelectedPersonnel = () => ({
   type: CLEAR_SELECTED_PERSONNEL,
 });
 
-export const toggleGroupMode = groupMode => ({
+export const toggleGroupMode = (groupMode) => ({
   type: TOGGLE_GROUP_MODE,
-  payload: { groupMode },
+  payload: {groupMode},
 });
 
 export const clearSelectedGroupMode = () => ({

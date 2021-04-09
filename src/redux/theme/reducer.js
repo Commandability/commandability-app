@@ -4,14 +4,14 @@
  * Change the current theme.
  */
 
-import { TOGGLE_THEME } from '../types';
-import { DARK, LIGHT } from '../../utils/themes';
+import {TOGGLE_THEME} from '../types';
+import {DARK, LIGHT} from '../../utils/themes';
 
 const initialState = {
   currentTheme: DARK,
 };
 
-const toggleTheme = state => {
+const toggleTheme = (state) => {
   if (state.currentTheme === DARK) {
     return {
       ...state,
@@ -25,7 +25,7 @@ const toggleTheme = state => {
   }
 };
 
-export const selectTheme = state => {
+export const selectTheme = (state) => {
   return state.currentTheme;
 };
 

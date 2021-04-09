@@ -4,30 +4,28 @@
  * Manages displaying personnel in the roster.
  */
 
-import React, { useMemo } from 'react';
-import { FlatList } from 'react-native';
-import { useSelector } from 'react-redux';
+import React, {useMemo} from 'react';
+import {FlatList} from 'react-native';
+import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { createSelectPersonnelByLocationId } from '../../redux/selectors';
+import {createSelectPersonnelByLocationId} from '../../redux/selectors';
 import RosterItem from '../roster-item';
-import { staticLocations } from '../../utils/locations';
+import {staticLocations} from '../../utils/locations';
 import styles from './styles';
 
-const { ROSTER } = staticLocations;
+const {ROSTER} = staticLocations;
 
-const RosterList = ({ query }) => {
+const RosterList = ({query}) => {
   const selectPersonnelByLocationId = useMemo(
     () => createSelectPersonnelByLocationId(ROSTER.locationId),
-    []
+    [],
   );
-  const personnel = useSelector(state => selectPersonnelByLocationId(state));
+  const personnel = useSelector((state) => selectPersonnelByLocationId(state));
 
-  const renderItem = ({ item: { personId } }) => (
-    <RosterItem personId={personId} />
-  );
+  const renderItem = ({item: {personId}}) => <RosterItem personId={personId} />;
 
-  const keyExtractor = item => item.personId;
+  const keyExtractor = (item) => item.personId;
 
   return (
     <FlatList
@@ -35,8 +33,8 @@ const RosterList = ({ query }) => {
       keyboardShouldPersistTaps="always"
       data={
         query
-          ? personnel.filter(person => {
-              const { firstName, lastName, badge, shift } = person || undefined;
+          ? personnel.filter((person) => {
+              const {firstName, lastName, badge, shift} = person || undefined;
               return (
                 firstName.toLowerCase().includes(query) ||
                 lastName.toLowerCase().includes(query) ||

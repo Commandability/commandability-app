@@ -12,13 +12,13 @@ import {
   CREATE_GROUPS,
   RESET_INCIDENT,
 } from '../types';
-import { pageLocationIds } from '../../utils/locations.js';
+import {pageLocationIds} from '../../utils/locations.js';
 
 const editGroup = (state, action) => {
-  const { payload } = action;
+  const {payload} = action;
   const {
     group,
-    group: { locationId },
+    group: {locationId},
     name,
     alert,
   } = payload;
@@ -34,11 +34,11 @@ const editGroup = (state, action) => {
 };
 
 const alertPersonToGroup = (state, action) => {
-  const { payload } = action;
+  const {payload} = action;
   const {
     group,
-    group: { locationId, alerted },
-    person: { personId },
+    group: {locationId, alerted},
+    person: {personId},
   } = payload;
 
   if (alerted.includes(personId)) {
@@ -55,27 +55,27 @@ const alertPersonToGroup = (state, action) => {
 };
 
 const dealertPersonToGroup = (state, action) => {
-  const { payload } = action;
+  const {payload} = action;
   const {
     group,
-    group: { locationId },
-    person: { personId },
+    group: {locationId},
+    person: {personId},
   } = payload;
 
   return {
     ...state,
     [locationId]: {
       ...group,
-      alerted: state[locationId].alerted.filter(id => id !== personId),
+      alerted: state[locationId].alerted.filter((id) => id !== personId),
     },
   };
 };
 
 const toggleGroup = (state, action) => {
-  const { payload } = action;
+  const {payload} = action;
   const {
     group,
-    group: { locationId, isVisible },
+    group: {locationId, isVisible},
   } = payload;
   return {
     ...state,
@@ -87,13 +87,13 @@ const toggleGroup = (state, action) => {
 };
 
 // Create groups with default settings
-const createGroups = action => {
-  const { payload } = action;
-  const { groups: defaultGroups } = payload;
+const createGroups = (action) => {
+  const {payload} = action;
+  const {groups: defaultGroups} = payload;
 
   const groups = {};
-  Object.keys(pageLocationIds).forEach(page => {
-    pageLocationIds[page].locationIds.forEach(locationId => {
+  Object.keys(pageLocationIds).forEach((page) => {
+    pageLocationIds[page].locationIds.forEach((locationId) => {
       const {
         name: defaultName,
         isVisible: defaultIsVisible,
@@ -116,10 +116,10 @@ const createGroups = action => {
 };
 
 // Reset group settings to defaults
-const resetIncident = state => {
+const resetIncident = (state) => {
   const groups = {};
-  Object.keys(pageLocationIds).forEach(page => {
-    pageLocationIds[page].locationIds.forEach(locationId => {
+  Object.keys(pageLocationIds).forEach((page) => {
+    pageLocationIds[page].locationIds.forEach((locationId) => {
       const group = state[locationId];
       groups[locationId] = {
         ...group,
@@ -137,7 +137,7 @@ const resetIncident = state => {
 export const selectGroupByLocationId = (state, locationId) =>
   state?.[locationId];
 
-export const selectGroups = state => state;
+export const selectGroups = (state) => state;
 
 export default (state = {}, action) => {
   switch (action.type) {

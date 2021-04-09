@@ -2,11 +2,11 @@
 
 import * as selected from './reducer';
 
-export const selectSelectedLocationId = state =>
+export const selectSelectedLocationId = (state) =>
   selected.selectSelectedLocationId(state.selected);
 
-export const selectSelectedPersonnelIds = state =>
+export const selectSelectedPersonnelIds = (state) =>
   selected.selectSelectedPersonnelIds(state.selected);
 
-export const selectSelectedGroupMode = state =>
+export const selectSelectedGroupMode = (state) =>
   selected.selectSelectedGroupMode(state.selected);

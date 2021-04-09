@@ -4,25 +4,25 @@
  * Manages exiting the incident without saving.
  */
 
-import React, { useState } from 'react';
-import { ActivityIndicator, Alert, View, TextInput, Text } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import React, {useState} from 'react';
+import {ActivityIndicator, Alert, View, TextInput, Text} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import auth from '@react-native-firebase/auth';
 import NetInfo from '@react-native-community/netinfo';
-import { ErrorBoundary } from 'react-error-boundary';
+import {ErrorBoundary} from 'react-error-boundary';
 
-import { BackButton, LargeButton } from '../../components';
+import {BackButton, LargeButton} from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
-import { resetIncident, toHomeStack } from '../../redux/actions';
-import { selectTheme } from '../../redux/selectors';
+import {resetIncident, toHomeStack} from '../../redux/actions';
+import {selectTheme} from '../../redux/selectors';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 
 const ExitWithoutSavingPrompt = () => {
   const dispatch = useDispatch();
-  const theme = useSelector(state => selectTheme(state));
-  const { currentUser } = auth();
+  const theme = useSelector((state) => selectTheme(state));
+  const {currentUser} = auth();
 
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('dev-password');
@@ -37,7 +37,7 @@ const ExitWithoutSavingPrompt = () => {
       return;
     }
 
-    const { isConnected } = await NetInfo.fetch();
+    const {isConnected} = await NetInfo.fetch();
     if (!isConnected) {
       Alert.alert(
         'Failed to connect to the network',
@@ -46,7 +46,7 @@ const ExitWithoutSavingPrompt = () => {
           {
             text: 'OK',
           },
-        ]
+        ],
       );
       return;
     }
@@ -54,7 +54,7 @@ const ExitWithoutSavingPrompt = () => {
     setLoading(true);
     const credential = auth.EmailAuthProvider.credential(
       currentUser.email,
-      password
+      password,
     );
     try {
       await currentUser.reauthenticateWithCredential(credential);
@@ -89,8 +89,7 @@ const ExitWithoutSavingPrompt = () => {
     <ErrorBoundary
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
-      resetKeys={[loading, password]}
-    >
+      resetKeys={[loading, password]}>
       <View style={globalStyles.container}>
         <BackButton />
         <View>
@@ -108,7 +107,7 @@ const ExitWithoutSavingPrompt = () => {
               style={globalStyles.input}
               autoCapitalize="none"
               secureTextEntry
-              onChangeText={password => setPassword(password)}
+              onChangeText={(password) => setPassword(password)}
               value={password}
               selectionColor={colors.primary}
             />

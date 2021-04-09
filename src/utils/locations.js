@@ -78,7 +78,7 @@ export const pageLocationIds = {
 };
 
 export const staticLocations = {
-  ROSTER: { locationId: 'ROSTER', name: 'Roster' },
-  NEW_PERSONNEL: { locationId: 'NEW_PERSONNEL', name: 'New Personnel' },
-  STAGING: { locationId: 'STAGING', name: 'Staging' },
+  ROSTER: {locationId: 'ROSTER', name: 'Roster'},
+  NEW_PERSONNEL: {locationId: 'NEW_PERSONNEL', name: 'New Personnel'},
+  STAGING: {locationId: 'STAGING', name: 'Staging'},
 };

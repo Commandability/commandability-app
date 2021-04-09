@@ -6,8 +6,8 @@
  */
 
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Alert, TouchableOpacity, Text, View } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {Alert, TouchableOpacity, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
@@ -17,24 +17,24 @@ import {
 } from '../../redux/selectors';
 import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
-import { staticLocations } from '../../utils/locations';
+import {staticLocations} from '../../utils/locations';
 import {
   clearSelectedPersonnel,
   movePerson,
   removePerson,
 } from '../../redux/actions';
 
-const { STAGING, ROSTER } = staticLocations;
+const {STAGING, ROSTER} = staticLocations;
 
 const RemovePersonnel = () => {
   const dispatch = useDispatch();
-  const selectedLocationId = useSelector(state =>
-    selectSelectedLocationId(state)
+  const selectedLocationId = useSelector((state) =>
+    selectSelectedLocationId(state),
   );
-  const selectedPersonnel = useSelector(state =>
-    selectSelectedPersonnel(state)
+  const selectedPersonnel = useSelector((state) =>
+    selectSelectedPersonnel(state),
   );
-  const theme = useSelector(state => selectTheme(state));
+  const theme = useSelector((state) => selectTheme(state));
 
   const onRemovePressed = () => {
     Alert.alert(
@@ -48,8 +48,8 @@ const RemovePersonnel = () => {
         {
           text: 'OK',
           onPress: () => {
-            selectedPersonnel.forEach(person => {
-              const { isTemporary } = person;
+            selectedPersonnel.forEach((person) => {
+              const {isTemporary} = person;
               isTemporary
                 ? // remove each temporary selected personId
                   dispatch(removePerson(person))
@@ -59,14 +59,14 @@ const RemovePersonnel = () => {
                       person,
                       // To report prev location
                       STAGING, // Set prev group to staging if no prev group in redux
-                      ROSTER
-                    )
+                      ROSTER,
+                    ),
                   );
               dispatch(clearSelectedPersonnel());
             });
           },
         },
-      ]
+      ],
     );
   };
 

@@ -11,7 +11,7 @@ import {v4 as uuidv4} from 'uuid';
 
 export const DEVICE_REPORT_LIMIT = 10;
 
-export const generateReport = reportData => {
+export const generateReport = (reportData) => {
   // Generate report string from data
   let reportString = '';
   if (reportData) {
@@ -27,7 +27,7 @@ export const generateReport = reportData => {
     }
 
     for (const entry in reportData) {
-      const { dateTime, log } = reportData[entry];
+      const {dateTime, log} = reportData[entry];
       if (dateTime && log) {
         reportString += `${dateTime}: ${log}\n`;
       }
@@ -38,10 +38,10 @@ export const generateReport = reportData => {
   return report;
 };
 
-export const uploadReport = async reportData => {
+export const uploadReport = async (reportData) => {
   try {
     const {
-      currentUser: { uid },
+      currentUser: {uid},
     } = auth();
     const uploadId = uuidv4();
 
@@ -57,10 +57,10 @@ export const uploadReport = async reportData => {
   }
 };
 
-export const saveReport = async reportData => {
+export const saveReport = async (reportData) => {
   try {
     const {
-      currentUser: { uid },
+      currentUser: {uid},
     } = auth();
     const reportId = uuidv4();
 
@@ -78,10 +78,10 @@ export const saveReport = async reportData => {
 const getAllReportKeys = async () => {
   try {
     const {
-      currentUser: { uid },
+      currentUser: {uid},
     } = auth();
     const keys = await AsyncStorage.getAllKeys();
-    return keys.filter(key => key.slice(0, 42) === `@CAA/${uid}/reports/`);
+    return keys.filter((key) => key.slice(0, 42) === `@CAA/${uid}/reports/`);
   } catch (error) {
     throw new Error(error);
   }
@@ -109,15 +109,15 @@ export const uploadReports = async () => {
   try {
     const reportKeys = await getAllReportKeys();
     const reportPromises = reportKeys.map(
-      async key => await AsyncStorage.getItem(key)
+      async (key) => await AsyncStorage.getItem(key),
     );
     const reports = await Promise.all(reportPromises);
     const {
       currentUser,
-      currentUser: { uid },
+      currentUser: {uid},
     } = auth();
     if (currentUser) {
-      const uploadPromises = reports.map(report => {
+      const uploadPromises = reports.map((report) => {
         const uploadId = uuidv4();
         const uploadPath = `/users/${uid}/${uploadId}`;
         let storageRef = storage().ref();

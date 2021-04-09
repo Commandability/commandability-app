@@ -120,7 +120,7 @@ const IncidentItem = ({personId}) => {
             <Text style={[styles.label, alertedItem && styles.alertText]}>{`${
               shift ? shift : ''
             }`}</Text>
-            <Text style={styles.label}>{`${
+            <Text style={[styles.label, alertedItem && styles.alertText]}>{`${
               organization ? organization : ''
             }`}</Text>
           </View>

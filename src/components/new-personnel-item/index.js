@@ -49,7 +49,7 @@ const NewPersonnelItem = ({personId}) => {
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
-  const {isTemporary, firstName, lastName, badge, shift} = person;
+  const {isTemporary, firstName, lastName, badge, shift, organization} = person;
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
@@ -60,6 +60,9 @@ const NewPersonnelItem = ({personId}) => {
         <View style={styles.line}>
           <Text style={styles.label}>{`${badge ? badge + ' ' : ''}`}</Text>
           <Text style={styles.label}>{`${shift ? shift : ''}`}</Text>
+          <Text style={styles.label}>{`${
+            organization ? organization : ''
+          }`}</Text>
         </View>
       </View>
     </TouchableOpacity>

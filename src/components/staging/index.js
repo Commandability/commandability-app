@@ -16,7 +16,11 @@ import {
   selectSelectedPersonnel,
   selectTheme,
 } from '../../redux/selectors';
-import {clearSelectedPersonnel, movePerson} from '../../redux/actions';
+import {
+  clearSelectedPersonnel,
+  movePerson,
+  dealertPersonToGroup,
+} from '../../redux/actions';
 import {staticLocations} from '../../utils/locations';
 import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
@@ -39,6 +43,15 @@ const Staging = () => {
   const onStagingPressed = () => {
     // set each selected personId's new locationId to STAGING
     selectedPersonnel.forEach((person) => {
+      const {personId} = person;
+
+      if (selectedGroup) {
+        const {alerted} = selectedGroup;
+        if (alerted.includes(personId)) {
+          dispatch(dealertPersonToGroup(selectedGroup, person));
+        }
+      }
+
       dispatch(
         movePerson(
           person,

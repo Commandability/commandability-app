@@ -73,7 +73,7 @@ const RemovePersonnel = () => {
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
-  const renderOverlay = selectedLocationId == STAGING.locationId;
+  const renderOverlay = selectedLocationId === STAGING.locationId;
 
   return (
     <View style={styles.container}>

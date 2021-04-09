@@ -10,16 +10,19 @@ export const selectGroupByLocationId = (state, locationId) =>
 
 export const selectGroups = (state) => groups.selectGroups(state.groups);
 
-export const selectAlertedGroups = createSelector(selectGroups, (groups) => {
-  const alertedGroups = [];
-  Object.keys(pageLocationIds).forEach((page) => {
-    pageLocationIds[page].locationIds.forEach((locationId) => {
-      const {alerted} = groups[locationId];
+export const selectAlertedGroups = createSelector(
+  selectGroups,
+  (selectedGroups) => {
+    const alertedGroups = [];
+    Object.keys(pageLocationIds).forEach((page) => {
+      pageLocationIds[page].locationIds.forEach((locationId) => {
+        const {alerted} = selectedGroups[locationId];
 
-      if (alerted.length) {
-        alertedGroups.push(locationId);
-      }
+        if (alerted.length) {
+          alertedGroups.push(locationId);
+        }
+      });
     });
-  });
-  return alertedGroups;
-});
+    return alertedGroups;
+  },
+);

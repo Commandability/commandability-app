@@ -60,9 +60,9 @@ const EndScreen = ({navigation}) => {
       return;
     }
 
-    reportData['LOCATION'] = location;
+    reportData.LOCATION = location;
     if (notes) {
-      reportData['NOTES'] = notes;
+      reportData.NOTES = notes;
     }
 
     const {navigate} = navigation;
@@ -88,7 +88,7 @@ const EndScreen = ({navigation}) => {
           <TextInput
             style={globalStyles.input}
             autoCapitalize="none"
-            onChangeText={(location) => setLocation(location)}
+            onChangeText={(_location) => setLocation(_location)}
             value={location}
             selectionColor={colors.primary}
           />
@@ -97,7 +97,7 @@ const EndScreen = ({navigation}) => {
             style={globalStyles.multilineInput}
             autoCapitalize="none"
             multiline={true}
-            onChangeText={(notes) => setNotes(notes)}
+            onChangeText={(_notes) => setNotes(_notes)}
             value={notes}
             selectionColor={colors.primary}
           />

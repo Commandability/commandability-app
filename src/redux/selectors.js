@@ -30,6 +30,7 @@ export const selectSelectedPersonnel = createSelector(
 export const selectIsConfigurationLoaded = createSelector(
   personnel.selectPersonnel,
   groups.selectGroups,
-  (personnel, groups) =>
-    Object.keys(groups).length > 1 || Object.keys(personnel) > 1,
+  (selectedPersonnel, selectedGroups) =>
+    Object.keys(selectedGroups).length > 1 ||
+    Object.keys(selectedPersonnel) > 1,
 );

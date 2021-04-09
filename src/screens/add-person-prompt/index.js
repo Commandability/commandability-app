@@ -75,7 +75,7 @@ const AddPersonPrompt = ({navigation}) => {
               style={globalStyles.input}
               maxLength={36}
               value={firstName}
-              onChangeText={(firstName) => setFirstName(firstName)}
+              onChangeText={(_firstName) => setFirstName(_firstName)}
               selectionColor={colors.primary}
             />
             <Text style={globalStyles.label}>Last Name*</Text>
@@ -83,7 +83,7 @@ const AddPersonPrompt = ({navigation}) => {
               style={globalStyles.input}
               maxLength={36}
               value={lastName}
-              onChangeText={(lastName) => setLastName(lastName)}
+              onChangeText={(_lastName) => setLastName(_lastName)}
               selectionColor={colors.primary}
             />
             <Text style={globalStyles.label}>Badge Number</Text>
@@ -92,7 +92,7 @@ const AddPersonPrompt = ({navigation}) => {
               keyboardType={'numeric'}
               maxLength={10}
               value={badge}
-              onChangeText={(badge) => setBadge(badge)}
+              onChangeText={(_badge) => setBadge(_badge)}
               selectionColor={colors.primary}
             />
             <Text style={globalStyles.label}>Organization</Text>
@@ -100,7 +100,7 @@ const AddPersonPrompt = ({navigation}) => {
               style={globalStyles.input}
               maxLength={36}
               value={organization}
-              onChangeText={(organization) => setOrganization(organization)}
+              onChangeText={(_organization) => setOrganization(_organization)}
               selectionColor={colors.primary}
             />
             <LargeButton

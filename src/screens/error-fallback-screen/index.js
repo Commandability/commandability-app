@@ -80,7 +80,7 @@ const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
     try {
       await uploadReports();
       if (reportIsUnsaved) {
-        reportData['EMERGENCY_UPLOAD'] = 'Emergency upload: report incomplete';
+        reportData.EMERGENCY_UPLOAD = 'Emergency upload: report incomplete';
         await uploadReport(reportData);
         dispatch(resetIncident());
       }
@@ -96,7 +96,7 @@ const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
           },
         ],
       );
-    } catch (error) {
+    } catch (_error) {
       if (uploadSuccess) {
         Alert.alert(
           'Error removing reports from device',
@@ -108,7 +108,7 @@ const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
           ],
         );
       } else {
-        Alert.alert('Emergency upload failed', error, [
+        Alert.alert('Emergency upload failed', _error, [
           {
             text: 'OK',
           },

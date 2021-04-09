@@ -31,7 +31,7 @@ const Roster = () => {
         autoCapitalize="none"
         placeholder="Search"
         placeholderTextColor={colors.text.main}
-        onChangeText={(query) => setQuery(query)}
+        onChangeText={(_query) => setQuery(_query)}
         value={query}
         selectionColor={colors.primary}
       />

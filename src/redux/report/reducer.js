@@ -24,7 +24,7 @@ const logStartIncident = (action) => {
   return {
     [entryId]: {
       dateTime,
-      log: `Incident started`,
+      log: 'Incident started',
     },
   };
 };
@@ -39,17 +39,13 @@ const logEndIncident = (state, action) => {
         ...state,
         [entryId]: {
           dateTime,
-          log: `Incident ended`,
+          log: 'Incident ended',
         },
       };
 };
 
 const resumeIncident = (state) => {
-  const {
-    // eslint-disable-next-line no-unused-vars
-    [END_INCIDENT]: removed,
-    ...updatedReport
-  } = state;
+  const {[END_INCIDENT]: removed, ...updatedReport} = state;
   return updatedReport;
 };
 

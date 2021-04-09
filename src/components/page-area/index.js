@@ -79,7 +79,7 @@ const PageArea = ({initialEpoch}) => {
             routes,
           }}
           renderScene={renderScene}
-          onIndexChange={(index) => setIndex(index)}
+          onIndexChange={(_index) => setIndex(_index)}
           tabBarPosition="bottom"
           renderTabBar={renderTabBar}
         />

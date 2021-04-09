@@ -74,7 +74,7 @@ const EditGroupPrompt = ({navigation, route}) => {
             <TextInput
               style={globalStyles.input}
               autoCapitalize="none"
-              onChangeText={(newName) => setNewName(newName)}
+              onChangeText={(_newName) => setNewName(_newName)}
               value={newName}
               selectionColor={colors.primary}
             />
@@ -82,7 +82,9 @@ const EditGroupPrompt = ({navigation, route}) => {
             <View style={styles.pickerContainer}>
               <Picker
                 selectedValue={currAlertTime}
-                onValueChange={(newAlertTime) => setNewAlertTime(newAlertTime)}
+                onValueChange={(_newAlertTime) =>
+                  setNewAlertTime(_newAlertTime)
+                }
                 style={styles.picker}>
                 <Picker.Item key={0} label="Disabled" value={0} />
                 {alertTimes.map((time) => (

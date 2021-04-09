@@ -45,7 +45,7 @@ const togglePerson = (state, action) => {
   const {personId} = person;
 
   if (state.includes(personId)) {
-    return state.filter((currId) => currId != personId);
+    return state.filter((currId) => currId !== personId);
   } else {
     return state.concat(personId);
   }
@@ -70,7 +70,7 @@ const deselectPerson = (state, action) => {
     person: {personId},
   } = payload;
 
-  return state.filter((currId) => currId != personId);
+  return state.filter((currId) => currId !== personId);
 };
 
 const locationId = (state = initialState.locationId, action) => {
@@ -96,7 +96,7 @@ const groupMode = (state = initialState.groupMode, action) => {
 const selectLocationId = (state, action) => {
   const {payload} = action;
   const {
-    person: {personId, locationId},
+    person: {personId, locationId: selectedLocationId},
   } = payload;
 
   // Reset the selected locationId when the last selected person is deselected
@@ -113,7 +113,7 @@ const selectLocationId = (state, action) => {
   } else {
     return {
       personnelIds: personnelIds(state.personnelIds, action),
-      locationId,
+      locationId: selectedLocationId,
       groupMode: '',
     };
   }
@@ -122,13 +122,13 @@ const selectLocationId = (state, action) => {
 // Reset selected location and groups when a groupMode is selected
 const toggleGroupMode = (state, action) => {
   const {payload} = action;
-  const {groupMode} = payload;
+  const {groupMode: selectedGroupMode} = payload;
 
   return {
     personnelIds: initialState.personnelIds,
     locationId: initialState.locationId,
     groupMode:
-      state.groupMode && state.groupMode === groupMode ? '' : groupMode,
+      state.groupMode && state.groupMode === selectedGroupMode ? '' : groupMode,
   };
 };
 

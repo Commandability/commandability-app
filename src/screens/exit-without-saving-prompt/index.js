@@ -62,7 +62,7 @@ const ExitWithoutSavingPrompt = () => {
       dispatch(toHomeStack());
     } catch (error) {
       let message = '';
-      if (error.message == 'auth/wrong-password') {
+      if (error.message === 'auth/wrong-password') {
         message = 'Incorrect password.';
       } else {
         message = 'Unknown error.';
@@ -107,7 +107,7 @@ const ExitWithoutSavingPrompt = () => {
               style={globalStyles.input}
               autoCapitalize="none"
               secureTextEntry
-              onChangeText={(password) => setPassword(password)}
+              onChangeText={(_password) => setPassword(_password)}
               value={password}
               selectionColor={colors.primary}
             />

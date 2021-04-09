@@ -91,7 +91,6 @@ const setStack = (stack) => {
 
 const createStyleSheet = (colors) =>
   StyleSheet.create({
-    // eslint-disable-next-line react-native/no-unused-styles
     container: {
       flex: 1,
       backgroundColor: colors.background.one,

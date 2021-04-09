@@ -57,7 +57,6 @@ const removePerson = (state, action) => {
     person: {personId},
   } = payload;
 
-  // eslint-disable-next-line no-unused-vars
   const {[personId]: removed, ...updatedPersonnel} = state;
   return updatedPersonnel;
 };
@@ -108,7 +107,7 @@ const removePersonId = (state, action) => {
     person: {personId},
   } = payload;
 
-  return state.filter((currId) => currId != personId);
+  return state.filter((currId) => currId !== personId);
 };
 
 // set all locationIds in a group to staging if the group is deleted
@@ -119,48 +118,48 @@ const returnToStaging = (state, action) => {
       group: {locationId},
     },
   } = action;
-  const byId = {};
+  const _ById = {};
 
   state.allIds.forEach((personId) => {
     const person = state.byId[personId];
     if (person.locationId === locationId) {
-      byId[personId] = {
+      _ById[personId] = {
         ...person,
         locationId: STAGING.locationId,
         locationUpdateTime: currTime,
       };
     } else {
-      byId[personId] = {
+      _ById[personId] = {
         ...person,
       };
     }
   });
   return {
-    byId,
+    byId: _ById,
     allIds: allIds(state.allIds, action),
   };
 };
 
 // set all groupIds to default and locationUpdateTime to 0 at end of incident
 const resetIncident = (state) => {
-  const byId = {};
-  const allIds = [];
+  const _ById = {};
+  const _AllIds = [];
   state.allIds.forEach((personId) => {
     const person = state.byId[personId];
     const {isTemporary} = person;
     // only add a person to the reset state if they weren't added during the incident
     if (!isTemporary) {
-      byId[personId] = {
+      _ById[personId] = {
         ...person,
         locationId: ROSTER.locationId,
         locationUpdateTime: 0,
       };
-      allIds.push(personId);
+      _AllIds.push(personId);
     }
   });
   return {
-    byId,
-    allIds,
+    byId: _ById,
+    allIds: _AllIds,
   };
 };
 

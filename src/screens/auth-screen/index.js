@@ -100,7 +100,7 @@ const AuthScreen = () => {
               style={globalStyles.input}
               autoCapitalize="none"
               keyboardType="email-address"
-              onChangeText={(email) => setEmail(email)}
+              onChangeText={(_email) => setEmail(_email)}
               value={email}
               selectionColor={colors.primary}
             />
@@ -109,7 +109,7 @@ const AuthScreen = () => {
               style={globalStyles.input}
               autoCapitalize="none"
               secureTextEntry
-              onChangeText={(password) => setPassword(password)}
+              onChangeText={(_password) => setPassword(_password)}
               value={password}
               selectionColor={colors.primary}
             />

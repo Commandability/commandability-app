@@ -4,7 +4,7 @@
  * Actions to add and remove personnel, and change current group.
  */
 
-import uuidv4 from 'uuid/v4';
+ import {v4 as uuidv4} from 'uuid';
 
 import {
   ADD_PERSON,

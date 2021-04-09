@@ -10,8 +10,8 @@ import { View, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import SplashScreen from 'react-native-splash-screen';
-import AsyncStorage from '@react-native-community/async-storage';
+import RNBootSplash from "react-native-bootsplash";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   HomeScreen,
@@ -125,7 +125,7 @@ const SwitchNavigator = () => {
     if (!isReady) {
       restoreState();
     } else {
-      SplashScreen.hide();
+      RNBootSplash.hide();
     }
   }, [isReady]);
 

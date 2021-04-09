@@ -1,37 +1,26 @@
 package com.commandability;
 
-import com.facebook.react.ReactActivity;
-import com.facebook.react.ReactActivityDelegate;
-import com.facebook.react.ReactRootView;
-import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
-
+// commandability-mod: react-native-bootsplash
 import android.os.Bundle;
-import org.devio.rn.splashscreen.SplashScreen;
+
+import com.facebook.react.ReactActivity;
+// commandability-mod: react-native-bootsplash
+import com.zoontek.rnbootsplash.RNBootSplash;
 
 public class MainActivity extends ReactActivity {
+  // commandability-mod: react-native-bootsplash
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    RNBootSplash.init(R.drawable.bootsplash, MainActivity.this); // <- display the generated bootsplash.xml drawable over our MainActivity
+  }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState){
-        SplashScreen.show(this, R.style.SplashScreenTheme);
-        super.onCreate(savedInstanceState);
-    }
-
-    /**
-     * Returns the name of the main component registered from JavaScript.
-     * This is used to schedule rendering of the component.
-     */
-    @Override
-    protected String getMainComponentName() {
-        return "CommandAbility";
-    }
-
-    @Override
-    protected ReactActivityDelegate createReactActivityDelegate() {
-        return new ReactActivityDelegate(this, getMainComponentName()) {
-            @Override
-            protected ReactRootView createRootView() {
-                return new RNGestureHandlerEnabledRootView(MainActivity.this);
-            }
-        };
-    }
+  /**
+   * Returns the name of the main component registered from JavaScript. This is used to schedule
+   * rendering of the component.
+   */
+  @Override
+  protected String getMainComponentName() {
+    return "commandability";
+  }
 }

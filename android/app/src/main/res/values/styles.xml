@@ -3,15 +3,14 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:navigationBarColor">@color/primary_dark</item>
-        <item name="android:colorPrimaryDark">@color/primary_dark</item>
-        <!-- Remove white flash before splash screen https://github.com/crazycodeboy/react-native-splash-screen/issues/338 -->
-        <item name="android:windowDisablePreview">true</item>
+        <item name="android:textColor">#000000</item>
     </style>
 
-    <style name="SplashScreenTheme" parent="SplashScreen_SplashTheme">
-        <item name="android:colorPrimaryDark">@color/primary_dark</item>
-        <item name="android:navigationBarColor">@color/primary_dark</item>
+    <!-- commandability-mod: react-native-bootsplash -->
+    <!-- Add the following lines (BootTheme should inherit from AppTheme) -->
+    <style name="BootTheme" parent="AppTheme">
+        <!-- set the generated bootsplash.xml drawable as activity background -->
+        <item name="android:background">@drawable/bootsplash</item>
     </style>
 
 </resources>

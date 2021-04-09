@@ -6,8 +6,8 @@
 
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
-import AsyncStorage from '@react-native-community/async-storage';
-import uuidv4 from 'uuid/v4';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {v4 as uuidv4} from 'uuid';
 
 export const DEVICE_REPORT_LIMIT = 10;
 

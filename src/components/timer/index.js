@@ -25,7 +25,7 @@ const Timer = ({initialEpoch}) => {
     }, MS_IN_SECOND);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [initialEpoch]);
 
   const hour = ('0' + Math.floor(time / (MS_IN_SECOND * 60 * 60))).slice(-2);
   const minute = ('0' + (Math.floor(time / (MS_IN_SECOND * 60)) % 60)).slice(

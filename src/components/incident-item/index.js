@@ -38,23 +38,28 @@ const IncidentItem = ({personId}) => {
   const theme = useSelector((state) => selectTheme(state));
 
   const {locationUpdateTime} = person;
-  const {alert} = group ?? {};
 
-  const [time, setTime] = useState(Date.now() - locationUpdateTime);
+  const [minutesElapsed, setMinutesElapsed] = useState(
+    Math.floor((Date.now() - locationUpdateTime) / MS_IN_MINUTE),
+  );
+
   const [alertedItem, setAlertedItem] = useState(false);
 
   const personIsSelected = selectedPersonnel.some(
-    (person) => person.personId === personId,
+    (_person) => _person.personId === personId,
   );
-
-  const displayTime = Math.floor(time / MS_IN_MINUTE);
 
   useEffect(() => {
     let intervalID = '';
     const timeoutID = setTimeout(() => {
-      setTime(Date.now() - locationUpdateTime);
+      setMinutesElapsed(
+        Math.floor((Date.now() - locationUpdateTime) / MS_IN_MINUTE),
+      );
       intervalID = setInterval(
-        () => setTime(Date.now() - locationUpdateTime),
+        () =>
+          setMinutesElapsed(
+            Math.floor((Date.now() - locationUpdateTime) / MS_IN_MINUTE),
+          ),
         MS_IN_MINUTE,
       );
     }, MS_IN_MINUTE - ((Date.now() - locationUpdateTime) % MS_IN_MINUTE));
@@ -66,25 +71,21 @@ const IncidentItem = ({personId}) => {
   }, [locationUpdateTime]);
 
   useEffect(() => {
+    const {alert} = group ?? {};
+
     // If the item is in a group and an alert is active
-    if (alert) {
-      if (displayTime >= alert) {
-        if (!alertedItem) {
-          setAlertedItem(true);
-          dispatch(alertPersonToGroup(group, person));
-        }
-      } else if (displayTime < alert) {
-        if (alertedItem) {
-          setAlertedItem(false);
-          dispatch(dealertPersonToGroup(group, person));
-        }
+    if (alert && minutesElapsed >= alert) {
+      if (!alertedItem) {
+        setAlertedItem(true);
+        dispatch(alertPersonToGroup(group, person));
       }
-      // If an alert is no longer active but the item is alertedItem
-    } else if (alertedItem) {
-      setAlertedItem(false);
-      dispatch(dealertPersonToGroup(group, person));
+    } else {
+      if (alertedItem) {
+        dispatch(dealertPersonToGroup(group, person));
+        setAlertedItem(false);
+      }
     }
-  }, [alert, displayTime]);
+  }, [dispatch, alertedItem, group, person, minutesElapsed]);
 
   const onPress = () => {
     dispatch(togglePerson(person));
@@ -109,9 +110,9 @@ const IncidentItem = ({personId}) => {
               ]}>{`${firstName} ${lastName}`}</Text>
             <Text
               style={[
-                styles.time,
+                styles.minutesElapsed,
                 alertedItem && styles.alertText,
-              ]}>{`${displayTime}`}</Text>
+              ]}>{`${minutesElapsed}`}</Text>
           </View>
           <View style={styles.line}>
             <Text style={[styles.label, alertedItem && styles.alertText]}>{`${

@@ -20,7 +20,7 @@ import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 import createStyleSheet from './styles';
 
-const alertTimes = [5, 10, 15, 20, 25, 30];
+const alertTimes = [1, 5, 10, 15, 20, 25, 30];
 
 const EditGroupPrompt = ({navigation, route}) => {
   const dispatch = useDispatch();
@@ -73,10 +73,11 @@ const EditGroupPrompt = ({navigation, route}) => {
             <Text style={globalStyles.label}>Group name *</Text>
             <TextInput
               style={globalStyles.input}
-              autoCapitalize="none"
               onChangeText={(_newName) => setNewName(_newName)}
               value={newName}
+              maxLength={36}
               selectionColor={colors.primary}
+              disableFullscreenUI={true}
             />
             <Text style={globalStyles.label}>Group alerts</Text>
             <View style={styles.pickerContainer}>

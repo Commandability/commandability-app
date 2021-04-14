@@ -28,12 +28,13 @@ const Roster = () => {
       </View>
       <TextInput
         style={styles.queryInput}
-        autoCapitalize="none"
         placeholder="Search"
         placeholderTextColor={colors.text.main}
         onChangeText={(_query) => setQuery(_query)}
         value={query}
+        maxLength={36}
         selectionColor={colors.primary}
+        disableFullscreenUI={true}
       />
       <RosterList query={query} />
     </View>

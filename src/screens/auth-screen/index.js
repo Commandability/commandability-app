@@ -98,20 +98,22 @@ const AuthScreen = () => {
             <Text style={globalStyles.label}>Email</Text>
             <TextInput
               style={globalStyles.input}
-              autoCapitalize="none"
               keyboardType="email-address"
               onChangeText={(_email) => setEmail(_email)}
               value={email}
+              maxLength={48}
               selectionColor={colors.primary}
+              disableFullscreenUI={true}
             />
             <Text style={globalStyles.label}>Password</Text>
             <TextInput
               style={globalStyles.input}
-              autoCapitalize="none"
               secureTextEntry
               onChangeText={(_password) => setPassword(_password)}
               value={password}
+              maxLength={36}
               selectionColor={colors.primary}
+              disableFullscreenUI={true}
             />
             <LargeButton
               text="Sign in"

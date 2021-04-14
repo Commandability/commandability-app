@@ -73,35 +73,39 @@ const AddPersonPrompt = ({navigation}) => {
             <Text style={globalStyles.label}>First Name*</Text>
             <TextInput
               style={globalStyles.input}
-              maxLength={36}
-              value={firstName}
               onChangeText={(_firstName) => setFirstName(_firstName)}
+              value={firstName}
+              maxLength={36}
               selectionColor={colors.primary}
+              disableFullscreenUI={true}
             />
             <Text style={globalStyles.label}>Last Name*</Text>
             <TextInput
               style={globalStyles.input}
-              maxLength={36}
-              value={lastName}
               onChangeText={(_lastName) => setLastName(_lastName)}
+              value={lastName}
+              maxLength={36}
               selectionColor={colors.primary}
+              disableFullscreenUI={true}
             />
             <Text style={globalStyles.label}>Badge Number</Text>
             <TextInput
               style={globalStyles.input}
               keyboardType={'numeric'}
-              maxLength={10}
-              value={badge}
               onChangeText={(_badge) => setBadge(_badge)}
+              value={badge}
+              maxLength={15}
               selectionColor={colors.primary}
+              disableFullscreenUI={true}
             />
             <Text style={globalStyles.label}>Organization</Text>
             <TextInput
               style={globalStyles.input}
-              maxLength={36}
-              value={organization}
               onChangeText={(_organization) => setOrganization(_organization)}
+              value={organization}
+              maxLength={36}
               selectionColor={colors.primary}
+              disableFullscreenUI={true}
             />
             <LargeButton
               text="Add person"

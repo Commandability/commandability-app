@@ -37,7 +37,7 @@ const IncidentScreen = () => {
     if (!reportIsActive) {
       dispatch(startIncident(initialEpoch));
     }
-  }, []);
+  }, [dispatch, reportIsActive, initialEpoch]); // Will this now rerun when incident screen remounts
 
   const onEndIncidentPressed = () => {
     dispatch(endIncident());

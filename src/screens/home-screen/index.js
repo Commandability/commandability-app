@@ -65,7 +65,7 @@ const HomeScreen = () => {
     if (reportIsComplete) {
       dispatch(toEndStack());
     }
-  }, [reportIsActive, reportIsComplete]);
+  }, [dispatch, reportIsActive, reportIsComplete]);
 
   useEffect(() => {
     const getNumberOfReportsEffect = async () => {

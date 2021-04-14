@@ -38,13 +38,10 @@ export default (colors) =>
       textAlign: 'left',
       color: colors.text.main,
     },
-    time: {
+    minutesElapsed: {
       flex: 1,
       textAlign: 'right',
       color: colors.text.disabled,
-    },
-    timeWarning: {
-      color: colors.primary,
     },
     label: {
       textAlign: 'left',

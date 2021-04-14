@@ -32,7 +32,7 @@ const EndScreen = ({navigation}) => {
 
   useEffect(() => {
     dispatch(endIncident()); // log incident end
-  }, []);
+  }, [dispatch]);
 
   const onResumeIncidentPressed = () => {
     Alert.alert('Are you sure you want to resume the incident?', '', [
@@ -87,19 +87,21 @@ const EndScreen = ({navigation}) => {
           <Text style={globalStyles.label}>Location *</Text>
           <TextInput
             style={globalStyles.input}
-            autoCapitalize="none"
             onChangeText={(_location) => setLocation(_location)}
             value={location}
+            maxLength={36}
             selectionColor={colors.primary}
+            disableFullscreenUI={true}
           />
           <Text style={globalStyles.label}>Notes</Text>
           <TextInput
             style={globalStyles.multilineInput}
-            autoCapitalize="none"
             multiline={true}
             onChangeText={(_notes) => setNotes(_notes)}
             value={notes}
+            maxLength={36}
             selectionColor={colors.primary}
+            disableFullscreenUI={true}
           />
           <LargeButton
             text="Resume incident"

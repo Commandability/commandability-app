@@ -102,7 +102,7 @@ const createGroups = (action) => {
       groups[locationId] = {
         locationId,
         name: defaultName,
-        isVisible: defaultIsVisible ?? true,
+        isVisible: defaultIsVisible ?? false,
         alert: defaultAlert ?? 0,
         alerted: [],
         defaultName,

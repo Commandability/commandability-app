@@ -13,6 +13,7 @@ import {
   MOVE_PERSON,
   EDIT_GROUP,
   TOGGLE_GROUP,
+  ALERT_PERSON_TO_GROUP,
 } from '../types';
 import {staticLocations} from '../../utils/locations';
 
@@ -64,8 +65,8 @@ const logRemovePerson = (state, action) => {
         ...state,
         [entryId]: {
           dateTime,
-          log: `${badge ? badge + ' - ' : ''}${firstName} ${lastName} ${
-            organization ? `(${organization}) ` : ''
+          log: `${badge ? badge + ' - ' : ''}${firstName} ${lastName}${
+            organization ? ` (${organization}) ` : ' '
           }removed from incident`,
         },
       }
@@ -88,13 +89,14 @@ const logMovePerson = (state, action) => {
     prevLocationId === NEW_PERSONNEL.locationId &&
     nextLocationId === STAGING.locationId
   ) {
-    log = `${
-      badge ? badge + ' - ' : ''
-    }${firstName} ${lastName} added to incident`;
+    log = `${badge ? badge + ' - ' : ''}${firstName} ${lastName}${
+      organization ? ` (${organization}) ` : ' '
+    } added to incident`;
   } else if (
     prevLocationId === STAGING.locationId &&
     nextLocationId === ROSTER.locationId
   ) {
+    // Does not include organization because added personnel are removed via removePerson, not movePerson
     log = `${
       badge ? badge + ' - ' : ''
     }${firstName} ${lastName} removed from incident`;
@@ -106,8 +108,8 @@ const logMovePerson = (state, action) => {
       prevLocationId !== ROSTER.locationId &&
       nextLocationId !== NEW_PERSONNEL.locationId
     ) {
-      log = `${badge ? badge + ' - ' : ''}${firstName} ${lastName} ${
-        organization ? `(${organization}) ` : ''
+      log = `${badge ? badge + ' - ' : ''}${firstName} ${lastName}${
+        organization ? `( ${organization}) ` : ' '
       }moved from ${prevName} to ${nextName}`;
     }
   }
@@ -121,11 +123,12 @@ const logMovePerson = (state, action) => {
   };
 };
 
-const logSetName = (state, action) => {
+const logEditGroup = (state, action) => {
   const {payload} = action;
   const {
     group: {name},
-    newName,
+    name: newName,
+    alert,
     entryId,
     dateTime,
   } = payload;
@@ -133,7 +136,9 @@ const logSetName = (state, action) => {
     ...state,
     [entryId]: {
       dateTime,
-      log: `Renamed group ${name} to ${newName}`,
+      log: `Edited group ${name}: [${newName ? ` name: ${newName}, ` : ''} ${
+        alert ? ` alert: ${alert}, ` : ''
+      }]`,
     },
   };
 };
@@ -155,6 +160,27 @@ const logToggleGroup = (state, action) => {
   };
 };
 
+const logAlertPersonToGroup = (state, action) => {
+  const {payload} = action;
+  const {
+    person: {firstName, lastName, badge, organization},
+    group: {alert},
+    entryId,
+    dateTime,
+  } = payload;
+  return {
+    ...state,
+    [entryId]: {
+      dateTime,
+      // If isVisible is currently true, it is being toggled to false
+      log: `Alert fired at ${alert} minutes for ${
+        badge ? badge + ' - ' : ''
+      }${firstName} ${lastName}${organization ? ` (${organization}) ` : ''}
+      }`,
+    },
+  };
+};
+
 export const selectReportData = (state) => state;
 
 export default (state = {}, action) => {
@@ -172,9 +198,11 @@ export default (state = {}, action) => {
     case MOVE_PERSON:
       return logMovePerson(state, action);
     case EDIT_GROUP:
-      return logSetName(state, action);
+      return logEditGroup(state, action);
     case TOGGLE_GROUP:
       return logToggleGroup(state, action);
+    case ALERT_PERSON_TO_GROUP:
+      return logAlertPersonToGroup(state, action);
     default:
       return state;
   }

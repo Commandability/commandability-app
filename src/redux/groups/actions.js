@@ -30,9 +30,11 @@ export const editGroup = (group, settings) => {
 };
 
 export const alertPersonToGroup = (group, person) => {
+  const entryId = uuidv4(); // for storage in the report reducer
+  const dateTime = new Date().toLocaleString();
   return {
     type: ALERT_PERSON_TO_GROUP,
-    payload: {group, person},
+    payload: {entryId, dateTime, group, person},
   };
 };
 

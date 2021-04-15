@@ -16,8 +16,8 @@ import {
   selectInitialEpoch,
   selectTheme,
 } from '../../redux/selectors';
-import {startIncident, endIncident} from '../../redux/actions';
-import {START_INCIDENT, END_INCIDENT} from '../../redux/types';
+import {startIncident} from '../../redux/actions';
+import {START_INCIDENT} from '../../redux/types';
 import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
@@ -29,19 +29,14 @@ const IncidentScreen = () => {
 
   const [initialEpoch, setInitialEpoch] = useState(Date.now());
 
-  const reportIsActive =
-    reportData[START_INCIDENT] && !reportData[END_INCIDENT];
+  const reportIsActive = reportData[START_INCIDENT];
 
   useEffect(() => {
     // prevent start incident from wiping report when IncidentScreen is re-mounted
     if (!reportIsActive) {
       dispatch(startIncident(initialEpoch));
     }
-  }, [dispatch, reportIsActive, initialEpoch]); // Will this now rerun when incident screen remounts
-
-  const onEndIncidentPressed = () => {
-    dispatch(endIncident());
-  };
+  }, [dispatch, reportIsActive, initialEpoch]);
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
@@ -67,7 +62,6 @@ const IncidentScreen = () => {
           </View>
         </View>
         <BottomBar
-          endHandler={onEndIncidentPressed}
           initialEpoch={reportIsActive ? activeInitialEpoch : initialEpoch}
         />
       </View>

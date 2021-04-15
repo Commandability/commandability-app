@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 
 import SmallButton from '../small-button';
 import {selectPersonnel, selectTheme} from '../../redux/selectors';
-import {toggleTheme, toEndStack} from '../../redux/actions';
+import {toggleTheme, toEndStack, endIncident} from '../../redux/actions';
 import Timer from '../timer';
 import {staticLocations} from '../../utils/locations';
 import {DARK} from '../../utils/themes';
@@ -52,6 +52,7 @@ const BottomBar = ({initialEpoch}) => {
         {
           text: 'OK',
           onPress: () => {
+            dispatch(endIncident()); // log incident end
             dispatch(toEndStack());
           },
         },

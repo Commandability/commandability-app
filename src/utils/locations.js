@@ -5,7 +5,7 @@
 export const pageLocationIds = {
   PAGE_ONE: {
     pageId: 'PAGE_ONE',
-    title: 'PAGE ONE',
+    title: 'ONE',
     locationIds: [
       'GROUP_ONE',
       'GROUP_TWO',
@@ -17,7 +17,7 @@ export const pageLocationIds = {
   },
   PAGE_TWO: {
     pageId: 'PAGE_TWO',
-    title: 'PAGE TWO',
+    title: 'TWO',
     locationIds: [
       'GROUP_SEVEN',
       'GROUP_EIGHT',
@@ -29,7 +29,7 @@ export const pageLocationIds = {
   },
   PAGE_THREE: {
     pageId: 'PAGE_THREE',
-    title: 'PAGE THREE',
+    title: 'THREE',
     locationIds: [
       'GROUP_THIRTEEN',
       'GROUP_FOURTEEN',
@@ -41,7 +41,7 @@ export const pageLocationIds = {
   },
   PAGE_FOUR: {
     pageId: 'PAGE_FOUR',
-    title: 'PAGE FOUR',
+    title: 'FOUR',
     locationIds: [
       'GROUP_NINETEEN',
       'GROUP_TWENTY',
@@ -53,7 +53,7 @@ export const pageLocationIds = {
   },
   PAGE_FIVE: {
     pageId: 'PAGE_FIVE',
-    title: 'PAGE FIVE',
+    title: 'FIVE',
     locationIds: [
       'GROUP_TWENTY-FIVE',
       'GROUP_TWENTY-SIX',
@@ -65,7 +65,7 @@ export const pageLocationIds = {
   },
   PAGE_SIX: {
     pageId: 'PAGE_SIX',
-    title: 'PAGE SIX',
+    title: 'SIX',
     locationIds: [
       'GROUP_THIRTY-ONE',
       'GROUP_THIRTY-TWO',

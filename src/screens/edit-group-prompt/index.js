@@ -20,7 +20,7 @@ import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 import createStyleSheet from './styles';
 
-const alertTimes = [1, 5, 10, 15, 20, 25, 30];
+const alertTimes = [5, 10, 15, 20, 25, 30];
 
 const EditGroupPrompt = ({navigation, route}) => {
   const dispatch = useDispatch();

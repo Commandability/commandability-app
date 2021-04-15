@@ -4,7 +4,7 @@
  * Manages displaying the end screen after an incident.
  */
 
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Alert, View, Text, TextInput} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -14,11 +14,7 @@ import PropTypes from 'prop-types';
 import {LargeButton} from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import {selectReportData, selectTheme} from '../../redux/selectors';
-import {
-  endIncident,
-  resumeIncident,
-  toIncidentStack,
-} from '../../redux/actions';
+import {resumeIncident, toIncidentStack} from '../../redux/actions';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 
@@ -29,10 +25,6 @@ const EndScreen = ({navigation}) => {
 
   const [location, setLocation] = useState('');
   const [notes, setNotes] = useState('');
-
-  useEffect(() => {
-    dispatch(endIncident()); // log incident end
-  }, [dispatch]);
 
   const onResumeIncidentPressed = () => {
     Alert.alert('Are you sure you want to resume the incident?', '', [

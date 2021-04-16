@@ -20,7 +20,7 @@ import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 import createStyleSheet from './styles';
 
-const alertTimes = [5, 10, 15, 20, 25, 30];
+const alerts = [5, 10, 15, 20, 25, 30];
 
 const EditGroupPrompt = ({navigation, route}) => {
   const dispatch = useDispatch();
@@ -28,29 +28,39 @@ const EditGroupPrompt = ({navigation, route}) => {
 
   const {
     params: {
-      group: {name: currName, alert: currAlertTime},
+      group: {name: currName, alert: currAlert},
     },
   } = route;
 
   const [newName, setNewName] = useState(currName);
-  const [newAlertTime, setNewAlertTime] = useState(currAlertTime);
+  const [newAlert, setNewAlert] = useState(currAlert);
 
   const onSavePressed = () => {
-    if (newName || newAlertTime) {
-      const {goBack} = navigation;
-      const {
-        params: {group},
-      } = route;
-
-      dispatch(editGroup(group, {name: newName, alert: newAlertTime}));
-      goBack();
-    } else {
-      Alert.alert('Please enter a new name', '', [
+    if (!newName) {
+      Alert.alert('Please enter a group name', '', [
         {
           text: 'OK',
         },
       ]);
+
+      return;
     }
+
+    const {
+      params: {group},
+    } = route;
+
+    if (currName !== newName || currAlert !== newAlert) {
+      dispatch(
+        editGroup(group, {
+          ...(newName !== currName && {name: newName}),
+          ...(newAlert !== currAlert && {alert: newAlert}),
+        }),
+      );
+    }
+
+    const {goBack} = navigation;
+    goBack();
   };
 
   const colors = themeSelector(theme);
@@ -82,13 +92,11 @@ const EditGroupPrompt = ({navigation, route}) => {
             <Text style={globalStyles.label}>Group alerts</Text>
             <View style={styles.pickerContainer}>
               <Picker
-                selectedValue={currAlertTime}
-                onValueChange={(_newAlertTime) =>
-                  setNewAlertTime(_newAlertTime)
-                }
+                selectedValue={currAlert}
+                onValueChange={(_newAlert) => setNewAlert(_newAlert)}
                 style={styles.picker}>
                 <Picker.Item key={0} label="Disabled" value={0} />
-                {alertTimes.map((time) => (
+                {alerts.map((time) => (
                   <Picker.Item
                     key={time}
                     label={`${time} minutes`}

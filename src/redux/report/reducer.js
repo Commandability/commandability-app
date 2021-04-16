@@ -127,8 +127,7 @@ const logEditGroup = (state, action) => {
   const {payload} = action;
   const {
     group: {name},
-    name: newName,
-    alert,
+    settings: {name: newName, alert: newAlert},
     entryId,
     dateTime,
   } = payload;
@@ -136,9 +135,17 @@ const logEditGroup = (state, action) => {
     ...state,
     [entryId]: {
       dateTime,
-      log: `Edited group ${name}: [${newName ? ` name: ${newName}, ` : ''} ${
-        alert ? ` alert: ${alert}, ` : ''
-      }]`,
+      log: `Edited group ${name} settings: 
+      [
+        ${newName ? ` name: ${newName}, ` : ''}
+        ${
+          newAlert || newAlert === 0
+            ? newAlert === 0
+              ? ' alert: disabled, '
+              : ` alert: ${newAlert}, `
+            : ''
+        }
+      ]`,
     },
   };
 };
@@ -173,10 +180,9 @@ const logAlertPersonToGroup = (state, action) => {
     [entryId]: {
       dateTime,
       // If isVisible is currently true, it is being toggled to false
-      log: `Alert fired at ${alert} minutes for ${
+      log: `Alert at ${alert} minutes for ${
         badge ? badge + ' - ' : ''
-      }${firstName} ${lastName}${organization ? ` (${organization}) ` : ''}
-      }`,
+      }${firstName} ${lastName}${organization ? ` (${organization}) ` : ''}`,
     },
   };
 };

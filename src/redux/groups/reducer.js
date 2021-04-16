@@ -19,16 +19,14 @@ const editGroup = (state, action) => {
   const {
     group,
     group: {locationId},
-    name,
-    alert,
+    settings,
   } = payload;
 
   return {
     ...state,
     [locationId]: {
       ...group,
-      name,
-      alert,
+      ...settings,
     },
   };
 };

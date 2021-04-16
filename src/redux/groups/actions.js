@@ -17,15 +17,10 @@ import {
 export const editGroup = (group, settings) => {
   const entryId = uuidv4(); // for storage in the report reducer
   const dateTime = new Date().toLocaleString();
-  const {
-    name,
-    alert,
-    // add additional settings here
-  } = settings;
 
   return {
     type: EDIT_GROUP,
-    payload: {entryId, dateTime, group, name, alert},
+    payload: {entryId, dateTime, group, settings},
   };
 };
 

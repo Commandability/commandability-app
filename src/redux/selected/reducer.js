@@ -9,6 +9,7 @@ import {
   TOGGLE_PERSON,
   SELECT_PERSON,
   DESELECT_PERSON,
+  REMOVE_PERSON,
   CLEAR_SELECTED_PERSONNEL,
   TOGGLE_GROUP_MODE,
   CLEAR_SELECTED_GROUP_MODE,
@@ -29,6 +30,7 @@ const personnelIds = (state = initialState.personnelIds, action) => {
       return selectPerson(state, action);
     case DESELECT_PERSON:
       return deselectPerson(state, action);
+    case REMOVE_PERSON:
     case CLEAR_SELECTED_PERSONNEL:
     case RESET_INCIDENT:
       return initialState.personnelIds;
@@ -75,8 +77,9 @@ const deselectPerson = (state, action) => {
 
 const locationId = (state = initialState.locationId, action) => {
   switch (action.type) {
-    case RESET_INCIDENT:
+    case REMOVE_PERSON:
     case CLEAR_SELECTED_PERSONNEL:
+    case RESET_INCIDENT:
       return initialState.locationId;
     default:
       return state;

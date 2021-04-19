@@ -15,7 +15,7 @@ import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 import GroupOptions from '../group-options';
 import Page from '../page';
-import {pageLocationIds} from '../../utils/locations.js';
+import {pageLocations} from '../../utils/locations.js';
 
 const PageArea = ({initialEpoch}) => {
   const theme = useSelector((state) => selectTheme(state));
@@ -24,9 +24,9 @@ const PageArea = ({initialEpoch}) => {
   const [index, setIndex] = useState(0);
   const [alertedPages, setAlertedPages] = useState([]);
   const [routes] = useState(
-    Object.keys(pageLocationIds).map((page) => ({
-      key: pageLocationIds[page].pageId,
-      title: pageLocationIds[page].title,
+    Object.keys(pageLocations).map((page) => ({
+      key: pageLocations[page].pageId,
+      title: pageLocations[page].name,
     })),
   );
 
@@ -37,15 +37,15 @@ const PageArea = ({initialEpoch}) => {
 
   useEffect(() => {
     setAlertedPages([]);
-    Object.keys(pageLocationIds).forEach((key) => {
+    Object.keys(pageLocations).forEach((key) => {
       if (
-        pageLocationIds[key].locationIds.some((locationId) =>
+        pageLocations[key].locationIds.some((locationId) =>
           alertedGroups.includes(locationId),
         )
       ) {
         setAlertedPages((prevPages) => [
           ...prevPages,
-          pageLocationIds[key].pageId,
+          pageLocations[key].pageId,
         ]);
       }
     });

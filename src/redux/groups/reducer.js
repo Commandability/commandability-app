@@ -12,7 +12,7 @@ import {
   CREATE_GROUPS,
   RESET_INCIDENT,
 } from '../types';
-import {pageLocationIds} from '../../utils/locations.js';
+import {pageLocations} from '../../utils/locations.js';
 
 const editGroup = (state, action) => {
   const {payload} = action;
@@ -90,22 +90,24 @@ const createGroups = (action) => {
   const {groups: defaultGroups} = payload;
 
   const groups = {};
-  Object.keys(pageLocationIds).forEach((page) => {
-    pageLocationIds[page].locationIds.forEach((locationId) => {
+  Object.keys(pageLocations).forEach((page) => {
+    pageLocations[page].locationIds.forEach((locationId) => {
       const {
         name: defaultName,
         isVisible: defaultIsVisible,
         alert: defaultAlert,
-      } = defaultGroups[locationId];
+      } = defaultGroups[locationId] ?? {};
+
       groups[locationId] = {
         locationId,
-        name: defaultName,
+        name: defaultName?.toUpperCase() ?? locationId.replace(/_/g, ' '), // Replace underscore with space
         isVisible: defaultIsVisible ?? false,
         alert: defaultAlert ?? 0,
         alerted: [],
-        defaultName,
-        defaultIsVisible,
-        defaultAlert,
+        defaultName:
+          defaultName?.toUpperCase() ?? locationId.replace(/_/g, ' '), // Replace underscore with space
+        defaultIsVisible: defaultIsVisible ?? false,
+        defaultAlert: defaultAlert ?? 0,
       };
     });
   });
@@ -116,8 +118,9 @@ const createGroups = (action) => {
 // Reset group settings to defaults
 const resetIncident = (state) => {
   const groups = {};
-  Object.keys(pageLocationIds).forEach((page) => {
-    pageLocationIds[page].locationIds.forEach((locationId) => {
+
+  Object.keys(pageLocations).forEach((page) => {
+    pageLocations[page].locationIds.forEach((locationId) => {
       const group = state[locationId];
       groups[locationId] = {
         ...group,

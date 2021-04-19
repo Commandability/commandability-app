@@ -3,7 +3,7 @@
 import {createSelector} from 'reselect';
 
 import * as groups from './reducer';
-import {pageLocationIds} from '../../utils/locations.js';
+import {pageLocations} from '../../utils/locations.js';
 
 export const selectGroupByLocationId = (state, locationId) =>
   groups.selectGroupByLocationId(state.groups, locationId);
@@ -14,8 +14,8 @@ export const selectAlertedGroups = createSelector(
   selectGroups,
   (selectedGroups) => {
     const alertedGroups = [];
-    Object.keys(pageLocationIds).forEach((page) => {
-      pageLocationIds[page].locationIds.forEach((locationId) => {
+    Object.keys(pageLocations).forEach((page) => {
+      pageLocations[page].locationIds.forEach((locationId) => {
         const {alerted} = selectedGroups[locationId];
 
         if (alerted.length) {

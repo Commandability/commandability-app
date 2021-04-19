@@ -38,41 +38,6 @@ export const generateReport = (reportData) => {
   return report;
 };
 
-export const uploadReport = async (reportData) => {
-  try {
-    const {
-      currentUser: {uid},
-    } = auth();
-    const uploadId = uuidv4();
-
-    const report = generateReport(reportData);
-
-    // Upload report
-    const uploadPath = `/users/${uid}/${uploadId}`;
-    let storageRef = storage().ref();
-    let reportRef = storageRef.child(uploadPath);
-    await reportRef.putString(report);
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
-export const saveReport = async (reportData) => {
-  try {
-    const {
-      currentUser: {uid},
-    } = auth();
-    const reportId = uuidv4();
-
-    const report = generateReport(reportData);
-
-    // Save report
-    await AsyncStorage.setItem(`@CAA/${uid}/reports/${reportId}`, report);
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
 // avoid the promise constructor anti-pattern: a promise's then() clause always returns a new promise
 // https://stackoverflow.com/questions/43036229/is-it-an-anti-pattern-to-use-async-await-inside-of-a-new-promise-constructor/43050114
 const getAllReportKeys = async () => {
@@ -105,6 +70,41 @@ export const deleteAllReports = async () => {
   }
 };
 
+export const saveReport = async (reportData) => {
+  try {
+    const {
+      currentUser: {uid},
+    } = auth();
+    const reportId = uuidv4();
+
+    const report = generateReport(reportData);
+
+    // Save report
+    await AsyncStorage.setItem(`@CAA/${uid}/reports/${reportId}`, report);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const uploadReport = async (reportData) => {
+  try {
+    const {
+      currentUser: {uid},
+    } = auth();
+    const uploadId = uuidv4();
+
+    const report = generateReport(reportData);
+
+    // Upload report
+    const uploadPath = `/users/${uid}/reports/${uploadId}`;
+    let storageRef = storage().ref();
+    let reportRef = storageRef.child(uploadPath);
+    await reportRef.putString(report);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 export const uploadReports = async () => {
   try {
     const reportKeys = await getAllReportKeys();
@@ -119,7 +119,7 @@ export const uploadReports = async () => {
     if (currentUser) {
       const uploadPromises = reports.map((report) => {
         const uploadId = uuidv4();
-        const uploadPath = `/users/${uid}/${uploadId}`;
+        const uploadPath = `/users/${uid}/reports/${uploadId}`;
         let storageRef = storage().ref();
         let reportRef = storageRef.child(uploadPath);
         return reportRef.putString(report);

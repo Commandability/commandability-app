@@ -8,14 +8,14 @@ import React from 'react';
 import {View} from 'react-native';
 import PropTypes from 'prop-types';
 
-import {pageLocationIds} from '../../utils/locations.js';
+import {pageLocations} from '../../utils/locations.js';
 import Group from '../group';
 import styles from './styles';
 
-const Page = ({route: {key}}) => {
+const Page = ({route: {key: page}}) => {
   return (
     <View style={styles.container}>
-      {pageLocationIds[key].locationIds.map((locationId) => (
+      {pageLocations[page].locationIds.map((locationId) => (
         <Group key={locationId} locationId={locationId} />
       ))}
     </View>

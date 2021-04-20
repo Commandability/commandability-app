@@ -1,8 +1,7 @@
 /**
  * RemovePersonnel Component
  *
- * This component handles removing personnel from the staging list
- *
+ * Handles removing personnel from the staging list
  */
 
 import React from 'react';
@@ -51,9 +50,9 @@ const RemovePersonnel = () => {
             selectedPersonnel.forEach((person) => {
               const {isTemporary} = person;
               isTemporary
-                ? // remove each temporary selected personId
+                ? // Remove each temporary selected personId
                   dispatch(removePerson(person))
-                : // set each selected personId's new locationId to ROSTER
+                : // Set each selected personId's new locationId to ROSTER
                   dispatch(
                     movePerson(
                       person,

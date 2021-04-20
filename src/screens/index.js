@@ -1,9 +1,3 @@
-/**
- * Screens
- *
- * Export all app screens and prompts.
- */
-
 import AddPersonPrompt from './add-person-prompt';
 import AddPersonnelPrompt from './add-personnel-prompt';
 import AuthScreen from './auth-screen';

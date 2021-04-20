@@ -1,4 +1,6 @@
-// Report selectors
+/**
+ * Report selectors
+ */
 
 import * as report from './reducer';
 

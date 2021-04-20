@@ -1,7 +1,7 @@
 /**
  * EndScreen component
  *
- * Manages displaying the end screen after an incident.
+ * Add location and notes to report
  */
 
 import React, {useState} from 'react';
@@ -91,7 +91,7 @@ const EndScreen = ({navigation}) => {
             multiline={true}
             onChangeText={(_notes) => setNotes(_notes)}
             value={notes}
-            maxLength={36}
+            maxLength={1024}
             selectionColor={colors.primary}
             disableFullscreenUI={true}
           />

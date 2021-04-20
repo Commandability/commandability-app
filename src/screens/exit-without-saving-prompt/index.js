@@ -1,7 +1,5 @@
 /**
  * ExitWithoutSavingPrompt component
- *
- * Manages exiting the incident without saving.
  */
 
 import React, {useState} from 'react';
@@ -58,7 +56,7 @@ const ExitWithoutSavingPrompt = () => {
     );
     try {
       await currentUser.reauthenticateWithCredential(credential);
-      dispatch(resetIncident()); // reset personnel locations and group settings, remove all temporary personnel from state
+      dispatch(resetIncident()); // Reset personnel locations and group settings, remove all temporary personnel from state
       dispatch(toHomeStack());
     } catch (error) {
       let message = '';

@@ -1,7 +1,7 @@
 /**
  * Time Reducer
  *
- * Reducers to track certain timers on the App.
+ * Track the start time of the incident
  */
 
 import {START_INCIDENT, RESET_INCIDENT} from '../types';

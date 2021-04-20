@@ -1,7 +1,5 @@
 /**
  * SavePrompt component
- *
- * Manages displaying save and exit report options after an incident.
  */
 
 import React, {useState, useEffect} from 'react';
@@ -77,7 +75,7 @@ const SavePrompt = ({route, navigation}) => {
             try {
               await saveReport(reportData);
               setLoading(false);
-              // reset personnel locations and group settings, remove all temporary personnel from state
+              // Reset personnel locations and group settings, remove all temporary personnel from state
               dispatch(resetIncident());
               dispatch(toHomeStack());
             } catch (error) {
@@ -144,7 +142,7 @@ const SavePrompt = ({route, navigation}) => {
         );
       }
       setLoading(false);
-      // reset personnel locations and group settings, remove all temporary personnel from state
+      // Reset personnel locations and group settings, remove all temporary personnel from state
       dispatch(resetIncident());
       dispatch(toHomeStack());
     } catch (error) {

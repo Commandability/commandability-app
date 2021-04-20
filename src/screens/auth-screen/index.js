@@ -1,7 +1,5 @@
 /**
- * AuthScreen component
- *
- * Manages displaying the login page.
+ * AuthScreen Component
  */
 
 import React, {useState} from 'react';

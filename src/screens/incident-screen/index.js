@@ -1,7 +1,5 @@
 /**
  * IncidentScreen component
- *
- * Manages displaying the incident screen.
  */
 
 import React, {useState, useEffect} from 'react';
@@ -32,7 +30,7 @@ const IncidentScreen = () => {
   const reportIsActive = reportData[START_INCIDENT];
 
   useEffect(() => {
-    // prevent start incident from wiping report when IncidentScreen is re-mounted
+    // Prevent start incident from wiping report when IncidentScreen is re-mounted
     if (!reportIsActive) {
       dispatch(startIncident(initialEpoch));
     }

@@ -1,7 +1,7 @@
 /**
  * RosterItem Component
  *
- * Manages displaying a person in a the roster and sets a person's locationId in redux to NEW_PERSONNEL when selected.
+ * Displays a person in a the roster and sets a person's locationId in redux to NEW_PERSONNEL when selected
  */
 
 import React from 'react';
@@ -45,7 +45,6 @@ const RosterItem = ({personId}) => {
   );
 };
 
-// props validation
 RosterItem.propTypes = {
   personId: PropTypes.string, // the current person
 };

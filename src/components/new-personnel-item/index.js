@@ -1,7 +1,7 @@
 /**
  * NewPersonnelItem Component
  *
- * Manages displaying a person in a the new personnel list and sets a person's locationId in redux to STAGING when selected.
+ * Displays a person in a the new personnel list and sets a person's locationId in redux to STAGING when selected
  */
 
 import React from 'react';
@@ -69,9 +69,8 @@ const NewPersonnelItem = ({personId}) => {
   );
 };
 
-// props validation
 NewPersonnelItem.propTypes = {
-  personId: PropTypes.string, // the current person
+  personId: PropTypes.string,
 };
 
 export default React.memo(NewPersonnelItem);

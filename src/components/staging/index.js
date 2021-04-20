@@ -1,8 +1,7 @@
 /**
  * Staging Component
  *
- * This component displays each of the six main groups, each group's relevant data
- * list and handles isVisible control of groups
+ * Displays the staging list and handles its selection
  */
 
 import React from 'react';

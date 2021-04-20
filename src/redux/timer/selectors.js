@@ -1,4 +1,6 @@
-// Time selectors
+/**
+ * Time selectors
+ */
 
 import * as timer from './reducer';
 

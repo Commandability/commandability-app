@@ -1,7 +1,7 @@
 /**
  * SmallButton Component
  *
- * This component handles small buttons
+ * Used for all small buttons
  */
 
 import React from 'react';
@@ -51,7 +51,6 @@ const SmallButton = ({text, onPress, type, selected}) => {
   }
 };
 
-// props validation
 SmallButton.propTypes = {
   text: PropTypes.string,
   onPress: PropTypes.func,

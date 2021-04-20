@@ -1,4 +1,6 @@
-// Navigation selectors
+/**
+ * Theme selectors
+ */
 
 import * as theme from './reducer';
 

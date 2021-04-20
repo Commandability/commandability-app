@@ -1,7 +1,7 @@
 /**
  * BackButton Component
  *
- * This component handles the back button on screens
+ * Handles the back button on screens
  */
 
 import React from 'react';

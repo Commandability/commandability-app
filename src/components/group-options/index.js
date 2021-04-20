@@ -1,9 +1,7 @@
 /**
  * GroupOptions Component
  *
- * This component handles the GroupOptions above the incident screen, including:
- *  - the incident timer
- *  - the edit group, remove group, and end incident buttons
+ * Handles the add, remove, and edit group options at the top of the page area and above each page
  */
 
 import React from 'react';

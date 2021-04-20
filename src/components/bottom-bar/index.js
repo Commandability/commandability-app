@@ -1,8 +1,7 @@
 /**
  * BottomBar Component
  *
- * This component handles the info bar under the staging area,
- * includes the timer, brightness and end incident
+ * Handles the bar under the staging area, including the incident time, and the brightness and end incident buttons
  */
 
 import React from 'react';
@@ -80,7 +79,6 @@ const BottomBar = ({initialEpoch}) => {
   );
 };
 
-// props validation
 BottomBar.propTypes = {
   initialEpoch: PropTypes.number,
 };

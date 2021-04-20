@@ -1,7 +1,7 @@
 /**
  * configureStore module
  *
- * Handle all redux middleware and generate redux store with redux-persist.
+ * Handle all redux middleware and generate redux store with redux-persist
  */
 
 import {createStore, applyMiddleware} from 'redux';
@@ -16,7 +16,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export default () => {
   let store = createStore(
     persistedReducers,
-    // applyMiddleware(thunk), // Production
+    // applyMiddleware(thunk), // Production only
     composeEnhancers(applyMiddleware(thunk)), // Development only
   );
   let persistor = persistStore(store);

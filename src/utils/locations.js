@@ -1,5 +1,7 @@
 /**
- * Locations module
+ * Locations
+ *
+ * Generate all page and sorted locationIds
  */
 
 const generatePageLocations = () => {

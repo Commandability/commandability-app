@@ -1,7 +1,7 @@
 /**
  * NewPersonnelList Component
  *
- * Manages displaying personnel in the new personnel list.
+ * Displays personnel in the new personnel list
  */
 
 import React, {useMemo} from 'react';

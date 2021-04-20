@@ -1,4 +1,6 @@
-// Personnel selectors
+/**
+ * Personnel selectors
+ */
 
 import {createSelector} from 'reselect';
 
@@ -35,9 +37,9 @@ export const createSelectPersonnelByLocationId = (locationId) =>
     : createSelector(
         selectPersonnelAllIds,
         selectPersonnelById,
-        (_, locationId) => locationId,
-        (allIds, byId, locationId) =>
+        (_, _locationId) => _locationId,
+        (allIds, byId, _locationId) =>
           allIds
             .map((personId) => byId[personId])
-            .filter((person) => person.locationId === locationId),
+            .filter((person) => person.locationId === _locationId),
       );

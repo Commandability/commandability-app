@@ -1,4 +1,6 @@
-// Selected selectors
+/**
+ * Selected selectors
+ */
 
 import * as selected from './reducer';
 

@@ -1,7 +1,7 @@
 /**
  * AddPersonnelPrompt Component
  *
- * Provides functionality for moving personnel to the current incident screen.
+ * Move roster and temporary personnel to the the new personnel list to be added to the incident
  */
 
 import React, {useMemo} from 'react';
@@ -84,7 +84,6 @@ const AddPersonnelPrompt = ({navigation}) => {
   );
 };
 
-// props validation
 AddPersonnelPrompt.propTypes = {
   navigation: PropTypes.object,
 };

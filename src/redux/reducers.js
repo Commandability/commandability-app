@@ -1,8 +1,8 @@
 /**
- * Reducers index
+ * Reducers root
  *
- * This file generates persistReducers for redux-persist and generates the root reducer.
- * It also contains the logic for the RESET_APP action.
+ * This file generates persistReducers for redux-persist and generates the root reducer
+ * It also contains the logic for the RESET_APP action
  */
 
 import {combineReducers} from 'redux';

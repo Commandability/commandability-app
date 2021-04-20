@@ -1,7 +1,5 @@
 /**
  * Personnel Actions
- *
- * Actions to add and remove personnel, and change current group.
  */
 
 import {v4 as uuidv4} from 'uuid';
@@ -14,8 +12,8 @@ import {
 } from '../types';
 
 export const addPerson = (person, locationId, isTemporary = true) => {
-  const personId = uuidv4();
-  const entryId = uuidv4(); // for storage in the report reducer
+  const personId = uuidv4(); // For storage in the report reducer
+  const entryId = uuidv4();
   const locationUpdateTime = 0;
   const dateTime = new Date().toLocaleString();
   return {
@@ -35,7 +33,7 @@ export const addPerson = (person, locationId, isTemporary = true) => {
 };
 
 export const removePerson = (person) => {
-  const entryId = uuidv4();
+  const entryId = uuidv4(); // For storage in the report reducer
   const dateTime = new Date().toLocaleString();
   return {
     type: REMOVE_PERSON,
@@ -44,7 +42,7 @@ export const removePerson = (person) => {
 };
 
 export const movePerson = (person, prevLocationData, nextLocationData) => {
-  const entryId = uuidv4();
+  const entryId = uuidv4(); // For storage in the report reducer
   const dateTime = new Date().toLocaleString();
   const currTime = Date.now();
   return {

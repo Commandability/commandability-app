@@ -27,7 +27,7 @@ export const resetIncident = () => ({
 });
 
 export const startIncident = (initialEpoch) => {
-  const entryId = START_INCIDENT; // for storage in the report reducer
+  const entryId = START_INCIDENT; // For storage in the report reducer
   const dateTime = new Date().toLocaleString();
   return {
     type: START_INCIDENT,
@@ -36,7 +36,7 @@ export const startIncident = (initialEpoch) => {
 };
 
 export const endIncident = () => {
-  const entryId = END_INCIDENT;
+  const entryId = END_INCIDENT; // For storage in the report reducer
   const dateTime = new Date().toLocaleString();
   return {
     type: END_INCIDENT,

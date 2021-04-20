@@ -1,7 +1,5 @@
 /**
  * Group Actions
- *
- * Actions to add and remove groups, and change group names.
  */
 
 import {v4 as uuidv4} from 'uuid';
@@ -15,7 +13,7 @@ import {
 } from '../types';
 
 export const editGroup = (group, settings) => {
-  const entryId = uuidv4(); // for storage in the report reducer
+  const entryId = uuidv4(); // For storage in the report reducer
   const dateTime = new Date().toLocaleString();
 
   return {
@@ -25,7 +23,7 @@ export const editGroup = (group, settings) => {
 };
 
 export const alertPersonToGroup = (group, person) => {
-  const entryId = uuidv4(); // for storage in the report reducer
+  const entryId = uuidv4(); // For storage in the report reducer
   const dateTime = new Date().toLocaleString();
   return {
     type: ALERT_PERSON_TO_GROUP,
@@ -41,7 +39,7 @@ export const dealertPersonToGroup = (group, person) => {
 };
 
 export const toggleGroup = (group) => {
-  const entryId = uuidv4();
+  const entryId = uuidv4(); // For storage in the report reducer
   const dateTime = new Date().toLocaleString();
   return {
     type: TOGGLE_GROUP,

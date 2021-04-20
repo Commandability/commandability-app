@@ -1,7 +1,5 @@
 /**
  * EditGroupPrompt Component
- *
- * Displays the options for editing a group. Can take user input for a new group name, or remove the group
  */
 
 import React, {useState} from 'react';
@@ -113,7 +111,6 @@ const EditGroupPrompt = ({navigation, route}) => {
   );
 };
 
-// props validation
 EditGroupPrompt.propTypes = {
   navigation: PropTypes.object,
   route: PropTypes.object,

@@ -1,7 +1,7 @@
 /**
  * Roster Component
  *
- * Manages displaying the roster and search bar.
+ * Displays the roster and search bar and handles the roster's selection
  */
 
 import React, {useState} from 'react';

@@ -1,8 +1,9 @@
 /**
  * Selected Reducer
  *
- * Add and remove personnel from selected list, and set selected locationId
- * so that groups know when to disable their child incident items.
+ * Add and remove personnel from selected list
+ * Set selected locationId so that groups know when to disable their child incident items
+ * Set active group mode
  */
 
 import {

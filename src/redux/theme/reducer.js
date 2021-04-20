@@ -1,7 +1,5 @@
 /**
  * Theme Reducer
- *
- * Change the current theme.
  */
 
 import {TOGGLE_THEME} from '../types';

@@ -1,7 +1,7 @@
 /**
  * Report Reducer
  *
- * Reducers to log incident changes.
+ * Log actions to be used in the report
  */
 
 import {

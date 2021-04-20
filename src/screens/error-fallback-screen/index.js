@@ -1,7 +1,7 @@
 /**
  * ErrorScreen component
  *
- * Manages recovering from js errors that are not asynchronous.
+ * Attempt recovery in case of js errors that are not asynchronous, allow emergency report upload
  */
 
 import React, {useState, useEffect} from 'react';

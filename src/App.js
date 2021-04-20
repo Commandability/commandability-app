@@ -1,7 +1,7 @@
 /**
- * CommandAbility App Main
+ * CommandAbility App Root
  *
- * Handle all screen and prompt navigation stacks, and create and manage the global redux store shared with all components.
+ * Handle all screen and prompt navigation stacks, and create and manage the global redux store shared with all components
  */
 
 import 'react-native-gesture-handler';
@@ -22,13 +22,17 @@ const App = () => {
 
   useEffect(() => {
     const authSubscription = auth().onAuthStateChanged(() => {
-      authSubscription(); // stop checking for auth state changes
-      if (initializing) setInitializing(false);
+      authSubscription(); // Stop checking for auth state changes
+      if (initializing) {
+        setInitializing(false);
+      }
     });
     return () => authSubscription();
   }, [initializing]);
 
-  if (initializing) return <View />;
+  if (initializing) {
+    return <View />;
+  }
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

@@ -1,5 +1,5 @@
 /**
- * Global styles module
+ * Global styles
  */
 
 import {StyleSheet} from 'react-native';

@@ -1,7 +1,7 @@
 /**
  * PageArea Component
  *
- * This component handles the group area, including groups and group options
+ * Handles group options and the tab view that holds each page component
  */
 
 import React, {useEffect, useState} from 'react';
@@ -88,7 +88,6 @@ const PageArea = ({initialEpoch}) => {
   );
 };
 
-// props validation
 PageArea.propTypes = {
   initialEpoch: PropTypes.number,
 };

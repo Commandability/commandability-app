@@ -1,7 +1,7 @@
 /**
  * New Personnel Component
  *
- * Manages displaying the new personnel.
+ * Displays the new personnel list and handles its selection
  */
 
 import React from 'react';
@@ -21,7 +21,7 @@ const NewPersonnel = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerContent}> NEW PERSONNEL </Text>
+        <Text style={styles.headerContent}>NEW PERSONNEL</Text>
       </View>
       <NewPersonnelList />
     </View>

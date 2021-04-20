@@ -1,7 +1,7 @@
 /**
  * Timer Component
  *
- * This component handles the Timer on the IncidentScreen
+ * Handles the main incident timer
  */
 
 import React, {useState, useEffect} from 'react';
@@ -45,7 +45,6 @@ const Timer = ({initialEpoch}) => {
   );
 };
 
-// props validation
 Timer.propTypes = {
   initialEpoch: PropTypes.number,
 };

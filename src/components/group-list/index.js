@@ -1,8 +1,8 @@
 /**
  * GroupList Component
  *
- * Manages displaying personnel in a group by groupName, as well as  adding selected personnel to
- * the group when it is selected.
+ * Displays personnel in a group by groupName, as well as  adding selected personnel to
+ * the group when it is selected
  */
 
 import React, {useMemo} from 'react';
@@ -48,7 +48,6 @@ const GroupList = ({locationId}) => {
   );
 };
 
-// props validation
 GroupList.propTypes = {
   locationId: PropTypes.string,
 };

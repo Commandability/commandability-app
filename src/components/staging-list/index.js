@@ -1,8 +1,7 @@
 /**
  * StagingList Component
  *
- * Manages displaying personnel in the staging list, as well as  adding selected personnel to
- * the list when it is selected.
+ * Displays all personnel in the staging list
  */
 
 import React, {useMemo} from 'react';

@@ -1,7 +1,7 @@
 /**
- * reportManager module
+ * Report manager
  *
- * Generate incident reports from the report state and manage storage of all reports through AsyncStorage.
+ * Generate incident reports from the report state and manage storage of all reports through AsyncStorage
  */
 
 import auth from '@react-native-firebase/auth';
@@ -38,7 +38,7 @@ export const generateReport = (reportData) => {
   return report;
 };
 
-// avoid the promise constructor anti-pattern: a promise's then() clause always returns a new promise
+// Avoid the promise constructor anti-pattern: a promise's then() clause always returns a new promise
 // https://stackoverflow.com/questions/43036229/is-it-an-anti-pattern-to-use-async-await-inside-of-a-new-promise-constructor/43050114
 const getAllReportKeys = async () => {
   try {

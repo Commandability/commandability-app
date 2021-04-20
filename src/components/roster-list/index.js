@@ -1,7 +1,7 @@
 /**
  * RosterList Component
  *
- * Manages displaying personnel in the roster.
+ * Displays personnel in the roster.
  */
 
 import React, {useMemo} from 'react';
@@ -50,7 +50,6 @@ const RosterList = ({query}) => {
   );
 };
 
-// props validation
 RosterList.propTypes = {
   query: PropTypes.string,
 };

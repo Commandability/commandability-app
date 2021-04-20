@@ -1,4 +1,6 @@
-// Groups selectors
+/**
+ * Group selectors
+ */
 
 import {createSelector} from 'reselect';
 

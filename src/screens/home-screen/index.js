@@ -1,7 +1,5 @@
 /**
  * HomeScreen component
- *
- * Manages displaying the home screen and activity indicator when signing out.
  */
 
 import React, {useState, useEffect} from 'react';
@@ -120,7 +118,7 @@ const HomeScreen = () => {
 
       dispatch(clearPersonnel());
       personnel.forEach((person) => {
-        dispatch(addPerson(person, ROSTER.locationId, false)); // false for non-temporary personnel
+        dispatch(addPerson(person, ROSTER.locationId, false)); // False for non-temporary personnel
       });
 
       Alert.alert(

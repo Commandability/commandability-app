@@ -1,7 +1,5 @@
 /**
  * Navigation Actions
- *
- * Actions to change the current navigation stack.
  */
 
 import auth from '@react-native-firebase/auth';
@@ -26,7 +24,7 @@ export const signIn = (email, password) => {
       await auth().signInWithEmailAndPassword(email, password);
       dispatch(signInSuccess());
     } catch (error) {
-      // error.code provided by firebase
+      // Error.code provided by firebase
       throw new Error(error.code);
     }
   };

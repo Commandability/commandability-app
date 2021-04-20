@@ -1,7 +1,5 @@
 /**
- * Selectors index
- *
- * This file contains all redux selectors
+ * Selectors root
  */
 
 import {createSelector} from 'reselect';
@@ -18,7 +16,7 @@ export * from './selected/selectors';
 export * from './theme/selectors';
 export * from './timer/selectors';
 
-// Selectors referencing multiple reducers
+// Multi-reducer selectors
 
 export const selectSelectedPersonnel = createSelector(
   selected.selectSelectedPersonnelIds,

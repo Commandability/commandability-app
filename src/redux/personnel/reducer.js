@@ -1,8 +1,5 @@
 /**
  * Personnel Reducer
- *
- * Reducers to add personnel, remove personnel, and change locationId.
- * Selectors to get personnel by locationId.
  */
 
 import {
@@ -61,7 +58,7 @@ const removePerson = (state, action) => {
   return updatedPersonnel;
 };
 
-// set locationId of person by personId
+// Set locationId of person by personId
 const movePerson = (state, action) => {
   const {payload} = action;
   const {
@@ -110,7 +107,7 @@ const removePersonId = (state, action) => {
   return state.filter((currId) => currId !== personId);
 };
 
-// set all locationIds in a group to staging if the group is deleted
+// Set all locationIds in a group to staging if the group is deleted
 const returnToStaging = (state, action) => {
   const {
     payload: {
@@ -140,14 +137,14 @@ const returnToStaging = (state, action) => {
   };
 };
 
-// set all groupIds to default and locationUpdateTime to 0 at end of incident
+// Set all groupIds to default and locationUpdateTime to 0 at end of incident
 const resetIncident = (state) => {
   const _ById = {};
   const _AllIds = [];
   state.allIds.forEach((personId) => {
     const person = state.byId[personId];
     const {isTemporary} = person;
-    // only add a person to the reset state if they weren't added during the incident
+    // Only add a person to the reset state if they weren't added during the incident
     if (!isTemporary) {
       _ById[personId] = {
         ...person,

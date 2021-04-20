@@ -1,7 +1,7 @@
 /**
  * LargeButton Component
  *
- * This component handles large buttons
+ * Used for all large buttons
  */
 
 import React from 'react';
@@ -38,7 +38,6 @@ const LargeButton = ({children, text, onPress, icon, type, priority}) => {
   );
 };
 
-// props validation
 LargeButton.propTypes = {
   children: PropTypes.node,
   text: PropTypes.string,

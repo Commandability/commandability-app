@@ -1,8 +1,7 @@
 /**
  * PersonnelArea Component
  *
- * This component handles the personnel area, including the staging list, add personnel button, and remove personnel area
- *
+ * Handles the personnel area, including the staging list, add personnel button, and remove personnel area
  */
 
 import React from 'react';

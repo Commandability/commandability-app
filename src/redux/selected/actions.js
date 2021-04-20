@@ -1,7 +1,5 @@
 /**
  * Selected Actions
- *
- * Actions to add and remove personnel from selected list.
  */
 
 import {

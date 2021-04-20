@@ -1,4 +1,6 @@
-// Navigation selectors
+/**
+ * Navigation selectors
+ */
 
 import * as navigation from './reducer';
 

@@ -1,7 +1,7 @@
 /**
  * AddPersonPrompt Component
  *
- * Provides functionality for adding temporary personnel to the incident.
+ * Add temporary personnel to the incident
  */
 
 import React, {useState} from 'react';
@@ -119,7 +119,6 @@ const AddPersonPrompt = ({navigation}) => {
   );
 };
 
-// props validation
 AddPersonPrompt.propTypes = {
   navigation: PropTypes.object,
 };

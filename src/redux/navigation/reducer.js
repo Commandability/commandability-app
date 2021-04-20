@@ -1,7 +1,5 @@
 /**
  * Navigation Reducer
- *
- * Change the current navigation stack.
  */
 
 import {

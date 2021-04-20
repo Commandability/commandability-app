@@ -1,7 +1,5 @@
 /**
  * Group Reducer
- *
- * Reducers to add and remove groups, and change group names.
  */
 
 import {

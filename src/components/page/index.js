@@ -1,7 +1,7 @@
 /**
  * Page Component
  *
- * Manages displaying all groups in a tab.
+ * Displays all groups in a tab
  */
 
 import React from 'react';
@@ -22,7 +22,6 @@ const Page = ({route: {key: page}}) => {
   );
 };
 
-// props validation
 Page.propTypes = {
   route: PropTypes.object,
 };

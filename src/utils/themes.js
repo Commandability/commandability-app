@@ -1,7 +1,7 @@
 /**
- * Colors module
+ * Colors
  *
- * Store all colors used in app styling.
+ * Map for switching color themes
  */
 
 export const LIGHT = 'LIGHT';

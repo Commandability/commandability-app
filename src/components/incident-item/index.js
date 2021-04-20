@@ -1,7 +1,7 @@
 /**
  * IncidentItem Component
  *
- * Manages displaying a person in a group and sets a person as selected in redux and in local state on press.
+ * Displays a person in a group or incident location and sets a person as selected in redux and in local state on press
  */
 
 import React, {useState, useEffect} from 'react';
@@ -131,9 +131,8 @@ const IncidentItem = ({personId}) => {
   );
 };
 
-// props validation
 IncidentItem.propTypes = {
-  personId: PropTypes.string, // the person's personId
+  personId: PropTypes.string,
 };
 
 export default React.memo(IncidentItem);

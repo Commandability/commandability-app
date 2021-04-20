@@ -1,8 +1,7 @@
 /**
  * Group Component
  *
- * This component displays each of the six main groups, each group's relevant data
- * list and handles visibility of groups
+ * Displays a group and handles its selection
  */
 
 import React, {useMemo} from 'react';
@@ -100,7 +99,7 @@ const Group = ({locationId}) => {
       const {navigate} = navigation;
       navigate('EditGroupPrompt', {group});
     } else {
-      // set each selected personId's new locationId to the current group
+      // Set each selected personId's new locationId to the current group
       selectedPersonnel.forEach((person) => {
         const {personId} = person;
 
@@ -159,7 +158,6 @@ const Group = ({locationId}) => {
   );
 };
 
-// props validation
 Group.propTypes = {
   locationId: PropTypes.string,
 };

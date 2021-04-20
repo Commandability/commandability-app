@@ -83,7 +83,7 @@ const EditGroupPrompt = ({navigation, route}) => {
               style={globalStyles.input}
               onChangeText={(_newName) => setNewName(_newName)}
               value={newName}
-              maxLength={36}
+              maxLength={22}
               selectionColor={colors.primary}
               disableFullscreenUI={true}
             />

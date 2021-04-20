@@ -109,7 +109,7 @@ const logMovePerson = (state, action) => {
       nextLocationId !== NEW_PERSONNEL.locationId
     ) {
       log = `${badge ? badge + ' - ' : ''}${firstName} ${lastName}${
-        organization ? `( ${organization}) ` : ' '
+        organization ? ` (${organization}) ` : ' '
       }moved from ${prevName} to ${nextName}`;
     }
   }
@@ -131,21 +131,25 @@ const logEditGroup = (state, action) => {
     entryId,
     dateTime,
   } = payload;
+
+  const editNameLog = newName
+    ? newAlert || newAlert === 0
+      ? `name: ${newName}, `
+      : `name: ${newName}`
+    : '';
+
+  const editAlertLog =
+    newAlert || newAlert === 0
+      ? newAlert === 0
+        ? 'alert: disabled'
+        : `alert: ${newAlert}`
+      : '';
+
   return {
     ...state,
     [entryId]: {
       dateTime,
-      log: `Edited group ${name} settings: 
-      [
-        ${newName ? ` name: ${newName}, ` : ''}
-        ${
-          newAlert || newAlert === 0
-            ? newAlert === 0
-              ? ' alert: disabled, '
-              : ` alert: ${newAlert}, `
-            : ''
-        }
-      ]`,
+      log: `Edited group ${name} settings: [${editNameLog}${editAlertLog}]`,
     },
   };
 };

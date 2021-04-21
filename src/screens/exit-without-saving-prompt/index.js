@@ -60,7 +60,8 @@ const ExitWithoutSavingPrompt = () => {
       dispatch(toHomeStack());
     } catch (error) {
       let message = '';
-      if (error.message === 'auth/wrong-password') {
+      // Error.code provided by firebase
+      if (error.code === 'auth/wrong-password') {
         message = 'Incorrect password.';
       } else {
         message = 'Unknown error.';

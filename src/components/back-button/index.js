@@ -26,7 +26,7 @@ const BackButton = () => {
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
-  return Platform.OS === 'android' ? (
+  return Platform.OS === 'ios' ? (
     <TouchableOpacity onPress={onCancelPressed} style={styles.backOpacity}>
       <Icon name="chevron-left" style={styles.backIcon} />
     </TouchableOpacity>

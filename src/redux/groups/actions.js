@@ -9,7 +9,7 @@ import {
   ALERT_PERSON_TO_GROUP,
   DEALERT_PERSON_TO_GROUP,
   TOGGLE_GROUP,
-  CREATE_GROUPS,
+  CONFIGURE_GROUPS,
 } from '../types';
 
 export const editGroup = (group, settings) => {
@@ -47,7 +47,7 @@ export const toggleGroup = (group) => {
   };
 };
 
-export const createGroups = (groups) => ({
-  type: CREATE_GROUPS,
+export const configureGroups = (groups = {}) => ({
+  type: CONFIGURE_GROUPS,
   payload: {groups},
 });

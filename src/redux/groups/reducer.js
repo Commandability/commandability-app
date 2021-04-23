@@ -7,7 +7,8 @@ import {
   ALERT_PERSON_TO_GROUP,
   DEALERT_PERSON_TO_GROUP,
   TOGGLE_GROUP,
-  CREATE_GROUPS,
+  CONFIGURE_GROUPS,
+  UPDATE_CONFIGURATION,
   RESET_INCIDENT,
 } from '../types';
 import {pageLocations} from '../../utils/locations.js';
@@ -82,8 +83,8 @@ const toggleGroup = (state, action) => {
   };
 };
 
-// Create groups with default settings
-const createGroups = (action) => {
+// Configure groups with app or loaded defaults
+const configureGroups = (action) => {
   const {payload} = action;
   const {groups: defaultGroups} = payload;
 
@@ -148,8 +149,9 @@ export default (state = {}, action) => {
       return dealertPersonToGroup(state, action);
     case TOGGLE_GROUP:
       return toggleGroup(state, action);
-    case CREATE_GROUPS:
-      return createGroups(action);
+    case UPDATE_CONFIGURATION:
+    case CONFIGURE_GROUPS:
+      return configureGroups(action);
     case RESET_INCIDENT:
       return resetIncident(state);
     default:

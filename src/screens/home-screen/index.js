@@ -14,17 +14,17 @@ import {LargeButton} from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import {
   selectReportData,
-  selectIsConfigurationLoaded,
+  selectGroupsAreConfigured,
   selectTheme,
 } from '../../redux/selectors';
 import {
+  startIncident,
   signOut,
   toIncidentStack,
   toEndStack,
   resetApp,
-  createGroups,
-  clearPersonnel,
-  addPerson,
+  configureGroups,
+  updateConfiguration,
   toggleTheme,
 } from '../../redux/actions';
 import {START_INCIDENT, END_INCIDENT} from '../../redux/types';
@@ -33,20 +33,17 @@ import {
   uploadReports,
   deleteAllReports,
 } from '../../utils/report-manager';
-import {staticLocations} from '../../utils/locations.js';
 import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 import createStyleSheet from './styles';
 
-const {ROSTER} = staticLocations;
-
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state) => selectTheme(state));
   const reportData = useSelector((state) => selectReportData(state));
-  const isConfigurationLoaded = useSelector((state) =>
-    selectIsConfigurationLoaded(state),
+  const groupsAreConfigured = useSelector((state) =>
+    selectGroupsAreConfigured(state),
   );
 
   const [loading, setLoading] = useState(false);
@@ -74,19 +71,23 @@ const HomeScreen = () => {
   }, []);
 
   const onStartIncidentPressed = () => {
-    if (isConfigurationLoaded) {
-      dispatch(toIncidentStack());
-    } else {
-      Alert.alert(
-        'No configuration data found',
-        "Load your organization's configuration data from the web portal to begin recording incidents.",
-        [
-          {
-            text: 'OK',
-          },
-        ],
-      );
-    }
+    Alert.alert('Are you sure you want to start a new incident?', '', [
+      {
+        text: 'Cancel',
+        onPress: () => {},
+      },
+      {
+        text: 'OK',
+        onPress: () => {
+          if (!groupsAreConfigured) {
+            dispatch(configureGroups());
+          }
+
+          dispatch(startIncident(Date.now()));
+          dispatch(toIncidentStack());
+        },
+      },
+    ]);
   };
 
   const onUpdateConfigurationPressed = async () => {
@@ -106,20 +107,16 @@ const HomeScreen = () => {
 
     setLoading(true);
     try {
+      // move inside update configuration
       const {currentUser} = auth();
       const {uid} = currentUser;
       const documentSnapshot = await firestore()
         .collection('users')
         .doc(uid)
         .get();
-      const {groups, personnel} = documentSnapshot.data();
+      const {groups, personnel} = documentSnapshot.data() ?? {};
 
-      dispatch(createGroups(groups));
-
-      dispatch(clearPersonnel());
-      personnel.forEach((person) => {
-        dispatch(addPerson(person, ROSTER.locationId, false)); // False for non-temporary personnel
-      });
+      dispatch(updateConfiguration(groups, personnel));
 
       Alert.alert(
         'Configuration updated',

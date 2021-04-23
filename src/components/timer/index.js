@@ -7,31 +7,43 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import {Text, View} from 'react-native';
-import PropTypes from 'prop-types';
 
-import {selectTheme} from '../../redux/selectors';
+import {selectTheme, selectInitialEpoch} from '../../redux/selectors';
 import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
-const MS_IN_SECOND = 1000;
+const MILLISECONDS_IN_SECOND = 1000;
+const SECONDS_IN_MINUTE = 60;
+const MINUTES_IN_HOUR = 60;
 
-const Timer = ({initialEpoch}) => {
+const Timer = () => {
   const theme = useSelector((state) => selectTheme(state));
+  const initialEpoch = useSelector((state) => selectInitialEpoch(state));
   const [time, setTime] = useState(Date.now() - initialEpoch);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(Date.now() - initialEpoch);
-    }, MS_IN_SECOND);
+    }, MILLISECONDS_IN_SECOND);
 
     return () => clearInterval(interval);
   }, [initialEpoch]);
 
-  const hour = ('0' + Math.floor(time / (MS_IN_SECOND * 60 * 60))).slice(-2);
-  const minute = ('0' + (Math.floor(time / (MS_IN_SECOND * 60)) % 60)).slice(
-    -2,
-  );
-  const second = ('0' + (Math.floor(time / MS_IN_SECOND) % 60)).slice(-2);
+  const hour = (
+    '0' +
+    Math.floor(
+      time / (MILLISECONDS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR),
+    )
+  ).slice(-2);
+  const minute = (
+    '0' +
+    (Math.floor(time / (MILLISECONDS_IN_SECOND * SECONDS_IN_MINUTE)) %
+      SECONDS_IN_MINUTE)
+  ).slice(-2);
+  const second = (
+    '0' +
+    (Math.floor(time / MILLISECONDS_IN_SECOND) % SECONDS_IN_MINUTE)
+  ).slice(-2);
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
@@ -43,10 +55,6 @@ const Timer = ({initialEpoch}) => {
       </View>
     </View>
   );
-};
-
-Timer.propTypes = {
-  initialEpoch: PropTypes.number,
 };
 
 export default Timer;

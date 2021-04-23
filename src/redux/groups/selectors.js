@@ -28,3 +28,8 @@ export const selectAlertedGroups = createSelector(
     return alertedGroups;
   },
 );
+
+export const selectGroupsAreConfigured = createSelector(
+  selectGroups,
+  (selectedGroups) => Object.keys(selectedGroups).length > 1,
+);

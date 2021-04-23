@@ -5,7 +5,8 @@
 import {
   ADD_PERSON,
   REMOVE_PERSON,
-  CLEAR_PERSONNEL,
+  CONFIGURE_PERSONNEL,
+  UPDATE_CONFIGURATION,
   MOVE_PERSON,
   TOGGLE_GROUP,
   RESET_INCIDENT,
@@ -27,8 +28,9 @@ const byId = (state = initialState.byId, action) => {
       return removePerson(state, action);
     case MOVE_PERSON:
       return movePerson(state, action);
-    case CLEAR_PERSONNEL:
-      return initialState.byId;
+    case UPDATE_CONFIGURATION:
+    case CONFIGURE_PERSONNEL:
+      return configurePersonnel(action);
     default:
       return state;
   }
@@ -77,14 +79,27 @@ const movePerson = (state, action) => {
   };
 };
 
+const configurePersonnel = (action) => {
+  const {payload} = action;
+  const {personnel} = payload;
+
+  const personnelObjects = {};
+  personnel.forEach((person) => {
+    personnelObjects[person.personId] = person;
+  });
+
+  return personnelObjects;
+};
+
 const allIds = (state = initialState.allIds, action) => {
   switch (action.type) {
     case ADD_PERSON:
       return addPersonId(state, action);
     case REMOVE_PERSON:
       return removePersonId(state, action);
-    case CLEAR_PERSONNEL:
-      return initialState.allIds;
+    case UPDATE_CONFIGURATION:
+    case CONFIGURE_PERSONNEL:
+      return configurePersonnelIds(action);
     default:
       return state;
   }
@@ -105,6 +120,13 @@ const removePersonId = (state, action) => {
   } = payload;
 
   return state.filter((currId) => currId !== personId);
+};
+
+const configurePersonnelIds = (action) => {
+  const {payload} = action;
+  const {personnel} = payload;
+
+  return personnel.map((person) => person.personId);
 };
 
 // Set all locationIds in a group to staging if the group is deleted

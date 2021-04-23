@@ -2,15 +2,20 @@
  * All redux actions
  */
 
+import {v4 as uuidv4} from 'uuid';
+
 import {
   RESET_APP,
   RESET_INCIDENT,
+  UPDATE_CONFIGURATION,
   START_INCIDENT,
   END_INCIDENT,
   RESUME_INCIDENT,
 } from './types';
-
 import {INCIDENT_STACK, END_STACK} from '../utils/navigation-stacks';
+import {staticLocations} from '../utils/locations';
+
+const {ROSTER} = staticLocations;
 
 export * from './groups/actions';
 export * from './navigation/actions';
@@ -25,6 +30,21 @@ export const resetApp = () => ({
 export const resetIncident = () => ({
   type: RESET_INCIDENT,
 });
+
+export const updateConfiguration = (groups = {}, personnel = []) => {
+  const _personnel = personnel.map((person) => ({
+    personId: uuidv4(),
+    locationId: ROSTER.locationId,
+    locationUpdateTime: 0,
+    isTemporary: false,
+    ...person,
+  }));
+
+  return {
+    type: UPDATE_CONFIGURATION,
+    payload: {groups, personnel: _personnel},
+  };
+};
 
 export const startIncident = (initialEpoch) => {
   const entryId = START_INCIDENT; // For storage in the report reducer

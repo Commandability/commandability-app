@@ -8,12 +8,15 @@ import {
   ADD_PERSON,
   REMOVE_PERSON,
   MOVE_PERSON,
-  CLEAR_PERSONNEL,
+  CONFIGURE_PERSONNEL,
 } from '../types';
+import {staticLocations} from '../../utils/locations.js';
+
+const {ROSTER} = staticLocations;
 
 export const addPerson = (person, locationId, isTemporary = true) => {
-  const personId = uuidv4(); // For storage in the report reducer
-  const entryId = uuidv4();
+  const personId = uuidv4();
+  const entryId = uuidv4(); // For storage in the report reducer
   const locationUpdateTime = 0;
   const dateTime = new Date().toLocaleString();
   return {
@@ -58,6 +61,17 @@ export const movePerson = (person, prevLocationData, nextLocationData) => {
   };
 };
 
-export const clearPersonnel = () => ({
-  type: CLEAR_PERSONNEL,
-});
+export const configurePersonnel = (personnel = []) => {
+  const completedPersonnel = personnel.forEach((person) => ({
+    personId: uuidv4(),
+    locationId: ROSTER.locationId,
+    locationUpdateTime: 0,
+    isTemporary: false,
+    ...person,
+  }));
+
+  return {
+    type: CONFIGURE_PERSONNEL,
+    payload: {personnel: completedPersonnel},
+  };
+};

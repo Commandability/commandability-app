@@ -7,7 +7,6 @@
 import React from 'react';
 import {Alert, View} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import PropTypes from 'prop-types';
 
 import SmallButton from '../small-button';
 import {selectPersonnel, selectTheme} from '../../redux/selectors';
@@ -19,7 +18,7 @@ import createStyleSheet from './styles';
 
 const {ROSTER, NEW_PERSONNEL, STAGING} = staticLocations;
 
-const BottomBar = ({initialEpoch}) => {
+const BottomBar = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state) => selectTheme(state));
   const personnel = useSelector((state) => selectPersonnel(state));
@@ -66,7 +65,7 @@ const BottomBar = ({initialEpoch}) => {
   return (
     <View style={styles.container}>
       <View style={styles.timer}>
-        <Timer initialEpoch={initialEpoch} />
+        <Timer />
       </View>
       <View style={styles.options}>
         <SmallButton
@@ -77,10 +76,6 @@ const BottomBar = ({initialEpoch}) => {
       </View>
     </View>
   );
-};
-
-BottomBar.propTypes = {
-  initialEpoch: PropTypes.number,
 };
 
 export default BottomBar;

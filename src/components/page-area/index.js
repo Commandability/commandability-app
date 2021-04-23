@@ -17,7 +17,7 @@ import GroupOptions from '../group-options';
 import Page from '../page';
 import {pageLocations} from '../../utils/locations.js';
 
-const PageArea = ({initialEpoch}) => {
+const PageArea = () => {
   const theme = useSelector((state) => selectTheme(state));
   const alertedGroups = useSelector((state) => selectAlertedGroups(state));
 
@@ -71,7 +71,7 @@ const PageArea = ({initialEpoch}) => {
 
   return (
     <View style={styles.container}>
-      <GroupOptions initialEpoch={initialEpoch} />
+      <GroupOptions />
       <View style={styles.page}>
         <TabView
           navigationState={{

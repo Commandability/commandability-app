@@ -22,7 +22,7 @@ export default (colors) =>
       padding: 8,
       alignItems: 'center',
       width: Dimensions.get('window').width / 4,
-      marginRight: 48,
+      marginHorizontal: 48,
       backgroundColor: colors.background.two,
       borderRadius: 5,
     },

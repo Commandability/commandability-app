@@ -11,7 +11,7 @@ import {
   UPDATE_CONFIGURATION,
   RESET_INCIDENT,
 } from '../types';
-import {pageLocations} from '../../utils/locations.js';
+import {pageLocations} from '../../utils/locations';
 
 const editGroup = (state, action) => {
   const {payload} = action;

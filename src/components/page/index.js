@@ -8,7 +8,7 @@ import React from 'react';
 import {View} from 'react-native';
 import PropTypes from 'prop-types';
 
-import {pageLocations} from '../../utils/locations.js';
+import {pageLocations} from '../../utils/locations';
 import Group from '../group';
 import styles from './styles';
 

@@ -10,7 +10,7 @@ import {
   MOVE_PERSON,
   CONFIGURE_PERSONNEL,
 } from '../types';
-import {staticLocations} from '../../utils/locations.js';
+import {staticLocations} from '../../utils/locations';
 
 const {ROSTER} = staticLocations;
 

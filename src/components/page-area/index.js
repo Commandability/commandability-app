@@ -15,7 +15,7 @@ import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 import GroupOptions from '../group-options';
 import Page from '../page';
-import {pageLocations} from '../../utils/locations.js';
+import {pageLocations} from '../../utils/locations';
 
 const PageArea = () => {
   const theme = useSelector((state) => selectTheme(state));

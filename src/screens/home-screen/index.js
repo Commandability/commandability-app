@@ -107,16 +107,7 @@ const HomeScreen = () => {
 
     setLoading(true);
     try {
-      // move inside update configuration
-      const {currentUser} = auth();
-      const {uid} = currentUser;
-      const documentSnapshot = await firestore()
-        .collection('users')
-        .doc(uid)
-        .get();
-      const {groups, personnel} = documentSnapshot.data() ?? {};
-
-      dispatch(updateConfiguration(groups, personnel));
+      dispatch(updateConfiguration());
 
       Alert.alert(
         'Configuration updated',

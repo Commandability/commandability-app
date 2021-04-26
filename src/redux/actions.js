@@ -2,6 +2,8 @@
  * All redux actions
  */
 
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import {v4 as uuidv4} from 'uuid';
 
 import {
@@ -31,8 +33,31 @@ export const resetIncident = () => ({
   type: RESET_INCIDENT,
 });
 
-export const updateConfiguration = (groups = {}, personnel = []) => {
-  const _personnel = personnel.map((person) => ({
+export const updateConfiguration = () => {
+  return async (dispatch) => {
+    try {
+      const {currentUser} = auth();
+      const {uid} = currentUser;
+      const documentSnapshot = await firestore()
+        .collection('users')
+        .doc(uid)
+        .get();
+      const {groups: loadedGroups, personnel: loadedPersonnel} =
+        documentSnapshot.data() ?? {};
+
+      dispatch(updateConfigurationSuccess(loadedGroups, loadedPersonnel));
+    } catch (error) {
+      // Error.code provided by firebase
+      throw new Error(error.code);
+    }
+  };
+};
+
+const updateConfigurationSuccess = (
+  loadedGroups = {},
+  loadedPersonnel = [],
+) => {
+  const personnel = loadedPersonnel.map((person) => ({
     personId: uuidv4(),
     locationId: ROSTER.locationId,
     locationUpdateTime: 0,
@@ -42,7 +67,7 @@ export const updateConfiguration = (groups = {}, personnel = []) => {
 
   return {
     type: UPDATE_CONFIGURATION,
-    payload: {groups, personnel: _personnel},
+    payload: {groups: loadedGroups, personnel},
   };
 };
 

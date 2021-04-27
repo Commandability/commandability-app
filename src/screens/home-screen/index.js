@@ -107,7 +107,7 @@ const HomeScreen = () => {
 
     setLoading(true);
     try {
-      dispatch(updateConfiguration());
+      await dispatch(updateConfiguration());
 
       Alert.alert(
         'Configuration updated',

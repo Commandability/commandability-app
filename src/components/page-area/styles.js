@@ -4,16 +4,16 @@ export default (colors) =>
   StyleSheet.create({
     container: {
       flex: 1,
+      margin: 8,
+      backgroundColor: colors.background.two,
+      borderRadius: 5,
     },
     page: {
       flex: 1,
-      marginTop: 16,
     },
     tabBar: {
       backgroundColor: colors.background.three,
-      marginHorizontal: 8,
-      marginTop: 0,
-      elevation: 0,
+      margin: 8,
     },
     tabLabel: {
       color: colors.text.main,

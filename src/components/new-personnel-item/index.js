@@ -54,7 +54,7 @@ const NewPersonnelItem = ({personId}) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.content}>
-        <View style={styles.mainLine}>
+        <View style={styles.line}>
           <Text style={styles.name}>{`${firstName} ${lastName}`}</Text>
         </View>
         <View style={styles.line}>

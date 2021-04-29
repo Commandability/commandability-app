@@ -5,6 +5,9 @@ export default () =>
     container: {
       flexDirection: 'row',
       justifyContent: 'center',
-      alignItems: 'center',
+      marginVertical: 8,
+    },
+    groupOption: {
+      marginHorizontal: 8,
     },
   });

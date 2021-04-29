@@ -64,15 +64,19 @@ const BottomBar = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.timer}>
-        <Timer />
-      </View>
+      <Timer />
       <View style={styles.options}>
         <SmallButton
           onPress={onThemePressed}
           text={theme === DARK ? 'LIGHT THEME' : 'DARK THEME'}
+          style={styles.bottomButton}
         />
-        <SmallButton onPress={onEndPressed} text="END" type="navigator" />
+        <SmallButton
+          onPress={onEndPressed}
+          text="END"
+          type="navigator"
+          style={styles.bottomButton}
+        />
       </View>
     </View>
   );

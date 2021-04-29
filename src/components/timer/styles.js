@@ -3,16 +3,12 @@ import {StyleSheet} from 'react-native';
 export default (colors) =>
   StyleSheet.create({
     container: {
-      flex: 1,
-    },
-    timer: {
-      flex: 1,
       justifyContent: 'center',
+      marginBottom: 16,
+      marginHorizontal: 8,
     },
     timerContent: {
       fontSize: 14,
-      textAlignVertical: 'center',
-      textAlign: 'center',
       color: colors.text.main,
     },
   });

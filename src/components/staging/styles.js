@@ -16,14 +16,12 @@ export default (colors) =>
     container: {
       flex: 1,
       backgroundColor: colors.background.three,
-      width: '100%',
-      marginTop: 16,
+      margin: 8,
       borderRadius: 5,
     },
     header: {
-      justifyContent: 'center',
       alignItems: 'center',
-      padding: 8,
+      margin: 4,
     },
     headerContent: {
       fontSize: 14,

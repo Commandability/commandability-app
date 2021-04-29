@@ -4,10 +4,13 @@ export default (colors) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
+      marginVertical: 8,
+      marginHorizontal: 8,
       backgroundColor: colors.background.two,
       borderRadius: 5,
-      padding: 8,
+    },
+    addPersonnelButton: {
+      alignSelf: 'center',
+      margin: 8,
     },
   });

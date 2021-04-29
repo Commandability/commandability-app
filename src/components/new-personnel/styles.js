@@ -7,13 +7,11 @@ export default (colors) =>
       color: colors.text.main,
       backgroundColor: colors.background.three,
       borderRadius: 5,
-      width: '100%',
-      marginBottom: 16,
+      margin: 8,
     },
     header: {
-      justifyContent: 'center',
       alignItems: 'center',
-      padding: 4,
+      margin: 4,
     },
     headerContent: {
       fontSize: 14,

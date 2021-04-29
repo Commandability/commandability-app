@@ -102,7 +102,7 @@ const IncidentItem = ({personId}) => {
       ) : null}
       <TouchableOpacity onPress={onPress} style={styles.container}>
         <View style={styles.content}>
-          <View style={styles.mainLine}>
+          <View style={styles.line}>
             <Text
               style={[
                 styles.name,

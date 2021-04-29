@@ -12,30 +12,23 @@ export default (colors) =>
       borderRadius: 5,
     },
     container: {
-      flexDirection: 'column',
+      margin: 8,
       backgroundColor: colors.background.two,
-      width: '100%',
-      marginTop: 16,
       borderRadius: 5,
     },
     remove: {
-      flexDirection: 'column',
       alignItems: 'center',
-      height: 100,
-      width: '100%',
       backgroundColor: colors.background.three,
       borderRadius: 5,
     },
     header: {
-      padding: 4,
+      margin: 4,
       fontSize: 14,
       color: colors.text.main,
     },
     icon: {
       fontSize: 36,
-      marginTop: 10,
-      justifyContent: 'center',
-      alignItems: 'center',
+      margin: 16,
       color: colors.primary,
     },
   });

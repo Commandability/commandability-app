@@ -5,13 +5,12 @@
  */
 
 import React, {useMemo} from 'react';
-import {FlatList, View} from 'react-native';
+import {FlatList} from 'react-native';
 import {useSelector} from 'react-redux';
 
 import {createSelectPersonnelByLocationId} from '../../redux/selectors';
 import IncidentItem from '../incident-item';
 import {staticLocations} from '../../utils/locations';
-import styles from './styles';
 
 const {STAGING} = staticLocations;
 
@@ -29,13 +28,11 @@ const StagingList = () => {
   const keyExtractor = (item) => item.personId;
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={personnel}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-      />
-    </View>
+    <FlatList
+      data={personnel}
+      renderItem={renderItem}
+      keyExtractor={keyExtractor}
+    />
   );
 };
 

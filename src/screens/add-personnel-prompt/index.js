@@ -66,6 +66,7 @@ const AddPersonnelPrompt = ({navigation}) => {
             <SmallButton
               text="ADD TO INCIDENT"
               onPress={onAddToIncidentPressed}
+              style={styles.colButton}
             />
           </View>
         </View>
@@ -76,6 +77,7 @@ const AddPersonnelPrompt = ({navigation}) => {
               text="ADD PERSON"
               onPress={onAddPersonPressed}
               type="navigator"
+              style={styles.colButton}
             />
           </View>
         </View>

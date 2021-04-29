@@ -50,9 +50,7 @@ const Timer = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.timer}>
-        <Text style={styles.timerContent}>{`${hour}:${minute}:${second}`}</Text>
-      </View>
+      <Text style={styles.timerContent}>{`${hour}:${minute}:${second}`}</Text>
     </View>
   );
 };

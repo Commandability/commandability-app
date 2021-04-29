@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 export default (colors) =>
   StyleSheet.create({
@@ -9,19 +9,30 @@ export default (colors) =>
     mainArea: {
       flex: 1,
       flexDirection: 'row',
+      marginVertical: 8,
     },
+
+    /**
+     * Solve for x such that all locations are of equal width:
+     *
+     * locationWidth = (width - allPadding) / numLocations
+     * locationWidth + sideBarPadding = 0.25 * deviceWidth + x
+     * (numLocations - 1) * locationWidth + pageAreaPadding = 0.75 * deviceWidth - x
+     *
+     * Given:
+     * sideBarPadding = 32
+     * pageAreaPadding = 64
+     * allPadding = 96
+     * numLocations = 4
+     *
+     * Solution:
+     * x = 8
+     */
+
     sideBar: {
-      width: '25.5%',
-      paddingVertical: 16,
-      paddingLeft: 16,
-      marginRight: 0,
+      width: Dimensions.get('window').width * 0.25 + 8, // x = 8
     },
     pageArea: {
-      width: '72%',
-      margin: 16,
-      backgroundColor: colors.background.two,
-      borderRadius: 5,
-      paddingVertical: 8,
-      // Horizontal padding handled in Page and Group
+      width: Dimensions.get('window').width * 0.75 - 8, // x = 8
     },
   });

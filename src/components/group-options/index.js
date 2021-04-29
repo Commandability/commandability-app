@@ -40,18 +40,21 @@ const GroupOptions = () => {
         onPress={onAddPressed}
         type="selector"
         selected={selectedGroupMode === 'add'}
+        style={styles.groupOption}
       />
       <SmallButton
         text="REMOVE GROUP"
         onPress={onRemovePressed}
         type="selector"
         selected={selectedGroupMode === 'remove'}
+        style={styles.groupOption}
       />
       <SmallButton
         text="EDIT GROUP"
         onPress={onEditPressed}
         type="selector"
         selected={selectedGroupMode === 'edit'}
+        style={styles.groupOption}
       />
     </View>
   );

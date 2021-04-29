@@ -1,22 +1,18 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 export default (colors) =>
   StyleSheet.create({
     opacity: {
       flexDirection: 'row',
       justifyContent: 'center',
-      alignItems: 'center',
-      width: 225,
+      width: Dimensions.get('window').width * 0.18,
       paddingVertical: 4,
-      marginHorizontal: 12,
       borderRadius: 5,
       backgroundColor: colors.primary,
     },
     opacityContent: {
-      paddingHorizontal: 2,
+      marginHorizontal: 2,
       fontSize: 14,
-      justifyContent: 'center',
-      alignItems: 'center',
       color: colors.text.alternate,
     },
     selectedOpacity: {

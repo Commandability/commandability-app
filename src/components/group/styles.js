@@ -15,9 +15,7 @@ export default (colors) =>
     container: {
       height: '50%',
       width: `${100 / 3}%`,
-      paddingBottom: 16,
-      paddingRight: 8,
-      paddingLeft: 8,
+      padding: 8,
     },
     header: {
       flexDirection: 'row',

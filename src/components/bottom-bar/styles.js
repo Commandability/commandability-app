@@ -5,13 +5,13 @@ export default () =>
     container: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: 16,
-      paddingRight: 16,
-    },
-    timer: {
-      width: 100,
+      marginHorizontal: 16,
     },
     options: {
       flexDirection: 'row',
+    },
+    bottomButton: {
+      marginBottom: 16,
+      marginHorizontal: 8,
     },
   });

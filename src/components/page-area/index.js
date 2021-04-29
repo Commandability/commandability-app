@@ -8,7 +8,6 @@ import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {Text, View} from 'react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
-import PropTypes from 'prop-types';
 
 import {selectTheme, selectAlertedGroups} from '../../redux/selectors';
 import themeSelector from '../../utils/themes';
@@ -86,10 +85,6 @@ const PageArea = () => {
       </View>
     </View>
   );
-};
-
-PageArea.propTypes = {
-  initialEpoch: PropTypes.number,
 };
 
 export default React.memo(PageArea);

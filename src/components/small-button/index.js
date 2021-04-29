@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import {TouchableOpacity, Text} from 'react-native';
+import {TouchableOpacity, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
@@ -14,7 +14,7 @@ import {selectTheme} from '../../redux/selectors';
 import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
-const SmallButton = ({text, onPress, type, selected}) => {
+const SmallButton = ({text, onPress, type, selected, style: passedStyles}) => {
   const theme = useSelector((state) => selectTheme(state));
 
   const colors = themeSelector(theme);
@@ -23,30 +23,36 @@ const SmallButton = ({text, onPress, type, selected}) => {
   switch (type) {
     case 'navigator':
       return (
-        <TouchableOpacity style={styles.opacity} onPress={onPress}>
-          <Text style={styles.opacityContent}>{text}</Text>
-          <Icon name="arrow-right" style={styles.opacityContent} />
-        </TouchableOpacity>
+        <View style={passedStyles}>
+          <TouchableOpacity style={styles.opacity} onPress={onPress}>
+            <Text style={styles.opacityContent}>{text}</Text>
+            <Icon name="arrow-right" style={styles.opacityContent} />
+          </TouchableOpacity>
+        </View>
       );
     case 'selector':
       return (
-        <TouchableOpacity
-          style={[styles.opacity, selected && styles.selectedOpacity]}
-          onPress={onPress}>
-          <Text
-            style={[
-              styles.opacityContent,
-              selected && styles.selectedOpacityContent,
-            ]}>
-            {text}
-          </Text>
-        </TouchableOpacity>
+        <View style={passedStyles}>
+          <TouchableOpacity
+            style={[styles.opacity, selected && styles.selectedOpacity]}
+            onPress={onPress}>
+            <Text
+              style={[
+                styles.opacityContent,
+                selected && styles.selectedOpacityContent,
+              ]}>
+              {text}
+            </Text>
+          </TouchableOpacity>
+        </View>
       );
     default:
       return (
-        <TouchableOpacity style={styles.opacity} onPress={onPress}>
-          <Text style={styles.opacityContent}>{text}</Text>
-        </TouchableOpacity>
+        <View style={passedStyles}>
+          <TouchableOpacity style={styles.opacity} onPress={onPress}>
+            <Text style={styles.opacityContent}>{text}</Text>
+          </TouchableOpacity>
+        </View>
       );
   }
 };
@@ -56,6 +62,7 @@ SmallButton.propTypes = {
   onPress: PropTypes.func,
   type: PropTypes.string,
   selected: PropTypes.bool,
+  style: PropTypes.object,
 };
 
 export default SmallButton;

@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import {View} from 'react-native';
+import {View, Dimensions} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 
@@ -22,6 +22,7 @@ const PersonnelArea = () => {
 
   const onAddPersonnelPressed = () => {
     const {navigate} = navigation;
+    console.log(Dimensions.get('window').width);
     navigate('AddPersonnelPrompt');
   };
 
@@ -34,6 +35,7 @@ const PersonnelArea = () => {
         onPress={onAddPersonnelPressed}
         text="ADD PERSONNEL"
         type="navigator"
+        style={styles.addPersonnelButton}
       />
       <Staging />
       <RemovePersonnel />

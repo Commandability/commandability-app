@@ -310,7 +310,7 @@ const HomeScreen = () => {
         </View>
         <View style={styles.row}>
           <LargeButton
-            text={theme === DARK ? 'Light' : 'Dark'}
+            text={`${theme === DARK ? 'Light' : 'Dark'} theme`}
             onPress={onToggleThemePressed}
             icon="theme-light-dark"
             type="flex"

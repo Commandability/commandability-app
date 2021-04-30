@@ -15,14 +15,14 @@ export default (colors) =>
     /**
      * Solve for x such that all locations are of equal width:
      *
-     * locationWidth = (width - allPadding) / numLocations
-     * locationWidth + sideBarPadding = 0.25 * deviceWidth + x
-     * (numLocations - 1) * locationWidth + pageAreaPadding = 0.75 * deviceWidth - x
+     * locationWidth = (width - allMargins) / numLocations
+     * locationWidth + sideBarMargins = 0.25 * deviceWidth + x
+     * (numLocations - 1) * locationWidth + pageAreaMargins = 0.75 * deviceWidth - x
      *
      * Given:
-     * sideBarPadding = 32
-     * pageAreaPadding = 64
-     * allPadding = 96
+     * sideBarMargins = 32
+     * pageAreaMargins = 64
+     * allMargins = 96
      * numLocations = 4
      *
      * Solution:

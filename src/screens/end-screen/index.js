@@ -75,38 +75,40 @@ const EndScreen = ({navigation}) => {
       onReset={onReset}
       resetKeys={[location, notes]}>
       <View style={globalStyles.container}>
-        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-          <Text style={globalStyles.label}>Location *</Text>
-          <TextInput
-            style={globalStyles.input}
-            onChangeText={(_location) => setLocation(_location)}
-            value={location}
-            maxLength={36}
-            selectionColor={colors.primary}
-            disableFullscreenUI={true}
-          />
-          <Text style={globalStyles.label}>Notes</Text>
-          <TextInput
-            style={globalStyles.multilineInput}
-            multiline={true}
-            onChangeText={(_notes) => setNotes(_notes)}
-            value={notes}
-            maxLength={1024}
-            selectionColor={colors.primary}
-            disableFullscreenUI={true}
-          />
-          <LargeButton
-            text="Resume incident"
-            onPress={onResumeIncidentPressed}
-            icon="restart"
-          />
-          <LargeButton
-            text="Continue"
-            onPress={onContinuePressed}
-            icon="arrow-right"
-            priority={true}
-          />
-        </KeyboardAwareScrollView>
+        <View>
+          <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+            <Text style={globalStyles.label}>Location *</Text>
+            <TextInput
+              style={globalStyles.input}
+              onChangeText={(_location) => setLocation(_location)}
+              value={location}
+              maxLength={36}
+              selectionColor={colors.primary}
+              disableFullscreenUI={true}
+            />
+            <Text style={globalStyles.label}>Notes</Text>
+            <TextInput
+              style={globalStyles.multilineInput}
+              multiline={true}
+              onChangeText={(_notes) => setNotes(_notes)}
+              value={notes}
+              maxLength={1024}
+              selectionColor={colors.primary}
+              disableFullscreenUI={true}
+            />
+            <LargeButton
+              text="Resume incident"
+              onPress={onResumeIncidentPressed}
+              icon="restart"
+            />
+            <LargeButton
+              text="Continue"
+              onPress={onContinuePressed}
+              icon="arrow-right"
+              priority={true}
+            />
+          </KeyboardAwareScrollView>
+        </View>
       </View>
     </ErrorBoundary>
   );

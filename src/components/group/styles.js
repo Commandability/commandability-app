@@ -6,6 +6,7 @@ export default (colors) =>
       backgroundColor: colors.overlay,
       position: 'absolute',
       right: 8,
+      top: 8,
       zIndex: 1,
       width: '100%',
       height: '100%',

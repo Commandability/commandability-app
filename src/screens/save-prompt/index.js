@@ -173,24 +173,25 @@ const SavePrompt = ({route, navigation}) => {
       resetKeys={[loading, numberOfReports]}>
       <View style={globalStyles.container}>
         <BackButton />
-        <View>
-          <LargeButton
-            text="Exit without saving"
-            onPress={onExitPressed}
-            icon="cancel"
-          />
-          <LargeButton
-            text="Save to device and exit"
-            onPress={onSaveToDevicePressed}
-            icon="content-save"
-          />
-          <LargeButton
-            text="Save to cloud and exit"
-            onPress={onSaveToCloudPressed}
-            icon="upload"
-            priority={true}
-          />
-        </View>
+        <LargeButton
+          text="Exit without saving"
+          onPress={onExitPressed}
+          icon="cancel"
+          type="flex"
+        />
+        <LargeButton
+          text="Save to device and exit"
+          onPress={onSaveToDevicePressed}
+          icon="content-save"
+          type="flex"
+        />
+        <LargeButton
+          text="Save to cloud and exit"
+          onPress={onSaveToCloudPressed}
+          icon="upload"
+          type="flex"
+          priority={true}
+        />
         {loading ? (
           <ActivityIndicator
             style={globalStyles.activityIndicator}

@@ -5,6 +5,7 @@ export default (colors) =>
     opacity: {
       flexDirection: 'row',
       justifyContent: 'center',
+      alignItems: 'center',
       width: Dimensions.get('window').width * 0.18,
       paddingVertical: 4,
       borderRadius: 5,

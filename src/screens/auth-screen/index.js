@@ -21,10 +21,8 @@ const AuthScreen = () => {
   const theme = useSelector((state) => selectTheme(state));
 
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState('commandabilityapp@gmail.com'); // For Development
-  const [password, setPassword] = useState('dev-password'); // For Development
-  // const [email, setEmail] = useState(''); // For Production
-  // const [password, setPassword] = useState(''); // For Production
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const onSignInPressed = async () => {
     if (!email || !password) {

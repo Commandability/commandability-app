@@ -4,8 +4,7 @@ export default (colors) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      marginVertical: 8,
-      marginHorizontal: 8,
+      margin: 8,
       backgroundColor: colors.background.two,
       borderRadius: 4,
     },

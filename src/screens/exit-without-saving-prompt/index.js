@@ -23,7 +23,7 @@ const ExitWithoutSavingPrompt = () => {
   const {currentUser} = auth();
 
   const [loading, setLoading] = useState(false);
-  const [password, setPassword] = useState('dev-password');
+  const [password, setPassword] = useState('');
 
   const onExitPressed = async () => {
     if (!password) {

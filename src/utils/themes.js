@@ -12,12 +12,12 @@ const themeMap = {
     primary: '#e53935',
     background: {
       one: '#121212',
-      two: '#1f1f1f',
-      three: '#2c2c2c',
+      two: '#1e1e1e',
+      three: '#2a2a2a',
     },
     overlay: '#ffffff',
     text: {
-      main: '#ffffff',
+      main: '#dddddd',
       alternate: '#121212',
       disabled: '#878787',
     },
@@ -32,7 +32,7 @@ const themeMap = {
     overlay: '#000000',
     text: {
       main: '#121212',
-      alternate: '#ffffff',
+      alternate: '#dddddd',
       disabled: '#878787',
     },
   },

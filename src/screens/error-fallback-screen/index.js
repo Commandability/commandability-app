@@ -119,30 +119,34 @@ const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
   };
 
   return (
-    <View style={globalStyles.container}>
-      <View style={globalStyles.prompt}>
-        <Text style={globalStyles.promptHeader}>Something went wrong:</Text>
-        <Text style={globalStyles.promptText}>{error.message}</Text>
-      </View>
-      <LargeButton
-        text="Try again"
-        onPress={resetErrorBoundary}
-        icon="refresh"
-      />
-      {currentUser ? (
+    <View style={globalStyles.formContainer}>
+      <View style={globalStyles.margin} />
+      <View style={globalStyles.content}>
+        <View style={globalStyles.prompt}>
+          <Text style={globalStyles.promptHeader}>Something went wrong:</Text>
+          <Text style={globalStyles.promptText}>{error.message}</Text>
+        </View>
         <LargeButton
-          text="Emergency upload"
-          onPress={onEmergencyUploadPressed}
-          icon="upload"
+          text="Try again"
+          onPress={resetErrorBoundary}
+          icon="refresh"
         />
-      ) : null}
-      {loading ? (
-        <ActivityIndicator
-          style={globalStyles.activityIndicator}
-          color={colors.primary}
-          size={'large'}
-        />
-      ) : null}
+        {currentUser ? (
+          <LargeButton
+            text="Emergency upload"
+            onPress={onEmergencyUploadPressed}
+            icon="upload"
+          />
+        ) : null}
+        {loading ? (
+          <ActivityIndicator
+            style={globalStyles.activityIndicator}
+            color={colors.primary}
+            size={'large'}
+          />
+        ) : null}
+      </View>
+      <View style={globalStyles.margin} />
     </View>
   );
 };

@@ -14,37 +14,46 @@ import {selectTheme} from '../../redux/selectors';
 import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
-const LargeButton = ({children, text, onPress, icon, type, priority}) => {
+const LargeButton = ({text, onPress, icon, type = 'contained'}) => {
   const theme = useSelector((state) => selectTheme(state));
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
 
-  let opacityType = '';
-  if (type === 'flex') {
-    opacityType = styles.flex;
-  } else {
-    opacityType = styles.fixed;
-  }
-
   return (
     <TouchableOpacity
-      style={[styles.opacity, priority && styles.priority, opacityType]}
+      style={[
+        styles.opacity,
+        type === 'contained' && styles.contained,
+        type === 'outlined' && styles.outlined,
+      ]}
       onPress={onPress}>
-      <Icon name={icon} style={styles.opacityIcon} />
-      <Text style={styles.opacityText}>{text}</Text>
-      {children}
+      <Icon
+        name={icon}
+        style={[
+          styles.opacityText,
+          styles.opacityIcon,
+          type === 'contained' && styles.containedText,
+          type === 'outlined' && styles.outlinedText,
+        ]}
+      />
+      <Text
+        style={[
+          styles.opacityText,
+          type === 'contained' && styles.containedText,
+          type === 'outlined' && styles.outlinedText,
+        ]}>
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 };
 
 LargeButton.propTypes = {
-  children: PropTypes.node,
   text: PropTypes.string,
   onPress: PropTypes.func,
   icon: PropTypes.string,
   type: PropTypes.string,
-  priority: PropTypes.bool,
 };
 
 export default LargeButton;

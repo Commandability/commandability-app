@@ -7,7 +7,7 @@ export default (colors) =>
       marginVertical: 8,
       marginHorizontal: 8,
       backgroundColor: colors.background.two,
-      borderRadius: 5,
+      borderRadius: 4,
     },
     addPersonnelButton: {
       alignSelf: 'center',

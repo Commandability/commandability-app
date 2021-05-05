@@ -171,34 +171,37 @@ const SavePrompt = ({route, navigation}) => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[loading, numberOfReports]}>
-      <View style={globalStyles.container}>
+      <View style={globalStyles.formContainer}>
         <BackButton />
-        <LargeButton
-          text="Exit without saving"
-          onPress={onExitPressed}
-          icon="cancel"
-          type="flex"
-        />
-        <LargeButton
-          text="Save to device and exit"
-          onPress={onSaveToDevicePressed}
-          icon="content-save"
-          type="flex"
-        />
-        <LargeButton
-          text="Save to cloud and exit"
-          onPress={onSaveToCloudPressed}
-          icon="upload"
-          type="flex"
-          priority={true}
-        />
-        {loading ? (
-          <ActivityIndicator
-            style={globalStyles.activityIndicator}
-            color={colors.primary}
-            size={'large'}
+        <View style={globalStyles.margin} />
+        <View style={globalStyles.content}>
+          <LargeButton
+            text="Exit without saving"
+            onPress={onExitPressed}
+            icon="cancel"
+            type="outlined"
           />
-        ) : null}
+          <LargeButton
+            text="Save to device and exit"
+            onPress={onSaveToDevicePressed}
+            icon="content-save"
+            type="outlined"
+          />
+          <LargeButton
+            text="Save to cloud and exit"
+            onPress={onSaveToCloudPressed}
+            icon="upload"
+            type="contained"
+          />
+          {loading ? (
+            <ActivityIndicator
+              style={globalStyles.activityIndicator}
+              color={colors.primary}
+              size={'large'}
+            />
+          ) : null}
+        </View>
+        <View style={globalStyles.margin} />
       </View>
     </ErrorBoundary>
   );

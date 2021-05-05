@@ -66,54 +66,58 @@ const AddPersonPrompt = ({navigation}) => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[firstName, lastName, badge, organization]}>
-      <View style={globalStyles.container}>
+      <View style={globalStyles.formContainer}>
         <BackButton />
-        <View>
-          <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-            <Text style={globalStyles.label}>First Name*</Text>
-            <TextInput
-              style={globalStyles.input}
-              onChangeText={(_firstName) => setFirstName(_firstName)}
-              value={firstName}
-              maxLength={36}
-              selectionColor={colors.primary}
-              disableFullscreenUI={true}
-            />
-            <Text style={globalStyles.label}>Last Name*</Text>
-            <TextInput
-              style={globalStyles.input}
-              onChangeText={(_lastName) => setLastName(_lastName)}
-              value={lastName}
-              maxLength={36}
-              selectionColor={colors.primary}
-              disableFullscreenUI={true}
-            />
-            <Text style={globalStyles.label}>Badge Number</Text>
-            <TextInput
-              style={globalStyles.input}
-              keyboardType={'numeric'}
-              onChangeText={(_badge) => setBadge(_badge)}
-              value={badge}
-              maxLength={15}
-              selectionColor={colors.primary}
-              disableFullscreenUI={true}
-            />
-            <Text style={globalStyles.label}>Organization</Text>
-            <TextInput
-              style={globalStyles.input}
-              onChangeText={(_organization) => setOrganization(_organization)}
-              value={organization}
-              maxLength={36}
-              selectionColor={colors.primary}
-              disableFullscreenUI={true}
-            />
-            <LargeButton
-              text="Add person"
-              onPress={onAddPersonPressed}
-              icon="account-plus"
-            />
-          </KeyboardAwareScrollView>
+        <View style={globalStyles.margin} />
+        <View style={globalStyles.content}>
+          <View>
+            <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+              <Text style={globalStyles.label}>First Name*</Text>
+              <TextInput
+                style={globalStyles.input}
+                onChangeText={(_firstName) => setFirstName(_firstName)}
+                value={firstName}
+                maxLength={36}
+                selectionColor={colors.primary}
+                disableFullscreenUI={true}
+              />
+              <Text style={globalStyles.label}>Last Name*</Text>
+              <TextInput
+                style={globalStyles.input}
+                onChangeText={(_lastName) => setLastName(_lastName)}
+                value={lastName}
+                maxLength={36}
+                selectionColor={colors.primary}
+                disableFullscreenUI={true}
+              />
+              <Text style={globalStyles.label}>Badge Number</Text>
+              <TextInput
+                style={globalStyles.input}
+                keyboardType={'numeric'}
+                onChangeText={(_badge) => setBadge(_badge)}
+                value={badge}
+                maxLength={15}
+                selectionColor={colors.primary}
+                disableFullscreenUI={true}
+              />
+              <Text style={globalStyles.label}>Organization</Text>
+              <TextInput
+                style={globalStyles.input}
+                onChangeText={(_organization) => setOrganization(_organization)}
+                value={organization}
+                maxLength={36}
+                selectionColor={colors.primary}
+                disableFullscreenUI={true}
+              />
+              <LargeButton
+                text="Add person"
+                onPress={onAddPersonPressed}
+                icon="account-plus"
+              />
+            </KeyboardAwareScrollView>
+          </View>
         </View>
+        <View style={globalStyles.margin} />
       </View>
     </ErrorBoundary>
   );

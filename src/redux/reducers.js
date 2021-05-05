@@ -30,7 +30,7 @@ const navigationPersistConfig = {
   storage: AsyncStorage,
 };
 
-// personnel reducer config, set persisted data to autoMergeLevel2 to track personnel changes
+// Personnel reducer config, set persisted data to autoMergeLevel2 to track personnel changes
 // https://blog.reactnativecoach.com/the-definitive-guide-to-redux-persist-84738167975
 const personnelPersistConfig = {
   key: 'personnel',
@@ -63,17 +63,17 @@ const appReducer = combineReducers({
   timer: persistReducer(timePersistConfig, timer),
 });
 
-// root reducer config, persisted data defaults to autoMergeLevel1
+// Root reducer config, persisted data defaults to autoMergeLevel1
 const rootPersistConfig = {
   key: 'root',
   storage: AsyncStorage,
 };
 
 const rootReducer = (state, action) => {
-  // should ONLY be called immediately before signing user out
+  // Should ONLY be called immediately before signing user out
   if (action.type === RESET_APP) {
-    // undefined state results in all reducers returning default state because of default parameters
-    state = undefined; // does not mutate state
+    // Undefined state results in all reducers returning default state because of default parameters
+    state = undefined; // Does not mutate state
     purgeStoredState(groupsPersistConfig);
     purgeStoredState(navigationPersistConfig);
     purgeStoredState(personnelPersistConfig);

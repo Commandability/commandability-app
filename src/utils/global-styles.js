@@ -18,16 +18,27 @@ export default (colors) =>
       backgroundColor: colors.background.one,
       padding: 24,
     },
+    formContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      backgroundColor: colors.background.one,
+    },
+    content: {
+      flex: 1,
+      justifyContent: 'center',
+    },
+    margin: {
+      flex: 1,
+    },
     label: {
       color: colors.primary,
-      marginLeft: 24,
     },
     input: {
       height: 48,
       color: colors.text.main,
       backgroundColor: colors.background.two,
-      margin: 24,
-      borderRadius: 5,
+      borderRadius: 4,
+      marginVertical: 16,
       paddingLeft: 16,
     },
     multilineInput: {
@@ -36,16 +47,15 @@ export default (colors) =>
       color: colors.text.main,
       borderColor: colors.primary,
       backgroundColor: colors.background.two,
-      margin: 24,
-      borderRadius: 5,
+      marginVertical: 16,
+      borderRadius: 4,
       paddingLeft: 16,
     },
     prompt: {
-      marginLeft: 24,
-      marginBottom: 72,
+      marginVertical: 16,
     },
     promptHeader: {
-      fontSize: 48,
+      fontSize: 32,
       marginBottom: 8,
       color: colors.primary,
     },

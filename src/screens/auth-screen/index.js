@@ -90,36 +90,40 @@ const AuthScreen = () => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[loading, email, password]}>
-      <View style={globalStyles.container}>
-        <View>
-          <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-            <Text style={globalStyles.label}>Email</Text>
-            <TextInput
-              style={globalStyles.input}
-              keyboardType="email-address"
-              onChangeText={(_email) => setEmail(_email)}
-              value={email}
-              maxLength={48}
-              selectionColor={colors.primary}
-              disableFullscreenUI={true}
-            />
-            <Text style={globalStyles.label}>Password</Text>
-            <TextInput
-              style={globalStyles.input}
-              secureTextEntry
-              onChangeText={(_password) => setPassword(_password)}
-              value={password}
-              maxLength={36}
-              selectionColor={colors.primary}
-              disableFullscreenUI={true}
-            />
-            <LargeButton
-              text="Sign in"
-              onPress={onSignInPressed}
-              icon="login"
-            />
-          </KeyboardAwareScrollView>
+      <View style={globalStyles.formContainer}>
+        <View style={globalStyles.margin} />
+        <View style={globalStyles.content}>
+          <View>
+            <KeyboardAwareScrollView>
+              <Text style={globalStyles.label}>Email</Text>
+              <TextInput
+                style={globalStyles.input}
+                keyboardType="email-address"
+                onChangeText={(_email) => setEmail(_email)}
+                value={email}
+                maxLength={48}
+                selectionColor={colors.primary}
+                disableFullscreenUI={true}
+              />
+              <Text style={globalStyles.label}>Password</Text>
+              <TextInput
+                style={globalStyles.input}
+                secureTextEntry
+                onChangeText={(_password) => setPassword(_password)}
+                value={password}
+                maxLength={36}
+                selectionColor={colors.primary}
+                disableFullscreenUI={true}
+              />
+              <LargeButton
+                text="Sign in"
+                onPress={onSignInPressed}
+                icon="login-variant"
+              />
+            </KeyboardAwareScrollView>
+          </View>
         </View>
+        <View style={globalStyles.margin} />
         {loading ? (
           <ActivityIndicator
             style={globalStyles.activityIndicator}

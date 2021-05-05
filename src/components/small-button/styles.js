@@ -8,7 +8,7 @@ export default (colors) =>
       alignItems: 'center',
       width: Dimensions.get('window').width * 0.18,
       paddingVertical: 4,
-      borderRadius: 5,
+      borderRadius: 4,
       backgroundColor: colors.primary,
     },
     opacityContent: {

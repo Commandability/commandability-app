@@ -39,7 +39,7 @@ export default (colors) =>
       width: Dimensions.get('window').width * 0.25 - 8, // x = 8
       marginHorizontal: 48,
       backgroundColor: colors.background.two,
-      borderRadius: 5,
+      borderRadius: 4,
     },
     colButton: {
       alignSelf: 'center',

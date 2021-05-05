@@ -89,35 +89,39 @@ const ExitWithoutSavingPrompt = () => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[loading, password]}>
-      <View style={globalStyles.container}>
+      <View style={globalStyles.formContainer}>
         <BackButton />
-        <View>
-          <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-            <View style={globalStyles.prompt}>
-              <Text style={globalStyles.promptText}>
-                Are you absolutely sure you want to exit without saving?
-              </Text>
-              <Text style={globalStyles.promptText}>
-                Please enter your password to confirm
-              </Text>
-            </View>
-            <Text style={globalStyles.label}>Password</Text>
-            <TextInput
-              style={globalStyles.input}
-              secureTextEntry
-              onChangeText={(_password) => setPassword(_password)}
-              value={password}
-              maxLength={36}
-              selectionColor={colors.primary}
-              disableFullscreenUI={true}
-            />
-            <LargeButton
-              text="Exit without saving"
-              onPress={onExitPressed}
-              icon="cancel"
-            />
-          </KeyboardAwareScrollView>
+        <View style={globalStyles.margin} />
+        <View style={globalStyles.content}>
+          <View>
+            <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+              <View style={globalStyles.prompt}>
+                <Text style={globalStyles.promptHeader}>
+                  Exit without saving
+                </Text>
+                <Text style={globalStyles.promptText}>
+                  Are you sure you want to exit without saving?
+                </Text>
+              </View>
+              <Text style={globalStyles.label}>Password</Text>
+              <TextInput
+                style={globalStyles.input}
+                secureTextEntry
+                onChangeText={(_password) => setPassword(_password)}
+                value={password}
+                maxLength={36}
+                selectionColor={colors.primary}
+                disableFullscreenUI={true}
+              />
+              <LargeButton
+                text="Exit without saving"
+                onPress={onExitPressed}
+                icon="cancel"
+              />
+            </KeyboardAwareScrollView>
+          </View>
         </View>
+        <View style={globalStyles.margin} />
         {loading ? (
           <ActivityIndicator
             style={globalStyles.activityIndicator}

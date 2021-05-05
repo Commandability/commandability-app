@@ -3,14 +3,20 @@
  */
 
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, Alert, View, Text} from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import NetInfo from '@react-native-community/netinfo';
 import {ErrorBoundary} from 'react-error-boundary';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {LargeButton} from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import {
   selectReportData,
@@ -110,7 +116,7 @@ const HomeScreen = () => {
       await dispatch(updateConfiguration());
 
       Alert.alert(
-        'Configuration updated',
+        'Account configuration updated',
         "The latest configuration data has been loaded from your organization's account.",
         [
           {
@@ -173,7 +179,7 @@ const HomeScreen = () => {
       if (!expirationDate || Date.now() > expirationDate) {
         Alert.alert(
           'Report upload disabled',
-          'Please sign in to the Commandability web portal to check your account status.',
+          'Please check your account status for additional information.',
           [
             {
               text: 'OK',
@@ -186,7 +192,7 @@ const HomeScreen = () => {
         await deleteAllReports();
 
         Alert.alert(
-          'Upload completed successfully',
+          'Report upload completed successfully',
           'All reports have been uploaded and removed from the device.',
           [
             {
@@ -199,7 +205,7 @@ const HomeScreen = () => {
       if (uploadSuccess) {
         Alert.alert(
           'Error removing reports from device',
-          'All reports were successfully uploaded, but were not successfully removed from the device. Clear app storage manually before next use.',
+          'All reports were successfully uploaded, but were not successfully removed from the device.',
           [
             {
               text: 'OK',
@@ -236,7 +242,7 @@ const HomeScreen = () => {
     } else {
       Alert.alert(
         'Are you sure you want to sign out?',
-        'All personnel and incident data will be removed.',
+        'All account configuration and report data will be removed from the device.',
         [
           {
             text: 'Cancel',
@@ -279,48 +285,67 @@ const HomeScreen = () => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[loading, numberOfReports]}>
-      <View style={globalStyles.container}>
-        <LargeButton
-          text="Start incident"
-          onPress={onStartIncidentPressed}
-          icon="alarm-light"
-          type="flex"
-        />
-        <View style={styles.row}>
-          <LargeButton
-            text="Update configuration"
-            onPress={onUpdateConfigurationPressed}
-            icon="update"
-            type="flex"
-          />
-          <LargeButton
-            text="Upload reports"
-            onPress={onUploadReportsPressed}
-            icon="upload"
-            type="flex"
-            priority={!!numberOfReports}>
-            <Text
+      <View style={styles.container}>
+        <View style={styles.opacityGrid}>
+          <TouchableOpacity
+            style={[styles.opacity]}
+            onPress={onStartIncidentPressed}>
+            <Icon
+              name="alarm-light"
+              style={[styles.opacityText, styles.opacityIcon]}
+            />
+            <Text style={[styles.opacityText]}>Start incident</Text>
+          </TouchableOpacity>
+          <View style={styles.row}>
+            <TouchableOpacity
+              style={styles.opacity}
+              onPress={onUpdateConfigurationPressed}>
+              <Icon
+                name="update"
+                style={[styles.opacityText, styles.opacityIcon]}
+              />
+              <Text style={styles.opacityText}>Update</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
               style={[
-                styles.reportsNumber,
-                numberOfReports
-                  ? styles.reportsOnDevice
-                  : styles.noReportsOnDevice,
-              ]}>{`${numberOfReports}`}</Text>
-          </LargeButton>
-        </View>
-        <View style={styles.row}>
-          <LargeButton
-            text={`${theme === DARK ? 'Light' : 'Dark'} theme`}
-            onPress={onToggleThemePressed}
-            icon="theme-light-dark"
-            type="flex"
-          />
-          <LargeButton
-            text="Sign out"
-            onPress={onSignOutPressed}
-            icon="logout"
-            type="flex"
-          />
+                styles.opacity,
+                numberOfReports && styles.outlinedOpacity,
+              ]}
+              onPress={onUploadReportsPressed}>
+              <Icon
+                name="upload"
+                style={[styles.opacityText, styles.opacityIcon]}
+              />
+              <Text style={styles.opacityText}>Upload</Text>
+              <Text
+                style={[
+                  styles.reportsNumber,
+                  numberOfReports
+                    ? styles.reportsOnDevice
+                    : styles.noReportsOnDevice,
+                ]}>{`${numberOfReports}`}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.row}>
+            <TouchableOpacity
+              style={styles.opacity}
+              onPress={onToggleThemePressed}>
+              <Icon
+                name="theme-light-dark"
+                style={[styles.opacityText, styles.opacityIcon]}
+              />
+              <Text style={[styles.opacityText]}>{`${
+                theme === DARK ? 'Light' : 'Dark'
+              } theme`}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.opacity} onPress={onSignOutPressed}>
+              <Icon
+                name="logout"
+                style={[styles.opacityText, styles.opacityIcon]}
+              />
+              <Text style={styles.opacityText}>Sign out</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         {loading ? (
           <ActivityIndicator

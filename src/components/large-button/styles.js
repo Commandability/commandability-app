@@ -6,27 +6,27 @@ export default (colors) =>
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: colors.background.two,
-      margin: 24,
-      borderRadius: 5,
+      borderRadius: 4,
+      paddingVertical: 4,
+      marginVertical: 16,
     },
-    fixed: {
-      padding: 48,
+    opacityText: {
+      fontSize: 24,
     },
-    flex: {
-      flex: 1,
+    opacityIcon: {
+      marginRight: 8,
     },
-    priority: {
+    contained: {
+      backgroundColor: colors.primary,
+    },
+    outlined: {
       borderWidth: 1,
       borderColor: colors.primary,
     },
-    opacityText: {
-      fontSize: 42,
-      color: colors.text.main,
+    containedText: {
+      color: colors.text.alternate,
     },
-    opacityIcon: {
-      fontSize: 42,
+    outlinedText: {
       color: colors.primary,
-      marginRight: 32,
     },
   });

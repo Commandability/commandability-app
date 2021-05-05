@@ -74,38 +74,42 @@ const EditGroupPrompt = ({navigation, route}) => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[newName]}>
-      <View style={globalStyles.container}>
+      <View style={globalStyles.formContainer}>
         <BackButton />
-        <View>
-          <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-            <Text style={globalStyles.label}>Group name *</Text>
-            <TextInput
-              style={globalStyles.input}
-              onChangeText={(_newName) => setNewName(_newName)}
-              value={newName}
-              maxLength={22}
-              selectionColor={colors.primary}
-              disableFullscreenUI={true}
-            />
-            <Text style={globalStyles.label}>Group alerts</Text>
-            <View style={styles.pickerContainer}>
-              <Picker
-                selectedValue={currAlert}
-                onValueChange={(_newAlert) => setNewAlert(_newAlert)}
-                style={styles.picker}>
-                <Picker.Item key={0} label="Disabled" value={0} />
-                {alerts.map((time) => (
-                  <Picker.Item
-                    key={time}
-                    label={`${time} minutes`}
-                    value={time}
-                  />
-                ))}
-              </Picker>
-            </View>
-            <LargeButton text="Save" onPress={onSavePressed} icon="check" />
-          </KeyboardAwareScrollView>
+        <View style={globalStyles.margin} />
+        <View style={globalStyles.content}>
+          <View>
+            <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+              <Text style={globalStyles.label}>Group name *</Text>
+              <TextInput
+                style={globalStyles.input}
+                onChangeText={(_newName) => setNewName(_newName)}
+                value={newName}
+                maxLength={22}
+                selectionColor={colors.primary}
+                disableFullscreenUI={true}
+              />
+              <Text style={globalStyles.label}>Group alerts</Text>
+              <View style={styles.pickerContainer}>
+                <Picker
+                  selectedValue={currAlert}
+                  onValueChange={(_newAlert) => setNewAlert(_newAlert)}
+                  style={styles.picker}>
+                  <Picker.Item key={0} label="Disabled" value={0} />
+                  {alerts.map((time) => (
+                    <Picker.Item
+                      key={time}
+                      label={`${time} minutes`}
+                      value={time}
+                    />
+                  ))}
+                </Picker>
+              </View>
+              <LargeButton text="Save" onPress={onSavePressed} icon="check" />
+            </KeyboardAwareScrollView>
+          </View>
         </View>
+        <View style={globalStyles.margin} />
       </View>
     </ErrorBoundary>
   );

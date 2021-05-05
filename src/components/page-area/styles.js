@@ -6,7 +6,7 @@ export default (colors) =>
       flex: 1,
       margin: 8,
       backgroundColor: colors.background.two,
-      borderRadius: 5,
+      borderRadius: 4,
     },
     page: {
       flex: 1,

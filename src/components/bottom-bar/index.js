@@ -50,7 +50,7 @@ const BottomBar = () => {
         {
           text: 'OK',
           onPress: () => {
-            dispatch(endIncident()); // log incident end
+            dispatch(endIncident());
             dispatch(toEndStack());
           },
         },

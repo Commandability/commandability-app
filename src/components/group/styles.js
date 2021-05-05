@@ -11,7 +11,7 @@ export default (colors) =>
       width: '100%',
       height: '100%',
       opacity: 0.2,
-      borderRadius: 5,
+      borderRadius: 4,
     },
     container: {
       height: '50%',
@@ -36,6 +36,6 @@ export default (colors) =>
     alert: {
       borderWidth: 1.5,
       borderColor: colors.primary,
-      borderRadius: 5,
+      borderRadius: 4,
     },
   });

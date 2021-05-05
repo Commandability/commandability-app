@@ -32,7 +32,7 @@ const NewPersonnelItem = ({personId}) => {
         text: 'OK',
         onPress: () => {
           isTemporary
-            ? // remove each temporary selected personId
+            ? // Remove each temporary selected personId
               dispatch(removePerson(person))
             : // set each selected personId's new locationId to ROSTER
               dispatch(

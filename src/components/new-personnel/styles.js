@@ -6,7 +6,7 @@ export default (colors) =>
       flex: 1,
       color: colors.text.main,
       backgroundColor: colors.background.three,
-      borderRadius: 5,
+      borderRadius: 4,
       margin: 8,
     },
     header: {

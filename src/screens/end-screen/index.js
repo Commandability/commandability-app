@@ -74,41 +74,46 @@ const EndScreen = ({navigation}) => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[location, notes]}>
-      <View style={globalStyles.container}>
-        <View>
-          <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-            <Text style={globalStyles.label}>Location *</Text>
-            <TextInput
-              style={globalStyles.input}
-              onChangeText={(_location) => setLocation(_location)}
-              value={location}
-              maxLength={36}
-              selectionColor={colors.primary}
-              disableFullscreenUI={true}
-            />
-            <Text style={globalStyles.label}>Notes</Text>
-            <TextInput
-              style={globalStyles.multilineInput}
-              multiline={true}
-              onChangeText={(_notes) => setNotes(_notes)}
-              value={notes}
-              maxLength={1024}
-              selectionColor={colors.primary}
-              disableFullscreenUI={true}
-            />
-            <LargeButton
-              text="Resume incident"
-              onPress={onResumeIncidentPressed}
-              icon="restart"
-            />
-            <LargeButton
-              text="Continue"
-              onPress={onContinuePressed}
-              icon="arrow-right"
-              priority={true}
-            />
-          </KeyboardAwareScrollView>
+      <View style={globalStyles.formContainer}>
+        <View style={globalStyles.margin} />
+        <View style={globalStyles.content}>
+          <View>
+            <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+              <Text style={globalStyles.label}>Location *</Text>
+              <TextInput
+                style={globalStyles.input}
+                onChangeText={(_location) => setLocation(_location)}
+                value={location}
+                maxLength={36}
+                selectionColor={colors.primary}
+                disableFullscreenUI={true}
+              />
+              <Text style={globalStyles.label}>Notes</Text>
+              <TextInput
+                style={globalStyles.multilineInput}
+                multiline={true}
+                onChangeText={(_notes) => setNotes(_notes)}
+                value={notes}
+                maxLength={1024}
+                selectionColor={colors.primary}
+                disableFullscreenUI={true}
+              />
+              <LargeButton
+                text="Resume"
+                onPress={onResumeIncidentPressed}
+                icon="restart"
+                type="outlined"
+              />
+              <LargeButton
+                text="Continue"
+                onPress={onContinuePressed}
+                icon="arrow-right"
+                type="contained"
+              />
+            </KeyboardAwareScrollView>
+          </View>
         </View>
+        <View style={globalStyles.margin} />
       </View>
     </ErrorBoundary>
   );

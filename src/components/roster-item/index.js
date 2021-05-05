@@ -46,7 +46,7 @@ const RosterItem = ({personId}) => {
 };
 
 RosterItem.propTypes = {
-  personId: PropTypes.string, // the current person
+  personId: PropTypes.string,
 };
 
 export default React.memo(RosterItem);

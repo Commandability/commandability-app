@@ -92,7 +92,7 @@ const AuthScreen = () => {
         <View style={globalStyles.margin} />
         <View style={globalStyles.content}>
           <View>
-            <KeyboardAwareScrollView>
+            <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
               <Text style={globalStyles.label}>Email</Text>
               <TextInput
                 style={globalStyles.input}

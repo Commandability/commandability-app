@@ -14,7 +14,8 @@ export default (colors) =>
       color: colors.text.main,
       borderColor: colors.primary,
       borderBottomWidth: 1,
-      margin: 8,
+      marginHorizontal: 8,
+      marginBottom: 8,
     },
     header: {
       alignItems: 'center',

@@ -14,6 +14,7 @@ export default (colors) =>
     tabBar: {
       backgroundColor: colors.background.three,
       margin: 8,
+      elevation: 0,
     },
     tabLabel: {
       color: colors.text.main,

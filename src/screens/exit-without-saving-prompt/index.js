@@ -94,7 +94,9 @@ const ExitWithoutSavingPrompt = () => {
         <View style={globalStyles.margin} />
         <View style={globalStyles.content}>
           <View>
-            <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+            <KeyboardAwareScrollView
+              keyboardShouldPersistTaps="handled"
+              showsVerticalScrollIndicator={false}>
               <View style={globalStyles.prompt}>
                 <Text style={globalStyles.promptHeader}>
                   Exit without saving

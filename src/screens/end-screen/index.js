@@ -78,7 +78,9 @@ const EndScreen = ({navigation}) => {
         <View style={globalStyles.margin} />
         <View style={globalStyles.content}>
           <View>
-            <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+            <KeyboardAwareScrollView
+              keyboardShouldPersistTaps="handled"
+              showsVerticalScrollIndicator={false}>
               <Text style={globalStyles.label}>Location *</Text>
               <TextInput
                 style={globalStyles.input}

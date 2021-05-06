@@ -112,6 +112,7 @@ const ExitWithoutSavingPrompt = () => {
                 maxLength={36}
                 selectionColor={colors.primary}
                 disableFullscreenUI={true}
+                autoCapitalize="none"
               />
               <LargeButton
                 text="Exit without saving"

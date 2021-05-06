@@ -102,6 +102,7 @@ const AuthScreen = () => {
                 maxLength={48}
                 selectionColor={colors.primary}
                 disableFullscreenUI={true}
+                autoCapitalize="none"
               />
               <Text style={globalStyles.label}>Password</Text>
               <TextInput
@@ -112,6 +113,7 @@ const AuthScreen = () => {
                 maxLength={36}
                 selectionColor={colors.primary}
                 disableFullscreenUI={true}
+                autoCapitalize="none"
               />
               <LargeButton
                 text="Sign in"

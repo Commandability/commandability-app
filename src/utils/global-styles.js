@@ -12,12 +12,6 @@ export default (colors) =>
       right: 0,
       bottom: 24,
     },
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      backgroundColor: colors.background.one,
-      padding: 24,
-    },
     formContainer: {
       flex: 1,
       flexDirection: 'row',

@@ -6,6 +6,7 @@ export default (colors) =>
       position: 'absolute',
       left: 24,
       top: 24,
+      zIndex: 1,
     },
     backIcon: {
       color: colors.primary,

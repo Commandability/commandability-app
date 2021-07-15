@@ -5,7 +5,7 @@
  */
 
 import React, {useState} from 'react';
-import {Alert, View, TextInput, Text} from 'react-native';
+import {Alert, StatusBar, View, TextInput, Text} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import PropTypes from 'prop-types';
@@ -16,6 +16,7 @@ import ErrorFallbackScreen from '../error-fallback-screen';
 import {addPerson} from '../../redux/actions';
 import {selectTheme} from '../../redux/selectors';
 import {staticLocations} from '../../utils/locations';
+import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 
@@ -66,6 +67,8 @@ const AddPersonPrompt = ({navigation}) => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[firstName, lastName, badge, organization]}>
+      <StatusBar
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}/>
       <View style={globalStyles.formContainer}>
         <BackButton />
         <View style={globalStyles.margin} />

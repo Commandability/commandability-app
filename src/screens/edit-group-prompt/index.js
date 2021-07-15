@@ -3,7 +3,7 @@
  */
 
 import React, {useState} from 'react';
-import {Alert, Text, TextInput, View} from 'react-native';
+import {Alert, StatusBar, Text, TextInput, View} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {ErrorBoundary} from 'react-error-boundary';
@@ -14,6 +14,7 @@ import {BackButton, LargeButton} from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import {selectTheme} from '../../redux/selectors';
 import {editGroup} from '../../redux/actions';
+import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 import createStyleSheet from './styles';
@@ -74,6 +75,8 @@ const EditGroupPrompt = ({navigation, route}) => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[newName]}>
+      <StatusBar
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}/>
       <View style={globalStyles.formContainer}>
         <BackButton />
         <View style={globalStyles.margin} />

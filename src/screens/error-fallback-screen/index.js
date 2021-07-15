@@ -5,7 +5,7 @@
  */
 
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, Alert, View, Text} from 'react-native';
+import {ActivityIndicator, Alert, StatusBar, View, Text} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import NetInfo from '@react-native-community/netinfo';
@@ -21,6 +21,7 @@ import {
   deleteAllReports,
 } from '../../utils/report-manager';
 import {START_INCIDENT} from '../../redux/types';
+import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 
@@ -119,35 +120,39 @@ const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
   };
 
   return (
-    <View style={globalStyles.formContainer}>
-      <View style={globalStyles.margin} />
-      <View style={globalStyles.content}>
-        <View style={globalStyles.prompt}>
-          <Text style={globalStyles.promptHeader}>Something went wrong:</Text>
-          <Text style={globalStyles.promptText}>{error.message}</Text>
-        </View>
-        <LargeButton
-          text="Try again"
-          onPress={resetErrorBoundary}
-          icon="refresh"
-        />
-        {currentUser ? (
+    <>
+      <StatusBar
+          barStyle={theme === DARK ? 'light-content' : 'dark-content'}/>
+      <View style={globalStyles.formContainer}>
+        <View style={globalStyles.margin} />
+        <View style={globalStyles.content}>
+          <View style={globalStyles.prompt}>
+            <Text style={globalStyles.promptHeader}>Something went wrong:</Text>
+            <Text style={globalStyles.promptText}>{error.message}</Text>
+          </View>
           <LargeButton
-            text="Emergency upload"
-            onPress={onEmergencyUploadPressed}
-            icon="upload"
+            text="Try again"
+            onPress={resetErrorBoundary}
+            icon="refresh"
           />
-        ) : null}
-        {loading ? (
-          <ActivityIndicator
-            style={globalStyles.activityIndicator}
-            color={colors.primary}
-            size={'large'}
-          />
-        ) : null}
+          {currentUser ? (
+            <LargeButton
+              text="Emergency upload"
+              onPress={onEmergencyUploadPressed}
+              icon="upload"
+            />
+          ) : null}
+          {loading ? (
+            <ActivityIndicator
+              style={globalStyles.activityIndicator}
+              color={colors.primary}
+              size={'large'}
+            />
+          ) : null}
+        </View>
+        <View style={globalStyles.margin} />
       </View>
-      <View style={globalStyles.margin} />
-    </View>
+    </>
   );
 };
 

@@ -3,13 +3,14 @@
  */
 
 import React from 'react';
-import {View} from 'react-native';
+import {StatusBar, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {ErrorBoundary} from 'react-error-boundary';
 
 import ErrorFallbackScreen from '../error-fallback-screen';
 import {PageArea, PersonnelArea, BottomBar} from '../../components';
 import {selectTheme} from '../../redux/selectors';
+import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
@@ -21,6 +22,8 @@ const IncidentScreen = () => {
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallbackScreen}>
+      <StatusBar
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}/>
       <View style={styles.container}>
         <View style={styles.mainArea}>
           <View style={styles.sideBar}>

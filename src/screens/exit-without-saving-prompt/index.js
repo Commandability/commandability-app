@@ -3,7 +3,7 @@
  */
 
 import React, {useState} from 'react';
-import {ActivityIndicator, Alert, View, TextInput, Text} from 'react-native';
+import {ActivityIndicator, Alert, StatusBar, View, TextInput, Text} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import auth from '@react-native-firebase/auth';
@@ -14,6 +14,7 @@ import {BackButton, LargeButton} from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import {resetIncident, toHomeStack} from '../../redux/actions';
 import {selectTheme} from '../../redux/selectors';
+import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 
@@ -89,6 +90,8 @@ const ExitWithoutSavingPrompt = () => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[loading, password]}>
+      <StatusBar
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}/>
       <View style={globalStyles.formContainer}>
         <BackButton />
         <View style={globalStyles.margin} />

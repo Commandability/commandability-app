@@ -5,7 +5,7 @@
  */
 
 import React, {useState} from 'react';
-import {Alert, View, Text, TextInput} from 'react-native';
+import {Alert, StatusBar, View, Text, TextInput} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {ErrorBoundary} from 'react-error-boundary';
@@ -15,6 +15,7 @@ import {LargeButton} from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import {selectReportData, selectTheme} from '../../redux/selectors';
 import {resumeIncident, toIncidentStack} from '../../redux/actions';
+import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 
@@ -74,6 +75,8 @@ const EndScreen = ({navigation}) => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[location, notes]}>
+      <StatusBar
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}/>
       <View style={globalStyles.formContainer}>
         <View style={globalStyles.margin} />
         <View style={globalStyles.content}>

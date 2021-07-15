@@ -3,7 +3,7 @@
  */
 
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, Alert, View} from 'react-native';
+import {ActivityIndicator, Alert, StatusBar, View} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
@@ -21,6 +21,7 @@ import {
   uploadReport,
   saveReport,
 } from '../../utils/report-manager';
+import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 
@@ -171,6 +172,8 @@ const SavePrompt = ({route, navigation}) => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[loading, numberOfReports]}>
+      <StatusBar
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}/>
       <View style={globalStyles.formContainer}>
         <BackButton />
         <View style={globalStyles.margin} />

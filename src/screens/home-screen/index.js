@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Alert,
   View,
+  StatusBar,
   Text,
   TouchableOpacity,
 } from 'react-native';
@@ -285,6 +286,8 @@ const HomeScreen = () => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[loading, numberOfReports]}>
+      <StatusBar
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}/>
       <View style={styles.container}>
         <View style={styles.opacityGrid}>
           <TouchableOpacity

@@ -3,7 +3,7 @@
  */
 
 import React, {useState} from 'react';
-import {ActivityIndicator, Alert, TextInput, View, Text} from 'react-native';
+import {ActivityIndicator, Alert, StatusBar, Text, TextInput, View} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useSelector, useDispatch} from 'react-redux';
 import NetInfo from '@react-native-community/netinfo';
@@ -88,6 +88,8 @@ const AuthScreen = () => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[loading, email, password]}>
+      <StatusBar
+        barStyle={'light-content'}/>
       <View style={globalStyles.formContainer}>
         <View style={globalStyles.margin} />
         <View style={globalStyles.content}>

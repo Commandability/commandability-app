@@ -5,7 +5,7 @@
  */
 
 import React, {useMemo} from 'react';
-import {View} from 'react-native';
+import {StatusBar, View} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {ErrorBoundary} from 'react-error-boundary';
 import PropTypes from 'prop-types';
@@ -19,6 +19,7 @@ import {
   createSelectPersonnelByLocationId,
   selectTheme,
 } from '../../redux/selectors';
+import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
@@ -58,6 +59,8 @@ const AddPersonnelPrompt = ({navigation}) => {
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallbackScreen}>
+      <StatusBar
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}/>
       <View style={styles.container}>
         <BackButton />
         <View style={styles.leftCol}>

@@ -106,6 +106,7 @@ const EditGroupPrompt = ({navigation, route}) => {
                       key={time}
                       label={`${time} minutes`}
                       value={time}
+                      color={colors.text.main}
                     />
                   ))}
                 </Picker>

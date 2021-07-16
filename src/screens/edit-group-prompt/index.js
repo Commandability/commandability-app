@@ -3,7 +3,7 @@
  */
 
 import React, {useState} from 'react';
-import {Alert, StatusBar, Text, TextInput, View} from 'react-native';
+import {Platform, Alert, StatusBar, Text, TextInput, View} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {ErrorBoundary} from 'react-error-boundary';
@@ -100,13 +100,13 @@ const EditGroupPrompt = ({navigation, route}) => {
                   selectedValue={currAlert}
                   onValueChange={(_newAlert) => setNewAlert(_newAlert)}
                   style={styles.picker}>
-                  <Picker.Item key={0} label="Disabled" value={0} />
+                  <Picker.Item key={0} label="Disabled" value={0} color={Platform.OS === 'ios' ? colors.text.main : colors.text.alternate} />
                   {alerts.map((time) => (
                     <Picker.Item
                       key={time}
                       label={`${time} minutes`}
                       value={time}
-                      color={colors.text.main}
+                      color={Platform.OS === 'ios' ? colors.text.main : colors.text.alternate}
                     />
                   ))}
                 </Picker>

@@ -3,7 +3,14 @@
  */
 
 import React, {useState} from 'react';
-import {ActivityIndicator, Alert, StatusBar, View, TextInput, Text} from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  StatusBar,
+  View,
+  TextInput,
+  Text,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import auth from '@react-native-firebase/auth';
@@ -91,7 +98,10 @@ const ExitWithoutSavingPrompt = () => {
       onReset={onReset}
       resetKeys={[loading, password]}>
       <StatusBar
-        barStyle={theme === DARK ? 'light-content' : 'dark-content'}/>
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}
+        backgroundColor={'transparent'}
+        translucent={true}
+      />
       <View style={globalStyles.formContainer}>
         <BackButton />
         <View style={globalStyles.margin} />

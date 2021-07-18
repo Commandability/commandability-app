@@ -76,7 +76,10 @@ const EditGroupPrompt = ({navigation, route}) => {
       onReset={onReset}
       resetKeys={[newName]}>
       <StatusBar
-        barStyle={theme === DARK ? 'light-content' : 'dark-content'}/>
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}
+        backgroundColor={'transparent'}
+        translucent={true}
+      />
       <View style={globalStyles.formContainer}>
         <BackButton />
         <View style={globalStyles.margin} />
@@ -100,13 +103,26 @@ const EditGroupPrompt = ({navigation, route}) => {
                   selectedValue={currAlert}
                   onValueChange={(_newAlert) => setNewAlert(_newAlert)}
                   style={styles.picker}>
-                  <Picker.Item key={0} label="Disabled" value={0} color={Platform.OS === 'ios' ? colors.text.main : colors.text.alternate} />
+                  <Picker.Item
+                    key={0}
+                    label="Disabled"
+                    value={0}
+                    color={
+                      Platform.OS === 'ios'
+                        ? colors.text.main
+                        : colors.text.alternate
+                    }
+                  />
                   {alerts.map((time) => (
                     <Picker.Item
                       key={time}
                       label={`${time} minutes`}
                       value={time}
-                      color={Platform.OS === 'ios' ? colors.text.main : colors.text.alternate}
+                      color={
+                        Platform.OS === 'ios'
+                          ? colors.text.main
+                          : colors.text.alternate
+                      }
                     />
                   ))}
                 </Picker>

@@ -173,7 +173,10 @@ const SavePrompt = ({route, navigation}) => {
       onReset={onReset}
       resetKeys={[loading, numberOfReports]}>
       <StatusBar
-        barStyle={theme === DARK ? 'light-content' : 'dark-content'}/>
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}
+        backgroundColor={'transparent'}
+        translucent={true}
+      />
       <View style={globalStyles.formContainer}>
         <BackButton />
         <View style={globalStyles.margin} />

@@ -68,7 +68,10 @@ const AddPersonPrompt = ({navigation}) => {
       onReset={onReset}
       resetKeys={[firstName, lastName, badge, organization]}>
       <StatusBar
-        barStyle={theme === DARK ? 'light-content' : 'dark-content'}/>
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}
+        backgroundColor={'transparent'}
+        translucent={true}
+      />
       <View style={globalStyles.formContainer}>
         <BackButton />
         <View style={globalStyles.margin} />

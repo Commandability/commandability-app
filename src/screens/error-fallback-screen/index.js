@@ -122,7 +122,10 @@ const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
   return (
     <>
       <StatusBar
-          barStyle={theme === DARK ? 'light-content' : 'dark-content'}/>
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}
+        backgroundColor={'transparent'}
+        translucent={true}
+      />
       <View style={globalStyles.formContainer}>
         <View style={globalStyles.margin} />
         <View style={globalStyles.content}>

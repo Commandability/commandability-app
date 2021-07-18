@@ -60,7 +60,10 @@ const AddPersonnelPrompt = ({navigation}) => {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallbackScreen}>
       <StatusBar
-        barStyle={theme === DARK ? 'light-content' : 'dark-content'}/>
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}
+        backgroundColor={'transparent'}
+        translucent={true}
+      />
       <View style={styles.container}>
         <BackButton />
         <View style={styles.leftCol}>

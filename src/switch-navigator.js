@@ -82,7 +82,6 @@ const setStack = (stack) => {
           <Auth.Screen
             name="AuthScreen"
             component={AuthScreen}
-            options={{animationTypeForReplace: 'pop'}}
           />
         </Auth.Navigator>
       );

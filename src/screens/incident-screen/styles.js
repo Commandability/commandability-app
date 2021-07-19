@@ -9,7 +9,7 @@ export default (colors) =>
     mainArea: {
       flex: 1,
       flexDirection: 'row',
-      marginTop: Platform.OS === 'ios' ? 8 : StatusBar.currentHeight + 8,
+      marginTop: Platform.OS === 'ios' ? 24 : StatusBar.currentHeight + 8,
       marginBottom: 8,
     },
 

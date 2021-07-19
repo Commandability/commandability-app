@@ -11,7 +11,7 @@ export default (colors) =>
       justifyContent: 'center',
       marginHorizontal: 16,
       marginBottom: 16,
-      marginTop: Platform.OS === 'ios' ? 16 : StatusBar.currentHeight + 16,
+      marginTop: Platform.OS === 'ios' ? 24 : StatusBar.currentHeight + 16,
     },
     row: {
       flexDirection: 'row',

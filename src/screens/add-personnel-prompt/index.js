@@ -66,25 +66,27 @@ const AddPersonnelPrompt = ({navigation}) => {
       />
       <View style={styles.container}>
         <BackButton />
-        <View style={styles.leftCol}>
-          <View style={styles.colContainer}>
-            <NewPersonnel />
-            <SmallButton
-              text="ADD TO INCIDENT"
-              onPress={onAddToIncidentPressed}
-              style={styles.colButton}
-            />
+        <View style={styles.colsArea}>
+          <View style={styles.leftCol}>
+            <View style={styles.colContainer}>
+              <NewPersonnel />
+              <SmallButton
+                text="ADD TO INCIDENT"
+                onPress={onAddToIncidentPressed}
+                style={styles.colButton}
+              />
+            </View>
           </View>
-        </View>
-        <View style={styles.rightCol}>
-          <View style={styles.colContainer}>
-            <Roster />
-            <SmallButton
-              text="ADD PERSON"
-              onPress={onAddPersonPressed}
-              type="navigator"
-              style={styles.colButton}
-            />
+          <View style={styles.rightCol}>
+            <View style={styles.colContainer}>
+              <Roster />
+              <SmallButton
+                text="ADD PERSON"
+                onPress={onAddPersonPressed}
+                type="navigator"
+                style={styles.colButton}
+              />
+            </View>
           </View>
         </View>
       </View>

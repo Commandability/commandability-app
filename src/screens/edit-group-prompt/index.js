@@ -100,7 +100,7 @@ const EditGroupPrompt = ({navigation, route}) => {
               <Text style={globalStyles.label}>Group alerts</Text>
               <View style={styles.pickerContainer}>
                 <Picker
-                  selectedValue={currAlert}
+                  selectedValue={newAlert}
                   onValueChange={(_newAlert) => setNewAlert(_newAlert)}
                   style={styles.picker}>
                   <Picker.Item

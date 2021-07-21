@@ -18,6 +18,7 @@ import {resumeIncident, toIncidentStack} from '../../redux/actions';
 import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
+import styles from '../../components/back-button/styles';
 
 const EndScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -80,49 +81,49 @@ const EndScreen = ({navigation}) => {
         backgroundColor={'transparent'}
         translucent={true}
       />
-      <View style={globalStyles.formContainer}>
-        <View style={globalStyles.margin} />
-        <View style={globalStyles.content}>
-          <View>
-            <KeyboardAwareScrollView
-              keyboardShouldPersistTaps="handled"
-              showsVerticalScrollIndicator={false}>
-              <Text style={globalStyles.label}>Location *</Text>
-              <TextInput
-                style={globalStyles.input}
-                onChangeText={(_location) => setLocation(_location)}
-                value={location}
-                maxLength={36}
-                selectionColor={colors.primary}
-                disableFullscreenUI={true}
-              />
-              <Text style={globalStyles.label}>Notes</Text>
-              <TextInput
-                style={globalStyles.multilineInput}
-                multiline={true}
-                onChangeText={(_notes) => setNotes(_notes)}
-                value={notes}
-                maxLength={1024}
-                selectionColor={colors.primary}
-                disableFullscreenUI={true}
-              />
-              <LargeButton
-                text="Resume"
-                onPress={onResumeIncidentPressed}
-                icon="restart"
-                type="outlined"
-              />
-              <LargeButton
-                text="Continue"
-                onPress={onContinuePressed}
-                icon="arrow-right"
-                type="contained"
-              />
-            </KeyboardAwareScrollView>
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={globalStyles.container}
+        scrollEnabled={false}>
+        <View style={globalStyles.flex} />
+        <View style={globalStyles.flex}>
+          <View style={globalStyles.content}>
+            <Text style={globalStyles.label}>Location *</Text>
+            <TextInput
+              style={globalStyles.input}
+              onChangeText={(_location) => setLocation(_location)}
+              value={location}
+              maxLength={36}
+              selectionColor={colors.primary}
+              disableFullscreenUI={true}
+            />
+            <Text style={globalStyles.label}>Notes</Text>
+            <TextInput
+              style={globalStyles.multilineInput}
+              multiline={true}
+              onChangeText={(_notes) => setNotes(_notes)}
+              value={notes}
+              maxLength={1024}
+              selectionColor={colors.primary}
+              disableFullscreenUI={true}
+            />
+            <LargeButton
+              text="Resume"
+              onPress={onResumeIncidentPressed}
+              icon="restart"
+              type="outlined"
+            />
+            <LargeButton
+              text="Continue"
+              onPress={onContinuePressed}
+              icon="arrow-right"
+              type="contained"
+            />
           </View>
         </View>
-        <View style={globalStyles.margin} />
-      </View>
+        <View style={globalStyles.flex} />
+      </KeyboardAwareScrollView>
     </ErrorBoundary>
   );
 };

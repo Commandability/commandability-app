@@ -79,10 +79,7 @@ const setStack = (stack) => {
     default:
       return (
         <Auth.Navigator screenOptions={screenOptions}>
-          <Auth.Screen
-            name="AuthScreen"
-            component={AuthScreen}
-          />
+          <Auth.Screen name="AuthScreen" component={AuthScreen} />
         </Auth.Navigator>
       );
   }

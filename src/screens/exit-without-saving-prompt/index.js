@@ -102,50 +102,48 @@ const ExitWithoutSavingPrompt = () => {
         backgroundColor={'transparent'}
         translucent={true}
       />
-      <View style={globalStyles.formContainer}>
-        <BackButton />
-        <View style={globalStyles.margin} />
-        <View style={globalStyles.content}>
-          <View>
-            <KeyboardAwareScrollView
-              keyboardShouldPersistTaps="handled"
-              showsVerticalScrollIndicator={false}>
-              <View style={globalStyles.prompt}>
-                <Text style={globalStyles.promptHeader}>
-                  Exit without saving
-                </Text>
-                <Text style={globalStyles.promptText}>
-                  Are you sure you want to exit without saving?
-                </Text>
-              </View>
-              <Text style={globalStyles.label}>Password</Text>
-              <TextInput
-                style={globalStyles.input}
-                secureTextEntry
-                onChangeText={(_password) => setPassword(_password)}
-                value={password}
-                maxLength={36}
-                selectionColor={colors.primary}
-                disableFullscreenUI={true}
-                autoCapitalize="none"
-              />
-              <LargeButton
-                text="Exit without saving"
-                onPress={onExitPressed}
-                icon="cancel"
-              />
-            </KeyboardAwareScrollView>
+      <BackButton />
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={globalStyles.container}
+        scrollEnabled={false}>
+        <View style={globalStyles.flex} />
+        <View style={globalStyles.flex}>
+          <View style={globalStyles.content}>
+            <View style={globalStyles.prompt}>
+              <Text style={globalStyles.promptHeader}>Exit without saving</Text>
+              <Text style={globalStyles.promptText}>
+                Are you sure you want to exit without saving?
+              </Text>
+            </View>
+            <Text style={globalStyles.label}>Password</Text>
+            <TextInput
+              style={globalStyles.input}
+              secureTextEntry
+              onChangeText={(_password) => setPassword(_password)}
+              value={password}
+              maxLength={36}
+              selectionColor={colors.primary}
+              disableFullscreenUI={true}
+              autoCapitalize="none"
+            />
+            <LargeButton
+              text="Exit without saving"
+              onPress={onExitPressed}
+              icon="cancel"
+            />
           </View>
         </View>
-        <View style={globalStyles.margin} />
-        {loading ? (
-          <ActivityIndicator
-            style={globalStyles.activityIndicator}
-            color={colors.primary}
-            size={'large'}
-          />
-        ) : null}
-      </View>
+        <View style={globalStyles.flex} />
+      </KeyboardAwareScrollView>
+      {loading ? (
+        <ActivityIndicator
+          style={globalStyles.activityIndicator}
+          color={colors.primary}
+          size={'large'}
+        />
+      ) : null}
     </ErrorBoundary>
   );
 };

@@ -126,34 +126,30 @@ const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
         backgroundColor={'transparent'}
         translucent={true}
       />
-      <View style={globalStyles.formContainer}>
-        <View style={globalStyles.margin} />
-        <View style={globalStyles.content}>
-          <View style={globalStyles.prompt}>
-            <Text style={globalStyles.promptHeader}>Something went wrong:</Text>
-            <Text style={globalStyles.promptText}>{error.message}</Text>
-          </View>
-          <LargeButton
-            text="Try again"
-            onPress={resetErrorBoundary}
-            icon="refresh"
-          />
-          {currentUser ? (
-            <LargeButton
-              text="Emergency upload"
-              onPress={onEmergencyUploadPressed}
-              icon="upload"
-            />
-          ) : null}
-          {loading ? (
-            <ActivityIndicator
-              style={globalStyles.activityIndicator}
-              color={colors.primary}
-              size={'large'}
-            />
-          ) : null}
+      <View style={globalStyles.content}>
+        <View style={globalStyles.prompt}>
+          <Text style={globalStyles.promptHeader}>Something went wrong:</Text>
+          <Text style={globalStyles.promptText}>{error.message}</Text>
         </View>
-        <View style={globalStyles.margin} />
+        <LargeButton
+          text="Try again"
+          onPress={resetErrorBoundary}
+          icon="refresh"
+        />
+        {currentUser ? (
+          <LargeButton
+            text="Emergency upload"
+            onPress={onEmergencyUploadPressed}
+            icon="upload"
+          />
+        ) : null}
+        {loading ? (
+          <ActivityIndicator
+            style={globalStyles.activityIndicator}
+            color={colors.primary}
+            size={'large'}
+          />
+        ) : null}
       </View>
     </>
   );

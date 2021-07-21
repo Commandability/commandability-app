@@ -177,38 +177,40 @@ const SavePrompt = ({route, navigation}) => {
         backgroundColor={'transparent'}
         translucent={true}
       />
-      <View style={globalStyles.formContainer}>
-        <BackButton />
-        <View style={globalStyles.margin} />
-        <View style={globalStyles.content}>
-          <LargeButton
-            text="Exit without saving"
-            onPress={onExitPressed}
-            icon="cancel"
-            type="outlined"
-          />
-          <LargeButton
-            text="Save to device and exit"
-            onPress={onSaveToDevicePressed}
-            icon="content-save"
-            type="outlined"
-          />
-          <LargeButton
-            text="Save to cloud and exit"
-            onPress={onSaveToCloudPressed}
-            icon="upload"
-            type="contained"
-          />
-          {loading ? (
-            <ActivityIndicator
-              style={globalStyles.activityIndicator}
-              color={colors.primary}
-              size={'large'}
+      <BackButton />
+      <View style={globalStyles.container}>
+        <View style={globalStyles.flex} />
+        <View style={globalStyles.flex}>
+          <View style={globalStyles.content}>
+            <LargeButton
+              text="Exit without saving"
+              onPress={onExitPressed}
+              icon="cancel"
+              type="outlined"
             />
-          ) : null}
+            <LargeButton
+              text="Save to device and exit"
+              onPress={onSaveToDevicePressed}
+              icon="content-save"
+              type="outlined"
+            />
+            <LargeButton
+              text="Save to cloud and exit"
+              onPress={onSaveToCloudPressed}
+              icon="upload"
+              type="contained"
+            />
+          </View>
         </View>
-        <View style={globalStyles.margin} />
+        <View style={globalStyles.flex} />
       </View>
+      {loading ? (
+        <ActivityIndicator
+          style={globalStyles.activityIndicator}
+          color={colors.primary}
+          size={'large'}
+        />
+      ) : null}
     </ErrorBoundary>
   );
 };

@@ -3,7 +3,7 @@
  */
 
 import React, {useState} from 'react';
-import {Alert, Text, TextInput, View} from 'react-native';
+import {Platform, Alert, StatusBar, Text, TextInput, View} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {ErrorBoundary} from 'react-error-boundary';
@@ -14,6 +14,7 @@ import {BackButton, LargeButton} from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import {selectTheme} from '../../redux/selectors';
 import {editGroup} from '../../redux/actions';
+import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 import createStyleSheet from './styles';
@@ -74,45 +75,64 @@ const EditGroupPrompt = ({navigation, route}) => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[newName]}>
-      <View style={globalStyles.formContainer}>
-        <BackButton />
-        <View style={globalStyles.margin} />
-        <View style={globalStyles.content}>
-          <View>
-            <KeyboardAwareScrollView
-              keyboardShouldPersistTaps="handled"
-              showsVerticalScrollIndicator={false}>
-              <Text style={globalStyles.label}>Group name *</Text>
-              <TextInput
-                style={globalStyles.input}
-                onChangeText={(_newName) => setNewName(_newName)}
-                value={newName}
-                maxLength={22}
-                selectionColor={colors.primary}
-                disableFullscreenUI={true}
-              />
-              <Text style={globalStyles.label}>Group alerts</Text>
-              <View style={styles.pickerContainer}>
-                <Picker
-                  selectedValue={currAlert}
-                  onValueChange={(_newAlert) => setNewAlert(_newAlert)}
-                  style={styles.picker}>
-                  <Picker.Item key={0} label="Disabled" value={0} />
-                  {alerts.map((time) => (
-                    <Picker.Item
-                      key={time}
-                      label={`${time} minutes`}
-                      value={time}
-                    />
-                  ))}
-                </Picker>
-              </View>
-              <LargeButton text="Save" onPress={onSavePressed} icon="check" />
-            </KeyboardAwareScrollView>
+      <StatusBar
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}
+        backgroundColor={'transparent'}
+        translucent={true}
+      />
+      <BackButton />
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={globalStyles.container}
+        scrollEnabled={false}>
+        <View style={globalStyles.flex} />
+        <View style={globalStyles.flex}>
+          <View style={globalStyles.content}>
+            <Text style={globalStyles.label}>Group name *</Text>
+            <TextInput
+              style={globalStyles.input}
+              onChangeText={(_newName) => setNewName(_newName)}
+              value={newName}
+              maxLength={22}
+              selectionColor={colors.primary}
+              disableFullscreenUI={true}
+            />
+            <Text style={globalStyles.label}>Group alerts</Text>
+            <View style={styles.pickerContainer}>
+              <Picker
+                selectedValue={newAlert}
+                onValueChange={(_newAlert) => setNewAlert(_newAlert)}
+                style={styles.picker}>
+                <Picker.Item
+                  key={0}
+                  label="Disabled"
+                  value={0}
+                  color={
+                    Platform.OS === 'ios'
+                      ? colors.text.main
+                      : colors.text.alternate
+                  }
+                />
+                {alerts.map((time) => (
+                  <Picker.Item
+                    key={time}
+                    label={`${time} minutes`}
+                    value={time}
+                    color={
+                      Platform.OS === 'ios'
+                        ? colors.text.main
+                        : colors.text.alternate
+                    }
+                  />
+                ))}
+              </Picker>
+            </View>
+            <LargeButton text="Save" onPress={onSavePressed} icon="check" />
           </View>
         </View>
-        <View style={globalStyles.margin} />
-      </View>
+        <View style={globalStyles.flex} />
+      </KeyboardAwareScrollView>
     </ErrorBoundary>
   );
 };

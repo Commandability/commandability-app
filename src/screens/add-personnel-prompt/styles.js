@@ -1,12 +1,16 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {Dimensions, Platform, StatusBar, StyleSheet} from 'react-native';
 
 export default (colors) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      flexDirection: 'row',
-      padding: 16,
       backgroundColor: colors.background.one,
+    },
+    colsArea: {
+      flex: 1,
+      flexDirection: 'row',
+      marginTop: Platform.OS === 'ios' ? 24 : StatusBar.currentHeight + 16,
+      marginBottom: 16,
     },
     leftCol: {
       flex: 1,

@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StatusBar, StyleSheet} from 'react-native';
 
 export default (colors) =>
   StyleSheet.create({
@@ -9,7 +9,9 @@ export default (colors) =>
     opacityGrid: {
       flex: 1,
       justifyContent: 'center',
-      margin: 16,
+      marginHorizontal: 16,
+      marginBottom: 16,
+      marginTop: Platform.OS === 'ios' ? 24 : StatusBar.currentHeight + 16,
     },
     row: {
       flexDirection: 'row',

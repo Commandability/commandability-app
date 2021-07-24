@@ -5,7 +5,7 @@
  */
 
 import React, {useState} from 'react';
-import {Alert, View, Text, TextInput} from 'react-native';
+import {Alert, StatusBar, View, Text, TextInput} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {ErrorBoundary} from 'react-error-boundary';
@@ -15,6 +15,7 @@ import {LargeButton} from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import {selectReportData, selectTheme} from '../../redux/selectors';
 import {resumeIncident, toIncidentStack} from '../../redux/actions';
+import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 
@@ -74,49 +75,54 @@ const EndScreen = ({navigation}) => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[location, notes]}>
-      <View style={globalStyles.formContainer}>
-        <View style={globalStyles.margin} />
-        <View style={globalStyles.content}>
-          <View>
-            <KeyboardAwareScrollView
-              keyboardShouldPersistTaps="handled"
-              showsVerticalScrollIndicator={false}>
-              <Text style={globalStyles.label}>Location *</Text>
-              <TextInput
-                style={globalStyles.input}
-                onChangeText={(_location) => setLocation(_location)}
-                value={location}
-                maxLength={36}
-                selectionColor={colors.primary}
-                disableFullscreenUI={true}
-              />
-              <Text style={globalStyles.label}>Notes</Text>
-              <TextInput
-                style={globalStyles.multilineInput}
-                multiline={true}
-                onChangeText={(_notes) => setNotes(_notes)}
-                value={notes}
-                maxLength={1024}
-                selectionColor={colors.primary}
-                disableFullscreenUI={true}
-              />
-              <LargeButton
-                text="Resume"
-                onPress={onResumeIncidentPressed}
-                icon="restart"
-                type="outlined"
-              />
-              <LargeButton
-                text="Continue"
-                onPress={onContinuePressed}
-                icon="arrow-right"
-                type="contained"
-              />
-            </KeyboardAwareScrollView>
+      <StatusBar
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}
+        backgroundColor={'transparent'}
+        translucent={true}
+      />
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={globalStyles.container}
+        scrollEnabled={false}>
+        <View style={globalStyles.flex} />
+        <View style={globalStyles.flex}>
+          <View style={globalStyles.content}>
+            <Text style={globalStyles.label}>Location *</Text>
+            <TextInput
+              style={globalStyles.input}
+              onChangeText={(_location) => setLocation(_location)}
+              value={location}
+              maxLength={36}
+              selectionColor={colors.primary}
+              disableFullscreenUI={true}
+            />
+            <Text style={globalStyles.label}>Notes</Text>
+            <TextInput
+              style={globalStyles.multilineInput}
+              multiline={true}
+              onChangeText={(_notes) => setNotes(_notes)}
+              value={notes}
+              maxLength={1024}
+              selectionColor={colors.primary}
+              disableFullscreenUI={true}
+            />
+            <LargeButton
+              text="Resume"
+              onPress={onResumeIncidentPressed}
+              icon="restart"
+              type="outlined"
+            />
+            <LargeButton
+              text="Continue"
+              onPress={onContinuePressed}
+              icon="arrow-right"
+              type="contained"
+            />
           </View>
         </View>
-        <View style={globalStyles.margin} />
-      </View>
+        <View style={globalStyles.flex} />
+      </KeyboardAwareScrollView>
     </ErrorBoundary>
   );
 };

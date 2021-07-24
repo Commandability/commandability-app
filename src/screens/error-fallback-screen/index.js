@@ -5,7 +5,7 @@
  */
 
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, Alert, View, Text} from 'react-native';
+import {ActivityIndicator, Alert, StatusBar, View, Text} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import NetInfo from '@react-native-community/netinfo';
@@ -21,6 +21,7 @@ import {
   deleteAllReports,
 } from '../../utils/report-manager';
 import {START_INCIDENT} from '../../redux/types';
+import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 
@@ -119,8 +120,12 @@ const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
   };
 
   return (
-    <View style={globalStyles.formContainer}>
-      <View style={globalStyles.margin} />
+    <>
+      <StatusBar
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}
+        backgroundColor={'transparent'}
+        translucent={true}
+      />
       <View style={globalStyles.content}>
         <View style={globalStyles.prompt}>
           <Text style={globalStyles.promptHeader}>Something went wrong:</Text>
@@ -146,8 +151,7 @@ const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
           />
         ) : null}
       </View>
-      <View style={globalStyles.margin} />
-    </View>
+    </>
   );
 };
 

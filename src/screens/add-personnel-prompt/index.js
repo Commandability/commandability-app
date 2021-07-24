@@ -5,7 +5,7 @@
  */
 
 import React, {useMemo} from 'react';
-import {View} from 'react-native';
+import {StatusBar, View} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {ErrorBoundary} from 'react-error-boundary';
 import PropTypes from 'prop-types';
@@ -19,6 +19,7 @@ import {
   createSelectPersonnelByLocationId,
   selectTheme,
 } from '../../redux/selectors';
+import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createStyleSheet from './styles';
 
@@ -58,27 +59,34 @@ const AddPersonnelPrompt = ({navigation}) => {
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallbackScreen}>
+      <StatusBar
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}
+        backgroundColor={'transparent'}
+        translucent={true}
+      />
+      <BackButton />
       <View style={styles.container}>
-        <BackButton />
-        <View style={styles.leftCol}>
-          <View style={styles.colContainer}>
-            <NewPersonnel />
-            <SmallButton
-              text="ADD TO INCIDENT"
-              onPress={onAddToIncidentPressed}
-              style={styles.colButton}
-            />
+        <View style={styles.colsArea}>
+          <View style={styles.leftCol}>
+            <View style={styles.colContainer}>
+              <NewPersonnel />
+              <SmallButton
+                text="ADD TO INCIDENT"
+                onPress={onAddToIncidentPressed}
+                style={styles.colButton}
+              />
+            </View>
           </View>
-        </View>
-        <View style={styles.rightCol}>
-          <View style={styles.colContainer}>
-            <Roster />
-            <SmallButton
-              text="ADD PERSON"
-              onPress={onAddPersonPressed}
-              type="navigator"
-              style={styles.colButton}
-            />
+          <View style={styles.rightCol}>
+            <View style={styles.colContainer}>
+              <Roster />
+              <SmallButton
+                text="ADD PERSON"
+                onPress={onAddPersonPressed}
+                type="navigator"
+                style={styles.colButton}
+              />
+            </View>
           </View>
         </View>
       </View>

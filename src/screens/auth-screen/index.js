@@ -3,7 +3,14 @@
  */
 
 import React, {useState} from 'react';
-import {ActivityIndicator, Alert, TextInput, View, Text} from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  StatusBar,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useSelector, useDispatch} from 'react-redux';
 import NetInfo from '@react-native-community/netinfo';
@@ -88,52 +95,57 @@ const AuthScreen = () => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[loading, email, password]}>
-      <View style={globalStyles.formContainer}>
-        <View style={globalStyles.margin} />
-        <View style={globalStyles.content}>
-          <View>
-            <KeyboardAwareScrollView
-              keyboardShouldPersistTaps="handled"
-              showsVerticalScrollIndicator={false}>
-              <Text style={globalStyles.label}>Email</Text>
-              <TextInput
-                style={globalStyles.input}
-                keyboardType="email-address"
-                onChangeText={(_email) => setEmail(_email)}
-                value={email}
-                maxLength={48}
-                selectionColor={colors.primary}
-                disableFullscreenUI={true}
-                autoCapitalize="none"
-              />
-              <Text style={globalStyles.label}>Password</Text>
-              <TextInput
-                style={globalStyles.input}
-                secureTextEntry
-                onChangeText={(_password) => setPassword(_password)}
-                value={password}
-                maxLength={36}
-                selectionColor={colors.primary}
-                disableFullscreenUI={true}
-                autoCapitalize="none"
-              />
-              <LargeButton
-                text="Sign in"
-                onPress={onSignInPressed}
-                icon="login-variant"
-              />
-            </KeyboardAwareScrollView>
+      <StatusBar
+        barStyle={'light-content'}
+        backgroundColor={'transparent'}
+        translucent={true}
+      />
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={globalStyles.container}
+        scrollEnabled={false}>
+        <View style={globalStyles.flex} />
+        <View style={globalStyles.flex}>
+          <View style={globalStyles.content}>
+            <Text style={globalStyles.label}>Email</Text>
+            <TextInput
+              style={globalStyles.input}
+              keyboardType="email-address"
+              onChangeText={(_email) => setEmail(_email)}
+              value={email}
+              maxLength={48}
+              selectionColor={colors.primary}
+              disableFullscreenUI={true}
+              autoCapitalize="none"
+            />
+            <Text style={globalStyles.label}>Password</Text>
+            <TextInput
+              style={globalStyles.input}
+              secureTextEntry
+              onChangeText={(_password) => setPassword(_password)}
+              value={password}
+              maxLength={36}
+              selectionColor={colors.primary}
+              disableFullscreenUI={true}
+              autoCapitalize="none"
+            />
+            <LargeButton
+              text="Sign in"
+              onPress={onSignInPressed}
+              icon="login-variant"
+            />
           </View>
         </View>
-        <View style={globalStyles.margin} />
-        {loading ? (
-          <ActivityIndicator
-            style={globalStyles.activityIndicator}
-            color={colors.primary}
-            size={'large'}
-          />
-        ) : null}
-      </View>
+        <View style={globalStyles.flex} />
+      </KeyboardAwareScrollView>
+      {loading ? (
+        <ActivityIndicator
+          style={globalStyles.activityIndicator}
+          color={colors.primary}
+          size={'large'}
+        />
+      ) : null}
     </ErrorBoundary>
   );
 };

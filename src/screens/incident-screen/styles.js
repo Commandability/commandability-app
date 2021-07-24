@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {Platform, StatusBar, StyleSheet, Dimensions} from 'react-native';
 
 export default (colors) =>
   StyleSheet.create({
@@ -9,7 +9,8 @@ export default (colors) =>
     mainArea: {
       flex: 1,
       flexDirection: 'row',
-      marginVertical: 8,
+      marginTop: Platform.OS === 'ios' ? 24 : StatusBar.currentHeight + 8,
+      marginBottom: 8,
     },
 
     /**

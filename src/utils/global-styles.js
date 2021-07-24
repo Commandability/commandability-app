@@ -12,17 +12,18 @@ export default (colors) =>
       right: 0,
       bottom: 24,
     },
-    formContainer: {
-      flex: 1,
+    container: {
       flexDirection: 'row',
+      flex: 1,
+      justifyContent: 'center',
       backgroundColor: colors.background.one,
+    },
+    flex: {
+      flex: 1,
     },
     content: {
       flex: 1,
       justifyContent: 'center',
-    },
-    margin: {
-      flex: 1,
     },
     label: {
       color: colors.primary,

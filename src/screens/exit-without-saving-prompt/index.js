@@ -3,7 +3,14 @@
  */
 
 import React, {useState} from 'react';
-import {ActivityIndicator, Alert, View, TextInput, Text} from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  StatusBar,
+  View,
+  TextInput,
+  Text,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import auth from '@react-native-firebase/auth';
@@ -14,6 +21,7 @@ import {BackButton, LargeButton} from '../../components';
 import ErrorFallbackScreen from '../error-fallback-screen';
 import {resetIncident, toHomeStack} from '../../redux/actions';
 import {selectTheme} from '../../redux/selectors';
+import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
 
@@ -89,50 +97,53 @@ const ExitWithoutSavingPrompt = () => {
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
       resetKeys={[loading, password]}>
-      <View style={globalStyles.formContainer}>
-        <BackButton />
-        <View style={globalStyles.margin} />
-        <View style={globalStyles.content}>
-          <View>
-            <KeyboardAwareScrollView
-              keyboardShouldPersistTaps="handled"
-              showsVerticalScrollIndicator={false}>
-              <View style={globalStyles.prompt}>
-                <Text style={globalStyles.promptHeader}>
-                  Exit without saving
-                </Text>
-                <Text style={globalStyles.promptText}>
-                  Are you sure you want to exit without saving?
-                </Text>
-              </View>
-              <Text style={globalStyles.label}>Password</Text>
-              <TextInput
-                style={globalStyles.input}
-                secureTextEntry
-                onChangeText={(_password) => setPassword(_password)}
-                value={password}
-                maxLength={36}
-                selectionColor={colors.primary}
-                disableFullscreenUI={true}
-                autoCapitalize="none"
-              />
-              <LargeButton
-                text="Exit without saving"
-                onPress={onExitPressed}
-                icon="cancel"
-              />
-            </KeyboardAwareScrollView>
+      <StatusBar
+        barStyle={theme === DARK ? 'light-content' : 'dark-content'}
+        backgroundColor={'transparent'}
+        translucent={true}
+      />
+      <BackButton />
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={globalStyles.container}
+        scrollEnabled={false}>
+        <View style={globalStyles.flex} />
+        <View style={globalStyles.flex}>
+          <View style={globalStyles.content}>
+            <View style={globalStyles.prompt}>
+              <Text style={globalStyles.promptHeader}>Exit without saving</Text>
+              <Text style={globalStyles.promptText}>
+                Are you sure you want to exit without saving?
+              </Text>
+            </View>
+            <Text style={globalStyles.label}>Password</Text>
+            <TextInput
+              style={globalStyles.input}
+              secureTextEntry
+              onChangeText={(_password) => setPassword(_password)}
+              value={password}
+              maxLength={36}
+              selectionColor={colors.primary}
+              disableFullscreenUI={true}
+              autoCapitalize="none"
+            />
+            <LargeButton
+              text="Exit without saving"
+              onPress={onExitPressed}
+              icon="cancel"
+            />
           </View>
         </View>
-        <View style={globalStyles.margin} />
-        {loading ? (
-          <ActivityIndicator
-            style={globalStyles.activityIndicator}
-            color={colors.primary}
-            size={'large'}
-          />
-        ) : null}
-      </View>
+        <View style={globalStyles.flex} />
+      </KeyboardAwareScrollView>
+      {loading ? (
+        <ActivityIndicator
+          style={globalStyles.activityIndicator}
+          color={colors.primary}
+          size={'large'}
+        />
+      ) : null}
     </ErrorBoundary>
   );
 };

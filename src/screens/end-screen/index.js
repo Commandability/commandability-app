@@ -18,7 +18,6 @@ import {resumeIncident, toIncidentStack} from '../../redux/actions';
 import {DARK} from '../../utils/themes';
 import themeSelector from '../../utils/themes';
 import createGlobalStyleSheet from '../../utils/global-styles';
-import styles from '../../components/back-button/styles';
 
 const EndScreen = ({navigation}) => {
   const dispatch = useDispatch();

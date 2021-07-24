@@ -64,8 +64,8 @@ const AddPersonnelPrompt = ({navigation}) => {
         backgroundColor={'transparent'}
         translucent={true}
       />
+      <BackButton />
       <View style={styles.container}>
-        <BackButton />
         <View style={styles.colsArea}>
           <View style={styles.leftCol}>
             <View style={styles.colContainer}>

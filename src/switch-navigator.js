@@ -5,7 +5,7 @@
  * Based on https://reactnavigation.org/docs/auth-flow except using redux instead of the Context API
  */
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
@@ -97,39 +97,41 @@ const SwitchNavigator = () => {
   const theme = useSelector((state) => selectTheme(state));
   const stack = useSelector((state) => selectStack(state));
 
-  const [isReady, setIsReady] = React.useState(false);
-  const [initialState, setInitialState] = React.useState();
+  const [isReady, setIsReady] = useState(false);
+  const [initialState, setInitialState] = useState();
 
   // https://reactnavigation.org/docs/state-persistence/
   useEffect(() => {
-    const restoreState = async () => {
+    const init = async () => {
       try {
         const savedStateString = await AsyncStorage.getItem(PERSISTENCE_KEY);
-        const state = savedStateString
+        const savedState = savedStateString
           ? JSON.parse(savedStateString)
           : undefined;
 
-        if (state !== undefined) {
-          setInitialState(state);
+        if (savedState !== undefined) {
+          setInitialState(savedState);
         }
-      } finally {
-        setIsReady(true);
+      } catch (error) {
+        Alert.alert('Error', error, [
+          {
+            text: 'OK',
+          },
+        ]);
       }
     };
-
-    if (!isReady) {
-      restoreState();
-    } else {
-      RNBootSplash.hide();
-    }
-  }, [isReady]);
-
-  if (!isReady) {
-    return null;
-  }
+    init().finally(async () => {
+      await RNBootSplash.hide({fade: true});
+      setIsReady(true);
+    });
+  }, []);
 
   const colors = themeSelector(theme);
   const styles = createStyleSheet(colors);
+
+  if (!isReady) {
+    return <View style={styles.container} />;
+  }
 
   return (
     <View style={styles.container}>

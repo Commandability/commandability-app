@@ -40,24 +40,24 @@ export default (colors) =>
       borderRadius: 4,
     },
     reportsNumberContainer: {
-      flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    reportsNumber: {
-      fontSize: 42,
-      color: colors.text.main,
       paddingHorizontal: 12,
       marginLeft: 32,
       borderRadius: 4,
     },
-    reportsOnDevice: {
+    reportsOnDeviceContainer: {
       backgroundColor: colors.primary,
+    },
+    noReportsOnDeviceContainer: {
+      backgroundColor: colors.background.three,
+    },
+    reportsNumber: {
+      fontSize: 42,
+      color: colors.text.main,
+    },
+    reportsOnDevice: {
       color: colors.text.alternate,
     },
     noReportsOnDevice: {
-      backgroundColor: colors.background.three,
       color: colors.text.disabled,
     },
   });

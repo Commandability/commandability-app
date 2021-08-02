@@ -328,13 +328,21 @@ const HomeScreen = () => {
                 style={[styles.opacityText, styles.opacityIcon]}
               />
               <Text style={styles.opacityText}>Upload</Text>
-              <Text
+              <View
                 style={[
-                  styles.reportsNumber,
+                  styles.reportsNumberContainer,
                   numberOfReports
-                    ? styles.reportsOnDevice
-                    : styles.noReportsOnDevice,
-                ]}>{`${numberOfReports}`}</Text>
+                    ? styles.reportsOnDeviceContainer
+                    : styles.noReportsOnDeviceContainer,
+                ]}>
+                <Text
+                  style={[
+                    styles.reportsNumber,
+                    numberOfReports
+                      ? styles.reportsOnDevice
+                      : styles.noReportsOnDevice,
+                  ]}>{`${numberOfReports}`}</Text>
+              </View>
             </TouchableOpacity>
           </View>
           <View style={styles.row}>

@@ -116,14 +116,11 @@ const SavePrompt = ({route, navigation}) => {
         .doc(uid)
         .get();
       const {
-        account: {subscriptionExpiration},
+        account: {expirationTimestamp},
       } = documentSnapshot.data();
-      const subscriptionExpirationDate = subscriptionExpiration?.toDate();
+      const expirationDate = expirationTimestamp?.toDate();
 
-      if (
-        !subscriptionExpirationDate ||
-        Date.now() > subscriptionExpirationDate
-      ) {
+      if (!expirationDate || Date.now() > expirationDate) {
         Alert.alert(
           'Report upload disabled',
           'Please sign in to the Commandability web portal to check your account status.',

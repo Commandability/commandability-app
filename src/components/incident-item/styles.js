@@ -34,8 +34,6 @@ export default (colors) =>
       color: colors.text.main,
     },
     minutesElapsed: {
-      flex: 1,
-      textAlign: 'right',
       color: colors.text.disabled,
     },
     label: {

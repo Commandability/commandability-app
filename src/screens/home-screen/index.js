@@ -173,14 +173,11 @@ const HomeScreen = () => {
         .doc(uid)
         .get();
       const {
-        account: {subscriptionExpiration},
+        account: {expirationTimestamp},
       } = documentSnapshot.data();
-      const subscriptionExpirationDate = subscriptionExpiration?.toDate();
+      const expirationDate = expirationTimestamp?.toDate();
 
-      if (
-        !subscriptionExpirationDate ||
-        Date.now() > subscriptionExpirationDate
-      ) {
+      if (!expirationDate || Date.now() > expirationDate) {
         Alert.alert(
           'Report upload disabled',
           'Please check your account status for additional information.',

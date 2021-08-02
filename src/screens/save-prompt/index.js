@@ -133,6 +133,8 @@ const SavePrompt = ({route, navigation}) => {
             },
           ],
         );
+        setLoading(false);
+        return;
       } else {
         await uploadReport(reportData);
         Alert.alert(
@@ -189,13 +191,13 @@ const SavePrompt = ({route, navigation}) => {
               type="outlined"
             />
             <LargeButton
-              text="Save to device and exit"
+              text="Save to device"
               onPress={onSaveToDevicePressed}
               icon="content-save"
               type="outlined"
             />
             <LargeButton
-              text="Save to cloud and exit"
+              text="Save to cloud"
               onPress={onSaveToCloudPressed}
               icon="upload"
               type="contained"

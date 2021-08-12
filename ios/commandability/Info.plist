@@ -25,17 +25,25 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
+	<!-- commandability-mod: https://reactnative.dev/docs/publishing-to-app-store -->
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<true/>
+		<!-- commandability-mod: production -->
+		<false/>
+		<!-- commandability-mod: development -->
 		<key>NSExceptionDomains</key>
+		<!-- commandability-mod: production -->
+		<dict/>
+		<!-- commandability-mod: development -->
+		<!-- 
 		<dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
-		</dict>
+		</dict> 
+		-->
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>

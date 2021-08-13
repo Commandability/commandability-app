@@ -1,12 +1,8 @@
-# The CommandAbility App
+# The Commandability App
 
 ## App Overview
 
-The CommandAbility App is a card-based incident management and accountability application built in React Native. It assists fire fighters in keeping track of personnel at an incident scenes, and generates automated reports of the movements of emergency personnel.
-
-## Installation
-
-Download or clone this repository, then run `npm install` inside the directory.
+The Commandability app is an incident management and accountability tool built in React Native. It helps fire fighters manage personnel at an incident, and generates reports of personnel movement after the incident for accountability.
 
 ## Modules
 
@@ -29,7 +25,3 @@ Download or clone this repository, then run `npm install` inside the directory.
 - [React Error Boundary](https://github.com/bvaughn/react-error-boundary)
 - [React Native Tab View](https://github.com/satya164/react-native-tab-view)
 - [React Native Picker](https://github.com/react-native-picker/picker)
-
-## License
-
-This project is available under the [Apache 2.0 License](https://github.com/CommandAbility/CAA-2019/blob/master/LICENSE)

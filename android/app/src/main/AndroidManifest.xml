@@ -2,7 +2,12 @@
   package="com.commandability">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <!-- commandability-mod: screen requirements https://developer.android.com/guide/practices/screens-distribution#FilteringTabletApps-->
+    <supports-screens 
+      android:smallScreens="false"
+      android:normalScreens="false"
+      android:largeScreens="true"
+      android:xlargeScreens="true"/>
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"

@@ -9,31 +9,31 @@ export const DARK = 'DARK';
 
 const themeMap = {
   DARK: {
-    primary: '#e53935',
+    primary: '#fff3c4',
     background: {
-      one: '#121212',
-      two: '#1e1e1e',
-      three: '#2a2a2a',
+      one: '#27241d',
+      two: '#423d33',
+      three: '#504a40',
     },
-    overlay: '#ffffff',
+    overlay: '#fff3c4',
     text: {
-      main: '#ffffff',
+      main: '#faf9f7',
       alternate: '#121212',
-      disabled: '#878787',
+      disabled: '#a39e93',
     },
   },
   LIGHT: {
-    primary: '#e53935',
+    primary: '#b44d12',
     background: {
-      one: '#cfcfcf',
-      two: '#e7e7e7',
-      three: '#ffffff',
+      one: '#d3cec4',
+      two: '#e8e6e1',
+      three: '#faf9f7',
     },
-    overlay: '#000000',
+    overlay: '#8d2b0b',
     text: {
-      main: '#121212',
-      alternate: '#ffffff',
-      disabled: '#878787',
+      main: '#27241d',
+      alternate: '#faf9f7',
+      disabled: '#a39e93',
     },
   },
 };

@@ -14,6 +14,7 @@ import java.util.List;
 // commandability-mod: firebase
 import androidx.multidex.MultiDexApplication;
 
+// commandability-mod: firebase change Application to MultiDexApplication
 public class MainApplication extends MultiDexApplication implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =

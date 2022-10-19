@@ -111,7 +111,9 @@ const EditGroupPrompt = ({navigation, route}) => {
                   color={
                     Platform.OS === 'ios'
                       ? colors.text.main
-                      : colors.text.alternate
+                      : theme === DARK
+                      ? colors.text.alternate
+                      : colors.text.main
                   }
                 />
                 {alerts.map((time) => (
@@ -122,7 +124,9 @@ const EditGroupPrompt = ({navigation, route}) => {
                     color={
                       Platform.OS === 'ios'
                         ? colors.text.main
-                        : colors.text.alternate
+                        : theme === DARK
+                        ? colors.text.alternate
+                        : colors.text.main
                     }
                   />
                 ))}

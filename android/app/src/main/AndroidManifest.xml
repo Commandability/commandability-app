@@ -2,48 +2,35 @@
   package="com.commandability">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- commandability-mod: screen requirements https://developer.android.com/guide/practices/screens-distribution#FilteringTabletApps-->
+        <!-- commandability-mod: screen requirements https://developer.android.com/guide/practices/screens-distribution#FilteringTabletApps-->
     <supports-screens 
       android:smallScreens="false"
       android:normalScreens="false"
       android:largeScreens="true"
       android:xlargeScreens="true"/>
+
+    <!-- commandability-mod: android:screenOrientation="landscape"> -->
+    <!-- commandability-mod: react-native-bootsplash - change AppTheme to BootTheme -->
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
-      android:theme="@style/AppTheme">
+      android:screenOrientation="landscape"
+      android:theme="@style/BootTheme">
+      <!-- commandability-mod: bugfix - add android:exported="true" https://stackoverflow.com/questions/67412084/android-studio-error-manifest-merger-failed-apps-targeting-android-12 -->
       <activity
         android:name=".MainActivity"
+        android:exported="true"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
         android:launchMode="singleTask"
-        android:windowSoftInputMode="adjustResize"
-        android:screenOrientation="landscape"
-        android:exported="true"> 
-        <!-- commandability-mod: android:screenOrientation="landscape"> -->
-        <!-- commandability-mod: react-native-bootsplash note: android:launchMode="singleTask" may already be in the manifest-->
-        <!-- ⚠️ add android:exported="true" and android:launchMode="singleTask" above -->
-        <!-- remove the <intent-filter> from .MainActivity -->
-        <!-- <intent-filter>
+        android:windowSoftInputMode="adjustResize">
+        <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter> -->
-      </activity>
-      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-      <!-- commandability-mod: react-native-bootsplash -->
-      <!-- add the following lines (use the theme you created at step 2) -->
-      <activity
-        android:name="com.zoontek.rnbootsplash.RNBootSplashActivity"
-        android:theme="@style/BootTheme"
-        android:launchMode="singleTask">
-        <intent-filter>
-          <action android:name="android.intent.action.MAIN" />
-          <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
     </application>
-
 </manifest>

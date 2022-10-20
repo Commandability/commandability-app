@@ -24,7 +24,7 @@ export default (colors) =>
       alignItems: 'center',
       backgroundColor: colors.background.two,
       margin: 16,
-      borderRadius: 4,
+      borderRadius: 8,
     },
     opacityText: {
       color: colors.text.main,
@@ -37,12 +37,12 @@ export default (colors) =>
     outlinedOpacity: {
       borderWidth: 1,
       borderColor: colors.primary,
-      borderRadius: 4,
+      borderRadius: 8,
     },
     reportsNumberContainer: {
       paddingHorizontal: 12,
       marginLeft: 32,
-      borderRadius: 4,
+      borderRadius: 8,
     },
     reportsOnDeviceContainer: {
       backgroundColor: colors.primary,

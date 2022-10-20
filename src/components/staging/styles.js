@@ -11,13 +11,13 @@ export default (colors) =>
       width: '100%',
       height: '100%',
       opacity: 0.2,
-      borderRadius: 4,
+      borderRadius: 8,
     },
     container: {
       flex: 1,
       backgroundColor: colors.background.three,
       margin: 8,
-      borderRadius: 4,
+      borderRadius: 8,
     },
     header: {
       alignItems: 'center',
@@ -26,5 +26,6 @@ export default (colors) =>
     headerContent: {
       fontSize: 14,
       color: colors.text.main,
+      letterSpacing: 0.5,
     },
   });

@@ -6,7 +6,7 @@ export default (colors) =>
       flex: 1,
       margin: 8,
       backgroundColor: colors.background.two,
-      borderRadius: 4,
+      borderRadius: 8,
     },
     page: {
       flex: 1,
@@ -18,9 +18,11 @@ export default (colors) =>
     },
     tabLabel: {
       color: colors.text.main,
+      letterSpacing: 0.5,
     },
     tabAlertLabel: {
       color: colors.primary,
+      letterSpacing: 0.5,
     },
     indicator: {
       backgroundColor: colors.primary,

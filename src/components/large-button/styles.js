@@ -6,7 +6,7 @@ export default (colors) =>
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: 4,
+      borderRadius: 8,
       paddingVertical: 4,
       marginVertical: 16,
     },

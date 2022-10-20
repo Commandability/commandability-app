@@ -6,7 +6,7 @@ export default (colors) =>
       flex: 1,
       color: colors.text.main,
       backgroundColor: colors.background.three,
-      borderRadius: 4,
+      borderRadius: 8,
       margin: 8,
     },
     queryInput: {
@@ -24,5 +24,6 @@ export default (colors) =>
     headerContent: {
       fontSize: 14,
       color: colors.text.main,
+      letterSpacing: 0.5,
     },
   });

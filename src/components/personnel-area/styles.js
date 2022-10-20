@@ -6,7 +6,7 @@ export default (colors) =>
       flex: 1,
       margin: 8,
       backgroundColor: colors.background.two,
-      borderRadius: 4,
+      borderRadius: 8,
     },
     addPersonnelButton: {
       alignSelf: 'center',

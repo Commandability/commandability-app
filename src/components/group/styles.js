@@ -11,7 +11,7 @@ export default (colors) =>
       width: '100%',
       height: '100%',
       opacity: 0.2,
-      borderRadius: 4,
+      borderRadius: 8,
     },
     container: {
       height: '50%',
@@ -23,12 +23,13 @@ export default (colors) =>
       justifyContent: 'center',
       padding: 4,
       backgroundColor: colors.background.three,
-      borderTopLeftRadius: 5,
-      borderTopRightRadius: 5,
+      borderTopLeftRadius: 8,
+      borderTopRightRadius: 8,
     },
     headerContent: {
       fontSize: 14,
       color: colors.primary,
+      letterSpacing: 0.5,
     },
     alertContainer: {
       flex: 1,
@@ -36,6 +37,6 @@ export default (colors) =>
     alert: {
       borderWidth: 1.5,
       borderColor: colors.primary,
-      borderRadius: 4,
+      borderRadius: 8,
     },
   });

@@ -8,13 +8,14 @@ export default (colors) =>
       alignItems: 'center',
       width: Dimensions.get('window').width * 0.18,
       paddingVertical: 4,
-      borderRadius: 4,
+      borderRadius: 8,
       backgroundColor: colors.primary,
     },
     opacityContent: {
       marginHorizontal: 2,
       fontSize: 14,
       color: colors.text.alternate,
+      letterSpacing: 0.5,
     },
     selectedOpacity: {
       backgroundColor: colors.background.three,

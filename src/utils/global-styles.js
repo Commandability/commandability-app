@@ -32,7 +32,7 @@ export default (colors) =>
       height: 48,
       color: colors.text.main,
       backgroundColor: colors.background.two,
-      borderRadius: 4,
+      borderRadius: 8,
       marginVertical: 16,
       paddingLeft: 16,
     },
@@ -43,7 +43,7 @@ export default (colors) =>
       borderColor: colors.primary,
       backgroundColor: colors.background.two,
       marginVertical: 16,
-      borderRadius: 4,
+      borderRadius: 8,
       paddingLeft: 16,
     },
     prompt: {

@@ -5,7 +5,7 @@ export default (colors) =>
     container: {
       backgroundColor: colors.background.three,
       flex: 1,
-      borderBottomLeftRadius: 5,
-      borderBottomRightRadius: 5,
+      borderBottomLeftRadius: 8,
+      borderBottomRightRadius: 8,
     },
   });

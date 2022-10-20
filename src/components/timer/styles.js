@@ -8,6 +8,7 @@ export default (colors) =>
       marginHorizontal: 8,
     },
     timerContent: {
+      fontFamily: 'ClearSans-Regular',
       fontSize: 14,
       color: colors.text.main,
     },

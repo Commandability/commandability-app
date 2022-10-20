@@ -27,6 +27,7 @@ export default (colors) =>
       borderTopRightRadius: 8,
     },
     headerContent: {
+      fontFamily: 'ClearSans-Regular',
       fontSize: 14,
       color: colors.primary,
       letterSpacing: 0.5,

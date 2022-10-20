@@ -4,13 +4,13 @@ export default (colors) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      color: colors.text.main,
       backgroundColor: colors.background.three,
       borderRadius: 8,
       margin: 8,
     },
     queryInput: {
       height: 40,
+      fontFamily: 'ClearSans-Regular',
       color: colors.text.main,
       borderColor: colors.primary,
       borderBottomWidth: 1,
@@ -22,6 +22,7 @@ export default (colors) =>
       margin: 4,
     },
     headerContent: {
+      fontFamily: 'ClearSans-Regular',
       fontSize: 14,
       color: colors.text.main,
       letterSpacing: 0.5,

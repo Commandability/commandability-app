@@ -13,6 +13,7 @@ export default (colors) =>
     },
     opacityContent: {
       marginHorizontal: 2,
+      fontFamily: 'ClearSans-Regular',
       fontSize: 14,
       color: colors.text.alternate,
       letterSpacing: 0.5,

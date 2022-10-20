@@ -31,6 +31,7 @@ export default (colors) =>
     name: {
       flex: 1,
       textAlign: 'left',
+      fontFamily: 'ClearSans-Regular',
       color: colors.text.main,
     },
     minutesElapsed: {
@@ -38,6 +39,7 @@ export default (colors) =>
     },
     label: {
       textAlign: 'left',
+      fontFamily: 'ClearSans-Regular',
       fontSize: 10,
       color: colors.text.disabled,
     },

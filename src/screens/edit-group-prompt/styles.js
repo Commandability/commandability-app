@@ -8,6 +8,7 @@ export default (colors) =>
       backgroundColor: colors.background.two,
     },
     picker: {
+      fontFamily: 'ClearSans-Regular',
       color: colors.text.main,
     },
   });

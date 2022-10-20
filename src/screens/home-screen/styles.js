@@ -28,6 +28,7 @@ export default (colors) =>
     },
     opacityText: {
       color: colors.text.main,
+      fontFamily: 'ClearSans-Regular',
       fontSize: 48,
     },
     opacityIcon: {
@@ -51,6 +52,7 @@ export default (colors) =>
       backgroundColor: colors.background.three,
     },
     reportsNumber: {
+      fontFamily: 'ClearSans-Regular',
       fontSize: 42,
       color: colors.text.main,
     },

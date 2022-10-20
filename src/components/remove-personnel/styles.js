@@ -23,6 +23,7 @@ export default (colors) =>
     },
     header: {
       margin: 4,
+      fontFamily: 'ClearSans-Regular',
       fontSize: 14,
       color: colors.text.main,
       letterSpacing: 0.5,

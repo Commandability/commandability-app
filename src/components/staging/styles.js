@@ -24,6 +24,7 @@ export default (colors) =>
       margin: 4,
     },
     headerContent: {
+      fontFamily: 'ClearSans-Regular',
       fontSize: 14,
       color: colors.text.main,
       letterSpacing: 0.5,

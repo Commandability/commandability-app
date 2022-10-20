@@ -11,6 +11,7 @@ export default (colors) =>
       marginVertical: 16,
     },
     opacityText: {
+      fontFamily: 'ClearSans-Regular',
       fontSize: 24,
     },
     opacityIcon: {

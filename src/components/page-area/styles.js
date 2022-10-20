@@ -17,10 +17,12 @@ export default (colors) =>
       elevation: 0,
     },
     tabLabel: {
+      fontFamily: 'ClearSans-Regular',
       color: colors.text.main,
       letterSpacing: 0.5,
     },
     tabAlertLabel: {
+      fontFamily: 'ClearSans-Regular',
       color: colors.primary,
       letterSpacing: 0.5,
     },

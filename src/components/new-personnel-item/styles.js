@@ -28,10 +28,12 @@ export default (colors) =>
     name: {
       flex: 1,
       textAlign: 'left',
+      fontFamily: 'ClearSans-Regular',
       color: colors.text.main,
     },
     label: {
       textAlign: 'left',
+      fontFamily: 'ClearSans-Regular',
       fontSize: 14,
       color: colors.text.disabled,
     },

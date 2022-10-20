@@ -134,18 +134,16 @@ const SavePrompt = ({route, navigation}) => {
         return;
       } else {
         await uploadReport(reportData);
+        // Reset personnel locations and group settings, remove all temporary personnel from state
+        dispatch(resetIncident());
         setLoading(false);
+        dispatch(toHomeStack());
         Alert.alert(
           'Upload completed successfully',
           'The report has been uploaded and removed from the device.',
           [
             {
               text: 'OK',
-              onPress: () => {
-                // Reset personnel locations and group settings, remove all temporary personnel from state
-                dispatch(resetIncident());
-                dispatch(toHomeStack());
-              },
             },
           ],
         );

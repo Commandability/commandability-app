@@ -23,7 +23,7 @@ const themeMap = {
     },
   },
   LIGHT: {
-    primary: '#b44d12',
+    primary: '#8d2b0b',
     background: {
       one: '#d3cec4',
       two: '#e8e6e1',

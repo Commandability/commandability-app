@@ -75,9 +75,9 @@ const SavePrompt = ({route, navigation}) => {
             setLoading(true);
             try {
               await saveReport(reportData);
-              setLoading(false);
               // Reset personnel locations and group settings, remove all temporary personnel from state
               dispatch(resetIncident());
+              setLoading(false);
               dispatch(toHomeStack());
             } catch (error) {
               Alert.alert('Error', error, [

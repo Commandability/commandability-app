@@ -96,7 +96,7 @@ const AuthScreen = () => {
       onReset={onReset}
       resetKeys={[loading, email, password]}>
       <StatusBar
-        barStyle={'light-content'}
+        barStyle={'dark-content'}
         backgroundColor={'transparent'}
         translucent={true}
       />

@@ -30,8 +30,6 @@ export default (colors) =>
       color: colors.text.main,
       fontFamily: 'ClearSans-Regular',
       fontSize: 48,
-      textTransform: 'uppercase',
-      letterSpacing: 0.5,
     },
     opacityIcon: {
       marginRight: 16,

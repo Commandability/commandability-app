@@ -255,9 +255,9 @@ const HomeScreen = () => {
             text: 'OK',
             onPress: async () => {
               setLoading(true);
-              dispatch(resetApp());
               try {
                 await dispatch(signOut());
+                dispatch(resetApp());
               } catch (error) {
                 Alert.alert('Error', error, [
                   {

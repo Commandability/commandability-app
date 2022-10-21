@@ -16,7 +16,7 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import NetInfo from '@react-native-community/netinfo';
 import {ErrorBoundary} from 'react-error-boundary';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/Feather';
 
 import ErrorFallbackScreen from '../error-fallback-screen';
 import {
@@ -299,7 +299,7 @@ const HomeScreen = () => {
             style={[styles.opacity]}
             onPress={onStartIncidentPressed}>
             <Icon
-              name="alarm-light"
+              name="alert-triangle"
               style={[styles.opacityText, styles.opacityIcon]}
             />
             <Text style={[styles.opacityText]}>Start incident</Text>
@@ -309,7 +309,7 @@ const HomeScreen = () => {
               style={styles.opacity}
               onPress={onUpdateConfigurationPressed}>
               <Icon
-                name="update"
+                name="rotate-cw"
                 style={[styles.opacityText, styles.opacityIcon]}
               />
               <Text style={styles.opacityText}>Update</Text>
@@ -347,7 +347,7 @@ const HomeScreen = () => {
               style={styles.opacity}
               onPress={onToggleThemePressed}>
               <Icon
-                name="theme-light-dark"
+                name={theme === DARK ? 'sun' : 'moon'}
                 style={[styles.opacityText, styles.opacityIcon]}
               />
               <Text style={[styles.opacityText]}>{`${
@@ -356,7 +356,7 @@ const HomeScreen = () => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.opacity} onPress={onSignOutPressed}>
               <Icon
-                name="logout"
+                name="log-out"
                 style={[styles.opacityText, styles.opacityIcon]}
               />
               <Text style={styles.opacityText}>Sign out</Text>

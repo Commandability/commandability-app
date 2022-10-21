@@ -133,7 +133,7 @@ const AuthScreen = () => {
             <LargeButton
               text="Sign in"
               onPress={onSignInPressed}
-              icon="login-variant"
+              icon="log-in"
             />
           </View>
         </View>

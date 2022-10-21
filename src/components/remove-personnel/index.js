@@ -7,7 +7,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Alert, TouchableOpacity, Text, View} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/Feather';
 
 import {
   selectTheme,
@@ -81,7 +81,7 @@ const RemovePersonnel = () => {
       ) : null}
       <View style={styles.remove}>
         <Text style={styles.header}>REMOVE PERSONNEL</Text>
-        <Icon name="account-multiple-remove" style={styles.icon} />
+        <Icon name="user-x" style={styles.icon} />
       </View>
     </View>
   );

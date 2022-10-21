@@ -131,7 +131,7 @@ const ExitWithoutSavingPrompt = () => {
             <LargeButton
               text="Exit without saving"
               onPress={onExitPressed}
-              icon="cancel"
+              icon="slash"
             />
           </View>
         </View>

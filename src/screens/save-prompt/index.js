@@ -185,13 +185,13 @@ const SavePrompt = ({route, navigation}) => {
             <LargeButton
               text="Exit without saving"
               onPress={onExitPressed}
-              icon="cancel"
+              icon="slash"
               type="outlined"
             />
             <LargeButton
               text="Save to device"
               onPress={onSaveToDevicePressed}
-              icon="content-save"
+              icon="save"
               type="outlined"
             />
             <LargeButton

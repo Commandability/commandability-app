@@ -121,7 +121,7 @@ const AddPersonPrompt = ({navigation}) => {
             <LargeButton
               text="Add person"
               onPress={onAddPersonPressed}
-              icon="account-plus"
+              icon="user-plus"
             />
           </View>
         </View>

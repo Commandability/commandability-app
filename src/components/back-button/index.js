@@ -7,7 +7,7 @@
 import React from 'react';
 import {Platform, TouchableOpacity} from 'react-native';
 import {useSelector} from 'react-redux';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
 
 import {selectTheme} from '../../redux/selectors';

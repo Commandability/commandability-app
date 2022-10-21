@@ -110,7 +110,7 @@ const EndScreen = ({navigation}) => {
             <LargeButton
               text="Resume"
               onPress={onResumeIncidentPressed}
-              icon="restart"
+              icon="rotate-ccw"
               type="outlined"
             />
             <LargeButton

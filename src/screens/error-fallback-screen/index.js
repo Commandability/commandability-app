@@ -134,7 +134,7 @@ const ErrorFallbackScreen = ({error, resetErrorBoundary}) => {
         <LargeButton
           text="Try again"
           onPress={resetErrorBoundary}
-          icon="refresh"
+          icon="rotate-ccw"
         />
         {currentUser ? (
           <LargeButton

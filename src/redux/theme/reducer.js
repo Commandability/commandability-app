@@ -6,7 +6,7 @@ import {TOGGLE_THEME} from '../types';
 import {DARK, LIGHT} from '../../utils/themes';
 
 const initialState = {
-  currentTheme: DARK,
+  currentTheme: LIGHT,
 };
 
 const toggleTheme = (state) => {

@@ -15,11 +15,12 @@ const themeMap = {
       two: '#423d33',
       three: '#504a40',
     },
+    deemphasized: '#625d52',
     overlay: '#fff3c4',
     text: {
       main: '#faf9f7',
-      alternate: '#121212',
-      disabled: '#bbb2a7',
+      alternate: '#27241d',
+      disabled: '#d3cec4',
     },
   },
   LIGHT: {
@@ -29,6 +30,7 @@ const themeMap = {
       two: '#e8e6e1',
       three: '#faf9f7',
     },
+    deemphasized: '#d3cec4',
     overlay: '#8d2b0b',
     text: {
       main: '#27241d',

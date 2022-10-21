@@ -17,7 +17,7 @@ export default (colors) =>
     },
     content: {
       borderBottomWidth: 1,
-      borderBottomColor: colors.text.disabled,
+      borderBottomColor: colors.deemphasized,
       marginHorizontal: 8,
       paddingVertical: 4,
     },

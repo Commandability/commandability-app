@@ -6,12 +6,13 @@
 
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {v4 as uuidv4} from 'uuid';
 
 export const DEVICE_REPORT_LIMIT = 10;
 
-export const generateReport = (reportData) => {
+export const generateReportString = (reportData) => {
   // Generate report string from data
   let reportString = '';
   if (reportData) {
@@ -75,14 +76,24 @@ export const saveReport = async (reportData) => {
     const {
       currentUser: {uid},
     } = auth();
-    const reportId = uuidv4();
+    const saveId = uuidv4();
 
-    const report = generateReport(reportData);
-
-    // Save report
-    await AsyncStorage.setItem(`@CAA/${uid}/reports/${reportId}`, report);
+    // Save report data
+    await AsyncStorage.setItem(
+      `@CAA/${uid}/reports/${saveId}`,
+      JSON.stringify(reportData),
+    );
   } catch (error) {
     throw new Error(error);
+  }
+};
+
+const getReportStartDateTime = (reportData) => {
+  for (const entry in reportData) {
+    const {dateTime, log} = reportData[entry];
+    if (log === 'Incident started') {
+      return dateTime;
+    }
   }
 };
 
@@ -93,13 +104,28 @@ export const uploadReport = async (reportData) => {
     } = auth();
     const uploadId = uuidv4();
 
-    const report = generateReport(reportData);
+    const reportString = generateReportString(reportData);
 
     // Upload report
     const uploadPath = `/users/${uid}/reports/${uploadId}`;
     let storageRef = storage().ref();
     let reportRef = storageRef.child(uploadPath);
-    await reportRef.putString(report);
+    await reportRef.putString(reportString);
+
+    // Upload report firestore metadata
+    if (!reportData.EMERGENCY_UPLOAD) {
+      await firestore()
+        .collection('users')
+        .doc(uid)
+        .collection('reports')
+        .doc(uploadId)
+        .set({
+          location: reportData.LOCATION,
+          startTimestamp: firestore.Timestamp.fromDate(
+            new Date(getReportStartDateTime(reportData)),
+          ),
+        });
+    }
   } catch (error) {
     throw new Error(error);
   }
@@ -108,21 +134,45 @@ export const uploadReport = async (reportData) => {
 export const uploadReports = async () => {
   try {
     const reportKeys = await getAllReportKeys();
-    const reportPromises = reportKeys.map(
-      async (key) => await AsyncStorage.getItem(key),
+    const reportDataPromises = reportKeys.map((key) =>
+      AsyncStorage.getItem(key),
     );
-    const reports = await Promise.all(reportPromises);
+    const serializedReportsData = await Promise.all(reportDataPromises);
+    const deserializedReportsData = serializedReportsData.map(
+      (serializedReportData) => JSON.parse(serializedReportData),
+    );
+
     const {
       currentUser,
       currentUser: {uid},
     } = auth();
     if (currentUser) {
-      const uploadPromises = reports.map((report) => {
+      const uploadPromises = deserializedReportsData.flatMap((reportData) => {
+        const reportString = generateReportString(reportData);
+
         const uploadId = uuidv4();
+
+        // Upload reports
         const uploadPath = `/users/${uid}/reports/${uploadId}`;
-        let storageRef = storage().ref();
-        let reportRef = storageRef.child(uploadPath);
-        return reportRef.putString(report);
+        const reportPromise = storage()
+          .ref()
+          .child(uploadPath)
+          .putString(reportString);
+
+        // Upload report' firestore metadata
+        const reportFirestoreMetadataPromise = firestore()
+          .collection('users')
+          .doc(uid)
+          .collection('reports')
+          .doc(uploadId)
+          .set({
+            location: reportData.LOCATION,
+            startTimestamp: firestore.Timestamp.fromDate(
+              new Date(getReportStartDateTime(reportData)),
+            ),
+          });
+
+        return [reportPromise, reportFirestoreMetadataPromise];
       });
       await Promise.all(uploadPromises);
     }

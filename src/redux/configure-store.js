@@ -4,7 +4,7 @@
  * Handle all redux middleware and generate redux store with redux-persist
  */
 
-import {createStore, applyMiddleware} from 'redux';
+import {legacy_createStore as createStore, applyMiddleware} from 'redux';
 // import {compose} from 'redux'; // Development only
 import thunk from 'redux-thunk';
 import {persistStore} from 'redux-persist';

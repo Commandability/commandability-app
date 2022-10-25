@@ -79,6 +79,7 @@ const toggleGroup = (state, action) => {
     [locationId]: {
       ...group,
       isVisible: !isVisible,
+      alerted: [],
     },
   };
 };

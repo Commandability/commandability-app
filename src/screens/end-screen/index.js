@@ -1,7 +1,7 @@
 /**
  * EndScreen component
  *
- * Add location and notes to report
+ * Add location and description to report
  */
 
 import React, {useState} from 'react';
@@ -25,7 +25,7 @@ const EndScreen = ({navigation}) => {
   const reportData = useSelector((state) => selectReportData(state));
 
   const [location, setLocation] = useState('');
-  const [notes, setNotes] = useState('');
+  const [description, setDescription] = useState('');
 
   const onResumeIncidentPressed = () => {
     Alert.alert('Are you sure you want to resume the incident?', '', [
@@ -54,8 +54,8 @@ const EndScreen = ({navigation}) => {
     }
 
     reportData.LOCATION = location;
-    if (notes) {
-      reportData.NOTES = notes;
+    if (description) {
+      reportData.DESCRIPTION = description;
     }
 
     const {navigate} = navigation;
@@ -67,14 +67,14 @@ const EndScreen = ({navigation}) => {
 
   const onReset = () => {
     setLocation('');
-    setNotes('');
+    setDescription('');
   };
 
   return (
     <ErrorBoundary
       FallbackComponent={ErrorFallbackScreen}
       onReset={onReset}
-      resetKeys={[location, notes]}>
+      resetKeys={[location, description]}>
       <StatusBar
         barStyle={theme === DARK ? 'light-content' : 'dark-content'}
         backgroundColor={'transparent'}
@@ -93,17 +93,16 @@ const EndScreen = ({navigation}) => {
               style={globalStyles.input}
               onChangeText={(_location) => setLocation(_location)}
               value={location}
-              maxLength={36}
+              maxLength={48}
               selectionColor={colors.primary}
               disableFullscreenUI={true}
             />
-            <Text style={globalStyles.label}>Notes</Text>
+            <Text style={globalStyles.label}>Description</Text>
             <TextInput
-              style={globalStyles.multilineInput}
-              multiline={true}
-              onChangeText={(_notes) => setNotes(_notes)}
-              value={notes}
-              maxLength={1024}
+              style={globalStyles.input}
+              onChangeText={(_description) => setDescription(_description)}
+              value={description}
+              maxLength={96}
               selectionColor={colors.primary}
               disableFullscreenUI={true}
             />

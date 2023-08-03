@@ -20,10 +20,10 @@ export const generateReportString = (reportData) => {
       reportString += `${reportData.EMERGENCY_UPLOAD}\n`;
     } else {
       reportString += `Location: ${reportData.LOCATION}\n`;
-      if (reportData.NOTES) {
-        reportString += `Notes: ${reportData.NOTES}\n`;
+      if (reportData.DESCRIPTION) {
+        reportString += `Description: ${reportData.DESCRIPTION}\n`;
       } else {
-        reportString += 'Notes: none\n';
+        reportString += 'Description: none\n';
       }
     }
 
@@ -117,7 +117,7 @@ export const uploadReport = async (reportData) => {
       await firestore()
         .collection('users')
         .doc(uid)
-        .collection('reports')
+        .collection('reports-metadata')
         .doc(uploadId)
         .set({
           location: reportData.LOCATION,
@@ -159,11 +159,11 @@ export const uploadReports = async () => {
           .child(uploadPath)
           .putString(reportString);
 
-        // Upload report' firestore metadata
+        // Upload reports' firestore metadata
         const reportFirestoreMetadataPromise = firestore()
           .collection('users')
           .doc(uid)
-          .collection('reports')
+          .collection('reports-metadata')
           .doc(uploadId)
           .set({
             location: reportData.LOCATION,

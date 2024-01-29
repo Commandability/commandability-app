@@ -11,10 +11,11 @@ import {
   TOGGLE_GROUP,
   CONFIGURE_GROUPS,
 } from '../types';
+import {dateTimeFormat} from '../utils/report-manager';
 
 export const editGroup = (group, settings) => {
   const entryId = uuidv4(); // For storage in the report reducer
-  const dateTime = new Date().toLocaleString();
+  const dateTime = new Date().toLocaleString(dateTimeFormat);
 
   return {
     type: EDIT_GROUP,
@@ -24,7 +25,7 @@ export const editGroup = (group, settings) => {
 
 export const alertPersonToGroup = (group, person) => {
   const entryId = uuidv4(); // For storage in the report reducer
-  const dateTime = new Date().toLocaleString();
+  const dateTime = new Date().toLocaleString(dateTimeFormat);
   return {
     type: ALERT_PERSON_TO_GROUP,
     payload: {entryId, dateTime, group, person},
@@ -40,7 +41,7 @@ export const dealertPersonToGroup = (group, person) => {
 
 export const toggleGroup = (group) => {
   const entryId = uuidv4(); // For storage in the report reducer
-  const dateTime = new Date().toLocaleString();
+  const dateTime = new Date().toLocaleString(dateTimeFormat);
   return {
     type: TOGGLE_GROUP,
     payload: {entryId, dateTime, currTime: Date.now(), group},

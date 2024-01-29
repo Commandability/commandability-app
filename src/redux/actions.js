@@ -16,6 +16,7 @@ import {
 } from './types';
 import {INCIDENT_STACK, END_STACK} from '../utils/navigation-stacks';
 import {staticLocations} from '../utils/locations';
+import {dateTimeFormat} from '../utils/report-manager';
 
 const {ROSTER} = staticLocations;
 
@@ -73,7 +74,7 @@ const updateConfigurationSuccess = (
 
 export const startIncident = (initialEpoch) => {
   const entryId = START_INCIDENT; // For storage in the report reducer
-  const dateTime = new Date().toLocaleString();
+  const dateTime = new Date().toLocaleString(dateTimeFormat);
   return {
     type: START_INCIDENT,
     payload: {entryId, dateTime, stack: INCIDENT_STACK, initialEpoch},
@@ -82,7 +83,7 @@ export const startIncident = (initialEpoch) => {
 
 export const endIncident = () => {
   const entryId = END_INCIDENT; // For storage in the report reducer
-  const dateTime = new Date().toLocaleString();
+  const dateTime = new Date().toLocaleString(dateTimeFormat);
   return {
     type: END_INCIDENT,
     payload: {entryId, dateTime, stack: END_STACK},

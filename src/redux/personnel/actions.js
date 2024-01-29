@@ -11,6 +11,7 @@ import {
   CONFIGURE_PERSONNEL,
 } from '../types';
 import {staticLocations} from '../../utils/locations';
+import {dateTimeFormat} from '../utils/report-manager';
 
 const {ROSTER} = staticLocations;
 
@@ -18,7 +19,7 @@ export const addPerson = (person, locationId, isTemporary = true) => {
   const personId = uuidv4();
   const entryId = uuidv4(); // For storage in the report reducer
   const locationUpdateTime = 0;
-  const dateTime = new Date().toLocaleString();
+  const dateTime = new Date().toLocaleString(dateTimeFormat);
   return {
     type: ADD_PERSON,
     payload: {
@@ -37,7 +38,7 @@ export const addPerson = (person, locationId, isTemporary = true) => {
 
 export const removePerson = (person) => {
   const entryId = uuidv4(); // For storage in the report reducer
-  const dateTime = new Date().toLocaleString();
+  const dateTime = new Date().toLocaleString(dateTimeFormat);
   return {
     type: REMOVE_PERSON,
     payload: {entryId, dateTime, person},
@@ -46,7 +47,7 @@ export const removePerson = (person) => {
 
 export const movePerson = (person, prevLocationData, nextLocationData) => {
   const entryId = uuidv4(); // For storage in the report reducer
-  const dateTime = new Date().toLocaleString();
+  const dateTime = new Date().toLocaleString(dateTimeFormat);
   const currTime = Date.now();
   return {
     type: MOVE_PERSON,

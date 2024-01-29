@@ -10,6 +10,14 @@ import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {v4 as uuidv4} from 'uuid';
 
+export const dateTimeFormat = {
+  year: '2-digit',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+};
+
 export const DEVICE_REPORT_LIMIT = 10;
 
 export const generateReportString = (reportData) => {
